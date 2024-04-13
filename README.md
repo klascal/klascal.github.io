@@ -1,2 +1,2 @@
-# klascal.github.io
+# Klascal
 Rooster app voor Zermelo
