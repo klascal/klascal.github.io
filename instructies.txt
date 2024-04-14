@@ -1,5 +1,5 @@
 Ga naar Zermelo en klik ergens op de pagina met de rechtermuisknop.
-Klik op Inspecteren en ga naar Netwerk/Network, typ CRTL + R. Hou dit menu open.
+Klik op Inspecteren en ga naar Netwerk/Network, hou dit menu open.
 Ga naar Instellingen en dan Koppel externe applicatie.
 Klik nu op tokens in het menu.
 Klik op Antwoord/Response, klik als je de optie hebt op Onbewerkt.
