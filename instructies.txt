@@ -6,4 +6,4 @@ Klik op Antwoord/Response, klik als je de optie hebt op Onbewerkt.
 Kopieer je token.
 Ga naar Klascal.
 Typ je schoolnaam (het deel voor .zportal.nl) en plak je token.
-Deze token werkt voor 10 jaar.
+Je token werkt voor 10 jaar.
