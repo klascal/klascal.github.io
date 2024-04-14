@@ -3,7 +3,7 @@ Klik op Inspecteren en ga naar Netwerk/Network, hou dit menu open.
 Ga naar Instellingen en dan Koppel externe applicatie.
 Klik nu op tokens in het menu.
 Klik op Antwoord/Response, klik als je de optie hebt op Onbewerkt.
-Scroll door totdat je "token" ziet.
-Kopieer je token en ga naar Klascal.
+Kopieer je token.
+Ga naar Klascal.
 Typ je schoolnaam (het deel voor .zportal.nl) en plak je token.
 Deze token werkt voor 10 jaar.
