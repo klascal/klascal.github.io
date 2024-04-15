@@ -202,6 +202,14 @@
           display: none;
         }
       }
+      .not-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
     </style>
   </head>
   <body>
@@ -252,7 +260,7 @@
         autocomplete="off"
         style="text-align: center"
       />
-      <button
+      <button class="not-selectable"
         id="previousDay"
         style="
           border: none;
@@ -273,7 +281,7 @@
             d="M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0Z"
           />
         </svg></button
-      ><button
+      ><button class="not-selectable"
         id="nextDay"
         style="
           border: none;
@@ -317,7 +325,7 @@
               d="m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z"
             />
           </svg></button
-        ><button
+        ><button class="not-selectable"
           onclick="showDialog()"
           id="settingsButton"
           style="
@@ -358,7 +366,7 @@
         >Zet Javascript aan om je rooster te bekijken.
       </p></noscript
     >
-    <dialog
+    <dialog class="not-selectable"
       id="dialog"
       role="dialog"
       aria-label="Voer je schoolnaam en koppelcode in."
