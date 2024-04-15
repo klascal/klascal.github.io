@@ -475,6 +475,7 @@
       </button>
     </dialog>
     <style id="aboutgoeshere"></style>
+    <input type="text" id="keyboard" style="display: none" />
     <strong id="error-message" style="text-align: center"
       ><img
         src="es_geenresultaten.png"
@@ -804,8 +805,81 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(document.getElementById("css").click(), 0);
+        document.getElementById("css").click();
       });
+      let startX;
+      let endX;
+      const SWIPE_THRESHOLD = 150; // Adjust as needed
+
+      // Function to handle touch start event
+      function handleTouchStart(event) {
+        startX = event.touches[0].clientX;
+      }
+
+      // Function to handle touch move event
+      function handleTouchMove(event) {
+        endX = event.touches[0].clientX;
+        event.preventDefault(); // Prevent scrolling while swiping
+      }
+
+      // Function to handle touch end event
+      function handleTouchEnd(event) {
+        handleSwipe();
+      }
+
+      // Function to handle swipe direction
+      function handleSwipe() {
+        const deltaX = endX - startX;
+        if (deltaX > SWIPE_THRESHOLD) {
+          // Swipe right, load previous day schedule
+          loadPreviousDaySchedule();
+        } else if (deltaX < -SWIPE_THRESHOLD) {
+          // Swipe left, load next day schedule
+          loadNextDaySchedule();
+        }
+      }
+
+      // Function to load previous day schedule
+      function loadPreviousDaySchedule() {
+        document.getElementById("previousDay").click();
+      }
+
+      // Function to load next day schedule
+      function loadNextDaySchedule() {
+        document.getElementById("nextDay").click();
+      }
+
+      // Add event listeners for touch events on the document
+      document.addEventListener("touchstart", handleTouchStart);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchEnd);
+      // Function to handle arrow key presses
+      function handleArrowKeyPress(event) {
+        const key = event.key;
+        if (key === "ArrowLeft") {
+          // Arrow left, load previous day schedule
+          loadPreviousDaySchedule();
+        } else if (key === "ArrowRight") {
+          // Arrow right, load next day schedule
+          loadNextDaySchedule();
+        }
+      }
+
+      // Function to load previous day schedule
+      function loadPreviousDaySchedule() {
+        document.getElementById("previousDay").click();
+      }
+
+      // Function to load next day schedule
+      function loadNextDaySchedule() {
+        document.getElementById("nextDay").click();
+      }
+
+      // Add event listener for keydown event on the document
+      document.addEventListener("keydown", handleArrowKeyPress);
+
+      // Focus on the input field to capture arrow key events
+      document.getElementById("keyboard").focus();
     </script>
   </body>
 </html>
