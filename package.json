@@ -1,0 +1,26 @@
+{
+  "name": "klascal",
+  "version": "1.0.0",
+  "description": "Een rooster app voor Zermelo.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klascal/klascal.github.io.git"
+  },
+  "keywords": [
+    "zermelo"
+  ],
+  "author": "Floris Rietman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klascal/klascal.github.io/issues"
+  },
+  "homepage": "https://github.com/klascal/klascal.github.io#readme",
+  "devDependencies": {
+    "electron": "^29.3.0"
+  }
+}
