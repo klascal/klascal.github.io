@@ -51,5 +51,16 @@
   ],
   "edge_side_panel": {},
   "scope": "/",
-  "orientation": "any"
+  "orientation": "any",
+  "id": "/",
+  "dir": "ltr",
+  "lang": "nl",
+  "shortcuts": [
+    {
+      "name": "Rooster",
+      "url": "/",
+      "description": "Bekijk je rooster."
+    }
+  ],
+  "categories": ["education"]
 }
