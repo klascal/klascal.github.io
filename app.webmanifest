@@ -37,21 +37,15 @@
       "form_factor": "wide"
     },
     {
-      "src": "https://blissradio.github.io/phone1.jpg",
+      "src": "phone1.jpg",
       "type": "image/png",
-      "sizes": "533x1080",
+      "sizes": "512x1080",
       "form_factor": "narrow"
     },
     {
-      "src": "https://blissradio.github.io/phone2.jpg",
+      "src": "phone2.jpg",
       "type": "image/png",
-      "sizes": "533x1080",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "https://blissradio.github.io/phone3.jpg",
-      "type": "image/png",
-      "sizes": "533x1080",
+      "sizes": "512x1080",
       "form_factor": "narrow"
     }
   ],
