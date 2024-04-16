@@ -8,6 +8,7 @@
     <link rel="manifest" href="app.webmanifest" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="css.css" />
+    <link id="color-theme" rel="stylesheet" href="css.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>
       hljs.highlightAll();
@@ -489,24 +490,40 @@
         <pre><code class="language-css">#className {display: initial;}</code></pre>
       </details>
       <br />
-      <button onclick="hideDialog()" class="btn" style="background-color: #ddd">
-        <svg
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          id="icon"
-        >
-          <path
-            d="M6.75 3h-1A2.75 2.75 0 0 0 3 5.75v12.5A2.75 2.75 0 0 0 5.75 21H6v-6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 15v6h.25A2.75 2.75 0 0 0 21 18.25V8.286a3.25 3.25 0 0 0-.952-2.299l-2.035-2.035A3.25 3.25 0 0 0 15.75 3v4.5a2.25 2.25 0 0 1-2.25 2.25H9A2.25 2.25 0 0 1 6.75 7.5V3Z"
-          />
-          <path
-            d="M14.25 3v4.5a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75V3h6ZM16.5 21v-6a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0-.75.75v6h9Z"
-          />
-        </svg>
-        Opslaan
-      </button>
+      <label for="color-select"></label>
+      <select id="color-select">
+        <option value="css">Zwart/Wit</option>
+        <option value="rood">Rood</option>
+        <option value="roze">Roze</option>
+        <option value="paars">Paars</option>
+        <option value="blauw">Blauw</option>
+        <option value="groen">Groen</option>
+        <option value="geel">Geel</option>
+        <option value="oranje">Oranje</option>
+
+        <!-- Add more color options here -->
+      </select>
+      <br /><br />
+      <a href=""
+        ><button class="btn" style="background-color: #ddd">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            id="icon"
+          >
+            <path
+              d="M6.75 3h-1A2.75 2.75 0 0 0 3 5.75v12.5A2.75 2.75 0 0 0 5.75 21H6v-6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 15v6h.25A2.75 2.75 0 0 0 21 18.25V8.286a3.25 3.25 0 0 0-.952-2.299l-2.035-2.035A3.25 3.25 0 0 0 15.75 3v4.5a2.25 2.25 0 0 1-2.25 2.25H9A2.25 2.25 0 0 1 6.75 7.5V3Z"
+            />
+            <path
+              d="M14.25 3v4.5a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75V3h6ZM16.5 21v-6a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0-.75.75v6h9Z"
+            />
+          </svg>
+          Opslaan
+        </button></a
+      >
     </dialog>
     <style id="aboutgoeshere"></style>
     <input type="text" id="keyboard" style="display: none" />
@@ -917,6 +934,29 @@
       if (typeof navigator.serviceWorker !== "undefined") {
         navigator.serviceWorker.register("sw.js");
       }
+      // Function to apply color theme
+      function applyColorTheme(color) {
+        // Save selected color to local storage
+        localStorage.setItem("color", color);
+
+        // Apply color theme stylesheet
+        document
+          .getElementById("color-theme")
+          .setAttribute("href", `${storedColor}.css`);
+      }
+
+      // Apply stored color theme on page load
+      const storedColor = localStorage.getItem("color");
+      if (storedColor) {
+        applyColorTheme(storedColor);
+      }
+
+      // Color theme selector event listener
+      document
+        .getElementById("color-select")
+        .addEventListener("change", function () {
+          applyColorTheme(this.value);
+        });
     </script>
   </body>
 </html>
