@@ -914,6 +914,9 @@
 
       // Focus on the input field to capture arrow key events
       document.getElementById("keyboard").focus();
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
     </script>
   </body>
 </html>
