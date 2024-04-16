@@ -1,0 +1,61 @@
+{
+  "name": "Klascal",
+  "short_name": "Klascal",
+  "description": "Een rooster app voor Zermelo",
+  "start_url": "/",
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1080ce",
+  "icons": [
+    {
+      "src": "logo2.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "desktop1.png",
+      "type": "image/png",
+      "sizes": "1366x768",
+      "form_factor": "wide"
+    },
+    {
+      "src": "desktop2.png",
+      "type": "image/png",
+      "sizes": "1366x768",
+      "form_factor": "wide"
+    },
+    {
+      "src": "https://blissradio.github.io/phone1.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://blissradio.github.io/phone2.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://blissradio.github.io/phone3.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+      "form_factor": "narrow"
+    }
+  ],
+  "edge_side_panel": {},
+  "scope": "/",
+  "orientation": "any"
+}
