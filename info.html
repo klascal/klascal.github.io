@@ -52,6 +52,22 @@
       volledige namen van vakken zien (zoals bij Somtoday).<br /><br />Thema's
       (Binnenkort).
     </h3>
+    <div>
+      <span id="stats"></span> gebruikers (We onthouden unieke gebruikers voor 8
+      uur)
+    </div>
+
+    <script>
+      var r = new XMLHttpRequest();
+      r.addEventListener("load", function () {
+        document.querySelector("#stats").innerText = JSON.parse(
+          this.responseText
+        ).count_unique;
+      });
+      r.open("GET", "https://klascal.goatcounter.com/counter//.json");
+      r.send();
+    </script>
+
     <footer>
       Klascal is gemaakt door Floris Rietman en met hulp van Iven Boxem.
     </footer>
