@@ -125,4 +125,8 @@ code.hljs {
   .hljs-title.class_ {
     color: #e6c07b;
   }
+
+  #schedule div {
+    background-color: #fff3 !important;
+  }
 }
