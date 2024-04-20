@@ -4,13 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
-    <title>Klacal</title>
+    <title>Klascal</title>
     <link rel="icon" type="image/x-icon" href="logo.png" />
     <style>
-      html {
-        scroll-behavior: smooth;
-      }
-
       body,
       html {
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
@@ -114,7 +110,7 @@
       }
 
       h3 {
-        margin: 10px;
+        margin: 0px;
         width: 150px;
         text-align: center;
       }
@@ -147,6 +143,10 @@
         display: flex;
         flex-wrap: nowrap; /* Prevent wrapping to the next line */
         overflow-x: auto; /* Allow horizontal scrolling if necessary */
+      }
+
+      #className {
+        display: none;
       }
 
       /* Dark Mode Styles */
@@ -355,14 +355,13 @@
                     appointment.cancelled ? "cancelled" : ""
                   }">
                     <p><strong>${subjectsFullNames.join(", ")}</strong></p>
-                    <p>${startTime} - ${endTime}</p>     
+                    <span style="display: inline-block; width: 105px;">${startTime} - ${endTime}</span><strong style="position:relative;bottom:30px;">${
+                    appointment.startTimeSlotName
+                  }</strong>     
                     <p>${appointment.locations.join(
                       ", "
-                    )} (${appointment.teachers.join(
-                    ", "
-                  )})<strong style="position:relative;bottom:50px; left: 40px;">${
-                    appointment.startTimeSlotName
-                  }</strong></p>       
+                    )} (${appointment.teachers.join(", ")})</p>   
+                    <p id="className">${appointment.groups.join(", ")}</p>    
                   </div>`;
                 })
                 .join("");
