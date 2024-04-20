@@ -18,13 +18,14 @@
         color: #000000; /* Default text color */
       }
 
+      dialog {
+        background-color: white;
+      }
+
       #inputForm {
         max-width: 400px;
         margin: 0 auto;
-        background-color: #f9f9f9;
-        padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
       label {
@@ -33,11 +34,6 @@
       }
 
       input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 0px;
-        border-radius: 4px;
         box-sizing: border-box;
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
@@ -115,16 +111,6 @@
         text-align: center;
       }
 
-      dialog {
-        padding: 0;
-        background: none;
-        border: 0;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.5s;
-        display: block;
-      }
-
       dialog[open] {
         opacity: 1;
         pointer-events: inherit;
@@ -149,6 +135,48 @@
         display: none;
       }
 
+      .btn {
+        background-color: #f1f1f1;
+        border: 0;
+        padding: 0.5rem 1rem;
+        line-height: 1.5;
+        border-radius: 4rem;
+        transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+        text-decoration: none !important;
+      }
+
+      #previousDay,
+      #nextDay,
+      #loadSchedule,
+      #settingsButton {
+        transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+      }
+
+      button:not(:disabled) {
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        text-decoration: none;
+        background-color: #f1f1f1;
+      }
+
+      button:not(:disabled):not(.disabled) {
+        cursor: pointer;
+      }
+
+      .btn:hover,
+      .btn:active {
+        background-color: #f1f1f1;
+        text-decoration: none;
+      }
+
+      #icon,
+      .icon {
+        fill: black !important;
+        vertical-align: middle;
+      }
+
       /* Dark Mode Styles */
       @media (prefers-color-scheme: dark) {
         body,
@@ -158,13 +186,38 @@
           color: #ffffff;
         }
 
-        #inputForm {
-          background-color: #2a2a2a;
-          color: #ffffff;
+        .btn {
+          color: white !important;
+          background-color: #363636 !important;
+          text-shadow: none !important;
         }
 
-        input[type="text"] {
-          background-color: #333333;
+        .btn:hover {
+          color: white !important;
+          background-color: #444 !important;
+        }
+
+        .btn:hover,
+        .btn:active,
+        #previousDay:hover,
+        #nextDay:hover,
+        #loadSchedule:hover,
+        #settingsButton:hover {
+          color: white !important;
+          background-color: #444 !important;
+        }
+
+        #close:hover {
+          background-color: red !important;
+        }
+
+        #icon,
+        .icon {
+          fill: white !important;
+          vertical-align: middle;
+        }
+
+        #inputForm {
           color: #ffffff;
         }
 
@@ -231,18 +284,110 @@
       aria-label="Voer je schoolnaam en koppelcode in."
       style="border: 0; border-radius: 1rem"
     >
-      <img
-        src="close.png"
-        alt="X"
-        style="height: 24px"
+      <a href="index.html">
+        <button
+          class="btn"
+          style="
+            background-color: #ddd;
+            position: absolute;
+            padding-bottom: 10px;
+            top: 8px;
+            left: 8px;
+          "
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            id="icon"
+          >
+            <path
+              d="M21 8.5v9.25A3.25 3.25 0 0 1 17.75 21H6.25A3.25 3.25 0 0 1 3 17.75V8.5h18ZM17.75 3A3.25 3.25 0 0 1 21 6.25V7H3v-.75A3.25 3.25 0 0 1 6.25 3h11.5Z"
+            />
+          </svg></button
+      ></a>
+      <a href="token">
+        <button
+          class="btn"
+          style="
+            background-color: #ddd;
+            position: absolute;
+            right: 127px;
+            padding-bottom: 10px;
+            top: 8px;
+          "
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            id="icon"
+          >
+            <path
+              d="M12 4C9.238 4 7 6.238 7 9a1 1 0 0 0 2 0c0-1.658 1.342-3 3-3s3 1.342 3 3c0 .816-.199 1.294-.438 1.629-.262.365-.625.638-1.128.985l-.116.078c-.447.306-1.023.699-1.469 1.247-.527.648-.849 1.467-.849 2.561v.5a1 1 0 1 0 2 0v-.5c0-.656.178-1.024.4-1.299.257-.314.603-.552 1.114-.903l.053-.037c.496-.34 1.133-.786 1.62-1.468C16.7 11.081 17 10.183 17 9c0-2.762-2.238-5-5-5ZM12 21.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"
+            />
+          </svg></button
+      ></a>
+      <a href="info"
+        ><button
+          class="btn"
+          style="
+            background-color: #ddd;
+            position: absolute;
+            right: 67px;
+            padding-bottom: 10px;
+            top: 8px;
+          "
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            id="icon"
+          >
+            <path
+              d="M12 1.999c5.524 0 10.002 4.478 10.002 10.002 0 5.523-4.478 10.001-10.002 10.001-5.524 0-10.002-4.478-10.002-10.001C1.998 6.477 6.476 1.999 12 1.999Zm-.004 8.25a1 1 0 0 0-.992.885l-.007.116.003 5.502.007.117a1 1 0 0 0 1.987-.002L13 16.75l-.003-5.501-.007-.117a1 1 0 0 0-.994-.882ZM12 6.5a1.251 1.251 0 1 0 0 2.503A1.251 1.251 0 0 0 12 6.5Z"
+            />
+          </svg></button
+      ></a>
+      <button
+        class="btn"
         onclick="hideDialog()"
-      />
+        id="close"
+        style="
+          background-color: #ddd;
+          position: absolute;
+          right: 8px;
+          padding-bottom: 10px;
+          top: 8px;
+        "
+      >
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          id="icon"
+        >
+          <path
+            d="m4.21 4.387.083-.094a1 1 0 0 1 1.32-.083l.094.083L12 10.585l6.293-6.292a1 1 0 1 1 1.414 1.414L13.415 12l6.292 6.293a1 1 0 0 1 .083 1.32l-.083.094a1 1 0 0 1-1.32.083l-.094-.083L12 13.415l-6.293 6.292a1 1 0 0 1-1.414-1.414L10.585 12 4.293 5.707a1 1 0 0 1-.083-1.32l.083-.094-.083.094Z"
+          />
+        </svg></button
+      ><br /><br />
       <form id="inputForm">
         <label for="schoolName">Schoolnaam:</label>
         <input
           type="text"
           id="schoolName"
           name="schoolName"
+          class="btn"
           required
         /><br /><br />
 
@@ -251,15 +396,33 @@
           type="text"
           id="authorizationCode"
           name="authorizationCode"
+          class="btn"
           required
         /><br /><br />
+        <label for="css">CSS-code (optioneel):</label>
+        <input
+          type="text"
+          autocomplete="off"
+          style="background-color: #ddd"
+          oninput="update_section(this.value, 'about');"
+          onclick="update_section(this.value, 'about');"
+          id="css"
+          class="btn"
+        />
+        <details>
+          <summary>CSS voorbeelden</summary>
+          <br />
+          <p>Laat klassennamen zien:</p>
+          <pre><code class="language-css">#className {display: initial;}</code></pre>
+        </details>
+        <br />
 
         <button type="submit" id="button" onclick="hideDialog()">
           Verzenden
         </button>
       </form>
     </dialog>
-
+    <style id="aboutgoeshere"></style>
     <div id="schedule"></div>
 
     <script>
@@ -436,6 +599,15 @@
         } else {
         }
       });
+
+      css.value = localStorage.getItem("css");
+      css.oninput = () => {
+        localStorage.setItem("css", css.value);
+      };
+
+      function update_section(with_what, what) {
+        document.getElementById(what + "goeshere").innerHTML = with_what;
+      }
     </script>
   </body>
 </html>
