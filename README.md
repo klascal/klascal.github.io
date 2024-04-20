@@ -15,4 +15,4 @@ Laat de volledige namen van vakken zien (zoals bij Somtoday).
 
 Thema's (Binnenkort).
 
-Klascal is gemaakt door Floris Rietman en met hulp van Iven Boxem. 
+**© Floris Rietman en Iven Boxem**
