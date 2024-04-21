@@ -397,7 +397,8 @@
       }
 
       @media (max-width: 481px) {
-        #field span {
+        #field span,
+        #weekButton {
           display: none;
         }
       }
@@ -457,7 +458,7 @@
         class="btn"
         size="9"
         autocomplete="off"
-        style="text-align: center"
+        style="text-align: center; font-size: small"
       />
       <button
         id="previousDay"
@@ -581,7 +582,7 @@
         backdrop-filter: blur(10px);
       "
     >
-      <a href="week">
+      <a href="week" id="weekButton">
         <button
           class="btn"
           aria-label="Weekrooster"
@@ -729,7 +730,7 @@
       </details>
       <br />
       <label for="color-select">Thema:</label>
-      <select id="color-select">
+      <select id="color-select" class="btn">
         <option value="css">Themakleur</option>
         <option value="rood">Rood</option>
         <option value="roze">Roze</option>
