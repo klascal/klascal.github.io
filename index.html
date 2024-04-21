@@ -14,13 +14,13 @@
       name="google-site-verification"
       content="7RyrAMvJ5WqbgrUQkw2sc0wnWJCQIRuz5owqLL6xi28"
     />
-    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
+    <link rel="stylesheet" href="inter.css" />
     <title>Klascal</title>
     <link rel="manifest" href="app.webmanifest" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="css.css" />
     <link id="color-theme" rel="stylesheet" href="css.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="highlight.min.js"></script>
     <script
       data-goatcounter="https://klascal.goatcounter.com/count"
       async
@@ -264,6 +264,7 @@
       />
       <button
         id="previousDay"
+        aria-label="Vorige dag"
         style="
           border: none;
           border-radius: 4rem 0 0 4rem;
@@ -285,6 +286,7 @@
         </svg></button
       ><button
         id="nextDay"
+        aria-label="Volgende dag"
         style="
           border: none;
           padding: 0.5rem;
@@ -308,6 +310,7 @@
       <div class="loadSettings">
         <button
           id="loadSchedule"
+          aria-label="Laadt het rooster"
           style="
             border: none;
             border-radius: 4rem 0 0 4rem;
@@ -330,6 +333,7 @@
         ><button
           onclick="showDialog()"
           id="settingsButton"
+          aria-label="Instellingen"
           style="
             border: none;
             padding: 0.5rem;
@@ -383,6 +387,7 @@
       <a href="week">
         <button
           class="btn"
+          aria-label="Weekrooster"
           style="
             background-color: #ddd;
             position: absolute;
@@ -407,6 +412,7 @@
       <a href="token">
         <button
           class="btn"
+          aria-label="Hulp"
           style="
             background-color: #ddd;
             position: absolute;
@@ -431,6 +437,7 @@
       <a href="info"
         ><button
           class="btn"
+          aria-label="Info"
           style="
             background-color: #ddd;
             position: absolute;
@@ -456,6 +463,7 @@
         class="btn"
         onclick="hideDialog()"
         id="close"
+        aria-label="Instellingen sluiten"
         style="
           background-color: #ddd;
           position: absolute;
@@ -538,7 +546,11 @@
       </select>
       <br /><br />
       <a href=""
-        ><button class="btn" style="background-color: #ddd">
+        ><button
+          class="btn"
+          style="background-color: #ddd"
+          aria-label="Opslaan"
+        >
           <svg
             width="24"
             height="24"
@@ -565,6 +577,8 @@
         src="es_geenresultaten.png"
         alt="Geen rooster gevonden"
         style="text-align: center"
+        width="200px"
+        height="104px"
       /><br />
       Geen rooster gevonden voor deze dag.</strong
     >
