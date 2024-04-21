@@ -14,13 +14,12 @@
       name="google-site-verification"
       content="7RyrAMvJ5WqbgrUQkw2sc0wnWJCQIRuz5owqLL6xi28"
     />
-    <link rel="stylesheet" href="inter.css" />
     <title>Klascal</title>
     <link rel="manifest" href="app.webmanifest" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="css.css" />
     <link id="color-theme" rel="stylesheet" href="css.css" />
-    <script src="highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script
       data-goatcounter="https://klascal.goatcounter.com/count"
       async
@@ -30,6 +29,204 @@
       hljs.highlightAll();
     </script>
     <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff")
+            format("woff");
+        font-weight: 500;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff")
+            format("woff");
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff")
+            format("woff");
+        font-weight: 900;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff")
+            format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff")
+            format("woff");
+        font-weight: 300;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff")
+            format("woff");
+        font-weight: 600;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff")
+            format("woff");
+        font-weight: bold;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff")
+            format("woff");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff")
+            format("woff");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff")
+            format("woff");
+        font-weight: 200;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff")
+            format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff")
+            format("woff");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff")
+            format("woff");
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff")
+            format("woff");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff")
+            format("woff");
+        font-weight: 800;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff")
+            format("woff");
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff")
+            format("woff");
+        font-weight: 100;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff2")
+            format("woff2"),
+          url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff")
+            format("woff");
+        font-weight: normal;
+        font-style: italic;
+        font-display: swap;
+      }
+
       body,
       html {
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
@@ -533,7 +730,7 @@
       <br />
       <label for="color-select"></label>
       <select id="color-select">
-        <option value="css">Zwart/Wit</option>
+        <option value="css">Themakleur</option>
         <option value="rood">Rood</option>
         <option value="roze">Roze</option>
         <option value="paars">Paars</option>
@@ -541,6 +738,7 @@
         <option value="groen">Groen</option>
         <option value="geel">Geel</option>
         <option value="oranje">Oranje</option>
+        <option value="css">Origineel</option>
 
         <!-- Add more color options here -->
       </select>
