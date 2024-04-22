@@ -257,8 +257,7 @@
       }
 
       #schedule span {
-       display: block;
-       margin-bottom: 20px; /* Afstand tussen elke dag */
+        display: block;
       }
 
       #schedule span div {
@@ -375,6 +374,10 @@
       .icon {
         fill: black !important;
         vertical-align: middle;
+      }
+
+      #error {
+        display: none !important;
       }
 
       /* Dark Mode Styles */
@@ -609,12 +612,18 @@
         /><br /><br />
 
         <label for="userType">Type gebruiker:</label>
-        <select id="userType" name="userType" class="btn" required>
-        <option value="css">Type gebruiker</option>
-        <option value="student">leerling</option>
-        <option value="teacher">docent</option>
-      </select><br /><br />
-        
+        <select
+          id="userType"
+          name="userType"
+          class="btn"
+          style="font-family: inherit"
+          required
+        >
+          <option value="css">Type gebruiker</option>
+          <option value="student">Leerling</option>
+          <option value="teacher">Docent</option></select
+        ><br /><br />
+
         <label for="css">CSS-code (optioneel):</label>
         <input
           type="text"
@@ -664,7 +673,13 @@
 
     <script>
       // Functie om rooster op te halen met behulp van fetch
-      async function fetchSchedule(authorizationCode, userType, year, week, schoolName) {
+      async function fetchSchedule(
+        authorizationCode,
+        userType,
+        year,
+        week,
+        schoolName
+      ) {
         try {
           const url = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${authorizationCode}&${userType}=~me&week=${year}${week}`;
           const response = await fetch(url, {
@@ -722,7 +737,8 @@
             mu: "MU",
             fa: "FA",
             gd: "GD",
-            te: "TE"
+            te: "TE",
+            in: "IN",
           };
 
           // Group appointments by day
@@ -769,7 +785,9 @@
                   // Generate HTML for each appointment
                   return `<div class="${
                     appointment.cancelled ? "cancelled" : ""
-                  }">
+                  }" id="${
+                    appointment.subjects.join(", ") ? "" : "error"
+                  }${subjectsFullNames.join(", ")}">
                     <p><strong>${subjectsFullNames.join(", ")}</strong></p>
                     <span style="display: inline-block; width: 105px;">${startTime} - ${endTime}</span><strong style="position:relative;bottom:30px;">${
                     appointment.startTimeSlotName
@@ -805,8 +823,7 @@
         const schoolName = document.getElementById("schoolName").value;
         const authorizationCode =
           document.getElementById("authorizationCode").value;
-        const userType =
-          document.getElementById("userType").value;
+        const userType = document.getElementById("userType").value;
         const currentDate = new Date();
         const year = currentDate.getFullYear();
         let week =
@@ -854,9 +871,12 @@
         const schoolName = localStorage.getItem("schoolName") || "";
         const authorizationCode =
           localStorage.getItem("authorizationCode") || "";
-        const userType =
-          localStorage.getItem("userType") || "";
-        if (schoolName.trim() === "" || authorizationCode.trim() === "" || userType.trim() === "") {
+        const userType = localStorage.getItem("userType") || "";
+        if (
+          schoolName.trim() === "" ||
+          authorizationCode.trim() === "" ||
+          userType.trim() === ""
+        ) {
           // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
           showDialog();
         } else {
