@@ -1097,9 +1097,7 @@
         const schoolName = localStorage.getItem("schoolName") || "";
         const authorizationCode =
           localStorage.getItem("authorizationCode") || "";
-        const themaSelect =
-          localStorage.getItem("themaSelect") || "";
-        if (schoolName.trim() === "" || authorizationCode.trim() === "" || themaSelect.trim() === "") {
+        if (schoolName.trim() === "" || authorizationCode.trim() === "") {
           // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
           showDialog();
         } else {
