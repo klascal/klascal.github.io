@@ -599,14 +599,12 @@
         /><br /><br />
 
         <label for="userType">Type gebruiker:</label>
-        <input
-          type="text"
-          id="userType"
-          name="userType"
-          class="btn"
-          required
-        /><br /><br />
-
+        <select id="userType" name="userType" class="btn" required>
+        <option value="css">Type gebruiker</option>
+        <option value="student">leerling</option>
+        <option value="teacher">docent</option>
+      </select><br /><br />
+        
         <label for="css">CSS-code (optioneel):</label>
         <input
           type="text"
