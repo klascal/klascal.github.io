@@ -235,6 +235,13 @@
         color: white;
       }
 
+      #schedule div {
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background-color: #eee;
+      }
+
       @media (prefers-color-scheme: dark) {
         body,
         html {
@@ -242,16 +249,13 @@
           color: #ffffff;
         }
 
+        #schedule div {
+          background-color: #2a2a2a;
+        }
+
         #schedule .cancelled {
           background-color: red !important;
         }
-      }
-
-      #schedule div {
-        padding: 10px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        background-color: #0001;
       }
 
       strong {
@@ -303,6 +307,11 @@
       #loadSchedule,
       #settingsButton {
         transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+      }
+
+      #color-select {
+        font-family: inherit;
+        background-color: #ddd;
       }
 
       button:not(:disabled) {
@@ -416,7 +425,11 @@
       }
     </style>
   </head>
-  <body oncontextmenu="return false" draggable="false" style="user-select: none;">
+  <body
+    oncontextmenu="return false"
+    draggable="false"
+    style="user-select: none"
+  >
     <!-- Date input field -->
     <div id="field">
       <svg
@@ -1070,6 +1083,11 @@
       authorizationCode.value = localStorage.getItem("authorizationCode");
       authorizationCode.oninput = () => {
         localStorage.setItem("authorizationCode", authorizationCode.value);
+      };
+
+      user.value = localStorage.getItem("user");
+      user.oninput = () => {
+        localStorage.setItem("user", user.value);
       };
 
       css.value = localStorage.getItem("css");
