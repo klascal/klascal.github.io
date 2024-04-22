@@ -597,14 +597,6 @@
           class="btn"
           required
         /><br /><br />
-        <label for="User">Type user:</label>
-        <input
-          type="text"
-          id="User"
-          name="User"
-          class="btn"
-          required
-        /><br /><br />
         <label for="css">CSS-code (optioneel):</label>
         <input
           type="text"
@@ -654,9 +646,9 @@
 
     <script>
       // Functie om rooster op te halen met behulp van fetch
-      async function fetchSchedule(authorizationCode, User, year, week, schoolName) {
+      async function fetchSchedule(authorizationCode, year, week, schoolName) {
         try {
-          const url = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${authorizationCode}&${User}=~me&week=${year}${week}`;
+          const url = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${authorizationCode}&student=~me&teacher=~me&week=${year}${week}`;
           const response = await fetch(url, {
             method: "GET",
             headers: {
