@@ -256,12 +256,17 @@
         background-color: #0056b3;
       }
 
+      #schedule span {
+       display: block;
+       margin-bottom: 20px; /* Afstand tussen elke dag */
+      }
+
       #schedule span div {
+        display: inline-block;
         background-color: #eee;
         padding: 10px;
-        margin: 10px;
+        margin-right: 5px;
         border-radius: 10px;
-        flex: 0 0 auto;
       }
 
       #schedule p {
@@ -324,9 +329,6 @@
 
       #schedule {
         margin-top: 40px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
       }
 
       #className {
