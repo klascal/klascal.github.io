@@ -416,7 +416,7 @@
       }
     </style>
   </head>
-  <body>
+  <body oncontextmenu="return false" draggable="false" style="user-select: none;">
     <!-- Date input field -->
     <div id="field">
       <svg
@@ -574,12 +574,15 @@
     <dialog
       id="dialog"
       role="dialog"
+      oncontextmenu="return false"
+      draggable="false"
       aria-label="Voer je schoolnaam en koppelcode in."
       style="
         border: 0;
         border-radius: 2rem;
         background-color: #ffffffa1;
         backdrop-filter: blur(10px);
+        user-select: none;
       "
     >
       <a href="week" id="weekButton">
