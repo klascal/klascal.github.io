@@ -825,6 +825,7 @@
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 1);
         const user = document.getElementById("user").value;
+        const themaSelect = document.getElementById("color-select").value;
         const schoolName = document.getElementById("schoolName").value;
         const authorizationCode =
           document.getElementById("authorizationCode").value;
@@ -1069,6 +1070,11 @@
         localStorage.setItem("authorizationCode", authorizationCode.value);
       };
 
+      themaSelect.value = localStorage.getItem("themaSelect");
+      themaSelect.oninput = () => {
+        localStorage.setItem("themaSelect", themaSelect.value);
+      };
+
       css.value = localStorage.getItem("css");
       css.oninput = () => {
         localStorage.setItem("css", css.value);
@@ -1091,7 +1097,9 @@
         const schoolName = localStorage.getItem("schoolName") || "";
         const authorizationCode =
           localStorage.getItem("authorizationCode") || "";
-        if (schoolName.trim() === "" || authorizationCode.trim() === "") {
+        const themaSelect =
+          localStorage.getItem("themaSelect") || "";
+        if (schoolName.trim() === "" || authorizationCode.trim() === "" || themaSelect.trim() === "") {
           // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
           showDialog();
         } else {
