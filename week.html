@@ -707,7 +707,23 @@
           ];
 
           // Object to map subject abbreviations to their full names
-          const subjectsMapping = {};
+          const subjectsMapping = {
+            ak: "AK",
+            gs: "GS",
+            mn: "MN",
+            ne: "NE",
+            wi: "WI",
+            lo: "LO",
+            en: "EN",
+            ict: "ICT",
+            men: "MEN",
+            ha: "HA",
+            ontw: "ONTW",
+            mu: "MU",
+            fa: "FA",
+            gd: "GD",
+            te: "TE"
+          };
 
           // Group appointments by day
           const appointmentsByDay = appointments.reduce((acc, appointment) => {
