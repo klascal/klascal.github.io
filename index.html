@@ -825,7 +825,6 @@
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 1);
         const user = document.getElementById("user").value;
-        const themaSelect = document.getElementById("color-select").value;
         const schoolName = document.getElementById("schoolName").value;
         const authorizationCode =
           document.getElementById("authorizationCode").value;
@@ -1068,11 +1067,6 @@
       authorizationCode.value = localStorage.getItem("authorizationCode");
       authorizationCode.oninput = () => {
         localStorage.setItem("authorizationCode", authorizationCode.value);
-      };
-
-      themaSelect.value = localStorage.getItem("themaSelect");
-      themaSelect.oninput = () => {
-        localStorage.setItem("themaSelect", themaSelect.value);
       };
 
       css.value = localStorage.getItem("css");
