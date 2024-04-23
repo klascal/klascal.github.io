@@ -1,0 +1,98 @@
+{
+  "name": "Clodo",
+  "short_name": "Clodo",
+  "description": "Clodo is a simple to do list application that lets you create lists of tasks locally in your browser, or by installing the app.",
+  "start_url": "/to-do/",
+  "launch_handler": {
+    "client_mode": "auto"
+},
+  "display": "standalone",
+  "background_color": "#635994",
+  "theme_color": "#635994",
+  "icons": [{
+    "src": "https://blissradio.github.io/to-do/logo2.png",
+    "type": "image/png",
+    "sizes": "192x192",
+    "purpose": "any"
+  },
+  {
+    "src": "https://blissradio.github.io/to-do/logo.png",
+    "type": "image/png",
+    "sizes": "512x512",
+    "purpose": "any"
+  },
+  {
+    "src": "https://blissradio.github.io/to-do/maskable_icon_x512.png",
+    "type": "image/png",
+    "sizes": "512x512",
+    "purpose": "maskable"
+  },
+  {
+    "src": "https://blissradio.github.io/to-do/maskable_icon_x192.png",
+    "type": "image/png",
+    "sizes": "192x192",
+    "purpose": "maskable"
+  },
+  {
+    "src": "https://blissradio.github.io/to-do/mono1.png",
+    "type": "image/png",
+    "sizes": "192x192",
+    "purpose": "monochrome"
+  },
+  {
+    "src": "https://blissradio.github.io/to-do/mono.png",
+    "type": "image/png",
+    "sizes": "512x512",
+    "purpose": "monochrome"
+  }],
+  "screenshots": [
+    {
+      "src": "https://blissradio.github.io/desktop1.png",
+      "type": "image/png",
+      "sizes": "1366x768",
+      "form_factor": "wide"
+    },
+    {
+      "src": "https://blissradio.github.io/desktop2.png",
+      "type": "image/png",
+      "sizes": "1366x768",
+      "form_factor": "wide"
+    },
+    {
+      "src": "https://blissradio.github.io/desktop3.png",
+      "type": "image/png",
+      "sizes": "1366x768",
+      "form_factor": "wide"
+    },
+    {
+      "src": "https://blissradio.github.io/phone1.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+       "form_factor": "narrow"
+    },
+    {
+      "src": "https://blissradio.github.io/phone2.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "https://blissradio.github.io/phone3.jpg",
+      "type": "image/png",
+      "sizes": "533x1080",
+      "form_factor": "narrow"
+    }
+  ],
+  "edge_side_panel": {},
+  "scope": "/to-do/",
+  "orientation": "any",
+  "shortcuts": [
+    {
+      "name": "To-do lists",
+      "short_name": "Lists",
+      "url": "https://blissradio.github.io/to-do/",
+      "description": "Info about Clodo.",
+      "icons": [{ "src": "https://blissradio.github.io/to-do/favicon.ico", "sizes": "256x256" }]
+    }
+  ]
+}

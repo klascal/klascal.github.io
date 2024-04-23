@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>To-do</title>
+    <link rel="manifest" href="/app.webmanifest" />
+    <link rel="stylesheet" href="app.css" />
+    <script>
+      window.onload = function lockA() {
+        var xPos = window.scrollX;
+        var yPos = window.scrollY;
+        window.onscroll = () => window.scroll(xPos, yPos);
+      };
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <img src="logo2.png" width="24px" height="24px" />Clodo
+        <a href="learn-more"
+          ><img
+            src="settings.svg"
+            width="24px"
+            height="24px"
+            style="vertical-align: sub"
+        /></a>
+      </h1>
+      <form class="search-form" title="search tasks">
+        <input type="text" id="search-query" placeholder="Search tasks" />
+        <button type="submit" class="search-button no-label">Search</button>
+      </form>
+      <dialog class="search-results">
+        <ul class="tasks"></ul>
+      </dialog>
+    </header>
+    <section class="sidebar" title="Task lists">
+      <ul class="lists"></ul>
+      <ul class="auto-lists"></ul>
+      <form
+        class="new-list-form"
+        title="Add a new list"
+        style="
+          background: #ffd8e4;
+          padding: 10px;
+          border-radius: 10px;
+          width: 85px;
+        "
+      >
+        <button type="submit" class="add-button">New list</button>
+      </form>
+    </section>
+    <main>
+      <form class="edit-list-form">
+        <input type="hidden" id="edit-list-id" />
+        <label for="edit-list-title">Title</label>
+        <input type="text" id="edit-list-title" size="15" />
+        <button type="submit" class="edit-button no-label">Rename</button>
+      </form>
+      <div class="more-list-actions" title="More actions">
+        <dialog class="more-list-actions-dialog">
+          <form method="dialog" class="more-list-actions-form">
+            <fieldset class="list-colors">
+              <label
+                for="list-color-peachpuff"
+                style="background-color: peachpuff; color: peachpuff"
+                >peachpuff</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-peachpuff"
+                value="peachpuff"
+              />
+              <label
+                for="list-color-aliceblue"
+                style="background-color: aliceblue; color: aliceblue"
+                >aliceblue</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-aliceblue"
+                value="aliceblue"
+              />
+              <label
+                for="list-color-aquamarine"
+                style="background-color: aquamarine; color: aquamarine"
+                >aquamarine</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-aquamarine"
+                value="aquamarine"
+              />
+              <label
+                for="list-color-beige"
+                style="background-color: beige; color: beige"
+                >beige</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-beige"
+                value="beige"
+              />
+              <label
+                for="list-color-khaki"
+                style="background-color: khaki; color: khaki"
+                >khaki</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-khaki"
+                value="khaki"
+              />
+              <label
+                for="list-color-lavenderblush"
+                style="background-color: lavenderblush; color: lavenderblush"
+                >lavenderblush</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-lavenderblush"
+                value="lavenderblush"
+              />
+              <label
+                for="list-color-lightcyan"
+                style="background-color: lightcyan; color: lightcyan"
+                >lightcyan</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-lightcyan"
+                value="lightcyan"
+              />
+              <label
+                for="list-color-mintcream"
+                style="background-color: mintcream; color: mintcream"
+                >mintcream</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-mintcream"
+                value="mintcream"
+              />
+              <label
+                for="list-color-lemonchiffon"
+                style="background-color: lemonchiffon; color: lemonchiffon"
+                >lemonchiffon</label
+              >
+              <input
+                type="radio"
+                name="list-color"
+                id="list-color-lemonchiffon"
+                value="lemonchiffon"
+              />
+            </fieldset>
+            <button type="button" id="delete-list-button" class="delete-button">
+              Delete list
+            </button>
+          </form>
+        </dialog>
+      </div>
+      <ul class="tasks"></ul>
+      <form class="new-task-form" title="Add a new task">
+        <input
+          type="text"
+          id="new-task"
+          placeholder="Add a new task"
+          style="background: white"
+        />
+        <button type="submit" class="add-button no-label">Add</button>
+      </form>
+    </main>
+    <form
+      class="edit-task-form"
+      title="Edit the current task, select a task first."
+    >
+      <button
+        type="reset"
+        class="close-button no-label"
+        id="close-edit-task-form"
+        title="Close the task edit form"
+      >
+        Close
+      </button>
+      <input type="hidden" id="edit-task-id" />
+      <p>
+        <input type="checkbox" id="edit-task-completed" />
+        <label for="edit-task-completed">Completed</label>
+      </p>
+      <p>
+        <label for="edit-task-title">Title</label>
+        <input type="text" id="edit-task-title" />
+      </p>
+      <p>
+        <label for="edit-task-notes">Notes</label>
+        <textarea id="edit-task-notes"></textarea>
+      </p>
+      <p>
+        <label for="edit-task-dueby">Due by</label>
+        <input type="datetime-local" id="edit-task-dueby" />
+      </p>
+      <p class="upload">
+        <label for="edit-task-file">Attachment</label>
+        <input type="file" id="edit-task-file" />
+      </p>
+      <p class="download">
+        <label for="task-file-download">Attachment</label>
+        <a href="" id="task-file-download" title="Download the attached file"
+          >Download</a
+        >
+        <button
+          id="delete-task-file-button"
+          title="Removed this task's attached file"
+          class="delete-button"
+        >
+          Remove attachment
+        </button>
+      </p>
+      <p class="submit">
+        <button
+          type="submit"
+          id="edit-task-button"
+          title="Save task changes"
+          class="save-button"
+          disabled
+        >
+          Save
+        </button>
+        <button
+          type="reset"
+          id="delete-task-button"
+          title="Delete task"
+          class="delete-button"
+          disabled
+        >
+          Delete
+        </button>
+      </p>
+    </form>
+    <dialog class="learn-more-dialog" style="border: 0px; border-radius: 20px">
+      <a
+        href="https://blissradio.github.io/to-do/"
+        style="right: 15px; position: absolute"
+        ><img src="close.svg" width="24px" height="24px"
+      /></a>
+      <p>
+        <strong>Clodo</strong> is a simple to do list application that lets you
+        create lists of tasks locally in your browser, or by installing the app.
+      </p>
+      <p>
+        This application uses the
+        <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and
+        Origin-Private File System (OPFS) API for storage.
+      </p>
+      <p>
+        This project is based on Microsoft's
+        <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do"
+          >GitHub repository</a
+        >.
+      </p>
+      <form action="dialog" id="db-import-export-form">
+        <!-- <label for="db-import-file">Import database</label>
+        <input type="file" id="db-import-file" /> -->
+        <button type="button" id="db-export-button" class="save-button">
+          Export database
+        </button>
+        <button type="button" id="make-db-persistent" class="save-button">
+          Make database persistent
+        </button>
+      </form>
+    </dialog>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+    <script type="module" src="app.js" async></script>
+  </body>
+</html>
