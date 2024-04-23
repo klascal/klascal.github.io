@@ -20,7 +20,11 @@
   <body>
     <header>
       <h1>
-        <img src="logo2.png" width="24px" height="24px" />Huiswerk
+        <img
+          src="https://klascal.github.io/logo.svg"
+          width="24px"
+          height="24px"
+        />Huiswerk
         <a href="learn-more"
           ><img
             src="settings.svg"
@@ -44,7 +48,16 @@
     <section class="sidebar" title="Task lists">
       <ul class="lists"></ul>
       <ul class="auto-lists"></ul>
-      <form class="new-list-form" title="Add a new list" style="background: #ffd8e4; padding: 10px; border-radius: 10px; width: 85px;">
+      <form
+        class="new-list-form"
+        title="Add a new list"
+        style="
+          background: #ffd8e4;
+          padding: 10px;
+          border-radius: 10px;
+          width: 85px;
+        "
+      >
         <button type="submit" class="add-button">Nieuwe huiswerklijst</button>
       </form>
     </section>
@@ -201,10 +214,28 @@
         </button>
       </p>
     </form>
-    <dialog class="learn-more-dialog" style="border: 0px;border-radius: 20px;">
-      <a href="" onclick="window.reload()" style="right: 15px;position: absolute;"><img src="close.svg" width="24px" height="24px"></a><p><strong>Clodo</strong> is a simple to do list application that lets you create lists of tasks locally in your browser, or by installing the app.</p>
-      <p>This application uses the <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and Origin-Private File System (OPFS) API for storage.</p>
-      <p>This project is based on Microsoft's <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do">GitHub repository</a>.</p>
+    <dialog class="learn-more-dialog" style="border: 0px; border-radius: 20px">
+      <a
+        href=""
+        onclick="window.reload()"
+        style="right: 15px; position: absolute"
+        ><img src="close.svg" width="24px" height="24px"
+      /></a>
+      <p>
+        <strong>Clodo</strong> is a simple to do list application that lets you
+        create lists of tasks locally in your browser, or by installing the app.
+      </p>
+      <p>
+        This application uses the
+        <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and
+        Origin-Private File System (OPFS) API for storage.
+      </p>
+      <p>
+        This project is based on Microsoft's
+        <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do"
+          >GitHub repository</a
+        >.
+      </p>
       <form action="dialog" id="db-import-export-form">
         <!-- <label for="db-import-file">Database importeren</label>
         <input type="file" id="db-import-file" /> -->
