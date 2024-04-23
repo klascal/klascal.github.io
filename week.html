@@ -770,7 +770,12 @@
           const scheduleHTML = Object.entries(appointmentsByDay)
             .map(([dayName, appointments]) => {
               const appointmentsHTML = appointments
-                .map((appointment) => {
+                .map((appointment, idx, arr) => {
+                  console.log(arr);
+                  const uur = appointment.startTimeSlotName;
+                  const voriguur = idx > 0 ? arr[idx-1].startTimeSlotName : 0;
+                  const leftMarg = 130 * (uur - voriguur - 1); // 130 px per lesuur.
+
                   // Format start and end time
                   const startTime = new Date(
                     appointment.start * 1000
@@ -789,26 +794,24 @@
                   const subjectsFullNames = appointment.subjects.map(
                     (subject) => subjectsMapping[subject] || subject
                   );
-
-                  let changeDescription = "";
-                  if (appointment.changeDescription) {
-                    changeDescription = `<p>${appointment.changeDescription}</p>`;
-                  }
+                  const warning = appointment.changeDescription;
+                  const warningsymbol = warning ? "&#9888;" : "";
 
                   // Generate HTML for each appointment
-                  return `<div class="${
-                    appointment.cancelled ? "cancelled" : ""
-                  }" id="${
-                    appointment.subjects.join(", ") ? "" : "error"
-                  }${subjectsFullNames.join(", ")}">
-                    <p><strong>${subjectsFullNames.join(", ")}</strong></p>
-                    <span style="display: inline-block; width: 105px;">${startTime} - ${endTime}</span><strong style="position:relative;bottom:30px;">${
-                    appointment.startTimeSlotName
-                  }</strong>     
-                    <p>${appointment.locations.join(
-                      ", "
-                    )} (${appointment.teachers.join(", ")})</p>   
-                    <p id="className">${appointment.groups.join(", ")}</p>    
+                  return `<div style="margin-left:${leftMarg}px;" class="${appointment.cancelled ? "cancelled" : ""}" id="${appointment.subjects.join(", ") ? "" : "error"}${subjectsFullNames.join(", ")}">
+                    <p>
+                      <strong>${subjectsFullNames.join(", ")}</strong>
+                      <strong style="float: right;"> ${appointment.startTimeSlotName} </strong>
+                    </p>
+                    <span style="display: inline-block; width: 105px;">${startTime} - ${endTime}</span>
+                    <p> ${appointment.locations.join(", ")} (${appointment.teachers.join(", ")}) </p>
+                    <p id="className">
+                      ${appointment.groups.join(", ")}
+                      <div style="color: yellow; text-shadow: 1px 1px 1px #000; float: right; padding: 0px; margin-right: 0px; background-color: inherit;" onMouseOver="this.children[0].style.display = 'block'" onMouseOut="this.children[0].style.display = 'none'">
+                        ${warningsymbol}
+                        <span style="display: none; z-index: 1; position: absolute; color: black; background-color: yellow; text-shadow: none; border-radius: 5px; padding: 5px"> ${warning} </span>
+                      </div>
+                    </p>
                   </div>`;
                 })
                 .join("");
