@@ -16,7 +16,7 @@ window.onload = function lockA () {
   </head>
   <body>
     <header>
-      <h1><img src="logo2.png" width="24px" height="24px">Huiswerk
+      <h1><img src="https://klascal.github.io/logo2.png" width="24px" height="24px">Huiswerk
         <a href="learn-more"><img src="settings.svg" width="24px" height="24px" style="vertical-align: sub;"></a>
       </h1>
       <form class="search-form" title="search tasks">
@@ -31,7 +31,7 @@ window.onload = function lockA () {
       <ul class="lists"></ul>
       <ul class="auto-lists"></ul>
       <form class="new-list-form" title="Add a new list" style="background: #ffd8e4; padding: 10px; border-radius: 10px; width: 85px;">
-        <button type="submit" class="add-button">Nieuwe huiswerklijst</button>
+        <button type="submit" class="add-button">Nieuwe HW</button>
       </form>
     </section>
     <main>
@@ -173,11 +173,11 @@ window.onload = function lockA () {
       </p>
     </form>
     <dialog class="learn-more-dialog" style="border: 0px;border-radius: 20px;">
-      <a href="" onclick="window.reload()" style="right: 15px;position: absolute;"><img src="close.svg" width="24px" height="24px"></a><p><strong>Clodo</strong> is a simple to do list application that lets you create lists of tasks locally in your browser, or by installing the app.</p>
-      <p>This application uses the <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and Origin-Private File System (OPFS) API for storage.</p>
-      <p>This project is based on Microsoft's <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do">GitHub repository</a>.</p>
+      <a href="" onclick="window.reload()" style="right: 15px;position: absolute;"><img src="close.svg" width="24px" height="24px"></a><p><strong>Klascal Huiswerk</strong> is een eenvoudig te doen lijsttoepassing waarmee u lijsten met taken lokaal in uw browser kunt maken, of door de app te installeren.</p>
+      <p>This application uses the <a href="https://sqlite.org/wasm/">WebAssembly-build van SQLite3</a> en Origin-Private File System (OPFS) API voor opslag.</p>
+      <p>Dit project is gebaseerd op dat van Microsoft <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do">GitHub-opslagplaats</a>.</p>
       <form action="dialog" id="db-import-export-form">
-        <!-- <label for="db-import-file">Import database</label>
+        <!-- <label for="db-import-file">Database importeren</label>
         <input type="file" id="db-import-file" /> -->
         <button type="button" id="db-export-button" class="save-button">Database exporteren</button>
         <button type="button" id="make-db-persistent" class="save-button">Maak de database persistent</button>
