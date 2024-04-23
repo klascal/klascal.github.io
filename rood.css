@@ -1,11 +1,10 @@
 body,
 html {
-  background-color: red !important;
-  color: white !important;
+  background-color: #d00 !important;
 }
 
 a,
 #logo {
-  color: black !important;
-  fill: black !important;
+  color: white !important;
+  fill: white !important;
 }
