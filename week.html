@@ -662,7 +662,7 @@
           <summary>CSS voorbeelden</summary>
           <br />
           <p>Laat klassennamen zien:</p>
-          <pre><code class="language-css hljs" data-highlighted="yes"><span class="hljs-selector-id">#className</span> {<span class="hljs-attribute">display</span>: initial;}</code></pre>
+          <pre><code class="language-css hljs" data-highlighted="yes"><span class="hljs-selector-id">#className</span> {<span class="hljs-attribute">display</span>: block;}</code></pre>
         </details>
         <br />
 
@@ -814,14 +814,16 @@
                       <strong>${subjectsFullNames.join(", ")}</strong>
                       <strong style="float: right;"> ${appointment.startTimeSlotName} </strong>
                     </p>
-                    <span style="display: inline-block; width: 105px;">${startTime} - ${endTime}</span>
-                    <p> ${appointment.locations.join(", ")} (${appointment.teachers.join(", ")}) </p>
-                    <p id="className">
-                      ${appointment.groups.join(", ")}
+                    <p style="display: inline-block; width: 105px;">${startTime} - ${endTime}</p>
+                    <span>
+                      ${appointment.locations.join(", ")} (${appointment.teachers.join(", ")})
                       <div style="color: yellow; text-shadow: 1px 1px 1px #000; float: right; padding: 0px; margin-right: 0px; background-color: inherit;" onMouseOver="this.children[0].style.display = 'block'" onMouseOut="this.children[0].style.display = 'none'">
                         ${warningsymbol}
                         <span style="display: none; z-index: 1; position: absolute; color: black; background-color: yellow; text-shadow: none; border-radius: 5px; padding: 5px"> ${warning} </span>
                       </div>
+                    </span>
+                    <p id="className">
+                      ${appointment.groups.join(", ")}
                     </p>
                   </div>`;
                 })
