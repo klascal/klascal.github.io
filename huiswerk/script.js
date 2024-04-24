@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var deleteButton = document.createElement("button");
       deleteButton.textContent = "Verwijderen";
       deleteButton.style.position = "absolute";
-      deleteButton.style.top = "50%";
+      deleteButton.style.top = "30%";
       deleteButton.style.right = "10px";
       deleteButton.style.transform = "translateY(-50%)";
       deleteButton.style.padding = "5px 10px";
