@@ -86,6 +86,8 @@ header button svg {
   left: 50%;
 
   margin: -8px 0 0 -8px;
+
+  cursor: pointer;
 }
 
 header button svg .fill {
