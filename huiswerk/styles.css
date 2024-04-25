@@ -1,98 +1,321 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
+  background: #edf0f1;
+}
+
+body,
+input,
+button {
+  font-family: "Inter", sans-serif;
+}
+
+.noFill {
+  fill: none;
+}
+
+header {
+  width: calc(100% - 30px);
+
+  position: fixed;
+  padding: 15px;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+
+  background: #1080ce;
+  box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+header input {
+  width: 100%;
+  height: 50px;
+  float: left;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  text-indent: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  margin: 5px;
+}
+
+header input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+header input:-moz-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+header input::-moz-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+header input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+header button {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 25px;
+  background: #fff;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+}
+
+header button svg {
+  width: 16px;
+  height: 16px;
+
+  position: absolute;
+
+  margin: -8px 0 0 -8px;
+
+  cursor: pointer;
+}
+
+header button svg .fill {
+  fill: #1080ce;
 }
 
 .container {
-  max-width: 800px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  float: left;
+  padding: 15px;
+  margin-top: 45px;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
+ul.todo {
+  width: 100%;
+  float: left;
 }
 
-.input-container {
-  display: flex;
-  margin-bottom: 20px;
-}
+ul.todo li {
+  width: 100%;
+  min-height: 50px;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  line-height: 22px;
 
-#homeworkInput {
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
+  background: #fff;
   border-radius: 5px;
-  font-size: 16px;
-}
-
-#deadlineInput {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-#subjectInput {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-#addButton {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-#addButton:hover {
-  background-color: #45a049;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  font-size: 16px;
   position: relative;
+  box-shadow: 0px 1px 2px rgba(44, 62, 80, 0.1);
+  margin: 0 0 10px 0;
+  padding: 14px 100px 14px 14px;
+  word-break: break-word;
 }
 
-.deleteButton {
+ul.todo li:last-of-type {
+  margin: 0;
+}
+
+ul.todo li .buttons {
+  width: 100px;
+  height: 50px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+ul.todo li .buttons button {
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: none;
+  position: relative;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+}
+
+ul.todo li .buttons button:last-of-type:before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  background: #edf0f1;
+
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+ul.todo li .buttons button svg {
+  width: 22px;
+  height: 22px;
+
   position: absolute;
   top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
+  left: 50%;
+
+  margin: -11px 0 0 -11px;
 }
 
-.deleteButton button {
-  padding: 5px 10px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 3px;
+ul.todo li .buttons button.complete svg {
+  border-radius: 11px;
+  border: 1.5px solid #25b99a;
+
+  transition: background 0.2s ease;
+}
+
+ul.todo#completed li .buttons button.complete svg {
+  background: #25b99a;
+  border: 0px;
+}
+
+ul.todo:not(#completed) li .buttons button.complete:hover svg {
+  background: rgba(37, 185, 154, 0.75);
+}
+
+ul.todo:not(#completed) li .buttons button.complete:hover svg .fill {
+  fill: #fff;
+}
+
+ul.todo#completed li .buttons button.complete svg .fill {
+  fill: #fff;
+}
+
+ul.todo li .buttons button svg .fill {
+  transition: fill 0.2s ease;
+}
+
+ul.todo li .buttons button.remove svg .fill {
+  fill: #c0cecb;
+}
+
+ul.todo li .buttons button.remove:hover svg .fill {
+  fill: #e85656;
+}
+
+ul.todo li .buttons button.complete svg .fill {
+  fill: #25b99a;
+}
+
+ul.todo#completed {
+  position: relative;
+  padding: 60px 0 0 0;
+}
+
+ul.todo#completed:before {
+  content: "";
+  width: 150px;
+  height: 1px;
+  background: #d8e5e0;
+
+  position: absolute;
+  top: 30px;
+  left: 50%;
+
+  margin: 0 0 0 -75px;
+}
+
+ul.todo#todo:empty:after {
+  content: "Geen huiswerk!";
+  margin: 15px 0 0 0;
+}
+
+ul.todo#completed:empty:after {
+  content: "Je hebt nog geen huiswerk afgevinkt.";
+}
+
+ul.todo#todo:after,
+ul.todo#completed:after {
+  width: 100%;
+  display: block;
+  text-align: center;
+  color: #aaa;
+}
+
+#icon,
+.icon {
+  fill: black;
+}
+
+.btn {
+  background-color: #ddd;
+  border: 0;
+  padding: 0.5rem 1rem;
+  line-height: 1.5;
+  border-radius: 4rem;
+  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+  text-decoration: none !important;
+  margin: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.btn:hover {
+  text-decoration: none;
+  background-color: #ccc;
+}
+
+#taskList div {
+  padding: 10px;
+  background: #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  #icon,
+  .icon {
+    fill: white;
+  }
+  body {
+    background: #000;
+    color: white;
+  }
+  #add {
+    background: #333;
+  }
+  ul.todo li {
+    background: #333;
+    color: #fff;
+  }
+  .btn {
+    color: white !important;
+    background-color: #363636 !important;
+    text-shadow: none !important;
+  }
+  .btn:hover {
+    color: white !important;
+    background-color: #444 !important;
+  }
+  #taskList div {
+    background: #333;
+  }
+}
+
+#taskList div span {
+  position: absolute;
+  right: 10px;
   cursor: pointer;
 }
 
-.deleteButton button:hover {
-  background-color: #d32f2f;
+@media (min-width: 380px) {
+  header button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 379px) {
+  header button {
+    position: absolute;
+    right: 5px;
+    bottom: 20px;
+  }
 }
