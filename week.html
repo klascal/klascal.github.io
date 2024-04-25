@@ -747,26 +747,6 @@
             "Zaterdag:",
           ];
 
-          // Object to map subject abbreviations to their full names
-          const subjectsMapping = {
-            ak: "AK",
-            gs: "GS",
-            mn: "MN",
-            ne: "NE",
-            wi: "WI",
-            lo: "LO",
-            en: "EN",
-            ict: "ICT",
-            men: "MEN",
-            ha: "HA",
-            ontw: "ONTW",
-            mu: "MU",
-            fa: "FA",
-            gd: "GD",
-            te: "TE",
-            in: "IN",
-          };
-
           // Group appointments by day
           const appointmentsByDay = appointments.reduce((acc, appointment) => {
             const currentDay = new Date(appointment.start * 1000).getDay();
@@ -804,7 +784,7 @@
 
                   // Map subject abbreviations to full names
                   const subjectsFullNames = appointment.subjects.map(
-                    (subject) => subjectsMapping[subject] || subject
+                    (subject) => subject.toUpperCase()
                   );
                   const warning = appointment.changeDescription;
                   const warningsymbol = warning ? "&#9888;" : "";
