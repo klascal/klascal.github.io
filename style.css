@@ -1,0 +1,467 @@
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff")
+      format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff")
+      format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff")
+      format("woff");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff")
+      format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff")
+      format("woff");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff")
+      format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff")
+      format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff")
+      format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff")
+      format("woff");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff")
+      format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff")
+      format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff")
+      format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff")
+      format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff")
+      format("woff");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff")
+      format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff")
+      format("woff");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff2")
+      format("woff2"),
+    url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+body,
+html {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #ffffff !important; /* Default background color */
+  color: #000000; /* Default text color */
+}
+
+dialog {
+  background-color: white;
+}
+
+#inputForm {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+span.schedule {
+  display: block;
+}
+
+.les {
+  display: inline-block;
+  background-color: #bee;
+  padding: 10px;
+  margin-right: 5px;
+  border-radius: 10px;
+}
+
+.warning {
+  color: yellow;
+  text-shadow: 0px 0px 2px #000;
+  float: right;
+  padding: 0px;
+  margin-right: 0px;
+  background-color: inherit;
+}
+
+.warning .warningMessage {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  color: black;
+  background-color: yellow;
+  text-shadow: none;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.warning:hover .warningMessage {
+  display: block;
+}
+
+strong.lesuur {
+  float: right;
+}
+
+.les p {
+  margin: 0;
+}
+
+p.lestijden {
+  display: block;
+  width: 105px;
+}
+
+.cancelled {
+  background-color: red !important;
+  color: white;
+}
+
+.cancelled strong {
+  color: white;
+}
+
+strong {
+  font-size: x-large;
+}
+
+@font-face {
+  font-family: "Pluto";
+  src: url("https://blissradio.github.io/PlutoBold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1 {
+  color: #1080ce;
+  margin: 0;
+  padding-left: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+h3 {
+  margin: 0px;
+  width: 150px;
+  text-align: left;
+}
+
+dialog[open] {
+  opacity: 1;
+  pointer-events: inherit;
+}
+
+#settingsButton {
+  right: 10px;
+  position: absolute;
+  margin: 10px;
+  cursor: pointer;
+  fill: black;
+}
+
+.schedule {
+  margin-top: 40px;
+}
+
+.className {
+  display: none;
+}
+
+.btn {
+  background-color: #f1f1f1;
+  border: 0;
+  padding: 0.5rem 1rem;
+  line-height: 1.5;
+  border-radius: 4rem;
+  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+  text-decoration: none !important;
+}
+
+#previousDay,
+#nextDay,
+#loadSchedule,
+#settingsButton {
+  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+.btn:hover {
+  text-decoration: none;
+  background-color: #f1f1f1;
+}
+
+button:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #f1f1f1;
+  text-decoration: none;
+}
+
+#icon,
+.icon {
+  fill: black !important;
+  vertical-align: middle;
+}
+
+#error {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  body {
+    display: none !important;
+  }
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  body,
+  html,
+  dialog {
+    background-color: #000000 !important;
+    color: #ffffff;
+  }
+
+  .btn {
+    color: white !important;
+    background-color: #363636 !important;
+    text-shadow: none !important;
+  }
+
+  .btn:hover {
+    color: white !important;
+    background-color: #444 !important;
+  }
+
+  .btn:hover,
+  .btn:active,
+  #previousDay:hover,
+  #nextDay:hover,
+  #loadSchedule:hover,
+  #settingsButton:hover {
+    color: white !important;
+    background-color: #444 !important;
+  }
+
+  #close:hover {
+    background-color: red !important;
+  }
+
+  #icon,
+  .icon {
+    fill: white !important;
+    vertical-align: middle;
+  }
+
+  #inputForm {
+    color: #ffffff;
+  }
+
+  button[type="submit"] {
+    background-color: #004080;
+  }
+
+  .les {
+    background-color: #2a2a2a;
+    color: #ffffff;
+  }
+
+  #settingsButton {
+    fill: white;
+  }
+}
+
