@@ -262,7 +262,7 @@
 
       #schedule span div {
         display: inline-block;
-        background-color: #eee;
+        background-color: #bee;
         padding: 10px;
         margin-right: 5px;
         border-radius: 10px;
@@ -784,7 +784,6 @@
             .map(([dayName, appointments]) => {
               const appointmentsHTML = appointments
                 .map((appointment, idx, arr) => {
-                  console.log(arr);
                   const uur = appointment.startTimeSlotName;
                   const voriguur = idx > 0 ? arr[idx - 1].startTimeSlotName : 0;
                   const leftMarg = 130 * (uur - voriguur - 1); // 130 px per lesuur.
