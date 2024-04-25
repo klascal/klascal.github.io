@@ -208,8 +208,9 @@
           class="btn"
           style="font-family: inherit"
           required
+          onchange="deleteTGOption()"
         >
-          <option value="css">Type gebruiker</option>
+          <option value="TG">Type gebruiker</option>
           <option value="student">Leerling</option>
           <option value="teacher">Docent</option></select
         ><br /><br />
@@ -261,5 +262,17 @@
     <div id="schedule" class="schedule"></div>
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="scheduleWeek.js"></script>
+    <script>
+      function deleteTGOption() {
+  var userTypeSelect = document.getElementById("userType");
+  var selectedValue = userTypeSelect.value;
+  if (selectedValue === "student" || selectedValue === "teacher") {
+    var tgOption = userTypeSelect.querySelector('option[value="TG"]');
+    if (tgOption) {
+      tgOption.remove();
+    }
+  }
+}
+    </script>
   </body>
 </html>
