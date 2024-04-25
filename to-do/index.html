@@ -1,256 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
+    <!-- Content Type Meta tag -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!--Responsive Viewport Meta tag-->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
+      content="width=device-width, initial-scale=1, user-scalable=no"
     />
-    <title>Huiswerk</title>
-    <link rel="manifest" href="https://klascal.github.io/app.webmanifest" />
-    <link rel="stylesheet" href="app.css" />
-    <script>
-      window.onload = function lockA() {
-        var xPos = window.scrollX;
-        var yPos = window.scrollY;
-        window.onscroll = () => window.scroll(xPos, yPos);
-      };
-    </script>
+
+    <title>Klascal</title>
+
+    <!-- Roboto font embed -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="resources/css/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
   </head>
   <body>
+    <span class="btn" style="cursor: pointer">
+      <svg
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        onclick="history.back()"
+        id="icon"
+      >
+        <path
+          d="M10.55 2.533a2.25 2.25 0 0 1 2.9 0l6.75 5.695c.508.427.8 1.056.8 1.72v9.802a1.75 1.75 0 0 1-1.75 1.75h-3a1.75 1.75 0 0 1-1.75-1.75v-5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75v5a1.75 1.75 0 0 1-1.75 1.75h-3A1.75 1.75 0 0 1 3 19.75V9.947c0-.663.292-1.292.8-1.72l6.75-5.694Z"
+        /></svg
+    ></span>
+
+    <div class="container">
+      <!-- Uncompleted tasks -->
+      <ul class="todo" id="todo"></ul>
+
+      <!-- Completed tasks -->
+      <ul class="todo" id="completed"></ul>
+    </div>
+
     <header>
-      <h1>
-        <img
-          src="https://klascal.github.io/logo.svg"
-          width="24px"
-        />Huiswerk
-        <a href="learn-more"
-          ><img
-            src="settings.svg"
-            width="24px"
-            height="24px"
-            style="vertical-align: sub"
-        /></a>
-      </h1>
-      <form class="search-form" title="search tasks">
-        <input
-          type="text"
-          id="search-query"
-          placeholder="Zoeken naar huiswerk"
-        />
-        <button type="submit" class="search-button no-label">Zoeken</button>
-      </form>
-      <dialog class="search-results">
-        <ul class="tasks"></ul>
-      </dialog>
-    </header>
-    <section class="sidebar" title="Task lists">
-      <ul class="lists"></ul>
-      <ul class="auto-lists"></ul>
-      <form
-        class="new-list-form"
-        title="Add a new list"
-        style="
-          background: #ffd8e4;
-          padding: 10px;
-          border-radius: 10px;
-          width: 85px;
-        "
-      >
-        <button type="submit" class="add-button">Nieuwe huiswerklijst</button>
-      </form>
-    </section>
-    <main>
-      <form class="edit-list-form">
-        <input type="hidden" id="edit-list-id" />
-        <label for="edit-list-title">Titel</label>
-        <input type="text" id="edit-list-title" size="15" />
-        <button type="submit" class="edit-button no-label">Hernoem</button>
-      </form>
-      <div class="more-list-actions" title="More actions">
-        <dialog class="more-list-actions-dialog">
-          <form method="dialog" class="more-list-actions-form">
-            <fieldset class="list-colors">
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-peachpuff"
-                value="peachpuff"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-aliceblue"
-                value="aliceblue"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-aquamarine"
-                value="aquamarine"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-beige"
-                value="beige"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-khaki"
-                value="khaki"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-lavenderblush"
-                value="lavenderblush"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-lightcyan"
-                value="lightcyan"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-mintcream"
-                value="mintcream"
-              />
-              <input
-                type="radio"
-                name="list-color"
-                id="list-color-lemonchiffon"
-                value="lemonchiffon"
-              />
-            </fieldset>
-            <button type="button" id="delete-list-button" class="delete-button">
-              Delete list
-            </button>
-          </form>
-        </dialog>
-      </div>
-      <ul class="tasks"></ul>
-      <form class="new-task-form" title="Add a new task">
-        <input
-          type="text"
-          id="new-task"
-          placeholder="Voeg nieuw huiswerk toe"
-          style="background: white"
-        />
-        <button type="submit" class="add-button no-label">Toevoegen</button>
-      </form>
-    </main>
-    <form
-      class="edit-task-form"
-      title="Bewerk het huidige huiswerk, selecteer eerst het huiswerk."
-    >
-      <button
-        type="reset"
-        class="close-button no-label"
-        id="close-edit-task-form"
-        title="Sluit het huiswerk veranderscherm"
-      >
-        Close
+      <input type="text" placeholder="Voeg huiswerk toe" id="item" />
+      <button id="add">
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 16 16"
+          style="enable-background: new 0 0 16 16"
+          xml:space="preserve"
+        >
+          <g>
+            <path
+              class="fill"
+              d="M16,8c0,0.5-0.5,1-1,1H9v6c0,0.5-0.5,1-1,1s-1-0.5-1-1V9H1C0.5,9,0,8.5,0,8s0.5-1,1-1h6V1c0-0.5,0.5-1,1-1s1,0.5,1,1v6h6C15.5,7,16,7.5,16,8z"
+            />
+          </g>
+        </svg>
       </button>
-      <input type="hidden" id="edit-task-id" />
-      <p>
-        <input type="checkbox" id="edit-task-completed" />
-        <label for="edit-task-completed">Voltooid</label>
-      </p>
-      <p>
-        <label for="edit-task-title">Titel</label>
-        <input type="text" id="edit-task-title" />
-      </p>
-      <p>
-        <label for="edit-task-notes">Notities</label>
-        <textarea id="edit-task-notes"></textarea>
-      </p>
-      <p>
-        <label for="edit-task-dueby">Deadline op</label>
-        <input type="datetime-local" id="edit-task-dueby" />
-      </p>
-      <p class="upload">
-        <label for="edit-task-file">Bijlage</label>
-        <input type="file" id="edit-task-file" />
-      </p>
-      <p class="download">
-        <label for="task-file-download">Bijlage</label>
-        <a
-          href=""
-          id="task-file-download"
-          title="Download het bijgevoegde bestand"
-          >Download</a
-        >
-        <button
-          id="delete-task-file-button"
-          title="Het bijgevoegde bestand van deze taak is verwijderd"
-          class="delete-button"
-        >
-          Verwijder de bijlage
-        </button>
-      </p>
-      <p class="submit">
-        <button
-          type="submit"
-          id="edit-task-button"
-          title="Sla huiswerk op"
-          class="save-button"
-          disabled
-        >
-          Opslaan
-        </button>
-        <button
-          type="reset"
-          id="delete-task-button"
-          title="Verwijder huiswerk"
-          class="delete-button"
-          disabled
-        >
-          Verwijder
-        </button>
-      </p>
-    </form>
-    <dialog class="learn-more-dialog" style="border: 0px; border-radius: 20px">
-      <a
-        href=""
-        onclick="window.reload()"
-        style="right: 15px; position: absolute"
-        ><img src="close.svg" width="24px" height="24px"
-      /></a>
-      <p>
-        <strong>Clodo</strong> is a simple to do list application that lets you
-        create lists of tasks locally in your browser, or by installing the app.
-      </p>
-      <p>
-        This application uses the
-        <a href="https://sqlite.org/wasm/">WebAssembly build of SQLite3</a> and
-        Origin-Private File System (OPFS) API for storage.
-      </p>
-      <p>
-        This project is based on Microsoft's
-        <a href="https://github.com/MicrosoftEdge/Demos/tree/main/pwa-to-do"
-          >GitHub repository</a
-        >.
-      </p>
-      <form action="dialog" id="db-import-export-form">
-        <!-- <label for="db-import-file">Database importeren</label>
-        <input type="file" id="db-import-file" /> -->
-        <button type="button" id="db-export-button" class="save-button">
-          Database exporteren
-        </button>
-        <button type="button" id="make-db-persistent" class="save-button">
-          Maak de database blijvend
-        </button>
-      </form>
-    </dialog>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js");
-      }
-    </script>
-    <script type="module" src="app.js" async></script>
+    </header>
+
+    <!-- JavaScripts -->
+    <script src="resources/js/main.js"></script>
   </body>
 </html>
