@@ -8,6 +8,11 @@ button {
   font-family: "Inter", sans-serif;
 }
 
+input[type="date" i] {
+  position: relative;
+  left: -10px;
+}
+
 .noFill {
   fill: none;
 }
