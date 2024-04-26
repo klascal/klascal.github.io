@@ -13,6 +13,17 @@
           display: none;
         }
       }
+      @media screen {
+      .oPrint {
+        display: none;
+      }
+    }
+
+    @media print {
+      .oPrint {
+        display: inline-block;
+      }
+    }
     </style>
   </head>
   <body
@@ -54,7 +65,9 @@
           style="text-decoration: none; user-select: none; color: #1080ce"
           >Klascal</a
         ></span
-      ><svg
+      ><h1 class="Oprint">
+        Hello
+      </h1><svg
         width="24"
         height="24"
         onclick="window.print()"
