@@ -15,7 +15,7 @@
         fill="none"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        onclick="history.back()"
+        onclick="homeButton()"
         id="icon"
       >
         <path
@@ -24,12 +24,12 @@
     ></span>
     <header>
       <div class="input-container">
-        <input type="date" id="deadlineInput" style="width: initial" />
+        <input type="date" id="deadlineInput" style="width: initial; text-align: center; padding-right: 30px;" />
         <input
           type="text"
           id="subjectInput"
           placeholder="Vak"
-          style="width: 125px"
+          style="width: 125px; padding-right: 20px;"
         />
         <input
           type="text"
@@ -38,7 +38,7 @@
           style="
             width: 70%;
             border-radius: 5px 25px 25px 5px;
-            padding: 0 60px 0 0;
+            padding: 0 40px 0 0;
           "
         />
         <button id="addButton">

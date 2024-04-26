@@ -125,3 +125,7 @@ function showNotification(title, body) {
     });
   }
 }
+
+function homeButton() {
+  window.location.replace("/");
+}
