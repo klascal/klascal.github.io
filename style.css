@@ -196,6 +196,12 @@
   font-display: swap;
 }
 
+@media print{
+  .noprint{
+      display:none;
+  }
+}
+
 body,
 html {
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
