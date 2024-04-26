@@ -196,9 +196,9 @@
   font-display: swap;
 }
 
-@media print{
-  .noprint{
-      display:none;
+@media print {
+  svg.btn {
+    display: none;
   }
 }
 
