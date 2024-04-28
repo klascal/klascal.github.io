@@ -280,6 +280,15 @@
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="scheduleWeek.js"></script>
     <script>
+      
+      let docTitle = document.title;
+      window.addEventListener("blur", () =>{
+        document.title = "Rooster Klascal";
+      })
+      window.addEventListener("focus", () =>{
+        document.title = docTitle;
+      })
+
 document.addEventListener("DOMContentLoaded", function() {
   var userTypeSelect = document.getElementById("userType");
 

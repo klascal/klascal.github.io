@@ -847,6 +847,15 @@
     </a>
 
     <script>
+      
+      let docTitle = document.title;
+      window.addEventListener("blur", () =>{
+        document.title = "Rooster Klascal";
+      })
+      window.addEventListener("focus", () =>{
+        document.title = docTitle;
+      })
+
       // Dutch month names
       const dutchMonthNames = [
         "januari",
