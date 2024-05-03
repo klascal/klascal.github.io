@@ -1282,13 +1282,11 @@
     </script>
     <script src="https://lab.hakim.se/zoom-js/js/zoom.js"></script>
     <script>
-if (window.innerWidth > 600) {
-  document
-    .querySelector("#schedule")
-    .addEventListener("click", function (event) {
-      event.preventDefault();
-      zoom.to({ element: event.target });
-    });
+if (!("ontouchstart" in document.documentElement)) {
+document.querySelector("#schedule").addEventListener("click", function (event) {
+    event.preventDefault();
+    zoom.to({ element: event.target });
+  });
 }
     </script>
   </body>
