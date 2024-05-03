@@ -417,6 +417,13 @@
         }
       }
 
+      @media (min-width: 400px) {
+        #vaknaam {
+          display: inline-block;
+          width: 300px;
+        }
+      }
+
       @media (max-width: 375px) {
         .loadSettings {
           position: absolute;
@@ -985,7 +992,7 @@
                 gds: "Godsdienst",
                 wis: "Wiskunde",
                 die: "Diëtetiek",
-                kubv: "Kunst: Beeldende Vakken",
+                kubv: "Kunst Beeldende Vakken",
                 bg: "Begeleiding",
                 sp: "Spaans",
               };
@@ -1003,7 +1010,7 @@
               // Create appointment HTML
               const appointmentDiv = document.createElement("div");
               appointmentDiv.innerHTML = `
-                <p><strong style="display: inline-block;width: 300px;">${subjectsFullNames.join(
+                <p><strong id="vaknaam">${subjectsFullNames.join(
                   ", "
                 )}</strong><strong style="position:absolute;right:25px;">${
                 appointment.startTimeSlot
