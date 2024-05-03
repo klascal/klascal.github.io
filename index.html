@@ -417,13 +417,6 @@
         }
       }
 
-      @media (min-width: 400px) {
-        #vaknaam {
-          display: inline-block;
-          width: 300px;
-        }
-      }
-
       @media (max-width: 375px) {
         .loadSettings {
           position: absolute;
@@ -1289,12 +1282,14 @@
     </script>
     <script src="https://lab.hakim.se/zoom-js/js/zoom.js"></script>
     <script>
-      document
-        .querySelector("#schedule")
-        .addEventListener("click", function (event) {
-          event.preventDefault();
-          zoom.to({ element: event.target });
-        });
+if (window.innerWidth > 600) {
+  document
+    .querySelector("#schedule")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      zoom.to({ element: event.target });
+    });
+}
     </script>
   </body>
 </html>
