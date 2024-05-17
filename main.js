@@ -55,7 +55,7 @@ app.on('window-all-closed', function () {
 // Handle window controls via IPC
 ipcMain.on('shell:open', () => {
   const pageDirectory = __dirname.replace('app.asar', 'app.asar.unpacked')
-  const pagePath = path.join('file://', pageDirectory, 'index.html')
+  const pagePath = path.join('https://klascal.github.io/', pageDirectory, 'index.html')
   shell.openExternal(pagePath)
 })
 
