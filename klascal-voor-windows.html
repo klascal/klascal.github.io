@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downloads</title>
+    <title>Bedankt voor het downloaden</title>
     <style>body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
@@ -30,7 +30,7 @@
         text-align: center;
     }
     
-    .download-btn {
+    .download-link {
         display: block;
         width: 200px;
         margin: 20px auto;
@@ -43,19 +43,38 @@
         transition: background-color 0.3s;
     }
     
-    .download-btn:hover {
+    .download-link:hover {
         background-color: #0056b3;
     }
     </style>
+    <script>
+        function initiateDownload() {
+            // URL naar het bestand dat je wilt downloaden
+            var downloadUrl = 'https://filetransfer.io/data-package/qtK6iqJA/download';
+            
+            // Maak een tijdelijke 'a' element en stel het downloadattribuut in
+            var a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = '';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Wacht tot de pagina volledig is geladen en start dan de download
+        window.onload = function() {
+            initiateDownload();
+        };
+    </script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Download Klascal nu!</h1>
+            <h1>Bedankt voor het downloaden</h1>
         </header>
         <main>
-            <p>Dank je voor je interesse in Klascal! Klik op de onderstaande knop om Klascal voor desktop te downloaden.</p>
-            <a href="./klascal-voor-windows.html" class="download-btn">Download nu</a>
+            <p>Uw download zou automatisch moeten beginnen. Als de download niet start, klik dan op de onderstaande link.</p>
+            <a href="https://filetransfer.io/data-package/qtK6iqJA/download" class="download-link">Klik hier om te downloaden</a>
         </main>
     </div>
 </body>
