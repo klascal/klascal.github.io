@@ -3,6 +3,6 @@
 // All APIs exposed by the context bridge are available here.
 
 // Binds the buttons to the context bridge API.
-document.getElementById('open-in-browser').addEventListener('click', () => {
-    window.shell.open()
-  })
+document.getElementById("open-in-browser").addEventListener("click", () => {
+  window.shell.open();
+});
