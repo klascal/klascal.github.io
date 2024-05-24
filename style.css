@@ -396,12 +396,6 @@ button:not(:disabled):not(.disabled) {
   display: none !important;
 }
 
-@media (max-width: 600px) {
-  body {
-    display: none !important;
-  }
-}
-
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   body,

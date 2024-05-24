@@ -14,16 +14,16 @@
         }
       }
       @media screen {
-      .oPrint {
-        display: none;
+        .oPrint {
+          display: none;
+        }
       }
-    }
 
-    @media print {
-      .oPrint {
-        display: inline-block;
+      @media print {
+        .oPrint {
+          display: inline-block;
+        }
       }
-    }
     </style>
   </head>
   <body
@@ -280,44 +280,43 @@
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="scheduleWeek.js"></script>
     <script>
-      
       let docTitle = document.title;
-      window.addEventListener("blur", () =>{
+      window.addEventListener("blur", () => {
         document.title = "Rooster Klascal";
-      })
-      window.addEventListener("focus", () =>{
+      });
+      window.addEventListener("focus", () => {
         document.title = docTitle;
-      })
+      });
 
-document.addEventListener("DOMContentLoaded", function() {
-  var userTypeSelect = document.getElementById("userType");
+      document.addEventListener("DOMContentLoaded", function () {
+        var userTypeSelect = document.getElementById("userType");
 
-  // Load the selected option from localStorage
-  var selectedValue = localStorage.getItem("selectedUserType");
-  if (selectedValue) {
-    userTypeSelect.value = selectedValue;
-  }
+        // Load the selected option from localStorage
+        var selectedValue = localStorage.getItem("selectedUserType");
+        if (selectedValue) {
+          userTypeSelect.value = selectedValue;
+        }
 
-  // Handle change event
-  userTypeSelect.addEventListener("change", function() {
-    var selectedValue = this.value;
-    localStorage.setItem("selectedUserType", selectedValue);
-    deleteTGOption(selectedValue);
-  });
+        // Handle change event
+        userTypeSelect.addEventListener("change", function () {
+          var selectedValue = this.value;
+          localStorage.setItem("selectedUserType", selectedValue);
+          deleteTGOption(selectedValue);
+        });
 
-  // Function to delete TG option
-  function deleteTGOption(selectedValue) {
-    if (selectedValue === "student" || selectedValue === "teacher") {
-      var tgOption = userTypeSelect.querySelector('option[value="TG"]');
-      if (tgOption) {
-        tgOption.remove();
-      }
-    }
-  }
+        // Function to delete TG option
+        function deleteTGOption(selectedValue) {
+          if (selectedValue === "student" || selectedValue === "teacher") {
+            var tgOption = userTypeSelect.querySelector('option[value="TG"]');
+            if (tgOption) {
+              tgOption.remove();
+            }
+          }
+        }
 
-  // Delete TG option based on the initial selected value
-  deleteTGOption(userTypeSelect.value);
-});
+        // Delete TG option based on the initial selected value
+        deleteTGOption(userTypeSelect.value);
+      });
     </script>
   </body>
 </html>
