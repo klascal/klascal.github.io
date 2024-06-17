@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bedankt voor het downloaden</title>
-    <meta
-      http-equiv="refresh"
-      content="0; url=https://drive.usercontent.google.com/download?id=17HBxnBxIrVXKvsiVUo_n0L7oWOTmgDUr&export=download&authuser=0&confirm=t&uuid=57708c39-dae6-4cd5-b586-f82fc3e237c4&at=APZUnTUJGv4sv5KERL28nFObveFU:1718651857515"
-    />
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
     <style>
       body {
@@ -70,12 +66,14 @@
           Uw download zou automatisch moeten beginnen. Als de download niet
           start, klik dan op de onderstaande link.
         </p>
-        <a
-          href="https://drive.usercontent.google.com/download?id=17HBxnBxIrVXKvsiVUo_n0L7oWOTmgDUr&export=download&authuser=0&confirm=t&uuid=57708c39-dae6-4cd5-b586-f82fc3e237c4&at=APZUnTUJGv4sv5KERL28nFObveFU:1718651857515"
-          class="download-link"
-          download
-          >Klik hier om te downloaden</a
-        >
+        <form id="download-link" action="https://drive.usercontent.google.com/download" method="get">
+          <input type="submit" id="uc-download-link" class="goog-inline-block jfk-button jfk-button-action" value="Klik hier om te downloaden"/>
+          <input type="hidden" name="id" value="17HBxnBxIrVXKvsiVUo_n0L7oWOTmgDUr">
+          <input type="hidden" name="export" value="download">
+          <input type="hidden" name="authuser" value="0">
+          <input type="hidden" name="confirm" value="t">
+          <input type="hidden" name="uuid" value="b77c6211-f48e-4a21-a292-56286a5f1057">
+          <input type="hidden" name="at" value="APZUnTWSi5SqCOg3DClHB1cYM5kG:1718652640399"></form>
       </main>
     </div>
   </body>
