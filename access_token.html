@@ -405,14 +405,8 @@
         right: 8px;
       }
 
-      @media (max-width: 600px) {
-        #weekButton {
-          display: none !important;
-        }
-      }
       @media (max-width: 481px) {
-        #field span,
-        #weekButton {
+        #field span {
           display: none;
         }
       }
@@ -447,6 +441,9 @@
       @media (prefers-color-scheme: dark) {
         #add {
           background: #333;
+        }
+        #add:hover {
+          background: #555;
         }
       }
     </style>
@@ -735,15 +732,17 @@
         required
       /><br /><br />
 
-      <label for="authorizationCode">Token:</label>
+      <label for="authorization">Token:</label>
       <input
         type="text"
-        id="authorizationCode"
-        name="authorizationCode"
+        id="authorization"
+        name="authorization"
         class="btn"
         style="background-color: #ddd"
         required
-      /><br /><br />
+      />
+      <input type="text" id="authorizationCode" style="display: none" />
+      <br /><br />
 
       <label for="user">Gebruikersnaam:</label>
       <input
@@ -822,7 +821,7 @@
         height="104px"
       /><br />
       Geen rooster gevonden voor deze dag.</strong
-    ><span id="token-display"></span>
+    >
     <div id="schedule">
       <!-- Appointments will be displayed here -->
     </div>
@@ -847,35 +846,12 @@
     </a>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        async function logMovies() {
-          const schoolName = document.getElementById("schoolName").value;
-          const authorizationCode =
-            document.getElementById("authorizationCode").value;
-
-          try {
-            const response = await fetch(
-              `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`,
-              {
-                method: "POST",
-              }
-            );
-
-            if (response.ok) {
-              const data = await response.json();
-              const accessToken = data.access_token;
-              const tokenDisplay = document.getElementById("token-display");
-              tokenDisplay.textContent = `${accessToken}`;
-            } else {
-              throw new Error("Failed to retrieve access token");
-            }
-          } catch (error) {
-            console.error(error);
-            alert(
-              "An error occurred while retrieving the access token. Please try again."
-            );
-          }
-        }
+      let docTitle = document.title;
+      window.addEventListener("blur", () => {
+        document.title = "Rooster Klascal";
+      });
+      window.addEventListener("focus", () => {
+        document.title = docTitle;
       });
 
       // Dutch month names
@@ -895,8 +871,7 @@
       ];
 
       // Function to fetch appointments for the specified date
-      function fetchAppointments(date) {
-        // Parse the input date string to get the date and month
+      async function fetchAppointments(date) {
         const [day, monthName] = date.split(" ");
         const monthIndex = dutchMonthNames.findIndex(
           (month) => month.toLowerCase() === monthName.toLowerCase()
@@ -916,14 +891,43 @@
         const startDate = new Date(currentYear, monthIndex, parseInt(day, 10));
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 1);
+
         const user = document.getElementById("user").value;
         const schoolName = document.getElementById("schoolName").value;
         const authorizationCode =
-          document.getElementById("token-display").value;
+          document.getElementById("authorization").value;
+
+        // Step 1: Exchange authorization code for an access token
+        const tokenResponse = await fetch(
+          `https://${schoolName}.zportal.nl/api/v3/oauth/token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `grant_type=authorization_code&code=${authorizationCode}`,
+          }
+        );
+
+        const tokenData = await tokenResponse.json();
+        const accessToken = tokenData.access_token;
+
+        if (!accessToken) {
+          console.error("Failed to obtain access token.");
+          return;
+        }
+
+        if (accessToken !== "") {
+          document.getElementById("authorizationCode").value = accessToken;
+          localStorage.setItem("authorizationCode", accessToken);
+        }
+
+        const token = document.getElementById("authorizationCode").value;
+
         const startTimestamp = Math.floor(startDate.getTime() / 1000);
         const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-        const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${authorizationCode}`;
+        const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${token}`;
 
         fetch(apiUrl)
           .then((response) => response.json())
@@ -1007,9 +1011,11 @@
                 gds: "Godsdienst",
                 wis: "Wiskunde",
                 die: "Diëtetiek",
-                kubv: "Kunst: Beeldende Vakken",
+                kubv: "Kunst Beeldende Vakken",
                 bg: "Begeleiding",
                 sp: "Spaans",
+                BSA: "Bindend studieadvies",
+                bsa: "Bindend studieadvies",
               };
 
               // Map subjects abbreviations to full names
@@ -1025,175 +1031,76 @@
               // Create appointment HTML
               const appointmentDiv = document.createElement("div");
               appointmentDiv.innerHTML = `
-                <p><strong>${subjectsFullNames.join(
+                <p><strong id="vaknaam">${subjectsFullNames.join(", ")}</strong>
+                <strong style="position:absolute;right:25px;">${
+                  appointment.startTimeSlot
+                }</strong></p>
+                <p>${startTimeString} - ${endTimeString} 
+                <span style="margin-left: 10px;">${appointment.locations.join(
                   ", "
-                )}</strong><strong style="position:absolute;right:25px;">${
-                appointment.startTimeSlot
-              }</strong></p>
-                <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
-                ", "
-              )} (${appointment.teachers.join(", ")})</span></p>
-              <p class="className">${appointment.groups.join(", ")}</p>
-              <p>
-                ${
+                )} 
+                (${appointment.teachers.join(", ")})</span></p>
+                <p class="className">${appointment.groups.join(", ")}</p>
+                <p>${
                   appointment.changeDescription
                     ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align: sub;"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z" fill="#ff9800"/></svg>'
                     : ""
-                } 
-                ${appointment.changeDescription}
-              </p>
+                }
+                  ${appointment.changeDescription}</p>
               `;
-
-              // Add cancelled class if appointment is cancelled
-              if (appointment.cancelled === true) {
-                appointmentDiv.classList.add("cancelled");
-              }
-
               scheduleDiv.appendChild(appointmentDiv);
             });
           })
-          .catch((error) => console.error("Error fetching data:", error));
+          .catch((error) => {
+            console.error("Error fetching data from Zermelo API:", error);
+          });
       }
 
-      // Function to filter out cancelled lessons if there are multiple lessons for the same hour
+      // Event listener for button click
+      document.getElementById("loadSchedule").addEventListener("click", () => {
+        const dateInput = document.getElementById("dateInput").value;
+        fetchAppointments(dateInput);
+      });
+
+      // Date navigation functions
+      let currentDate = new Date();
+      document.getElementById("previousDay").addEventListener("click", () => {
+        currentDate.setDate(currentDate.getDate() - 1);
+        const dateString = `${currentDate.getDate()} ${
+          dutchMonthNames[currentDate.getMonth()]
+        }`;
+        document.getElementById("dateInput").value = dateString;
+        fetchAppointments(dateString);
+      });
+
+      document.getElementById("nextDay").addEventListener("click", () => {
+        currentDate.setDate(currentDate.getDate() + 1);
+        const dateString = `${currentDate.getDate()} ${
+          dutchMonthNames[currentDate.getMonth()]
+        }`;
+        document.getElementById("dateInput").value = dateString;
+        fetchAppointments(dateString);
+      });
+
+      // Helper function to filter out cancelled lessons if there are multiple lessons for the same hour
       function filterCancelledLessons(appointments) {
         const filteredAppointments = [];
+        const timeSlotMap = new Map();
 
         appointments.forEach((appointment) => {
-          // Check if there is already an appointment for the same hour
-          const existingAppointment = filteredAppointments.find(
-            (appt) =>
-              appt.startTimeSlot === appointment.startTimeSlot &&
-              appt.start <= appointment.start &&
-              appt.end >= appointment.end
-          );
+          const timeSlot = appointment.startTimeSlot;
 
-          if (existingAppointment) {
-            // If there's already an appointment and it's not cancelled, keep it and discard the current one
-            if (!existingAppointment.cancelled && appointment.cancelled) {
-              return;
-            }
-            // If the existing appointment is cancelled, replace it with the current one
-            if (existingAppointment.cancelled && !appointment.cancelled) {
-              filteredAppointments.splice(
-                filteredAppointments.indexOf(existingAppointment),
-                1,
-                appointment
-              );
-            }
-          } else {
-            filteredAppointments.push(appointment);
+          if (!timeSlotMap.has(timeSlot) || !appointment.cancelled) {
+            timeSlotMap.set(timeSlot, appointment);
           }
+        });
+
+        timeSlotMap.forEach((appointment) => {
+          filteredAppointments.push(appointment);
         });
 
         return filteredAppointments;
       }
-
-      // Function to handle loading schedule when button is clicked
-      document
-        .getElementById("loadSchedule")
-        .addEventListener("click", function () {
-          const dateInput = document.getElementById("dateInput").value;
-          fetchAppointments(dateInput);
-        });
-
-      // Function to handle previous day button click
-      document
-        .getElementById("previousDay")
-        .addEventListener("click", function () {
-          const dateInput = document.getElementById("dateInput").value;
-          const [day, month] = dateInput.split(" ");
-          const monthIndex = dutchMonthNames.findIndex(
-            (monthName) => monthName.toLowerCase() === month.toLowerCase()
-          );
-          const currentDate = new Date();
-          currentDate.setFullYear(
-            currentDate.getFullYear(),
-            monthIndex,
-            parseInt(day) - 1
-          );
-          const previousDay =
-            currentDate.getDate() +
-            " " +
-            dutchMonthNames[currentDate.getMonth()];
-          document.getElementById("dateInput").value = previousDay;
-          fetchAppointments(previousDay);
-        });
-
-      // Function to handle next day button click
-      document.getElementById("nextDay").addEventListener("click", function () {
-        const dateInput = document.getElementById("dateInput").value;
-        const [day, month] = dateInput.split(" ");
-        const monthIndex = dutchMonthNames.findIndex(
-          (monthName) => monthName.toLowerCase() === month.toLowerCase()
-        );
-        const currentDate = new Date();
-        currentDate.setFullYear(
-          currentDate.getFullYear(),
-          monthIndex,
-          parseInt(day) + 1
-        );
-        const nextDay =
-          currentDate.getDate() + " " + dutchMonthNames[currentDate.getMonth()];
-        document.getElementById("dateInput").value = nextDay;
-        fetchAppointments(nextDay);
-      });
-
-      // Fetch appointments for today when the page loads
-      document.addEventListener("DOMContentLoaded", function () {
-        // Default to today's date
-        const today = new Date();
-        const day = today.getDate();
-        const monthName = dutchMonthNames[today.getMonth()];
-        const formattedDate = `${day} ${monthName}`;
-        document.getElementById("dateInput").value = formattedDate;
-        fetchAppointments(formattedDate);
-      });
-
-      // Sla schoolnaam en token op
-      schoolName.value = localStorage.getItem("schoolName");
-      schoolName.oninput = () => {
-        localStorage.setItem("schoolName", schoolName.value);
-      };
-
-      authorizationCode.value = localStorage.getItem("authorizationCode");
-      authorizationCode.oninput = () => {
-        localStorage.setItem("authorizationCode", authorizationCode.value);
-      };
-
-      user.value = localStorage.getItem("user");
-      user.oninput = () => {
-        localStorage.setItem("user", user.value);
-      };
-
-      css.value = localStorage.getItem("css");
-      css.oninput = () => {
-        localStorage.setItem("css", css.value);
-      };
-
-      // Functie om dialoogvenster te tonen
-      function showDialog() {
-        const dialog = document.getElementById("dialog");
-        dialog.showModal();
-      }
-
-      // Functie om dialoogvenster te verbergen
-      function hideDialog() {
-        const dialog = document.getElementById("dialog");
-        dialog.close();
-        document.getElementById("loadSchedule").click();
-        document.getElementById("css").click();
-      }
-      document.addEventListener("DOMContentLoaded", function () {
-        const schoolName = localStorage.getItem("schoolName") || "";
-        const authorizationCode =
-          localStorage.getItem("authorizationCode") || "";
-        if (schoolName.trim() === "" || authorizationCode.trim() === "") {
-          // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
-          showDialog();
-        } else {
-        }
-      });
 
       function update_section(with_what, what) {
         document.getElementById(what + "goeshere").innerHTML = with_what;
@@ -1301,6 +1208,116 @@
         .addEventListener("change", function () {
           applyColorTheme(this.value);
         });
+
+      authorizationCode.value = localStorage.getItem("authorizationCode");
+      authorizationCode.oninput = () => {
+        localStorage.setItem("authorizationCode", authorizationCode.value);
+      };
+
+      authorization.value = localStorage.getItem("authorization");
+      authorization.oninput = () => {
+        localStorage.setItem("authorization", authorization.value);
+      };
+
+      user.value = localStorage.getItem("user");
+      user.oninput = () => {
+        localStorage.setItem("user", user.value);
+      };
+
+      css.value = localStorage.getItem("css");
+      css.oninput = () => {
+        localStorage.setItem("css", css.value);
+      };
+
+      // Functie om dialoogvenster te tonen
+      function showDialog() {
+        const dialog = document.getElementById("dialog");
+        dialog.showModal();
+      }
+
+      // Functie om dialoogvenster te verbergen
+      function hideDialog() {
+        const dialog = document.getElementById("dialog");
+        dialog.close();
+        document.getElementById("loadSchedule").click();
+        document.getElementById("css").click();
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const schoolName = localStorage.getItem("schoolName") || "";
+        const authorizationCode =
+          localStorage.getItem("authorizationCode") || "";
+        if (schoolName.trim() === "" || authorizationCode.trim() === "") {
+          // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
+          showDialog();
+        } else {
+        }
+      });
+      // Function to handle loading schedule when button is clicked
+      document
+        .getElementById("loadSchedule")
+        .addEventListener("click", function () {
+          const dateInput = document.getElementById("dateInput").value;
+          fetchAppointments(dateInput);
+        });
+
+      // Function to handle previous day button click
+      document
+        .getElementById("previousDay")
+        .addEventListener("click", function () {
+          const dateInput = document.getElementById("dateInput").value;
+          const [day, month] = dateInput.split(" ");
+          const monthIndex = dutchMonthNames.findIndex(
+            (monthName) => monthName.toLowerCase() === month.toLowerCase()
+          );
+          const currentDate = new Date();
+          currentDate.setFullYear(
+            currentDate.getFullYear(),
+            monthIndex,
+            parseInt(day) - 1
+          );
+          const previousDay =
+            currentDate.getDate() +
+            " " +
+            dutchMonthNames[currentDate.getMonth()];
+          document.getElementById("dateInput").value = previousDay;
+          fetchAppointments(previousDay);
+        });
+
+      // Function to handle next day button click
+      document.getElementById("nextDay").addEventListener("click", function () {
+        const dateInput = document.getElementById("dateInput").value;
+        const [day, month] = dateInput.split(" ");
+        const monthIndex = dutchMonthNames.findIndex(
+          (monthName) => monthName.toLowerCase() === month.toLowerCase()
+        );
+        const currentDate = new Date();
+        currentDate.setFullYear(
+          currentDate.getFullYear(),
+          monthIndex,
+          parseInt(day) + 1
+        );
+        const nextDay =
+          currentDate.getDate() + " " + dutchMonthNames[currentDate.getMonth()];
+        document.getElementById("dateInput").value = nextDay;
+        fetchAppointments(nextDay);
+      });
+
+      // Fetch appointments for today when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        // Default to today's date
+        const today = new Date();
+        const day = today.getDate();
+        const monthName = dutchMonthNames[today.getMonth()];
+        const formattedDate = `${day} ${monthName}`;
+        document.getElementById("dateInput").value = formattedDate;
+        fetchAppointments(formattedDate);
+      });
+
+      // Sla schoolnaam en token op
+      schoolName.value = localStorage.getItem("schoolName");
+      schoolName.oninput = () => {
+        localStorage.setItem("schoolName", schoolName.value);
+      };
     </script>
   </body>
 </html>
