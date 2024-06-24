@@ -239,7 +239,7 @@
         padding: 10px;
         border-radius: 10px;
         margin-bottom: 10px;
-        background-color: #bee;
+        background-color: #eee;
       }
 
       @media (prefers-color-scheme: dark) {
@@ -405,14 +405,8 @@
         right: 8px;
       }
 
-      @media (max-width: 600px) {
-        #weekButton {
-          display: none !important;
-        }
-      }
       @media (max-width: 481px) {
-        #field span,
-        #weekButton {
+        #field span {
           display: none;
         }
       }
@@ -433,11 +427,11 @@
         width: 50px;
         height: 50px;
         position: fixed;
-        bottom: 15px;
-        right: 15px;
+        bottom: 5px;
+        right: 5px;
         z-index: 2;
         border-radius: 25px;
-        background: #fff;
+        background: #eee;
         border: 0px;
         box-shadow: none;
         outline: none;
@@ -447,6 +441,9 @@
       @media (prefers-color-scheme: dark) {
         #add {
           background: #333;
+        }
+        #add:hover {
+          background: #555;
         }
       }
     </style>
@@ -826,7 +823,7 @@
     <div id="schedule">
       <!-- Appointments will be displayed here -->
     </div>
-    <a href="to-do/">
+    <a href="huiswerk/">
       <button id="add">
         <svg
           version="1.1"
@@ -847,6 +844,14 @@
     </a>
 
     <script>
+      let docTitle = document.title;
+      window.addEventListener("blur", () => {
+        document.title = "Rooster Klascal";
+      });
+      window.addEventListener("focus", () => {
+        document.title = docTitle;
+      });
+
       // Dutch month names
       const dutchMonthNames = [
         "januari",
@@ -976,9 +981,11 @@
                 gds: "Godsdienst",
                 wis: "Wiskunde",
                 die: "Diëtetiek",
-                kubv: "Kunst: Beeldende Vakken",
+                kubv: "Kunst Beeldende Vakken",
                 bg: "Begeleiding",
                 sp: "Spaans",
+                BSA: "Bindend studieadvies",
+                bsa: "Bindend studieadvies",
               };
 
               // Map subjects abbreviations to full names
@@ -994,7 +1001,7 @@
               // Create appointment HTML
               const appointmentDiv = document.createElement("div");
               appointmentDiv.innerHTML = `
-                <p><strong>${subjectsFullNames.join(
+                <p><strong id="vaknaam">${subjectsFullNames.join(
                   ", "
                 )}</strong><strong style="position:absolute;right:25px;">${
                 appointment.startTimeSlot
@@ -1002,7 +1009,7 @@
                 <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
                 ", "
               )} (${appointment.teachers.join(", ")})</span></p>
-              <p id="className">${appointment.groups.join(", ")}</p>
+              <p class="className">${appointment.groups.join(", ")}</p>
               <p>
                 ${
                   appointment.changeDescription

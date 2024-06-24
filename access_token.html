@@ -732,15 +732,17 @@
         required
       /><br /><br />
 
-      <label for="authorizationCode">Token:</label>
+      <label for="authorization">Token:</label>
       <input
         type="text"
-        id="authorizationCode"
-        name="authorizationCode"
+        id="authorization"
+        name="authorization"
         class="btn"
         style="background-color: #ddd"
         required
-      /><br /><br />
+      />
+      <input type="text" id="authorizationCode" style="display: none" />
+      <br /><br />
 
       <label for="user">Gebruikersnaam:</label>
       <input
@@ -893,7 +895,7 @@
         const user = document.getElementById("user").value;
         const schoolName = document.getElementById("schoolName").value;
         const authorizationCode =
-          document.getElementById("authorizationCode").value;
+          document.getElementById("authorization").value;
 
         // Step 1: Exchange authorization code for an access token
         const tokenResponse = await fetch(
@@ -915,10 +917,17 @@
           return;
         }
 
+        if (accessToken !== "") {
+          document.getElementById("authorizationCode").value = accessToken;
+          localStorage.setItem("authorizationCode", accessToken);
+        }
+
+        const token = document.getElementById("authorizationCode").value;
+
         const startTimestamp = Math.floor(startDate.getTime() / 1000);
         const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-        const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
+        const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${token}`;
 
         fetch(apiUrl)
           .then((response) => response.json())
@@ -1203,6 +1212,11 @@
       authorizationCode.value = localStorage.getItem("authorizationCode");
       authorizationCode.oninput = () => {
         localStorage.setItem("authorizationCode", authorizationCode.value);
+      };
+
+      authorization.value = localStorage.getItem("authorization");
+      authorization.oninput = () => {
+        localStorage.setItem("authorization", authorization.value);
       };
 
       user.value = localStorage.getItem("user");

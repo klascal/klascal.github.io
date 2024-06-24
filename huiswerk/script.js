@@ -70,12 +70,13 @@ function loadTasks() {
   tasks.forEach(function (task, index) {
     var li = document.createElement("div");
     li.innerHTML =
-      "<strong>Deadline:</strong> " +
-      task.deadline +
-      "<br><strong>Vak:</strong> " +
+      "<h3>" +
       task.subject +
-      "<br><strong>Huiswerk:</strong> " +
-      task.homework;
+      "</h3><p>" +
+      task.homework +
+      "</p><p><svg width='24' height='24' id='icon' viewBox='0 -960 960 960' xmlns='http://www.w3.org/2000/svg'><path d='M572.14-240Q526-240 494-271.86t-32-78Q462-396 493.86-428t78-32Q618-460 650-428.14t32 78Q682-304 650.14-272t-78 32ZM194-50q-43.73 0-74.86-31.14Q88-112.28 88-156v-572q0-43.72 31.14-74.86Q150.27-834 194-834h8v-76h106v76h344v-76h106v76h8q43.72 0 74.86 31.14T872-728v572q0 43.72-31.14 74.86T766-50H194Zm0-106h572v-424H194v424Z'/></svg>" +
+      task.deadline +
+      "</p>";
 
     var deleteButton = document.createElement("span");
 
@@ -83,6 +84,7 @@ function loadTasks() {
     svg.setAttribute("width", "24");
     svg.setAttribute("height", "24");
     svg.setAttribute("id", "icon");
+    svg.setAttribute("style", "position: relative;bottom: 20px;");
     svg.setAttribute("viewBox", "0 0 24 24");
 
     var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -124,4 +126,8 @@ function showNotification(title, body) {
       }
     });
   }
+}
+
+function homeButton() {
+  window.location.replace("/");
 }

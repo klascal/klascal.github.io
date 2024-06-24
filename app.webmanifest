@@ -72,6 +72,11 @@
       "name": "Rooster",
       "url": "/",
       "description": "Bekijk je rooster."
+    },
+    {
+      "name": "Huiswerk",
+      "url": "/huiswerk",
+      "description": "Bekijk je huiswerk."
     }
   ],
   "categories": ["education"]

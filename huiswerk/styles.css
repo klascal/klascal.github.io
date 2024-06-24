@@ -7,14 +7,13 @@ input,
 button {
   font-family: "Inter", sans-serif;
 }
-
-input[type="date" i] {
-  position: relative;
-  left: -10px;
-}
-
 .noFill {
   fill: none;
+}
+
+h3,
+p {
+  margin: 0;
 }
 
 header {
@@ -246,6 +245,7 @@ ul.todo#completed:after {
 #icon,
 .icon {
   fill: black;
+  vertical-align: sub;
 }
 
 .btn {
@@ -317,7 +317,7 @@ ul.todo#completed:after {
   header button {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    bottom: 22px;
   }
 }
 
