@@ -130,12 +130,38 @@ function displayError(message) {
   scheduleElement.innerHTML = `<p>${message}</p>`;
 }
 
+// Functie om de access token te verkrijgen door middel van de koppelcode.
+async function fetchToken(authorizationCode, schoolName) {
+  try {
+    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    const parsedresp = await response.json();
+    console.log(parsedresp);
+    const accessToken = parsedresp["access_token"];
+    console.log(accessToken);
+    return accessToken;
+
+  } catch (error) {
+    console.error("Error fetching acces token:", error.message);
+    displayError("Error fetching acces token. Please try again.");
+  }
+}
+
 // Functie om formulierinzending te verwerken
-function handleFormSubmit(event) {
+async function handleFormSubmit(event) {
   event.preventDefault(); // Voorkom formulierinzending
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode =
-    document.getElementById("authorizationCode").value;
+    document.getElementById("authorizationCode").value.replace(/\s+/g, ''); // Haal de spaties uit de koppelcode
   const userType = document.getElementById("userType").value;
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -143,8 +169,15 @@ function handleFormSubmit(event) {
     Math.floor((currentDate - new Date(year, 0, 1)) / 604800000) + 1; // Bereken weeknummer
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
 
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+  if (accessToken == null || accessToken == "undefined") {
+    accessToken = await fetchToken(authorizationCode, schoolName);
+    localStorage.setItem("access_token", accessToken);
+  }
+
   // Haal het rooster op
-  fetchSchedule(authorizationCode, userType, year, week, schoolName);
+  fetchSchedule(accessToken, userType, year, week, schoolName);
 }
 
 // Voeg een gebeurtenisluisteraar toe voor de formulierinzending
@@ -160,6 +193,7 @@ schoolName.oninput = () => {
 authorizationCode.value = localStorage.getItem("authorizationCode");
 authorizationCode.oninput = () => {
   localStorage.setItem("authorizationCode", authorizationCode.value);
+  localStorage.setItem("access_token", "undefined");
 };
 
 userType.value = localStorage.getItem("userType");
