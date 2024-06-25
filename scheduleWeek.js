@@ -161,7 +161,7 @@ async function handleFormSubmit(event) {
   event.preventDefault(); // Voorkom formulierinzending
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode =
-    document.getElementById("authorizationCode").value;
+    document.getElementById("authorizationCode").value.replace(/\s/g, '');
   const userType = document.getElementById("userType").value;
   const currentDate = new Date();
   const year = currentDate.getFullYear();
