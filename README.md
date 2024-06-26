@@ -1,5 +1,5 @@
 # Klascal
-Klascal brengt je naar het klaslokaal.
+### Klascal brengt je naar het klaslokaal.
 
 Een rooster app voor Zermelo.
 
@@ -13,6 +13,6 @@ Laat klassennamen zien.
 
 Laat de volledige namen van vakken zien (zoals bij Somtoday).
 
-Thema's (Binnenkort).
+Thema's.
 
 **© Floris Rietman en Iven Boxem**
