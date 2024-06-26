@@ -64,9 +64,8 @@ function displaySchedule(scheduleData) {
       .map(([dayName, appointments]) => {
         const appointmentsHTML = appointments
           .map((appointment, idx, arr) => {
+            console.log(appointment);
             const uur = appointment.startTimeSlotName;
-            const voriguur = idx > 0 ? arr[idx - 1].startTimeSlotName : 0;
-            const leftMarg = 130 * (uur - voriguur - 1); // 130 px per lesuur.
 
             // Format start and end time
             const startTime = new Date(
@@ -74,33 +73,35 @@ function displaySchedule(scheduleData) {
             ).toLocaleTimeString([], {
               hour: "2-digit",
               minute: "2-digit",
-            });
+            }).replace(/^0+/, "");;
             const endTime = new Date(
               appointment.end * 1000
             ).toLocaleTimeString([], {
-              hour: "2-digit",
+              hour: "2-digit" ,
               minute: "2-digit",
-            });
+            }).replace(/^0+/, "");
+            const left = (parseInt(startTime.split(':')[1]) + (parseInt(startTime.split(':')[0]) - 8) * 60) * 3;
+            const width = (parseInt(endTime.split(':')[1]) + (parseInt(endTime.split(':')[0]) - 8) * 60) * 3 - left - 30;
 
             // Map subject abbreviations to full names
             const subjects = appointment.subjects.map(
               (subject) => subject.toUpperCase()
             );
-            const warning = appointment.changeDescription;
+            const warning = appointment.changeDescription + appointment.schedulerRemark;
             const warningsymbol = warning
-              ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align: sub;"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z" fill="yellow"></path></svg>'
+              ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align: sub;"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z" fill="yellow" stroke="black" stroke-width="0.5px"></path></svg>'
               : "";
 
+            const top = localStorage.getItem("userType") == "teacher" ? appointment.groups.join(", ") : subjects.join(", ")
             // Generate HTML for each appointment
-            return `<div style="margin-left:${leftMarg}px;"
-                      class="les${appointment.cancelled ? " cancelled" : ""}"
-                      id="${appointment.subjects.join(", ") ? "" : "error"}${subjects.join(", ")}"
+            return `<div style="left:${left}px;width:${width}px;"
+                      class="les ${appointment.cancelled ? "cancelled" : appointment.appointmentType}"
             >
               <p>
-                <strong>${subjects.join(", ")}</strong>
+                <strong>${appointment.appointmentType == "exam" ? appointment.schedulerRemark.split(':')[1] : top}</strong>
                 <strong class="lesuur">${appointment.startTimeSlotName}</strong>
               </p>
-              <p class="lestijden">${startTime} - ${endTime}</p>
+              <p class="lestijden">${startTime}-${endTime}</p>
               <span>
                 ${appointment.locations.join(", ")} (${appointment.teachers.join(", ")})
                 <div class="warning">
@@ -111,12 +112,15 @@ function displaySchedule(scheduleData) {
               <p class="className">
                 ${appointment.groups.join(", ")}
               </p>
+              <p class="subjectName">
+                ${subjects.join(",")}
+              </p>
             </div>`;
           })
           .join("");
 
         // Generate HTML for the day with its appointments
-        return `<span><h3>${dayName}</h3>${appointmentsHTML}</span>`;
+        return `<span class="day"><h3>${dayName}</h3>${appointmentsHTML}</span>`;
       })
       .join("");
 
@@ -149,7 +153,6 @@ async function fetchToken(authorizationCode, schoolName) {
     const parsedresp = await response.json();
     console.log(parsedresp);
     const accessToken = parsedresp["access_token"];
-    console.log(accessToken);
     return accessToken;
 
   } catch (error) {

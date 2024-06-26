@@ -246,12 +246,27 @@ span.schedule {
   display: block;
 }
 
+span.day {
+  display: block;
+  margin-bottom: 110px;
+}
+
 .les {
   display: inline-block;
-  background-color: #bee;
   padding: 10px;
   margin-right: 5px;
+  margin-left: 5px;
   border-radius: 10px;
+  position: absolute;
+  height: 90px;
+}
+
+.lesson {
+  background-color: #bee;
+}
+
+.exam {
+  background-color: #beb;
 }
 
 .warning {
@@ -288,11 +303,11 @@ strong.lesuur {
 
 p.lestijden {
   display: block;
-  width: 105px;
+
 }
 
 .cancelled {
-  background-color: red !important;
+  background-color: red;
   color: white;
 }
 
@@ -350,6 +365,10 @@ dialog[open] {
   display: none;
 }
 
+.subjectName {
+  display: none;
+}
+
 .btn {
   background-color: #f1f1f1;
   border: 0;
@@ -393,7 +412,7 @@ button:not(:disabled):not(.disabled) {
 }
 
 #error {
-  display: none !important;
+  background-color: #eeb;
 }
 
 /* Dark Mode Styles */
@@ -442,11 +461,6 @@ button:not(:disabled):not(.disabled) {
 
   button[type="submit"] {
     background-color: #004080;
-  }
-
-  .les {
-    background-color: #2a2a2a;
-    color: #ffffff;
   }
 
   #settingsButton {
