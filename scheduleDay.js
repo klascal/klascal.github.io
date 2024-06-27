@@ -22,8 +22,33 @@ const dutchMonthNames = [
   "december",
 ];
 
+// Functie om de access token te verkrijgen door middel van de koppelcode.
+async function fetchToken(authorizationCode, schoolName) {
+  try {
+    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    const parsedresp = await response.json();
+    console.log(parsedresp);
+    const accessToken = parsedresp["access_token"];
+    return accessToken;
+
+  } catch (error) {
+    console.error("Error fetching acces token:", error.message);
+    displayError("Error fetching acces token. Please try again.");
+  }
+}
+
 // Function to fetch appointments for the specified date
-function fetchAppointments(date) {
+async function fetchAppointments(date) {
   // Parse the input date string to get the date and month
   const [day, monthName] = date.split(" ");
   const monthIndex = dutchMonthNames.findIndex(
@@ -47,11 +72,18 @@ function fetchAppointments(date) {
   const user = document.getElementById("user").value;
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode =
-    document.getElementById("authorizationCode").value;
+    document.getElementById("authorizationCode").value.replace(/\s/g, '');
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${authorizationCode}`;
+    // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+  if (accessToken == null || accessToken == "undefined") {
+    accessToken = await fetchToken(authorizationCode, schoolName);
+    localStorage.setItem("access_token", accessToken);
+  }
+
+  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
 
   fetch(apiUrl)
     .then((response) => response.json())
@@ -169,7 +201,7 @@ function fetchAppointments(date) {
             appointment.changeDescription
               ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align: sub;"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z" fill="#ff9800"/></svg>'
               : ""
-          } 
+          }
           ${appointment.changeDescription}
         </p>
         `;
@@ -289,6 +321,7 @@ schoolName.oninput = () => {
 authorizationCode.value = localStorage.getItem("authorizationCode");
 authorizationCode.oninput = () => {
   localStorage.setItem("authorizationCode", authorizationCode.value);
+  localStorage.setItem("access_token", "undefined");
 };
 
 user.value = localStorage.getItem("user");
