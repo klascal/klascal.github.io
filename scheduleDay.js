@@ -139,7 +139,10 @@ function fetchAppointments(date) {
           sp: "Spaans",
           BSA: "Bindend studieadvies",
           bsa: "Bindend studieadvies",
-          bo: "Beweg"
+          bo: "Bewegingsonderwijs",
+          glstnl: "Global Studies NL",
+          nlt: "Natuur leven technologie",
+          wisb: "Wiskunde B",
         };
 
         // Map subjects abbreviations to full names
