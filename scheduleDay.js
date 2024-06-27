@@ -46,8 +46,7 @@ function fetchAppointments(date) {
   endDate.setDate(endDate.getDate() + 1);
   const user = document.getElementById("user").value;
   const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode =
-    document.getElementById("authorizationCode").value;
+  const authorizationCode = document.getElementById("authorizationCode").value;
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
@@ -140,6 +139,7 @@ function fetchAppointments(date) {
           sp: "Spaans",
           BSA: "Bindend studieadvies",
           bsa: "Bindend studieadvies",
+          bo: "Beweg"
         };
 
         // Map subjects abbreviations to full names
@@ -220,35 +220,29 @@ function filterCancelledLessons(appointments) {
 }
 
 // Function to handle loading schedule when button is clicked
-document
-  .getElementById("loadSchedule")
-  .addEventListener("click", function () {
-    const dateInput = document.getElementById("dateInput").value;
-    fetchAppointments(dateInput);
-  });
+document.getElementById("loadSchedule").addEventListener("click", function () {
+  const dateInput = document.getElementById("dateInput").value;
+  fetchAppointments(dateInput);
+});
 
 // Function to handle previous day button click
-document
-  .getElementById("previousDay")
-  .addEventListener("click", function () {
-    const dateInput = document.getElementById("dateInput").value;
-    const [day, month] = dateInput.split(" ");
-    const monthIndex = dutchMonthNames.findIndex(
-      (monthName) => monthName.toLowerCase() === month.toLowerCase()
-    );
-    const currentDate = new Date();
-    currentDate.setFullYear(
-      currentDate.getFullYear(),
-      monthIndex,
-      parseInt(day) - 1
-    );
-    const previousDay =
-      currentDate.getDate() +
-      " " +
-      dutchMonthNames[currentDate.getMonth()];
-    document.getElementById("dateInput").value = previousDay;
-    fetchAppointments(previousDay);
-  });
+document.getElementById("previousDay").addEventListener("click", function () {
+  const dateInput = document.getElementById("dateInput").value;
+  const [day, month] = dateInput.split(" ");
+  const monthIndex = dutchMonthNames.findIndex(
+    (monthName) => monthName.toLowerCase() === month.toLowerCase()
+  );
+  const currentDate = new Date();
+  currentDate.setFullYear(
+    currentDate.getFullYear(),
+    monthIndex,
+    parseInt(day) - 1
+  );
+  const previousDay =
+    currentDate.getDate() + " " + dutchMonthNames[currentDate.getMonth()];
+  document.getElementById("dateInput").value = previousDay;
+  fetchAppointments(previousDay);
+});
 
 // Function to handle next day button click
 document.getElementById("nextDay").addEventListener("click", function () {
@@ -316,8 +310,7 @@ function hideDialog() {
 }
 document.addEventListener("DOMContentLoaded", function () {
   const schoolName = localStorage.getItem("schoolName") || "";
-  const authorizationCode =
-    localStorage.getItem("authorizationCode") || "";
+  const authorizationCode = localStorage.getItem("authorizationCode") || "";
   if (schoolName.trim() === "" || authorizationCode.trim() === "") {
     // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
     showDialog();
@@ -426,8 +419,6 @@ if (storedColor) {
 }
 
 // Color theme selector event listener
-document
-  .getElementById("color-select")
-  .addEventListener("change", function () {
-    applyColorTheme(this.value);
-  });
+document.getElementById("color-select").addEventListener("change", function () {
+  applyColorTheme(this.value);
+});

@@ -28,11 +28,7 @@ async function fetchSchedule(
 // Functie om rooster weer te geven
 function displaySchedule(scheduleData) {
   const scheduleElement = document.getElementById("schedule");
-  if (
-    scheduleData &&
-    scheduleData.response &&
-    scheduleData.response.data
-  ) {
+  if (scheduleData && scheduleData.response && scheduleData.response.data) {
     const appointments = scheduleData.response.data[0].appointments;
 
     let previousDate = null; // Variable to store the previous date
@@ -75,16 +71,17 @@ function displaySchedule(scheduleData) {
               hour: "2-digit",
               minute: "2-digit",
             });
-            const endTime = new Date(
-              appointment.end * 1000
-            ).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
+            const endTime = new Date(appointment.end * 1000).toLocaleTimeString(
+              [],
+              {
+                hour: "2-digit",
+                minute: "2-digit",
+              }
+            );
 
             // Map subject abbreviations to full names
-            const subjects = appointment.subjects.map(
-              (subject) => subject.toUpperCase()
+            const subjects = appointment.subjects.map((subject) =>
+              subject.toUpperCase()
             );
             const warning = appointment.changeDescription;
             const warningsymbol = warning
@@ -94,7 +91,9 @@ function displaySchedule(scheduleData) {
             // Generate HTML for each appointment
             return `<div style="margin-left:${leftMarg}px;"
                       class="les${appointment.cancelled ? " cancelled" : ""}"
-                      id="${appointment.subjects.join(", ") ? "" : "error"}${subjects.join(", ")}"
+                      id="${
+                        appointment.subjects.join(", ") ? "" : "error"
+                      }${subjects.join(", ")}"
             >
               <p>
                 <strong>${subjects.join(", ")}</strong>
@@ -102,7 +101,9 @@ function displaySchedule(scheduleData) {
               </p>
               <p class="lestijden">${startTime} - ${endTime}</p>
               <span>
-                ${appointment.locations.join(", ")} (${appointment.teachers.join(", ")})
+                ${appointment.locations.join(
+                  ", "
+                )} (${appointment.teachers.join(", ")})
                 <div class="warning">
                   ${warningsymbol}
                   <span class="warningMessage">${warning}</span>
@@ -151,10 +152,9 @@ async function fetchToken(authorizationCode, schoolName) {
     const accessToken = parsedresp["access_token"];
     console.log(accessToken);
     return accessToken;
-
   } catch (error) {
-    console.error("Error fetching acces token:", error.message);
-    displayError("Error fetching acces token. Please try again.");
+    console.error("Error fetching access token:", error.message);
+    displayError("Error fetching access token. Please try again.");
   }
 }
 
@@ -162,8 +162,7 @@ async function fetchToken(authorizationCode, schoolName) {
 async function handleFormSubmit(event) {
   event.preventDefault(); // Voorkom formulierinzending
   const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode =
-    document.getElementById("authorizationCode").value;
+  const authorizationCode = document.getElementById("authorizationCode").value;
   const userType = document.getElementById("userType").value;
   const currentDate = new Date();
   const year = currentDate.getFullYear();
