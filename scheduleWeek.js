@@ -1,11 +1,5 @@
 // Functie om rooster op te halen met behulp van fetch
-async function fetchSchedule(
-  authorizationCode,
-  userType,
-  year,
-  week,
-  schoolName
-) {
+async function fetchSchedule(authorizationCode, userType, year, week, schoolName) {
   try {
     const url = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${authorizationCode}&${userType}=~me&week=${year}${week}`;
     const response = await fetch(url, {
@@ -28,14 +22,8 @@ async function fetchSchedule(
 // Functie om rooster weer te geven
 function displaySchedule(scheduleData) {
   const scheduleElement = document.getElementById("schedule");
-  if (
-    scheduleData &&
-    scheduleData.response &&
-    scheduleData.response.data
-  ) {
+  if (scheduleData && scheduleData.response && scheduleData.response.data) {
     const appointments = scheduleData.response.data[0].appointments;
-
-    let previousDate = null; // Variable to store the previous date
 
     const daysOfWeek = [
       "Zondag:",
@@ -63,40 +51,34 @@ function displaySchedule(scheduleData) {
     const scheduleHTML = Object.entries(appointmentsByDay)
       .map(([dayName, appointments]) => {
         const appointmentsHTML = appointments
-          .map((appointment, idx, arr) => {
-            console.log(appointment);
+          .map((appointment) => {
             const uur = appointment.startTimeSlotName;
 
             // Format start and end time
-            const startTime = new Date(
-              appointment.start * 1000
-            ).toLocaleTimeString([], {
+            const startTime = new Date(appointment.start * 1000).toLocaleTimeString([], {
               hour: "2-digit",
               minute: "2-digit",
-            }).replace(/^0+/, "");;
-            const endTime = new Date(
-              appointment.end * 1000
-            ).toLocaleTimeString([], {
-              hour: "2-digit" ,
+            }).replace(/^0+/, "");
+            const endTime = new Date(appointment.end * 1000).toLocaleTimeString([], {
+              hour: "2-digit",
               minute: "2-digit",
             }).replace(/^0+/, "");
+            
             const left = (parseInt(startTime.split(':')[1]) + (parseInt(startTime.split(':')[0]) - 8) * 60) * 3;
             const width = (parseInt(endTime.split(':')[1]) + (parseInt(endTime.split(':')[0]) - 8) * 60) * 3 - left - 30;
 
             // Map subject abbreviations to full names
-            const subjects = appointment.subjects.map(
-              (subject) => subject.toUpperCase()
-            );
+            const subjects = appointment.subjects.map((subject) => subject.toUpperCase());
             const warning = appointment.changeDescription + appointment.schedulerRemark;
             const warningsymbol = warning
               ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="vertical-align: sub;"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z" fill="yellow" stroke="black" stroke-width="0.5px"></path></svg>'
               : "";
 
-            const top = localStorage.getItem("userType") == "teacher" ? appointment.groups.join(", ") : subjects.join(", ")
+            const top = localStorage.getItem("userType") == "teacher" ? appointment.groups.join(", ") : subjects.join(", ");
+
             // Generate HTML for each appointment
             return `<div style="left:${left}px;width:${width}px;"
-                      class="les ${appointment.cancelled ? "cancelled" : appointment.appointmentType}"
-            >
+                      class="les ${appointment.cancelled ? "cancelled" : appointment.appointmentType}">
               <p>
                 <strong>${appointment.appointmentType == "exam" ? appointment.schedulerRemark.split(':')[1] : top}</strong>
                 <strong class="lesuur">${appointment.startTimeSlotName}</strong>
@@ -146,18 +128,15 @@ async function fetchToken(authorizationCode, schoolName) {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
     const parsedresp = await response.json();
-    console.log(parsedresp);
     const accessToken = parsedresp["access_token"];
     return accessToken;
-
   } catch (error) {
-    console.error("Error fetching acces token:", error.message);
-    displayError("Error fetching acces token. Please try again.");
+    console.error("Error fetching access token:", error.message);
+    displayError("Error fetching access token. Please try again.");
   }
 }
 
@@ -165,8 +144,7 @@ async function fetchToken(authorizationCode, schoolName) {
 async function handleFormSubmit(event) {
   event.preventDefault(); // Voorkom formulierinzending
   const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode =
-    document.getElementById("authorizationCode").value.replace(/\s/g, '');
+  const authorizationCode = document.getElementById("authorizationCode").value.replace(/\s/g, '');
   const userType = document.getElementById("userType").value;
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -185,21 +163,23 @@ async function handleFormSubmit(event) {
 }
 
 // Voeg een gebeurtenisluisteraar toe voor de formulierinzending
-document
-  .getElementById("inputForm")
-  .addEventListener("submit", handleFormSubmit);
+document.getElementById("inputForm").addEventListener("submit", handleFormSubmit);
+
 // Sla schoolnaam en token op
+const schoolName = document.getElementById("schoolName");
 schoolName.value = localStorage.getItem("schoolName");
 schoolName.oninput = () => {
   localStorage.setItem("schoolName", schoolName.value);
 };
 
+const authorizationCode = document.getElementById("authorizationCode");
 authorizationCode.value = localStorage.getItem("authorizationCode");
 authorizationCode.oninput = () => {
   localStorage.setItem("authorizationCode", authorizationCode.value);
   localStorage.setItem("access_token", "undefined");
 };
 
+const userType = document.getElementById("userType");
 userType.value = localStorage.getItem("userType");
 userType.oninput = () => {
   localStorage.setItem("userType", userType.value);
@@ -217,6 +197,7 @@ function hideDialog() {
   dialog.close();
   document.getElementById("css").click();
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("save").click(), 0;
   const schoolName = localStorage.getItem("schoolName") || "";
@@ -232,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+const css = document.getElementById("css");
 css.value = localStorage.getItem("css");
 css.oninput = () => {
   localStorage.setItem("css", css.value);
