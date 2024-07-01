@@ -70,7 +70,7 @@ async function fetchAppointments(date) {
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document
     .getElementById("authorizationCode")
-    .value.replace(/\s/g, '');
+    .value.replace(/\s/g, "");
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
