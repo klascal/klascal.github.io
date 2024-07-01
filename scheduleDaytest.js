@@ -105,16 +105,19 @@ function fetchAppointments(date) {
           ne: "Nederlands",
           te: "Tekenen/Techniek",
           wi: "Wiskunde",
+          wis: "Wiskunde",
           fr: "Frans",
           nl: "Nederlands",
           du: "Duits",
           bi: "Biologie",
           na: "Natuurkunde",
+          nat: "Natuurkunde",
           sk: "Scheikunde",
           nask: "Natuurkunde/Scheikunde",
           ec: "Economie",
           econ: "Economie",
           ma: "Maatschappijleer",
+          maat: "Maatschappijleer",
           be: "Beeldende Vorming",
           kv: "Kunstvakken",
           fi: "Filosofie",
@@ -139,6 +142,10 @@ function fetchAppointments(date) {
           sp: "Spaans",
           BSA: "Bindend studieadvies",
           bsa: "Bindend studieadvies",
+          bo: "Bewegingsonderwijs",
+          glstnl: "Global Studies NL",
+          nlt: "Natuur leven technologie",
+          wisb: "Wiskunde B",
         };
 
         // Map subjects abbreviations to full names
@@ -183,44 +190,6 @@ function fetchAppointments(date) {
     })
     .catch((error) => console.error("Error fetching data:", error));
 }
-
-// Functie om de access token te verkrijgen door middel van de koppelcode.
-async function fetchToken(authorizationCode, schoolName) {
-  try {
-    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-    const parsedresp = await response.json();
-    console.log(parsedresp);
-    const accessToken = parsedresp["access_token"];
-    console.log(accessToken);
-    return accessToken;
-  } catch (error) {
-    console.error("Error fetching access token:", error.message);
-    displayError("Error fetching access token. Please try again.");
-  }
-}
-
-async function handleFormSubmit(event) {
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken = localStorage.getItem("access_token");
-  if (accessToken == null || accessToken == "undefined") {
-    accessToken = await fetchToken(authorizationCode, schoolName);
-    localStorage.setItem("access_token", accessToken);
-  }
-}
-
-document
-  .getElementById("inputForm")
-  .addEventListener("submit", handleFormSubmit);
 
 // Function to filter out cancelled lessons if there are multiple lessons for the same hour
 function filterCancelledLessons(appointments) {
@@ -320,7 +289,6 @@ schoolName.oninput = () => {
 authorizationCode.value = localStorage.getItem("authorizationCode");
 authorizationCode.oninput = () => {
   localStorage.setItem("authorizationCode", authorizationCode.value);
-  localStorage.setItem("access_token", "undefined");
 };
 
 user.value = localStorage.getItem("user");
