@@ -70,7 +70,7 @@ async function fetchAppointments(date) {
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document
     .getElementById("authorizationCode")
-    .value.replace(/\s/g, '');
+    .value.replace(/\s/g, "");
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
@@ -131,16 +131,19 @@ async function fetchAppointments(date) {
           ne: "Nederlands",
           te: "Tekenen/Techniek",
           wi: "Wiskunde",
+          wis: "Wiskunde",
           fr: "Frans",
           nl: "Nederlands",
           du: "Duits",
           bi: "Biologie",
           na: "Natuurkunde",
+          nat: "Natuurkunde",
           sk: "Scheikunde",
           nask: "Natuurkunde/Scheikunde",
           ec: "Economie",
           econ: "Economie",
           ma: "Maatschappijleer",
+          maat: "Maatschappijleer",
           be: "Beeldende Vorming",
           kv: "Kunstvakken",
           fi: "Filosofie",
