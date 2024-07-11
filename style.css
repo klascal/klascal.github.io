@@ -257,7 +257,8 @@ span.day {
   margin-right: 5px;
   margin-left: 5px;
   border-radius: 10px;
-  height: 75px; /* Gekozen waarde na conflict */
+  height: 90px;
+  position: absolute;
 }
 
 .lesson {
@@ -266,6 +267,10 @@ span.day {
 
 .exam {
   background-color: #beb;
+}
+
+.activity {
+  background-color: #ebb;
 }
 
 .warning {
