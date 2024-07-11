@@ -12,6 +12,7 @@ async function fetchSchedule(authorizationCode, userType, year, week, schoolName
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
     const scheduleData = await response.json();
+    console.log(scheduleData);
     displaySchedule(scheduleData);
   } catch (error) {
     console.error("Error fetching schedule:", error.message);
