@@ -8,18 +8,18 @@ window.addEventListener("focus", () => {
 
 // Dutch month names
 const dutchMonthNames = [
-  "januari",
-  "februari",
-  "maart",
-  "april",
+  "jan",
+  "feb",
+  "mar",
+  "apr",
   "mei",
-  "juni",
-  "juli",
-  "augustus",
-  "september",
-  "oktober",
-  "november",
-  "december",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "okt",
+  "nov",
+  "dec",
 ];
 
 // Function to fetch appointments for the specified date
@@ -32,7 +32,7 @@ function fetchAppointments(date) {
 
   if (monthIndex === -1 || isNaN(parseInt(day))) {
     console.error(
-      "Invalid date format. Please enter date in the format 'DD Month', e.g., '12 augustus'."
+      "Invalid date format. Please enter date in the format 'DD Month', e.g., '12 aug'."
     );
     return;
   }
@@ -44,7 +44,7 @@ function fetchAppointments(date) {
   const startDate = new Date(currentYear, monthIndex, parseInt(day, 10));
   const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + 1);
-  const user = document.getElementById("user").value;
+  const user = document.getElementById("user").value || "~me";
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document.getElementById("authorizationCode").value;
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
