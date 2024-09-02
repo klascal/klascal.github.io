@@ -188,7 +188,7 @@ function fetchAppointments(date) {
         scheduleDiv.appendChild(appointmentDiv);
       });
     })
-    .catch((error) => console.error("Error fetching data:", error));
+    .catch((error) => console.error("Error fetching data: ", error));
 }
 
 // Function to filter out cancelled lessons if there are multiple lessons for the same hour

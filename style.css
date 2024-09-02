@@ -286,7 +286,7 @@ span.day {
   display: none;
   z-index: 1;
   position: absolute;
-  color: black;
+  color: #000;
   background-color: yellow;
   text-shadow: none;
   border-radius: 10px;
