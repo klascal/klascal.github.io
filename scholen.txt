@@ -1,0 +1,154 @@
+{
+  "search_metadata": {
+    "id": "66d5d17468831ea93d969136",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/cbf8daddac353232/66d5d17468831ea93d969136.json",
+    "created_at": "2024-09-02 14:53:40 UTC",
+    "processed_at": "2024-09-02 14:53:40 UTC",
+    "google_url": "https://www.google.com/search?q=site%3Azportal.nl&oq=site%3Azportal.nl&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/cbf8daddac353232/66d5d17468831ea93d969136.html",
+    "total_time_taken": 0.51
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "site:zportal.nl",
+    "google_domain": "google.com",
+    "hl": "en",
+    "gl": "us",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "site:zportal.nl",
+    "total_results": 381,
+    "time_taken_displayed": 0.36,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Sign In",
+      "link": "https://terra.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://terra.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECAQQAQ",
+      "displayed_link": "https://terra.zportal.nl",
+      "snippet": "Hebt u geen toegang tot het account? Keep me signed in. Next.",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 2,
+      "title": "Sign In",
+      "link": "https://ursula.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://ursula.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECBcQAQ",
+      "displayed_link": "https://ursula.zportal.nl",
+      "snippet": "User Account · Password · Keep me signed in.",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 3,
+      "title": "Zermelo gsf",
+      "link": "https://gsf.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://gsf.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECBkQAQ",
+      "displayed_link": "https://gsf.zportal.nl",
+      "favicon": "https://serpapi.com/searches/66d5d17468831ea93d969136/images/e239a3de57906e26db9f69964300f19ac79fc9c59faf68006a721af9a5a6d708.webp",
+      "snippet": "Alleen leerlingen/ouders/medewerkers van GL gebruiken nog dit portal. Leerlingen en medewerkers van ARHC gaan naar arhc-gsf.zportal.nl, ...",
+      "source": "Zermelo gsf"
+    },
+    {
+      "position": 4,
+      "title": "Zermelo veenlandencollege",
+      "link": "https://veenlandencollege.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://veenlandencollege.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECBYQAQ",
+      "displayed_link": "https://veenlandencollege.zportal.nl",
+      "favicon": "https://serpapi.com/searches/66d5d17468831ea93d969136/images/e239a3de57906e26db9f69964300f19abb01d9002b83a34c338978399c78867e.png",
+      "snippet": "Welkom bij de inlogpagina van het VeenLanden College. Leerlingen en medewerkers loggen in door hieronder op \"login met single-sign-on\" te klikken.",
+      "source": "Zermelo veenlandencollege"
+    },
+    {
+      "position": 5,
+      "title": "Sign In",
+      "link": "https://dollardcollege.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://dollardcollege.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECBgQAQ",
+      "displayed_link": "https://dollardcollege.zportal.nl",
+      "snippet": "User Account · Password · Keep me signed in.",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 6,
+      "title": "Zermelo nuovozeist",
+      "link": "https://nuovozeist.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://nuovozeist.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECBsQAQ",
+      "displayed_link": "https://nuovozeist.zportal.nl",
+      "favicon": "https://serpapi.com/searches/66d5d17468831ea93d969136/images/e239a3de57906e26db9f69964300f19ac57d1da35b40a11304e11c765855187f.png",
+      "snippet": "Welkom op het portal van OLZ en OVMZ. Gebruik \"Login met single-sign-on\" om in te loggen, je hoeft hieronder niks in te vullen bij gebruikersnaam en ...",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 7,
+      "title": "Access Manager",
+      "link": "https://ehl.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://ehl.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECCIQAQ",
+      "displayed_link": "https://ehl.zportal.nl",
+      "snippet": "This Identity Provider needs to validate your identity. Please login to your existing account here so that we can return verification back to your local ...",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 8,
+      "title": "Sign In",
+      "link": "https://rsgdeborgen.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://rsgdeborgen.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECCgQAQ",
+      "displayed_link": "https://rsgdeborgen.zportal.nl",
+      "snippet": "User Account · Password · Keep me signed in.",
+      "source": "zportal.nl"
+    },
+    {
+      "position": 9,
+      "title": "Zermelo vossius",
+      "link": "https://vossius.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://vossius.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECCwQAQ",
+      "displayed_link": "https://vossius.zportal.nl",
+      "favicon": "https://serpapi.com/searches/66d5d17468831ea93d969136/images/e239a3de57906e26db9f69964300f19a4aa21d964af56c6bcd211dd9f8c75ab2.png",
+      "snippet": "Leerlingen en medewerkers kunnen inloggen en roosters inzien door op de rode knop (LOGIN MET SINGLE-SIGN-ON) te klikken. Voor ouders is het niet mogelijk om ...",
+      "source": "Zermelo vossius"
+    },
+    {
+      "position": 10,
+      "title": "Zermelo goudsewaarden",
+      "link": "https://goudsewaarden.zportal.nl/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://goudsewaarden.zportal.nl/&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQFnoECDAQAQ",
+      "displayed_link": "https://goudsewaarden.zportal.nl",
+      "favicon": "https://serpapi.com/searches/66d5d17468831ea93d969136/images/e239a3de57906e26db9f69964300f19ad52ea574599556308baaf1392fe0a12e.webp",
+      "snippet": "Dit is de Zermelo Portal voor De Goudse Waarden. Gebruikersnaam is voor de leerlingen je leerlingnummer en voor de docenten je afkorting (kleine letters).",
+      "source": "Zermelo goudsewaarden"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=10&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8NMDegQILRAW",
+    "other_pages": {
+      "2": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=10&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAE",
+      "3": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=20&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAG",
+      "4": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=30&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAI",
+      "5": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=40&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAK",
+      "6": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=50&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAM",
+      "7": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=60&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAO",
+      "8": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=70&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAQ",
+      "9": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=80&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAS",
+      "10": "https://www.google.com/search?q=site:zportal.nl&sca_esv=77c4f50781debaf0&ei=dNHVZtCWIPq5wN4PtpaY2Q0&start=90&sa=N&sstk=AagrsugAWOc3cQU9jhYzFhUAPK54cm93tm45r2cIv-fDtbZ-DQrEbQQqQTbC_eYhAS_MlhoM34pMHHz8cjpxiUKQ3iqgw1bFs1hpdg&ved=2ahUKEwjQoKHawaSIAxX6HNAFHTYLJtsQ8tMDegQILRAU"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=10",
+    "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=10",
+      "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=20",
+      "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=30",
+      "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=40",
+      "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=50",
+      "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=60",
+      "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=70",
+      "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=80",
+      "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=site%3Azportal.nl&start=90"
+    }
+  }
+}
