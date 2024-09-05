@@ -25,9 +25,15 @@ const dutchMonthNames = [
 // Function to fetch appointments for the specified date
 function fetchAppointments(date) {
   // Parse the input date string to get the date and month
-  const [day, monthName] = date.split(" ");
+  const datum = document.getElementById("dateInput").value;
+  if (/^[a-zA-Z]{2}\s/.test(datum)) {
+    var [zomadiwodovrza, day, monthName] = datum.split(" ");
+  } else {
+    var [day, monthName] = datum.split(" ");
+  }
+  const monthShort = monthName.substring(0, 3);
   const monthIndex = dutchMonthNames.findIndex(
-    (month) => month.toLowerCase() === monthName.toLowerCase()
+    (month) => month.toLowerCase() === monthShort
   );
 
   if (monthIndex === -1 || isNaN(parseInt(day))) {
@@ -113,7 +119,7 @@ function fetchAppointments(date) {
           na: "Natuurkunde",
           nat: "Natuurkunde",
           sk: "Scheikunde",
-          nask: "Natuurkunde/Scheikunde",
+          nask: "NaSk",
           ec: "Economie",
           econ: "Economie",
           ma: "Maatschappijleer",
@@ -234,9 +240,14 @@ document.getElementById("loadSchedule").addEventListener("click", function () {
 // Function to handle previous day button click
 document.getElementById("previousDay").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;
-  const [day, month] = dateInput.split(" ");
+  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
+    var [zomadiwodovrza, day, month] = dateInput.split(" ");
+  } else {
+    var [day, month] = dateInput.split(" ");
+  }
+  const monthShort = month.substring(0, 3);
   const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === month.toLowerCase()
+    (monthName) => monthName.toLowerCase() === monthShort
   );
   const currentDate = new Date();
   currentDate.setFullYear(
@@ -244,18 +255,29 @@ document.getElementById("previousDay").addEventListener("click", function () {
     monthIndex,
     parseInt(day) - 1
   );
-  const previousDay =
-    currentDate.getDate() + " " + dutchMonthNames[currentDate.getMonth()];
-  document.getElementById("dateInput").value = previousDay;
-  fetchAppointments(previousDay);
+  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+  const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
+  const nextDay =
+    zomadiwodovrza1 +
+    " " +
+    currentDate.getDate() +
+    " " +
+    dutchMonthNames[currentDate.getMonth()];
+  document.getElementById("dateInput").value = nextDay;
+  fetchAppointments(nextDay);
 });
 
 // Function to handle next day button click
 document.getElementById("nextDay").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;
-  const [day, month] = dateInput.split(" ");
+  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
+    var [zomadiwodovrza, day, month] = dateInput.split(" ");
+  } else {
+    var [day, month] = dateInput.split(" ");
+  }
+  const monthShort = month.substring(0, 3);
   const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === month.toLowerCase()
+    (monthName) => monthName.toLowerCase() === monthShort
   );
   const currentDate = new Date();
   currentDate.setFullYear(
@@ -263,8 +285,14 @@ document.getElementById("nextDay").addEventListener("click", function () {
     monthIndex,
     parseInt(day) + 1
   );
+  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+  const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
   const nextDay =
-    currentDate.getDate() + " " + dutchMonthNames[currentDate.getMonth()];
+    zomadiwodovrza1 +
+    " " +
+    currentDate.getDate() +
+    " " +
+    dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
   fetchAppointments(nextDay);
 });
@@ -274,9 +302,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Default to today's date
   const today = new Date();
   const day = today.getDate();
+  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+  const zomadiwodovrza = daysOfWeek[today.getDay()];
   const monthName = dutchMonthNames[today.getMonth()];
   const formattedDate = `${day} ${monthName}`;
-  document.getElementById("dateInput").value = formattedDate;
+  const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
+  document.getElementById("dateInput").value = formattedDate1;
   fetchAppointments(formattedDate);
 });
 
