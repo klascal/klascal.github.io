@@ -31,6 +31,19 @@ function fetchAppointments(date) {
   } else {
     var [day, monthName] = datum.split(" ");
   }
+  const today1 = new Date();
+  const day1 = today1.getDate();
+  const daysOfWeek1 = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+  const zomadiwodovrza1 = daysOfWeek1[today1.getDay()];
+  const monthName1 = dutchMonthNames[today1.getMonth()];
+  const formattedDate3 = `${day1} ${monthName1}`;
+  const formattedDate2 = `${zomadiwodovrza1} ${day1} ${monthName1}`;
+  if (datum !== formattedDate3 && datum !== formattedDate2) {
+    document.getElementById("add").setAttribute("style", "display: block;");
+  }
+  if (datum === formattedDate3 || datum === formattedDate2) {
+    document.getElementById("add").setAttribute("style", "display: none;");
+  }
   const monthShort = monthName.substring(0, 3);
   const monthIndex = dutchMonthNames.findIndex(
     (month) => month.toLowerCase() === monthShort
@@ -56,7 +69,7 @@ function fetchAppointments(date) {
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,start,end,groups,teachers,changeDescription&access_token=${authorizationCode}`;
+  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${authorizationCode}`;
 
   fetch(apiUrl)
     .then((response) => response.json())
@@ -236,7 +249,17 @@ document.getElementById("loadSchedule").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;
   fetchAppointments(dateInput);
 });
-
+document.getElementById("add").addEventListener("click", function () {
+  const today = new Date();
+  const day = today.getDate();
+  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+  const zomadiwodovrza = daysOfWeek[today.getDay()];
+  const monthName = dutchMonthNames[today.getMonth()];
+  const formattedDate = `${day} ${monthName}`;
+  const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
+  document.getElementById("dateInput").value = formattedDate1;
+  fetchAppointments(formattedDate);
+});
 // Function to handle previous day button click
 document.getElementById("previousDay").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;

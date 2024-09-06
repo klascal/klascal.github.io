@@ -240,6 +240,17 @@
         border-radius: 10px;
         margin-bottom: 10px;
         background-color: #eee;
+        animation-name: load;
+        animation-duration: 0.1s;
+      }
+
+      @keyframes load {
+        from {
+          transform: scale(0.5);
+        }
+        to {
+          transform: scale(1);
+        }
       }
 
       @media (prefers-color-scheme: dark) {
@@ -436,6 +447,22 @@
         box-shadow: none;
         outline: none;
         cursor: pointer;
+        display: none;
+        animation-name: popOut;
+        animation-duration: 0.25s;
+      }
+
+      @keyframes popOut {
+        from {
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+        to {
+          width: 50px;
+          height: 50px;
+          opacity: 100;
+        }
       }
 
       @media (prefers-color-scheme: dark) {
@@ -823,25 +850,20 @@
     <div id="schedule">
       <!-- Appointments will be displayed here -->
     </div>
-    <a href="huiswerk/">
-      <button id="add">
-        <svg
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="20"
-          height="20"
-          style="vertical-align: middle"
-        >
-          <g>
-            <path
-              class="icon"
-              d="M13.94 5 19 10.06 9.062 20a2.25 2.25 0 0 1-.999.58l-5.116 1.395a.75.75 0 0 1-.92-.921l1.395-5.116a2.25 2.25 0 0 1 .58-.999L13.938 5Zm7.09-2.03a3.578 3.578 0 0 1 0 5.06l-.97.97L15 3.94l.97-.97a3.578 3.578 0 0 1 5.06 0Z"
-            ></path>
-          </g>
-        </svg>
-      </button>
-    </a>
+    <button id="add">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        width="24"
+        height="24"
+        style="vertical-align: middle"
+      >
+        <path
+          class="icon"
+          d="M360-300q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
+        />
+      </svg>
+    </button>
 
     <script src="scheduleDaytest.js"></script>
   </body>
