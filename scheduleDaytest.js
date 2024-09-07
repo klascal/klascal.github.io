@@ -71,12 +71,15 @@ function fetchAppointments(date) {
   const user = document.getElementById("user").value || "~me";
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document.getElementById("authorizationCode").value;
-  const accessToken = localStorage.getItem("access_token");
+  let accessToken = localStorage.getItem("access_token");
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
   let accessToken1 = localStorage.getItem("access_token");
   if (accessToken1 == null || accessToken == "undefined") {
     accessToken1 = fetchToken(authorizationCode, schoolName);
     localStorage.setItem("access_token", accessToken1);
+  }
+  if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
+    accessToken = authorizationCode;
   }
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
