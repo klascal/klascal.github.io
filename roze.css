@@ -14,6 +14,26 @@ a,
 #add {
   background: #ff84c3 !important;
 }
+.btn,
+#previousDay,
+#nextDay,
+#loadSchedule,
+#settingsButton {
+  background-color: #ff84c3 !important;
+  color: white;
+}
+.btn:hover,
+#previousDay:hover,
+#nextDay:hover,
+#loadSchedule:hover,
+#settingsButton:hover {
+  background-color: #ff65b4 !important;
+}
+@media (prefers-color-scheme: dark) {
+  .btn {
+    background-color: #ff84c3 !important;
+  }
+}
 #add:hover {
   background: #ff65b4 !important;
 }

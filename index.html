@@ -327,7 +327,6 @@
 
       #color-select {
         font-family: inherit;
-        background-color: #ddd;
       }
 
       button:not(:disabled) {
@@ -336,7 +335,6 @@
 
       .btn:hover {
         text-decoration: none;
-        background-color: #ddd;
       }
 
       button:not(:disabled):not(.disabled) {
@@ -345,8 +343,13 @@
 
       .btn:hover,
       .btn:active {
-        background-color: #ddd;
         text-decoration: none;
+      }
+
+      @media (prefers-color-scheme: light) {
+        dialog .btn {
+          background-color: #ddd;
+        }
       }
 
       @media (prefers-color-scheme: dark) {
@@ -357,13 +360,13 @@
 
         .btn {
           color: white !important;
-          background-color: #363636 !important;
+          background-color: #363636;
           text-shadow: none !important;
         }
 
         .btn:hover {
           color: white !important;
-          background-color: #444 !important;
+          background-color: #444;
         }
 
         .btn:hover,
@@ -373,11 +376,7 @@
         #loadSchedule:hover,
         #settingsButton:hover {
           color: white !important;
-          background-color: #444 !important;
-        }
-
-        #close:hover {
-          background-color: red !important;
+          background-color: #444;
         }
 
         #icon,
@@ -391,6 +390,10 @@
         #settingsButton {
           background-color: #363636 !important;
         }
+      }
+
+      #close:hover {
+        background-color: red !important;
       }
 
       #icon,
@@ -661,7 +664,6 @@
           class="btn"
           aria-label="Weekrooster"
           style="
-            background-color: #ddd;
             position: absolute;
             right: 194px;
             padding-bottom: 10px;
@@ -686,7 +688,6 @@
           class="btn"
           aria-label="Hulp"
           style="
-            background-color: #ddd;
             position: absolute;
             right: 132px;
             padding-bottom: 10px;
@@ -711,7 +712,6 @@
           class="btn"
           aria-label="Info"
           style="
-            background-color: #ddd;
             position: absolute;
             right: 70px;
             padding-bottom: 10px;
@@ -736,13 +736,7 @@
         onclick="hideDialog()"
         id="close"
         aria-label="Instellingen sluiten"
-        style="
-          background-color: #ddd;
-          position: absolute;
-          right: 8px;
-          padding-bottom: 10px;
-          top: 8px;
-        "
+        style="position: absolute; right: 8px; padding-bottom: 10px; top: 8px"
       >
         <svg
           width="24"
@@ -763,7 +757,6 @@
         id="schoolName"
         name="schoolName"
         class="btn"
-        style="background-color: #ddd"
         required
       /><br /><br />
 
@@ -774,7 +767,6 @@
         name="authorizationCode"
         autocomplete="off"
         class="btn"
-        style="background-color: #ddd"
         required
       /><br /><br />
 
@@ -785,12 +777,11 @@
         id="user"
         name="user"
         class="btn"
-        style="background-color: #ddd"
       /><br /><br /><label for="css">CSS-code (optioneel):</label><br /><br />
       <input
         type="text"
         autocomplete="off"
-        style="width: 90%; background-color: #ddd"
+        style="width: 90%"
         oninput="update_section(this.value, 'about');"
         onclick="update_section(this.value, 'about');"
         id="css"
@@ -819,11 +810,7 @@
       </select>
       <br /><br />
       <a href=""
-        ><button
-          class="btn"
-          style="background-color: #ddd"
-          aria-label="Opslaan"
-        >
+        ><button class="btn" aria-label="Opslaan">
           <svg
             width="24"
             height="24"
