@@ -16,8 +16,9 @@
           fill: white;
         }
       }
-      #GITHUB {
-        display: none;
+      .rss-title {
+        font-size: xx-large;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -44,19 +45,30 @@
         >Github</a
       >
     </header>
-    <iframe width="640px" height="480px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__nyQmVZUMkRZTzBXSFhVTUtUSzJJMFhXNDdCNEhTNS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
     <h3>
       Bekijk je rooster en het rooster van je docenten.<br /><br />Gemiddeld
       1,62 seconden sneller dan Zermelo.<br /><br />Werkt offline (voor de dagen
       die je hebt bekeken).<br /><br />Donkere/lichte modus.<br /><br />Voeg je
       eigen CSS toe.<br /><br />Laat klassennamen zien.<br /><br />Laat de
-      volledige namen van vakken zien (zoals bij Somtoday).<br /><br />Thema's
-      (Binnenkort).
+      volledige namen van vakken zien (zoals bij Somtoday).<br /><br />Thema's.
     </h3>
     <div>
       <span id="stats"></span> gebruikers (We onthouden unieke gebruikers voor 8
       uur, wordt geblokkeerd door de meeste adblockers)
     </div>
+    <script
+      language="JavaScript"
+      src="https://www.feedroll.com/rssviewer/feed2js.php?src=https%3A%2F%2Fgithub.com%2Fklascal%2Fklascal.github.io%2Fcommits%2Fmain.atom&chan=y&desc=1&au=y&targ=y&utf=y&html=p"
+      charset="UTF-8"
+      type="text/javascript"
+    ></script>
+
+    <noscript>
+      <a
+        href="https://www.feedroll.com/rssviewer/feed2js.php?src=https%3A%2F%2Fgithub.com%2Fklascal%2Fklascal.github.io%2Fcommits%2Fmain.atom&chan=y&desc=1&au=y&targ=y&utf=y&html=y"
+        >View RSS feed</a
+      >
+    </noscript>
 
     <script>
       var r = new XMLHttpRequest();
@@ -69,8 +81,6 @@
       r.send();
     </script>
 
-    <footer>
-      &copy Floris Rietman en Iven Boxem
-    </footer>
+    <footer>&copy Floris Rietman en Iven Boxem</footer>
   </body>
 </html>
