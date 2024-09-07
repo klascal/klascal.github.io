@@ -7,8 +7,11 @@ window.addEventListener("focus", () => {
 });
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
 let accessToken = localStorage.getItem("access_token");
-if (accessToken == null || accessToken == "[object Promise]") {
-  hideDialog();
+const authorizationCode = document.getElementById("authorizationCode").value;
+if (/^\d{12}$/.test(authorizationCode)) {
+  if (accessToken == null || accessToken == "[object Promise]") {
+    hideDialog();
+  }
 }
 
 // Dutch month names
@@ -398,7 +401,6 @@ async function fetchToken(authorizationCode, schoolName) {
     return accessToken;
   } catch (error) {
     console.error("Error fetching access token:", error.message);
-    displayError("Error fetching access token. Please try again.");
   }
 }
 // Functie om dialoogvenster te verbergen
@@ -408,9 +410,11 @@ async function hideDialog() {
   const authorizationCode = document.getElementById("authorizationCode").value;
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
   let accessToken = localStorage.getItem("access_token");
-  if (accessToken == null || accessToken == "[object Promise]") {
-    accessToken = await fetchToken(authorizationCode, schoolName);
-    localStorage.setItem("access_token", accessToken);
+  if (/^\d{12}$/.test(authorizationCode)) {
+    if (accessToken == null || accessToken == "[object Promise]") {
+      accessToken = await fetchToken(authorizationCode, schoolName);
+      localStorage.setItem("access_token", accessToken);
+    }
   }
   // Apply stored color theme on page load
   const storedColor = localStorage.getItem("color");
