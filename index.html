@@ -230,7 +230,7 @@
           "Helvetica Neue", sans-serif;
       }
 
-      .cancelled {
+      #schedule .cancelled {
         background-color: red !important; /* Light red */
         color: white;
       }
@@ -455,6 +455,7 @@
         display: none;
         animation-name: popOut;
         animation-duration: 0.25s;
+        transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
       }
       #add:hover {
         background: #a3daff;
@@ -475,7 +476,6 @@
 
       @media (prefers-color-scheme: dark) {
         #add {
-          background: #333;
           background: #7ac7fb;
         }
         #add:hover {

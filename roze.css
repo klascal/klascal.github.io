@@ -2,9 +2,26 @@ body,
 html {
   background-color: #ffc0cb !important;
 }
-
 a,
 #logo {
   color: black !important;
   fill: black !important;
+}
+#schedule div {
+  background-color: #d2008a9e !important;
+  color: white;
+}
+#add {
+  background: #ff84c3 !important;
+}
+#add:hover {
+  background: #ff65b4 !important;
+}
+@media (prefers-color-scheme: dark) {
+  #add {
+    background: #ff84c3 !important;
+  }
+  #add:hover {
+    background: #ff65b4 !important;
+  }
 }
