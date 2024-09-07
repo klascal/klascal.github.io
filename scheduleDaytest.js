@@ -5,6 +5,11 @@ window.addEventListener("blur", () => {
 window.addEventListener("focus", () => {
   document.title = docTitle;
 });
+// Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+let accessToken = localStorage.getItem("access_token");
+if (accessToken == null || accessToken == "[object Promise]") {
+  hideDialog();
+}
 
 // Dutch month names
 const dutchMonthNames = [
@@ -66,10 +71,17 @@ function fetchAppointments(date) {
   const user = document.getElementById("user").value || "~me";
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document.getElementById("authorizationCode").value;
+  const accessToken = localStorage.getItem("access_token");
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken1 = localStorage.getItem("access_token");
+  if (accessToken1 == null || accessToken == "undefined") {
+    accessToken1 = fetchToken(authorizationCode, schoolName);
+    localStorage.setItem("access_token", accessToken1);
+  }
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${authorizationCode}`;
+  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
 
   fetch(apiUrl)
     .then((response) => response.json())
@@ -360,10 +372,46 @@ function showDialog() {
   const dialog = document.getElementById("dialog");
   dialog.showModal();
 }
-
+// Functie om de access token te verkrijgen door middel van de koppelcode.
+async function fetchToken(authorizationCode, schoolName) {
+  try {
+    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    const parsedresp = await response.json();
+    const accessToken = parsedresp["access_token"];
+    localStorage.setItem("access_token", accessToken);
+    return accessToken;
+  } catch (error) {
+    console.error("Error fetching access token:", error.message);
+    displayError("Error fetching access token. Please try again.");
+  }
+}
 // Functie om dialoogvenster te verbergen
-function hideDialog() {
+async function hideDialog() {
   const dialog = document.getElementById("dialog");
+  const schoolName = document.getElementById("schoolName").value;
+  const authorizationCode = document.getElementById("authorizationCode").value;
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+  if (accessToken == null || accessToken == "[object Promise]") {
+    accessToken = await fetchToken(authorizationCode, schoolName);
+    localStorage.setItem("access_token", accessToken);
+  }
+  // Apply stored color theme on page load
+  const storedColor = localStorage.getItem("color");
+  if (storedColor) {
+    document
+      .getElementById("color-theme")
+      .setAttribute("href", `${storedColor}.css`);
+  }
   dialog.close();
   document.getElementById("loadSchedule").click();
   document.getElementById("css").click();
