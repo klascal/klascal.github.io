@@ -306,11 +306,16 @@
       .btn {
         background-color: #f1f1f1;
         border: 0;
-        padding: 0.5rem 0.5rem;
+        padding: 0.5rem 1rem;
         line-height: 1.5;
         border-radius: 4rem;
         transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
         text-decoration: none !important;
+      }
+
+      #dateInput {
+        padding: 0.5rem 0rem;
+        text-align: center;
       }
 
       #previousDay,
@@ -435,14 +440,14 @@
       }
 
       #add {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         position: fixed;
         bottom: 5px;
         right: 5px;
         z-index: 2;
-        border-radius: 25px;
-        background: #eee;
+        border-radius: 17.5px;
+        background: #bae2fd;
         border: 0px;
         box-shadow: none;
         outline: none;
@@ -450,6 +455,9 @@
         display: none;
         animation-name: popOut;
         animation-duration: 0.25s;
+      }
+      #add:hover {
+        background: #a3daff;
       }
 
       @keyframes popOut {
@@ -459,8 +467,8 @@
           opacity: 0;
         }
         to {
-          width: 50px;
-          height: 50px;
+          width: 60px;
+          height: 60px;
           opacity: 100;
         }
       }
@@ -468,9 +476,10 @@
       @media (prefers-color-scheme: dark) {
         #add {
           background: #333;
+          background: #7ac7fb;
         }
         #add:hover {
-          background: #555;
+          background: #58b9fb;
         }
       }
     </style>
@@ -521,7 +530,6 @@
         class="btn"
         size="7"
         autocomplete="off"
-        style="text-align: center; font-size: small"
       />
       <button
         id="previousDay"
@@ -854,8 +862,8 @@
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 -960 960 960"
-        width="24"
-        height="24"
+        width="32"
+        height="32"
         style="vertical-align: middle"
       >
         <path
