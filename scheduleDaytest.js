@@ -74,11 +74,12 @@ function fetchAppointments(date) {
   let accessToken = localStorage.getItem("access_token");
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
   let accessToken1 = localStorage.getItem("access_token");
-  if (accessToken1 == null || accessToken == "undefined") {
-    accessToken1 = fetchToken(authorizationCode, schoolName);
-    localStorage.setItem("access_token", accessToken1);
-  }
-  if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
+  if (/^\d{12}$/.test(authorizationCode)) {
+    if (accessToken1 == null || accessToken == "undefined") {
+      accessToken1 = fetchToken(authorizationCode, schoolName);
+      localStorage.setItem("access_token", accessToken1);
+    }
+  } else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
     accessToken = authorizationCode;
   }
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
@@ -179,7 +180,10 @@ function fetchAppointments(date) {
           bo: "Bewegingsonderwijs",
           glstnl: "Global Studies NL",
           nlt: "Natuur leven technologie",
+          wisd: "Wiskunde D",
+          wisc: "Wiskunde C",
           wisb: "Wiskunde B",
+          wisa: "Wiskunde A",
         };
 
         // Map subjects abbreviations to full names
