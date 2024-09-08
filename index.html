@@ -24,6 +24,8 @@
       async
       src="count.js"
     ></script>
+    <script type="text/javascript" src="llqrcode.js"></script>
+    <script type="text/javascript" src="webqr.js"></script>
     <style>
       @font-face {
         font-family: "Inter";
@@ -233,6 +235,10 @@
       #schedule .cancelled {
         background-color: red !important; /* Light red */
         color: white;
+      }
+
+      #v {
+        display: none;
       }
 
       #schedule div {
@@ -750,7 +756,39 @@
         autocomplete="off"
         class="btn"
         required
-      /><br /><br />
+      /><br /><br /><button onclick="load();" class="btn">
+        QR-code scannen
+      </button>
+      <div id="outdiv"></div>
+      <div id="result"></div>
+      <canvas id="qr-canvas" width="0" height="0"></canvas>
+      <script type="text/javascript">
+        // Function to check and store QR code data if it contains "institution"
+        function checkQRCode() {
+          const resultElement = document.getElementById("result").innerText;
+          try {
+            const qrData = JSON.parse(resultElement);
+            // Check if the object contains the 'institution' key
+            if (qrData.institution) {
+              // Store the institution and code in localStorage
+              localStorage.setItem("schoolName", qrData.institution);
+              localStorage.setItem("authorizationCode", qrData.code);
+              document.getElementById("authorizationCode").value = qrData.code;
+              document.getElementById("schoolName").value = qrData.institution;
+              document.getElementById("result").innerHTML = "";
+              console.log("Data saved to localStorage: ", qrData);
+            }
+          } catch (e) {
+            console.error("Invalid QR code format or error parsing JSON:", e);
+          }
+        }
+        // Observe changes in the #result element
+        const observer = new MutationObserver(checkQRCode);
+        observer.observe(document.getElementById("result"), {
+          childList: true,
+        });
+      </script>
+      <br />
 
       <label for="user">Gebruikersnaam:</label>
       <input
