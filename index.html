@@ -745,6 +745,8 @@
         type="text"
         id="authorizationCode"
         name="authorizationCode"
+        onclick="this.value = localStorage.getItem(`authorizationCode`);"
+        oninput="localStorage.setItem(`authorizationCode`, this.value);"
         autocomplete="off"
         class="btn"
         required

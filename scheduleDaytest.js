@@ -5,13 +5,15 @@ window.addEventListener("blur", () => {
 window.addEventListener("focus", () => {
   document.title = docTitle;
 });
+const authorizationCode = document.getElementById("authorizationCode").value;
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
 let accessToken = localStorage.getItem("access_token");
-const authorizationCode = document.getElementById("authorizationCode").value;
 if (/^\d{12}$/.test(authorizationCode)) {
   if (accessToken == null || accessToken == "[object Promise]") {
     hideDialog();
   }
+} else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
+  localStorage.setItem("access_token", authorizationCode);
 }
 
 // Dutch month names
@@ -83,7 +85,7 @@ function fetchAppointments(date) {
       localStorage.setItem("access_token", accessToken1);
     }
   } else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
-    accessToken = authorizationCode;
+    localStorage.setItem("access_token", authorizationCode);
   }
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
@@ -415,6 +417,8 @@ async function hideDialog() {
       accessToken = await fetchToken(authorizationCode, schoolName);
       localStorage.setItem("access_token", accessToken);
     }
+  } else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
+    localStorage.setItem("access_token", authorizationCode);
   }
   // Apply stored color theme on page load
   const storedColor = localStorage.getItem("color");
