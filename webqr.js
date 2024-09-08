@@ -126,22 +126,28 @@ function load() {
 }
 
 function setwebcam() {
-  var options = true;
+  var options = { facingMode: "environment" };
   if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
     try {
       navigator.mediaDevices.enumerateDevices().then(function (devices) {
         devices.forEach(function (device) {
           if (device.kind === "videoinput") {
-            if (device.label.toLowerCase().search("back") > -1)
+            // Check if the label suggests the back camera
+            if (
+              device.label.toLowerCase().search("back") > -1 ||
+              device.label.toLowerCase().search("rear") > -1
+            ) {
               options = {
-                deviceId: { exact: device.deviceId },
-                facingMode: "environment",
+                deviceId: { exact: device.deviceId }, // Use deviceId for the back camera
+                facingMode: "environment", // Also include facingMode as a fallback
               };
+            }
+            console.log(
+              device.kind + ": " + device.label + " id = " + device.deviceId
+            );
           }
-          console.log(
-            device.kind + ": " + device.label + " id = " + device.deviceId
-          );
         });
+        // Now pass the `options` to setwebcam2
         setwebcam2(options);
       });
     } catch (e) {
