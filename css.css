@@ -127,79 +127,51 @@ code.hljs {
   }
 }
 
-/* General Styles */
-:root {
-    --primary-color: #4a90e2;
-    --fade-color: #ffffff;
-    --text-color: white;
-    --fade-duration: 1s; /* Duration of the fade-out effect */
-    --splash-duration: 2s; /* Duration for which splash screen remains visible */
-}
-
-body, html {
-    overflow: hidden;  /* Prevent scroll during splash screen */
-}
-
 /* Splash Screen Styles */
 .splash-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    position: absolute;
-    width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 10;
-    transition: opacity var(--fade-duration) ease-in-out, background-color var(--fade-duration) ease-in-out;
-}
-
-/* To make the splash screen stay visible longer */
-.splash-screen.show {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4A90E2, #1E3C72);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out, visibility 1s;
+    z-index: 9999;
     opacity: 1;
-    background-color: var(--primary-color);
+    visibility: visible;
 }
 
-/* Keyframes for the fade-out effect */
-.splash-screen.hide {
-    opacity: 0;
-    background-color: var(--fade-color);
-}
-
-/* Logo Styles */
 .logo-container {
-    animation: fadeIn var(--splash-duration) ease-in-out;  /* Adjusted duration */
+    animation: fadeIn 1s ease-in-out;
 }
 
 .logo {
-    width: 150px;
+    width: 200px;
 }
 
-/* Keyframes for animations */
+/* Animations */
 @keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Main Content */
 .main-content {
     display: none;
     opacity: 0;
-    transform: translateY(100vh);  /* Start from below the viewport */
-    transition: opacity var(--fade-duration) ease-in-out, transform var(--fade-duration) ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 
-.main-content.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);  /* Move to its place */
+h1 {
+    font-size: 2.5em;
+    color: #333;
 }
 
-/* Responsive Styles */
-@media only screen and (max-width: 600px) {
-    .logo {
-        width: 120px;
-    }
+p {
+    font-size: 1.2em;
+    color: #555;
 }
