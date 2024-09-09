@@ -6,14 +6,15 @@ window.addEventListener("focus", () => {
   document.title = docTitle;
 });
 const authorizationCode = document.getElementById("authorizationCode").value;
+var authorizationCodeLS = localStorage.getItem("authorizationCode");
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
 let accessToken = localStorage.getItem("access_token");
-if (/^\d{12}$/.test(authorizationCode)) {
+if (/^\d{12}$/.test(authorizationCodeLS)) {
   if (accessToken == null || accessToken == "[object Promise]") {
     hideDialog();
   }
-} else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
-  localStorage.setItem("access_token", authorizationCode);
+} else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
+  localStorage.setItem("access_token", authorizationCodeLS);
 }
 
 // Dutch month names
@@ -79,13 +80,13 @@ function fetchAppointments(date) {
   let accessToken = localStorage.getItem("access_token");
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
   let accessToken1 = localStorage.getItem("access_token");
-  if (/^\d{12}$/.test(authorizationCode)) {
+  if (/^\d{12}$/.test(authorizationCodeLS)) {
     if (accessToken1 == null || accessToken == "undefined") {
       accessToken1 = fetchToken(authorizationCode, schoolName);
       localStorage.setItem("access_token", accessToken1);
     }
-  } else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
-    localStorage.setItem("access_token", authorizationCode);
+  } else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
+    localStorage.setItem("access_token", authorizationCodeLS);
   }
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
@@ -417,8 +418,8 @@ async function hideDialog() {
       accessToken = await fetchToken(authorizationCode, schoolName);
       localStorage.setItem("access_token", accessToken);
     }
-  } else if (/^[a-z0-9]{26}$/.test(authorizationCode)) {
-    localStorage.setItem("access_token", authorizationCode);
+  } else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
+    localStorage.setItem("access_token", authorizationCodeLS);
   }
   // Apply stored color theme on page load
   const storedColor = localStorage.getItem("color");
