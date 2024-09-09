@@ -26,6 +26,45 @@
     ></script>
     <script type="text/javascript" src="llqrcode.js"></script>
     <script type="text/javascript" src="webqr.js"></script>
+    <script>
+      // Functie om URL-parameters op te halen
+      function getQueryParams() {
+          let params = {};
+          let urlParams = new URLSearchParams(window.location.search);
+          urlParams.forEach((value, key) => {
+              params[key] = value;
+          });
+          return params;
+      }
+
+      // Functie om de form velden in te vullen
+      function fillFormAndSubmit() {
+          const queryParams = getQueryParams();
+
+          // Schoolnaam invullen
+          if (queryParams.school) {
+              document.getElementById('schoolName').value = queryParams.school;
+          }
+
+          // Token invullen
+          if (queryParams.token) {
+              document.getElementById('authorizationCode').value = queryParams.token;
+          }
+
+          // Gebruikersnaam invullen
+          if (queryParams.gebruikersnaam) {
+              document.getElementById('user').value = queryParams.gebruikersnaam;
+          }
+
+          // Automatisch op de submit-knop drukken
+          if (document.getElementById('close')) {
+              document.getElementById('close').click();
+          }
+      }
+
+      // Form invullen zodra de pagina geladen is en daarna de submit-knop indrukken
+      window.onload = fillFormAndSubmit;
+  </script>
     <style>
       @font-face {
         font-family: "Inter";
