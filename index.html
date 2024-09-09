@@ -492,6 +492,40 @@
         }
       }
     </style>
+    <script>
+      // Functie om URL-parameters op te halen
+      function getQueryParams() {
+          let params = {};
+          let urlParams = new URLSearchParams(window.location.search);
+          urlParams.forEach((value, key) => {
+              params[key] = value;
+          });
+          return params;
+      }
+
+      // Functie om de form velden in te vullen
+      function fillForm() {
+          const queryParams = getQueryParams();
+          
+          // Schoolnaam invullen
+          if (queryParams.school) {
+              document.getElementById('schoolName').value = queryParams.school;
+          }
+
+          // Token invullen
+          if (queryParams.token) {
+              document.getElementById('authorizationCode').value = queryParams.token;
+          }
+
+          // Gebruikersnaam invullen
+          if (queryParams.gebruikersnaam) {
+              document.getElementById('user').value = queryParams.gebruikersnaam;
+          }
+      }
+
+      // Form invullen zodra de pagina geladen is
+      window.onload = fillForm;
+  </script>
   </head>
   <body
     oncontextmenu="return false"
