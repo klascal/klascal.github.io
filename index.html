@@ -28,37 +28,64 @@
     <script type="text/javascript" src="webqr.js"></script>
     <script>
       // Functie om URL-parameters op te halen
-      function getQueryParams() {
-            let params = {};
-            let urlParams = new URLSearchParams(window.location.search);
-            urlParams.forEach((value, key) => {
-                params[key] = value;
-            });
-            return params;
-        }
+      function getURLParameter(param) {
+          const params = new URLSearchParams(window.location.search);
+          return params.get(param);
+      }
 
-        // Functie om de form velden in te vullen
-        function fillForm() {
-            const queryParams = getQueryParams();
+      // Functie om URL-parameters te verwijderen
+      function removeURLParameter(param) {
+          const url = new URL(window.location.href);
+          url.searchParams.delete(param);
+          window.history.replaceState({}, document.title, url.pathname + url.search); // Update de URL zonder opnieuw te laden
+      }
 
-            // Schoolnaam invullen
-            if (queryParams.school) {
-                document.getElementById('schoolName').value = queryParams.school;
-            }
+      // Parameters ophalen uit de URL
+      const schoolNaam = getURLParameter('school');
+      const token = getURLParameter('token');
+      const gebruikersnaam = getURLParameter('gebruikersnaam');
 
-            // Token invullen
-            if (queryParams.token) {
-                document.getElementById('authorizationCode').value = queryParams.token;
-            }
+      // Formulier automatisch invullen
+      function fillForm() {
+          if (schoolNaam) {
+              document.getElementById('schoolName').value = schoolNaam;
+              removeURLParameter('school');
+          }
+          if (token) {
+              document.getElementById('authorizationCode').value = token;
+              removeURLParameter('token');
+          }
+          if (gebruikersnaam) {
+              document.getElementById('user').value = gebruikersnaam;
+              removeURLParameter('gebruikersnaam');
+          }
+      }
 
-            // Gebruikersnaam invullen
-            if (queryParams.gebruikersnaam) {
-                document.getElementById('user').value = queryParams.gebruikersnaam;
-            }
-        }
+      // Controleer of het formulier al eerder is gesubmit
+      function isFormAlreadySubmitted() {
+          return localStorage.getItem('formSubmitted') === 'true';
+      }
 
-        // Form invullen zodra de pagina geladen is
-        window.onload = fillForm;
+      // Stel in dat het formulier is gesubmit
+      function markFormAsSubmitted() {
+          localStorage.setItem('formSubmitted', 'true');
+      }
+
+      // Auto-submit formulier
+      function autoSubmitForm() {
+          if (!isFormAlreadySubmitted()) {
+              document.getElementById('close').click();  // Klik op de submit-knop
+              markFormAsSubmitted();  // Markeer het formulier als gesubmit
+          }
+      }
+
+      // Pagina-initialisatie
+      window.onload = function() {
+          if (!isFormAlreadySubmitted()) {
+              fillForm();  // Formulier automatisch invullen
+              autoSubmitForm();  // Automatisch verzenden
+          }
+      };
   </script>
     <style>
       @font-face {
