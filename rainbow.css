@@ -1,0 +1,34 @@
+body,
+html {
+  animation-name: rainbow;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  background-image: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet,
+    red
+  );
+  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+  background-size: 2000px;
+}
+
+@keyframes rainbow {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 2000px;
+  }
+}
+
+a,
+#logo {
+  color: black !important;
+  fill: black !important;
+}
