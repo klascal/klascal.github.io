@@ -1,10 +1,3 @@
-let docTitle = document.title;
-window.addEventListener("blur", () => {
-  document.title = "Rooster Klascal";
-});
-window.addEventListener("focus", () => {
-  document.title = docTitle;
-});
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
