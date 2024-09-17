@@ -183,6 +183,8 @@ function fetchAppointments(date) {
           wisc: "Wiskunde C",
           wisb: "Wiskunde B",
           wisa: "Wiskunde A",
+          Act: "Activiteit",
+          act: "Activiteit",
         };
 
         // Map subjects abbreviations to full names
