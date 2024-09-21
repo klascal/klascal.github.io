@@ -25,6 +25,23 @@ const dutchMonthNames = [
   "nov",
   "dec",
 ];
+const checkbox = document.getElementById("meldingen");
+// Function to save checkbox state to localStorage
+function saveCheckboxState() {
+  localStorage.setItem("checkboxState", checkbox.checked);
+}
+
+// Function to restore checkbox state from localStorage
+function restoreCheckboxState() {
+  const savedState = localStorage.getItem("checkboxState");
+  if (savedState !== null) {
+    checkbox.checked = JSON.parse(savedState);
+  }
+}
+window.onload = restoreCheckboxState;
+
+// Save state when checkbox is clicked
+checkbox.addEventListener("change", saveCheckboxState);
 
 // Function to fetch appointments for the specified date
 function fetchAppointments(date) {
@@ -223,13 +240,91 @@ function fetchAppointments(date) {
         if (appointment.cancelled === true) {
           appointmentDiv.classList.add("cancelled");
         }
+        // Check if the browser supports notifications
+        if ("Notification" in window) {
+          // Check if permission has already been granted
+          if (
+            Notification.permission === "granted" &&
+            appointment.cancelled === false
+          ) {
+            if (datum === formattedDate3 || datum === formattedDate2) {
+              if (localStorage.getItem("LastNotificationDate") !== datum) {
+                const startTime = new Date(appointment.start * 1000);
+                // If it's okay, create a notification
+                new Notification(subjectsFullNames, {
+                  body:
+                    startTimeString +
+                    "-" +
+                    endTimeString +
+                    " • " +
+                    appointment.locations +
+                    " (" +
+                    appointment.teachers +
+                    ")",
+                  icon: "logo.svg",
+                  timestamp: startTime,
+                });
+              }
+            }
+          }
+          // If the permission is not granted yet, request for it
+          else if (Notification.permission !== "denied") {
+            if (localStorage.getItem("checkboxState") === "true") {
+              Notification.requestPermission().then(function (permission) {
+                // If the user accepts, send the notification
+                if (
+                  permission === "granted" &&
+                  appointment.cancelled === false
+                ) {
+                  if (datum === formattedDate3 || datum === formattedDate2) {
+                    if (
+                      localStorage.getItem("LastNotificationDate") !== datum
+                    ) {
+                      const startTime = new Date(appointment.start * 1000);
+                      // If it's okay, create a notification
+                      new Notification(subjectsFullNames, {
+                        body:
+                          startTimeString +
+                          "-" +
+                          endTimeString +
+                          " • " +
+                          appointment.locations +
+                          " (" +
+                          appointment.teachers +
+                          ")",
+                        icon: "logo.svg",
+                        timestamp: startTime,
+                      });
+                    }
+                  }
+                }
+              });
+            }
+          }
+        } else {
+          console.log("This browser does not support notifications.");
+        }
 
         scheduleDiv.appendChild(appointmentDiv);
       });
     })
     .catch((error) => console.error("Error fetching data: ", error));
-}
+  // Retry every 500ms until the element with id 'vaknaam' exists
+  const retryInterval = setInterval(function () {
+    const vaknaamElement = document.getElementById("vaknaam");
 
+    if (vaknaamElement) {
+      if (datum === formattedDate3 || datum === formattedDate2) {
+        // Element exists, save the date from dateInput to localStorage
+        const dateInputValue = document.getElementById("dateInput").value;
+        localStorage.setItem("LastNotificationDate", dateInputValue);
+
+        // Stop retrying
+        clearInterval(retryInterval);
+      }
+    }
+  }, 50); // Check every 50ms
+}
 // Function to filter out cancelled lessons if there are multiple lessons for the same hour
 function filterCancelledLessons(appointments) {
   const filteredAppointments = [];
