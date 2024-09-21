@@ -283,6 +283,32 @@
         display: none;
       }
 
+      .warning {
+        color: yellow;
+        text-shadow: 0px 0px 2px #000;
+        float: right;
+        padding: 0px;
+        margin-right: 0px;
+        background-color: inherit;
+      }
+
+      .warning .warningMessage {
+        display: none;
+        z-index: 1;
+        position: absolute;
+        color: #000;
+        background-color: yellow;
+        text-shadow: none;
+        border-radius: 10px;
+        padding: 5px;
+        right: 5px;
+        max-width: 95%;
+      }
+
+      .warning:hover .warningMessage {
+        display: block;
+      }
+
       #schedule div {
         padding: 10px;
         border-radius: 10px;
