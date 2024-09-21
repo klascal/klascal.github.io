@@ -794,10 +794,11 @@
           id="schoolName"
           name="schoolName"
           class="btn"
+          autocomplete="off"
           required
         /><br /><br />
 
-        <label for="authorizationCode">Token:</label>
+        <label for="authorizationCode">Koppelcode:</label>
         <input
           type="text"
           id="authorizationCode"
@@ -805,6 +806,7 @@
           onclick="this.value = localStorage.getItem(`authorizationCode`);"
           oninput="localStorage.setItem(`authorizationCode`, this.value);"
           autocomplete="off"
+          size="10"
           class="btn"
           required
         /><br /><br /><button onclick="load();" class="btn">
