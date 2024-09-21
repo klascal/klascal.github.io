@@ -101,7 +101,7 @@ function fetchAppointments(date) {
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
+  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,type,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
 
   fetch(apiUrl)
     .then((response) => response.json())
@@ -129,14 +129,18 @@ function fetchAppointments(date) {
         const endTime = new Date(appointment.end * 1000);
 
         // Format start and end times
-        const startTimeString = startTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        const endTimeString = endTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        const startTimeString = startTime
+          .toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+          .replace(/^0+/, "");
+        const endTimeString = endTime
+          .toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+          .replace(/^0+/, "");
 
         // Object met vak afkortingen en hun volledige namen
         const subjectsMapping = {
@@ -201,7 +205,7 @@ function fetchAppointments(date) {
           wisb: "Wiskunde B",
           wisa: "Wiskunde A",
           Act: "Activiteit",
-          act: "Activiteit",
+          SPORTDAG: "Sportdag",
         };
 
         // Map subjects abbreviations to full names
@@ -216,15 +220,26 @@ function fetchAppointments(date) {
 
         // Create appointment HTML
         const appointmentDiv = document.createElement("div");
+        if (!appointment.startTimeSlot) {
+          var timeSlot = "";
+          if (appointment.type === "exam") {
+            var timeSlot = "Toets";
+          }
+          if (appointment.type === "activity") {
+            var timeSlot = "Activiteit";
+          }
+        } else {
+          var timeSlot = appointment.startTimeSlot;
+        }
+        const teachers =
+          "(" + appointment.teachers.filter((e) => e != user).join(", ") + ")";
         appointmentDiv.innerHTML = `
           <p><strong id="vaknaam">${subjectsFullNames.join(
             ", "
-          )}</strong><strong style="position:absolute;right:25px;">${
-          appointment.startTimeSlot
-        }</strong></p>
+          )}</strong><strong style="position:absolute;right:25px;" id="timeSlot">${timeSlot}</strong></p>
           <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
           ", "
-        )} (${appointment.teachers.join(", ")})</span></p>
+        )} ${teachers == "()" ? "" : teachers}</span></p>
         <p class="className">${appointment.groups.join(", ")}</p>
         <p>
           ${
@@ -235,11 +250,9 @@ function fetchAppointments(date) {
           ${appointment.changeDescription}
         </p>
         `;
-
-        // Add cancelled class if appointment is cancelled
-        if (appointment.cancelled === true) {
-          appointmentDiv.classList.add("cancelled");
-        }
+        appointmentDiv.classList.add(
+          appointment.cancelled ? "cancelled" : appointment.type
+        );
         // Check if the browser supports notifications
         if ("Notification" in window) {
           // Check if permission has already been granted
