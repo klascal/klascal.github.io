@@ -241,7 +241,7 @@ function fetchAppointments(date) {
         appointmentDiv.innerHTML = `
           <p><strong id="vaknaam">${subjectsFullNames.join(
             ", "
-          )}</strong><strong style="position:absolute;right:17.5px;" id="timeSlot">${timeSlot}</strong></p>
+          )}</strong><strong style="position:absolute;right:7.5px;" id="timeSlot">${timeSlot}</strong></p>
           <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
           ", "
         )} ${teachers == "()" ? "" : teachers} <span class="warning">
