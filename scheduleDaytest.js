@@ -579,10 +579,6 @@ function handleArrowKeyPress(event) {
   }
 }
 
-// Function to load previous day schedule
-function loadPreviousDaySchedule() {
-  document.getElementById("previousDay").click();
-}
 let startX;
     let startY;
     const swipeArea = document.getElementById('schedule');
@@ -614,17 +610,13 @@ let startX;
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
         if (deltaX > 0) {
           // Swipe left
-          loadPreviousSchedule();
+          loadPreviousDaySchedule();
         } else {
           // Swipe right
           loadNextDaySchedule();
         }
       }
     }
-// Function to load next day schedule
-function loadNextDaySchedule() {
-  document.getElementById("nextDay").click();
-}
 
 // Add event listener for keydown event on the document
 document.addEventListener("keydown", handleArrowKeyPress);
