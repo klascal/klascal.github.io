@@ -603,7 +603,7 @@ let startX;
       const deltaY = endY - startY;
 
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 0) {
+        if (deltaX > 150) {
           // Swipe left
           loadPreviousDaySchedule();
         } else {
