@@ -574,7 +574,7 @@ function handleArrowKeyPress(event) {
 
 let startX;
     let startY;
-    const minSwipeDistance = 150;
+    const minSwipeDistance = 50;
 
     // Event listeners for touch events
     document.addEventListener('touchstart', handleTouchStart, false);
