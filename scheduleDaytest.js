@@ -553,12 +553,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("css").click();
 });
 
-// Function to load previous day schedule
 function loadPreviousDaySchedule() {
   document.getElementById("previousDay").click();
 }
 
-// Function to load next day schedule
 function loadNextDaySchedule() {
   document.getElementById("nextDay").click();
 }
