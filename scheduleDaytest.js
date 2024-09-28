@@ -614,11 +614,11 @@ let startX;
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
         if (deltaX > 0) {
           // Swipe right
-          alert('Swiped Right');
+          loadPreviousSchedule();
           // Do something for right swipe
         } else {
           // Swipe left
-          alert('Swiped Left');
+          loadNextDaySchedule();
           // Do something for left swipe
         }
       }
