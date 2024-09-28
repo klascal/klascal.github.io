@@ -579,7 +579,7 @@ function handleArrowKeyPress(event) {
 
 let startX;
     let startY;
-    const swipeArea = document.getElementById('schedule');
+    const swipeArea = document.querySelector("body");
 
     // Event listeners for touch events
     swipeArea.addEventListener('touchstart', handleTouchStart, false);
