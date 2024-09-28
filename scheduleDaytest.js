@@ -555,10 +555,12 @@ document.addEventListener("DOMContentLoaded", function () {
 let startX;
 let endX;
 const SWIPE_THRESHOLD = 150; // Adjust as needed
+let isSwiping = false; // Track if the swipe gesture is valid
 
 // Function to handle touch start event
 function handleTouchStart(event) {
   startX = event.touches[0].clientX;
+  isSwiping = true; // Indicate a swipe has started
 }
 
 // Function to handle touch move event
@@ -569,18 +571,24 @@ function handleTouchMove(event) {
 
 // Function to handle touch end event
 function handleTouchEnd(event) {
-  handleSwipe();
+  if (isSwiping) {
+    handleSwipe();
+    isSwiping = false; // Reset the swiping state
+  }
 }
 
 // Function to handle swipe direction
 function handleSwipe() {
   const deltaX = endX - startX;
-  if (deltaX > SWIPE_THRESHOLD) {
-    // Swipe right, load previous day schedule
-    loadPreviousDaySchedule();
-  } else if (deltaX < -SWIPE_THRESHOLD) {
-    // Swipe left, load next day schedule
-    loadNextDaySchedule();
+
+  if (Math.abs(deltaX) > SWIPE_THRESHOLD) { // Ensure the swipe is significant enough
+    if (deltaX > 0) {
+      // Swipe right, load previous day schedule
+      loadPreviousDaySchedule();
+    } else {
+      // Swipe left, load next day schedule
+      loadNextDaySchedule();
+    }
   }
 }
 
@@ -595,9 +603,9 @@ function loadNextDaySchedule() {
 }
 
 // Add event listeners for touch events on the document
-document.addEventListener("touchstart", handleTouchStart);
-document.addEventListener("touchmove", handleTouchMove);
-document.addEventListener("touchend", handleTouchEnd);
+document.addEventListener("touchstart", handleTouchStart, false);
+document.addEventListener("touchmove", handleTouchMove, false);
+document.addEventListener("touchend", handleTouchEnd, false);
 // Function to handle arrow key presses
 function handleArrowKeyPress(event) {
   const key = event.key;
