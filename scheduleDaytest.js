@@ -592,6 +592,8 @@ let startX;
       startY = touch.pageY;
     }
 
+    function handleTouchStart(e) {}
+
     function handleTouchEnd(e) {
       const touch = e.changedTouches[0];
       const endX = touch.pageX;
