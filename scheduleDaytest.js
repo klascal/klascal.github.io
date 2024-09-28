@@ -613,13 +613,11 @@ let startX;
 
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
         if (deltaX > 0) {
-          // Swipe right
-          loadPreviousSchedule();
-          // Do something for right swipe
-        } else {
           // Swipe left
+          loadPreviousSchedule();
+        } else {
+          // Swipe right
           loadNextDaySchedule();
-          // Do something for left swipe
         }
       }
     }
