@@ -552,45 +552,6 @@ function update_section(with_what, what) {
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("css").click();
 });
-let startX;
-let endX;
-const SWIPE_THRESHOLD = 150; // Adjust as needed
-let isSwiping = false; // Track if the swipe gesture is valid
-
-// Function to handle touch start event
-function handleTouchStart(event) {
-  startX = event.touches[0].clientX;
-  isSwiping = true; // Indicate a swipe has started
-}
-
-// Function to handle touch move event
-function handleTouchMove(event) {
-  endX = event.touches[0].clientX;
-  event.preventDefault(); // Prevent scrolling while swiping
-}
-
-// Function to handle touch end event
-function handleTouchEnd(event) {
-  if (isSwiping) {
-    handleSwipe();
-    isSwiping = false; // Reset the swiping state
-  }
-}
-
-// Function to handle swipe direction
-function handleSwipe() {
-  const deltaX = endX - startX;
-
-  if (Math.abs(deltaX) > SWIPE_THRESHOLD) { // Ensure the swipe is significant enough
-    if (deltaX > 0) {
-      // Swipe right, load previous day schedule
-      loadPreviousDaySchedule();
-    } else {
-      // Swipe left, load next day schedule
-      loadNextDaySchedule();
-    }
-  }
-}
 
 // Function to load previous day schedule
 function loadPreviousDaySchedule() {
@@ -621,6 +582,58 @@ function handleArrowKeyPress(event) {
 // Function to load previous day schedule
 function loadPreviousDaySchedule() {
   document.getElementById("previousDay").click();
+}
+let startX;
+let endX;
+const SWIPE_THRESHOLD = 150; // Adjust this as needed
+let isTouching = false; // Track if a touch has started
+let isSwiping = false;  // Track if it's a swipe gesture
+
+// Function to handle touch start event
+function handleTouchStart(event) {
+  startX = event.touches[0].clientX;
+  isTouching = true; // Set touching to true when the touch starts
+  isSwiping = false; // Reset swipe detection
+}
+
+// Function to handle touch move event
+function handleTouchMove(event) {
+  if (!isTouching) return; // Ignore moves if no touch is active
+
+  endX = event.touches[0].clientX;
+  const deltaX = endX - startX;
+  
+  // Check if there's a significant movement (to avoid accidental taps)
+  if (Math.abs(deltaX) > 10) {
+    isSwiping = true; // Only consider it a swipe if there's significant movement
+  }
+  
+  event.preventDefault(); // Prevent scrolling while swiping
+}
+
+// Function to handle touch end event
+function handleTouchEnd(event) {
+  if (isSwiping) {
+    handleSwipe(); // Only handle swipe if it was detected
+  }
+  // Reset touch tracking
+  isTouching = false;
+  isSwiping = false;
+}
+
+// Function to handle swipe direction
+function handleSwipe() {
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > SWIPE_THRESHOLD) { // Ensure the swipe is significant
+    if (deltaX > 0) {
+      // Swipe right, load previous day schedule
+      loadPreviousDaySchedule();
+    } else {
+      // Swipe left, load next day schedule
+      loadNextDaySchedule();
+    }
+  }
 }
 
 // Function to load next day schedule
