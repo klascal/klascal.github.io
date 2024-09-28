@@ -580,6 +580,7 @@ function handleArrowKeyPress(event) {
 let startX;
     let startY;
     const swipeArea = document.querySelector("body");
+    const minSwipeDistance = 100;
 
     // Event listeners for touch events
     swipeArea.addEventListener('touchstart', handleTouchStart, false);
@@ -603,13 +604,15 @@ let startX;
       const deltaY = endY - startY;
 
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        if (deltaX > 150) {
+         if (Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
           // Swipe left
           loadPreviousDaySchedule();
         } else {
           // Swipe right
           loadNextDaySchedule();
         }
+       }
       }
     }
 
