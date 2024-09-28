@@ -592,11 +592,6 @@ let startX;
       startY = touch.pageY;
     }
 
-    function handleTouchMove(e) {
-      // Prevents the default action like scrolling
-      e.preventDefault();
-    }
-
     function handleTouchEnd(e) {
       const touch = e.changedTouches[0];
       const endX = touch.pageX;
