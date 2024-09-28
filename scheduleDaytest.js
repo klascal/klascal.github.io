@@ -560,11 +560,6 @@ function loadPreviousDaySchedule() {
 function loadNextDaySchedule() {
   document.getElementById("nextDay").click();
 }
-
-// Add event listeners for touch events on the document
-document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchmove", handleTouchMove, false);
-document.addEventListener("touchend", handleTouchEnd, false);
 // Function to handle arrow key presses
 function handleArrowKeyPress(event) {
   const key = event.key;
@@ -579,13 +574,12 @@ function handleArrowKeyPress(event) {
 
 let startX;
     let startY;
-    const swipeArea = document.querySelector("body");
-    const minSwipeDistance = 100;
+    const minSwipeDistance = 150;
 
     // Event listeners for touch events
-    swipeArea.addEventListener('touchstart', handleTouchStart, false);
-    swipeArea.addEventListener('touchmove', handleTouchMove, false);
-    swipeArea.addEventListener('touchend', handleTouchEnd, false);
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
+    document.addEventListener('touchend', handleTouchEnd, false);
 
     function handleTouchStart(e) {
       const touch = e.touches[0];
