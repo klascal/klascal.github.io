@@ -584,58 +584,45 @@ function loadPreviousDaySchedule() {
   document.getElementById("previousDay").click();
 }
 let startX;
-let endX;
-const SWIPE_THRESHOLD = 150; // Adjust this as needed
-let isTouching = false; // Track if a touch has started
-let isSwiping = false;  // Track if it's a swipe gesture
+    let startY;
+    const swipeArea = document.getElementById('schedule');
 
-// Function to handle touch start event
-function handleTouchStart(event) {
-  startX = event.touches[0].clientX;
-  isTouching = true; // Set touching to true when the touch starts
-  isSwiping = false; // Reset swipe detection
-}
+    // Event listeners for touch events
+    swipeArea.addEventListener('touchstart', handleTouchStart, false);
+    swipeArea.addEventListener('touchmove', handleTouchMove, false);
+    swipeArea.addEventListener('touchend', handleTouchEnd, false);
 
-// Function to handle touch move event
-function handleTouchMove(event) {
-  if (!isTouching) return; // Ignore moves if no touch is active
-
-  endX = event.touches[0].clientX;
-  const deltaX = endX - startX;
-  
-  // Check if there's a significant movement (to avoid accidental taps)
-  if (Math.abs(deltaX) > 10) {
-    isSwiping = true; // Only consider it a swipe if there's significant movement
-  }
-  
-  event.preventDefault(); // Prevent scrolling while swiping
-}
-
-// Function to handle touch end event
-function handleTouchEnd(event) {
-  if (isSwiping) {
-    handleSwipe(); // Only handle swipe if it was detected
-  }
-  // Reset touch tracking
-  isTouching = false;
-  isSwiping = false;
-}
-
-// Function to handle swipe direction
-function handleSwipe() {
-  const deltaX = endX - startX;
-
-  if (Math.abs(deltaX) > SWIPE_THRESHOLD) { // Ensure the swipe is significant
-    if (deltaX > 0) {
-      // Swipe right, load previous day schedule
-      loadPreviousDaySchedule();
-    } else {
-      // Swipe left, load next day schedule
-      loadNextDaySchedule();
+    function handleTouchStart(e) {
+      const touch = e.touches[0];
+      startX = touch.pageX;
+      startY = touch.pageY;
     }
-  }
-}
 
+    function handleTouchMove(e) {
+      // Prevents the default action like scrolling
+      e.preventDefault();
+    }
+
+    function handleTouchEnd(e) {
+      const touch = e.changedTouches[0];
+      const endX = touch.pageX;
+      const endY = touch.pageY;
+
+      const deltaX = endX - startX;
+      const deltaY = endY - startY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0) {
+          // Swipe right
+          alert('Swiped Right');
+          // Do something for right swipe
+        } else {
+          // Swipe left
+          alert('Swiped Left');
+          // Do something for left swipe
+        }
+      }
+    }
 // Function to load next day schedule
 function loadNextDaySchedule() {
   document.getElementById("nextDay").click();
