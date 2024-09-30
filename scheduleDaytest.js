@@ -253,8 +253,7 @@ function fetchAppointments(date) {
         appointmentDiv.classList.add(
           appointment.cancelled ? "cancelled" : appointment.type
         );
-        const today = new Date();
-  const dago = today.now(); if (dago >= appointment.start * 1000 && dago <= appointment.end * 1000) {appointmentDiv.classList.add("test");}
+  const dago = Date.now(); if (dago <= appointment.end * 1000) {appointmentDiv.classList.add("test");}
         // Check if the browser supports notifications
         if ("Notification" in window) {
           // Check if permission has already been granted
