@@ -8,7 +8,7 @@ a,
   fill: black !important;
 }
 #schedule div {
-  background-color: #d2008a9e !important;
+  background-color: #ff84c3 !important;
   color: white;
 }
 #add {
@@ -44,4 +44,7 @@ a,
   #add:hover {
     background: #ff65b4 !important;
   }
+}
+#schedule div.test {
+	background-color: #d2008a9e !important;
 }
