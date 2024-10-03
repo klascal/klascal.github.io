@@ -1,0 +1,102 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #e3f2fd; /* Lichtblauwe achtergrond */
+  color: #1e88e5; /* Donkerblauwe tekst */
+  margin: 0;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #0d47a1; /* Donkerder blauw voor kopjes */
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+#selectionContainer,
+#quizContainer {
+  background: #ffffff; /* Witte achtergrond voor het selection-container */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+label {
+  font-weight: bold;
+  display: block;
+  margin: 10px 0 5px;
+}
+select {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #1e88e5; /* Lichtere randkleur */
+  border-radius: 4px;
+  font-size: 14px;
+}
+input[type="text"],
+input[type="number"] {
+  border: none;
+  border-bottom: 1px solid #1e88e5; /* Alleen onderrand */
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+button {
+  background: #1e88e5; /* Blauw voor knoppen */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: background 0.3s;
+}
+button:hover {
+  background: #1565c0; /* Donkerder blauw bij hover */
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.square {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #1e88e5;
+  display: inline-block;
+  margin-left: 10px;
+}
+.question {
+  margin-bottom: 10px;
+}
+/* Antwoorden en normering */
+.answers-container {
+  margin-top: 20px;
+  background: #e8f5e9; /* Groene achtergrond voor antwoorden */
+  padding: 10px;
+  border-radius: 8px;
+}
+/* Dialogen en popups */
+.dialog {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid #1e88e5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
