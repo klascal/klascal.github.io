@@ -25,6 +25,7 @@ const dutchMonthNames = [
   "nov",
   "dec",
 ];
+setTimeout(function() {console.log("test")}, 5000);
 const checkbox = document.getElementById("meldingen");
 // Function to save checkbox state to localStorage
 function saveCheckboxState() {
