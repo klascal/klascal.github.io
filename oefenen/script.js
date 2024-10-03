@@ -9,7 +9,7 @@ async function loadQuestions() {
   const chapter = document.getElementById("chapter").value;
 
   const response = await fetch(
-    `vragen/${level}_${year}_${subject}_${chapter}.txt`
+    `oefenen/vragen/${level}_${year}_${subject}_${chapter}.txt`
   ); // Laad het .txt-bestand
   const text = await response.text();
   questions = text
