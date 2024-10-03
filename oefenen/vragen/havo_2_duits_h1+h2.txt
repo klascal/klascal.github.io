@@ -1,0 +1,137 @@
+Du &input& (haben) ein Buch.,hast
+Ich &input& (sein) ein Schüler.,bin
+Ich &input& (haben) heute viele Hausaufgaben.,habe
+Du &input& (sein) gestern in der Schule.,bist
+Er &input& (haben) einen neuen Computer.,hat
+Wir &input& (sein) letztes Wochenende zu Hause.,sind
+Sie &input& (sein) schon fertig mit der Arbeit.,sind
+Ihr &input& (sein) gestern im Kino.,seid
+Sie &input& (haben) einen großen Garten.,haben
+Wir &input& (haben) Hunger nach der langen Wanderung.,haben
+Ich &input& (sein) müde nach der Arbeit.,bin
+Du &input& (haben) einen tollen Film gesehen.,hast
+Er &input& (sein) sehr glücklich.,ist
+Wir &input& (haben) eine schöne Reise gemacht.,haben
+Sie &input& (sein) die Beste in der Klasse.,ist
+Ich &input& (haben) viele Freunde.,habe
+Du &input& (sein) immer so freundlich.,bist
+Er &input& (haben) einen Hund.,hat
+Wir &input& (sein) spät angekommen.,sind
+Ihr &input& (haben) viel Spaß auf der Party.,habt
+Sie &input& (sein) meine Lieblingsband.,sind
+Ich &input& (haben) kein Geld.,habe
+Du &input& (haben) ein schönes Lächeln.,hast
+Er &input& (sein) oft müde.,ist
+Wir &input& (haben) ein Problem.,haben
+Du &input& (sein) immer so glücklich.,bist
+Er &input& (haben) ein neues Fahrrad.,hat
+Ich &input& (sein) ein guter Freund.,bin
+Sie &input& (haben) eine große Familie.,haben
+Wir &input& (sein) letzte Woche in der Stadt.,sind
+Ihr &input& (haben) das Spiel gewonnen.,habt
+Ich &input& (haben) viel gelernt diese Woche.,habe
+Du &input& (sein) mein bester Freund.,bist
+Er &input& (haben) ein neues Telefon gekauft.,hat
+Sie &input& (sein) sehr kreativ.,sind
+Wir &input& (haben) Hunger nach dem Sport.,haben
+Ich &input& (sein) glücklich über die Ergebnisse.,bin
+Du &input& (haben) eine interessante Idee.,hast
+Er &input& (sein) ein talentierter Musiker.,ist
+Wir &input& (haben) die Prüfung bestanden.,haben
+Ihr &input& (sein) bereit für die Reise.,seid
+Sie &input& (haben) einen neuen Job.,haben
+Ich &input& (sein) auf dem Weg zur Schule.,bin
+Du &input& (haben) gute Musikgeschmack.,hast
+Er &input& (sein) ein erfahrener Lehrer.,ist
+Wir &input& (haben) viel Spaß gehabt.,haben
+Ihr &input& (sein) die besten Spieler im Team.,seid
+Sie &input& (haben) immer gute Ideen.,haben
+Ich &input& (sein) oft müde nach einem langen Tag.,bin
+Du &input& (haben) viele Freunde in der Schule.,hast
+Er &input& (sein) ein guter Schüler.,ist
+Wir &input& (haben) die Stadt besichtigt.,haben
+Ihr &input& (sein) immer so hilfsbereit.,seid
+Sie &input& (haben) das Buch gelesen.,haben
+Ich &input& (sein) stolz auf meine Arbeit.,bin
+Du &input& (haben) eine gute Beziehung zu deinen Eltern.,hast
+Er &input& (sein) oft bei der Arbeit.,ist
+Wir &input& (haben) viel gelernt im Unterricht.,haben
+Ihr &input& (sein) bereit für die Herausforderung.,seid
+Sie &input& (haben) einen tollen Urlaub gemacht.,haben
+Ich &input& (sein) sehr aufgeregt für das Konzert.,bin
+Du &input& (haben) ein schönes Geschenk bekommen.,hast
+Er &input& (sein) immer so nett.,ist
+Wir &input& (haben) die Tickets gekauft.,haben
+Ihr &input& (sein) die besten Freunde.,seid
+Sie &input& (haben) ihre Träume verwirklicht.,haben
+Ich &input& (sein) dankbar für meine Familie.,bin
+Du &input& (haben) die richtigen Antworten gegeben.,hast
+Er &input& (sein) ein talentierter Schauspieler.,ist
+Wir &input& (haben) eine neue Herausforderung angenommen.,haben
+Ihr &input& (sein) immer so positiv.,seid
+Sie &input& (haben) eine große Verantwortung.,haben
+Ich &input& (sein) glücklich über die Unterstützung.,bin
+Du &input& (haben) viele neue Ideen entwickelt.,hast
+Er &input& (sein) ein engagierter Student.,ist
+Wir &input& (haben) einen langen Weg zurückgelegt.,haben
+Ihr &input& (sein) immer so motiviert.,seid
+Sie &input& (haben) ein wunderbares Zuhause.,haben
+Ich &input& (sein) bereit für das nächste Abenteuer.,bin
+Du &input& (haben) eine beeindruckende Karriere.,hast
+Er &input& (sein) ein großer Fan von Sport.,ist
+Wir &input& (haben) gemeinsam viel Spaß.,haben
+Ihr &input& (sein) ein starkes Team.,seid
+Sie &input& (haben) viele Pläne für die Zukunft.,haben
+Ich &input& (sein) froh, dass du hier bist.,bin
+Du &input& (haben) ein gutes Gefühl für Musik.,hast
+Er &input& (sein) ein freundlicher Nachbar.,ist
+Wir &input& (haben) eine schöne Zeit verbracht.,haben
+Ihr &input& (sein) immer so freundlich.,seid
+Sie &input& (haben) viele neue Freunde gefunden.,haben
+Ich &input& (sein) begeistert von der Idee.,bin
+Du &input& (haben) die Möglichkeit, deine Träume zu verfolgen.,hast
+Er &input& (sein) ein kluger Mann.,ist
+Wir &input& (haben) das Problem gelöst.,haben
+Ihr &input& (sein) die Besten im Wettbewerb.,seid
+Sie &input& (haben) hart gearbeitet für ihren Erfolg.,haben
+Ich &input& (sein) glücklich mit meiner Entscheidung.,bin
+Du &input& (haben) einen neuen Job gefunden.,hast
+Er &input& (sein) ein hervorragender Redner.,ist
+Wir &input& (haben) viele Erfolge gefeiert.,haben
+Ihr &input& (sein) die Vorbilder für andere.,seid
+Sie &input& (haben) ihre Ziele erreicht.,haben
+Ich &input& (sein) begeistert von den Möglichkeiten.,bin
+Du &input& (haben) viel gelernt aus der Erfahrung.,hast
+Er &input& (sein) sehr geschätzt in seiner Arbeit.,ist
+Wir &input& (haben) die Stadt erkundet.,haben
+Ihr &input& (sein) sehr engagiert in euren Projekten.,seid
+Sie &input& (haben) viele Talente.,haben
+Ich &input& (sein) froh über die Unterstützung.,bin
+Du &input& (haben) eine interessante Perspektive.,hast
+Er &input& (sein) ein talentierter Fotograf.,ist
+Wir &input& (haben) die Herausforderungen gemeistert.,haben
+Ihr &input& (sein) die Zukunft dieser Initiative.,seid
+Sie &input& (haben) hart für ihren Erfolg gearbeitet.,haben
+Ich &input& (sein) dankbar für die Hilfe.,bin
+Du &input& (haben) das Beste aus der Situation gemacht.,hast
+Er &input& (sein) ein guter Lehrer für seine Schüler.,ist
+Wir &input& (haben) das Projekt erfolgreich abgeschlossen.,haben
+Ihr &input& (sein) immer so positiv eingestellt.,seid
+Sie &input& (haben) ihre Träume verwirklicht.,haben
+Ich &input& (sein) stolz auf meine Leistungen.,bin
+Du &input& (haben) die richtige Entscheidung getroffen.,hast
+Er &input& (sein) immer so freundlich zu anderen.,ist
+Wir &input& (haben) eine tolle Zeit gehabt.,haben
+Ihr &input& (sein) die Helden unserer Geschichte.,seid
+Sie &input& (haben) ein außergewöhnliches Talent.,haben
+Ich &input& (sein) glücklich über die Freundschaften.,bin
+Du &input& (haben) eine wertvolle Lektion gelernt.,hast
+Er &input& (sein) ein wichtiger Teil des Teams.,ist
+Wir &input& (haben) die Herausforderung angenommen.,haben
+Ihr &input& (sein) immer so hilfsbereit.,seid
+Sie &input& (haben) ein tolles Zuhause geschaffen.,haben
+Ich &input& (sein) bereit für neue Herausforderungen.,bin
+Du &input& (haben) viel erreicht in deinem Leben.,hast
+Er &input& (sein) ein genialer Denker.,ist
+Wir &input& (haben) hart gearbeitet für diesen Erfolg.,haben
+Ihr &input& (sein) die besten Spieler in der Liga.,seid
