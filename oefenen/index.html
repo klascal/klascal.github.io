@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toets Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <h1>Toets Generator</h1>
+
+    <!-- Selectie Sectie -->
+    <div id="selectionContainer">
+      <label for="level">Leerniveau:</label>
+      <select id="level">
+        <option value="havo">HAVO</option>
+        <option value="vwo">VWO</option>
+        <option value="vmbo">VMBO</option>
+      </select>
+
+      <label for="year">Leerjaar:</label>
+      <select id="year">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+
+      <label for="subject">Vak:</label>
+      <select id="subject">
+        <option value="duits">Duits</option>
+        <option value="nederlands">Nederlands</option>
+      </select>
+
+      <label for="chapter">Hoofdstuk:</label>
+      <select id="chapter">
+        <option value="h1">H1</option>
+        <option value="h2">H2</option>
+        <option value="h1+h2">H1 + H2</option>
+      </select>
+
+      <label for="numQuestions">Aantal vragen:</label>
+      <input type="number" id="numQuestions" min="1" max="10" value="5" />
+
+      <button id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quizContainer" style="display: none"></div>
+
+    <button id="generateBtn" style="display: none" onclick="generateQuiz()">
+      Toets Genereren
+    </button>
+    <button id="downloadBtn" style="display: none" onclick="downloadPDF()">
+      Download als PDF
+    </button>
+    <button
+      id="downloadAnswersBtn"
+      style="display: none"
+      onclick="downloadAnswersPDF()"
+    >
+      Download Antwoorden PDF
+    </button>
+
+    <!-- Antwoorden en Normering sectie -->
+    <div class="answers-container" id="answersContainer" style="display: none">
+      <h2>Antwoorden</h2>
+      <div id="answersList"></div>
+      <div class="normering">
+        <p>
+          Normering: Om een voldoende te halen, moet je minimaal 70% goed
+          hebben.
+        </p>
+        <p>Bereken je cijfer: (Aantal goed / Totaal aantal vragen) * 10</p>
+      </div>
+    </div>
+
+    <!-- Overlay en dialoog voor bevestiging -->
+    <div class="overlay" id="overlay" onclick="closeDialog()"></div>
+    <div class="dialog" id="dialog">
+      <h2>Informatie</h2>
+      <p>De toets is succesvol gegenereerd!</p>
+      <button onclick="closeDialog()">Sluiten</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
