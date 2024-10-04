@@ -177,13 +177,63 @@ function closeDialog() {
   document.getElementById("overlay").style.display = "none";
 }
 
-// Initialization for Select and Datepicker
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('select');
-  M.FormSelect.init(elems);
+  // Methode opties voor verschillende vakken
+  const methods = {
+    duits: ['Neue Kontakte', 'Deutsch Aktuell'],
+    nederlands: ['Nieuw Nederlands', 'Taal Actief']
+  };
 
-  var dateElems = document.querySelectorAll('.datepicker');
-  M.Datepicker.init(dateElems, {
-    format: 'dd-mm-yyyy'
+  // Hoofdstuk opties voor verschillende methoden
+  const chapters = {
+    'Neue Kontakte': ['Hoofdstuk 1', 'Hoofdstuk 2'],
+    'Deutsch Aktuell': ['Hoofdstuk 1', 'Hoofdstuk 2'],
+    'Nieuw Nederlands': ['Hoofdstuk 1', 'Hoofdstuk 2'],
+    'Taal Actief': ['Hoofdstuk 1', 'Hoofdstuk 2']
+  };
+
+  // Vullen van method dropdown afhankelijk van geselecteerd vak
+  function loadMethods() {
+    const subject = document.getElementById('subject').value;
+    const methodSelect = document.getElementById('method');
+    const methodContainer = document.getElementById('method-container');
+
+    // Reset the method dropdown
+    methodSelect.innerHTML = '<option value="" disabled selected>Kies een methode</option>';
+
+    if (methods[subject]) {
+      methods[subject].forEach(method => {
+        const option = document.createElement('option');
+        option.value = method;
+        option.text = method;
+        methodSelect.appendChild(option);
+      });
+      methodContainer.style.display = 'block'; // Toon methode dropdown
+      M.FormSelect.init(methodSelect); // Re-initialiseer Materialize select
+    }
+  }
+
+  // Vullen van hoofdstuk dropdown afhankelijk van geselecteerde methode
+  function loadChapters() {
+    const method = document.getElementById('method').value;
+    const chapterSelect = document.getElementById('chapter');
+    const chapterContainer = document.getElementById('chapter-container');
+
+    // Reset the chapter dropdown
+    chapterSelect.innerHTML = '<option value="" disabled selected>Kies een hoofdstuk</option>';
+
+    if (chapters[method]) {
+      chapters[method].forEach(chapter => {
+        const option = document.createElement('option');
+        option.value = chapter;
+        option.text = chapter;
+        chapterSelect.appendChild(option);
+      });
+      chapterContainer.style.display = 'block'; // Toon hoofdstuk dropdown
+      M.FormSelect.init(chapterSelect); // Re-initialiseer Materialize select
+    }
+  }
+  // Materialize select initialisatie
+  document.addEventListener('DOMContentLoaded', function() {
+    const elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
   });
-});
