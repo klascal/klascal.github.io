@@ -6,10 +6,11 @@ async function loadQuestions() {
   const level = document.getElementById("level").value;
   const year = document.getElementById("year").value;
   const subject = document.getElementById("subject").value;
+  const method = document.getElementById("method").value;
   const chapter = document.getElementById("chapter").value;
 
   const response = await fetch(
-    `vragen/${level}_${year}_${subject}_${chapter}.txt`
+    `vragen/${level}_${year}_${subject}_${method}_${chapter}.txt`
   ); // Laad het .txt-bestand
   const text = await response.text();
   questions = text
