@@ -34,22 +34,28 @@
         <label>Leerjaar</label>
       </div>
       
-
+      <!-- Selectie voor Vak -->
       <div class="input-field">
-        <select id="subject">
+        <select id="subject" onchange="loadMethods()">
           <option value="" disabled selected>Kies je vak</option>
           <option value="duits">Duits</option>
           <option value="nederlands">Nederlands</option>
         </select>
         <label>Vak</label>
       </div>
-
-      <div class="input-field">
+      
+      <!-- Selectie voor Methode -->
+      <div class="input-field" id="method-container" style="display: none;">
+        <select id="method" onchange="loadChapters()">
+          <option value="" disabled selected>Kies een methode</option>
+        </select>
+        <label>Methode</label>
+      </div>
+      
+      <!-- Selectie voor Hoofdstuk -->
+      <div class="input-field" id="chapter-container" style="display: none;">
         <select id="chapter">
-          <option value="" disabled selected>Kies hoofdstuk</option>
-          <option value="h1">Hoofdstuk 1</option>
-          <option value="h2">Hoofdstuk 2</option>
-          <option value="h1+h2">Hoofdstuk 1 + 2</option>
+          <option value="" disabled selected>Kies een hoofdstuk</option>
         </select>
         <label>Hoofdstuk</label>
       </div>
