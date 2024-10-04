@@ -7,42 +7,53 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
   <body>
     <h1>Toets Generator</h1>
 
     <!-- Selectie Sectie -->
     <div id="selectionContainer">
-      <label for="level">Leerniveau:</label>
-      <select id="level">
-        <option value="havo">HAVO</option>
-        <option value="vwo">VWO</option>
-        <option value="vmbo">VMBO</option>
-      </select>
 
-      <label for="year">Leerjaar:</label>
-      <select id="year">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
+      <div class="input-field">
+        <label for="level">Leerniveau:</label>
+        <select id="level">
+          <option value="havo">HAVO</option>
+          <option value="vwo">VWO</option>
+          <option value="vmbo">VMBO</option>
+        </select>
+      </div>
 
-      <label for="subject">Vak:</label>
-      <select id="subject">
-        <option value="duits">Duits</option>
-        <option value="nederlands">Nederlands</option>
-      </select>
+      <div class="input-field">
+        <label for="year">Leerjaar:</label>
+        <select id="year">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      
 
-      <label for="chapter">Hoofdstuk:</label>
-      <select id="chapter">
-        <option value="h1">H1</option>
-        <option value="h2">H2</option>
-        <option value="h1+h2">H1 + H2</option>
-      </select>
+      <div class="input-field">
+        <label for="subject">Vak:</label>
+        <select id="subject">
+          <option value="duits">Duits</option>
+          <option value="nederlands">Nederlands</option>
+        </select>
+      </div>
 
-      <label for="numQuestions">Aantal vragen:</label>
-      <input type="number" id="numQuestions" min="5" max="100" value="30" />
+      <div class="input-field">
+        <label for="chapter">Hoofdstuk:</label>
+        <select id="chapter">
+          <option value="h1">H1</option>
+          <option value="h2">H2</option>
+          <option value="h1+h2">H1 + H2</option>
+        </select>
+      </div>
+      
+      <div class="input-field">
+        <label for="numQuestions">Aantal vragen:</label>
+        <input type="number" id="numQuestions" min="5" max="100" value="30" />
+      </div>
 
       <button id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
     </div>
@@ -50,19 +61,10 @@
     <!-- Quiz Container -->
     <div id="quizContainer" style="display: none"></div>
 
-    <button id="generateBtn" style="display: none" onclick="generateQuiz()">
-      Toets Genereren
-    </button>
-    <button id="downloadBtn" style="display: none" onclick="downloadPDF()">
-      Download als PDF
-    </button>
-    <button
-      id="downloadAnswersBtn"
-      style="display: none"
-      onclick="downloadAnswersPDF()"
-    >
-      Download Antwoorden PDF
-    </button>
+  <!-- Toets en Antwoorden Knoppen -->
+  <button class="btn waves-effect waves-light blue" id="generateBtn" style="display:none;" onclick="generateQuiz()">Toets Genereren</button>
+  <button class="btn waves-effect waves-light blue" id="downloadBtn" style="display:none;" onclick="downloadPDF()">Download als PDF</button>
+  <button class="btn waves-effect waves-light green" id="downloadAnswersBtn" style="display:none;" onclick="downloadAnswersPDF()">Download Antwoorden PDF</button>
 
     <!-- Antwoorden en Normering sectie -->
     <div class="answers-container" id="answersContainer" style="display: none">
@@ -84,7 +86,8 @@
       <p>De toets is succesvol gegenereerd!</p>
       <button onclick="closeDialog()">Sluiten</button>
     </div>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
