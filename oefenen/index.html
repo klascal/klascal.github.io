@@ -15,44 +15,48 @@
       <h5>Vul onderstaande gegevens in:</h5>
 
       <div class="input-field">
-        <label for="level">Leerniveau:</label>
         <select id="level">
+          <option value="" disabled selected>Kies je leerniveau</option>
           <option value="havo">HAVO</option>
           <option value="vwo">VWO</option>
           <option value="vmbo">VMBO</option>
         </select>
+        <label>Leerniveau</label>
       </div>
 
       <div class="input-field">
-        <label for="year">Leerjaar:</label>
         <select id="year">
+          <option value="" disabled selected>Kies je leerjaar</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </select>
+        <label>Leerjaar</label>
       </div>
       
 
       <div class="input-field">
-        <label for="subject">Vak:</label>
         <select id="subject">
+          <option value="" disabled selected>Kies je vak</option>
           <option value="duits">Duits</option>
           <option value="nederlands">Nederlands</option>
         </select>
+        <label>Vak</label>
       </div>
 
       <div class="input-field">
-        <label for="chapter">Hoofdstuk:</label>
         <select id="chapter">
-          <option value="h1">H1</option>
-          <option value="h2">H2</option>
-          <option value="h1+h2">H1 + H2</option>
+          <option value="" disabled selected>Kies hoofdstuk</option>
+          <option value="h1">Hoofdstuk 1</option>
+          <option value="h2">Hoofdstuk 2</option>
+          <option value="h1+h2">Hoofdstuk 1 + 2</option>
         </select>
+        <label>Hoofdstuk</label>
       </div>
       
       <div class="input-field">
         <label for="numQuestions">Aantal vragen:</label>
-        <input type="number" id="numQuestions" min="5" max="100" value="30" />
+        <input type="number" id="numQuestions" min="5" max="30" value="15" />
       </div>
       
       <button class="btn waves-effect waves-light blue" id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
