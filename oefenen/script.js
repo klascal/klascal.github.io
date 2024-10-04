@@ -176,3 +176,14 @@ function closeDialog() {
   document.getElementById("dialog").style.display = "none";
   document.getElementById("overlay").style.display = "none";
 }
+
+// Initialization for Select and Datepicker
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  M.FormSelect.init(elems);
+
+  var dateElems = document.querySelectorAll('.datepicker');
+  M.Datepicker.init(dateElems, {
+    format: 'dd-mm-yyyy'
+  });
+});
