@@ -185,7 +185,7 @@ function closeDialog() {
 
   // Hoofdstuk opties voor verschillende methoden
   const chapters = {
-    'Neue Kontakte': ['Hoofdstuk 1', 'Hoofdstuk 2'],
+    'Neue Kontakte': ['Hoofdstuk 1', 'Hoofdstuk 2', 'sein und haben'],
     'Deutsch Aktuell': ['Hoofdstuk 1', 'Hoofdstuk 2'],
     'Nieuw Nederlands': ['Hoofdstuk 1', 'Hoofdstuk 2'],
     'Taal Actief': ['Hoofdstuk 1', 'Hoofdstuk 2']
