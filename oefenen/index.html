@@ -11,8 +11,8 @@
   <body>
     <h1>Toets Generator</h1>
 
-    <!-- Selectie Sectie -->
-    <div id="selectionContainer">
+    <div class="card-panel">
+      <h5>Vul onderstaande gegevens in:</h5>
 
       <div class="input-field">
         <label for="level">Leerniveau:</label>
@@ -54,17 +54,18 @@
         <label for="numQuestions">Aantal vragen:</label>
         <input type="number" id="numQuestions" min="5" max="100" value="30" />
       </div>
-
-      <button id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
+      
+      <button class="btn waves-effect waves-light blue" id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
     </div>
 
     <!-- Quiz Container -->
     <div id="quizContainer" style="display: none"></div>
-
-  <!-- Toets en Antwoorden Knoppen -->
-  <button class="btn waves-effect waves-light blue" id="generateBtn" style="display:none;" onclick="generateQuiz()">Toets Genereren</button>
-  <button class="btn waves-effect waves-light blue" id="downloadBtn" style="display:none;" onclick="downloadPDF()">Download als PDF</button>
-  <button class="btn waves-effect waves-light green" id="downloadAnswersBtn" style="display:none;" onclick="downloadAnswersPDF()">Download Antwoorden PDF</button>
+    
+    <!-- Toets en Antwoorden Knoppen -->
+    <button class="btn waves-effect waves-light blue" id="generateBtn" style="display:none;" onclick="generateQuiz()">Toets Genereren</button>
+    <button class="btn waves-effect waves-light blue" id="downloadBtn" style="display:none;" onclick="downloadPDF()">Download als PDF</button>
+    <button class="btn waves-effect waves-light green" id="downloadAnswersBtn" style="display:none;" onclick="downloadAnswersPDF()">Download Antwoorden PDF</button>
+  
 
     <!-- Antwoorden en Normering sectie -->
     <div class="answers-container" id="answersContainer" style="display: none">
@@ -84,8 +85,9 @@
     <div class="dialog" id="dialog">
       <h2>Informatie</h2>
       <p>De toets is succesvol gegenereerd!</p>
-      <button onclick="closeDialog()">Sluiten</button>
+      <button class="btn waves-effect waves-light blue" id="closeBtn" onclick="closeDialog()">Sluiten</button>
     </div>
+  </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="script.js"></script>
