@@ -408,6 +408,20 @@ document.getElementById("previousDay").addEventListener("click", function () {
     monthIndex,
     parseInt(day) - 1
   );
+  if (currentDate.getDay() == 0) {
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) - 3
+    );
+  }
+  if (currentDate.getDay() == 6) {
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) - 2
+    );
+  }
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
   const nextDay =
@@ -438,6 +452,20 @@ document.getElementById("nextDay").addEventListener("click", function () {
     monthIndex,
     parseInt(day) + 1
   );
+  if (currentDate.getDay() == 0) {
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) + 2
+    );
+  }
+  if (currentDate.getDay() == 6) {
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) + 3
+    );
+  }
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
   const nextDay =
