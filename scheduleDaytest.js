@@ -534,7 +534,8 @@ async function hideDialog() {
       .setAttribute("href", `${storedColor}.css`);
   }
   dialog.close();
-  document.getElementById("loadSchedule").click();
+  const dateInput = document.getElementById("dateInput").value;
+  fetchAppointments(dateInput);
   document.getElementById("css").click();
 }
 document.addEventListener("DOMContentLoaded", function () {
