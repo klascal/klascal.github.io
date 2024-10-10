@@ -4,80 +4,101 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Toets Generator</title>
-
-    <!-- Material Web styles -->
-    <link rel="stylesheet" href="https://unpkg.com/@material/web@1.0.0/styles.css" />
-    
-    <!-- Material Web Components -->
-    <script type="module" src="https://unpkg.com/@material/web@1.0.0/mwc-select.js"></script>
-    <script type="module" src="https://unpkg.com/@material/web@1.0.0/mwc-button.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
   </head>
   <body>
     <h1>Toets Generator</h1>
 
-    <div class="mdc-card">
+    <div class="card-panel">
       <h5>Vul onderstaande gegevens in:</h5>
 
-      <!-- Leerniveau -->
-      <mwc-select label="Leerniveau" id="level">
-        <mwc-list-item value="" disabled selected>Kies je leerniveau</mwc-list-item>
-        <mwc-list-item value="vmbo">VMBO</mwc-list-item>
-        <mwc-list-item value="havo">HAVO</mwc-list-item>
-        <mwc-list-item value="vwo">VWO</mwc-list-item>
-      </mwc-select>
-
-      <!-- Leerjaar -->
-      <mwc-select label="Leerjaar" id="year">
-        <mwc-list-item value="" disabled selected>Kies je leerjaar</mwc-list-item>
-        <mwc-list-item value="1">1</mwc-list-item>
-        <mwc-list-item value="2">2</mwc-list-item>
-        <mwc-list-item value="3">3</mwc-list-item>
-      </mwc-select>
-
-      <!-- Vak -->
-      <mwc-select label="Vak" id="subject" @change="loadMethods()">
-        <mwc-list-item value="" disabled selected>Kies je vak</mwc-list-item>
-        <mwc-list-item value="duits">Duits</mwc-list-item>
-        <mwc-list-item value="nederlands">Nederlands</mwc-list-item>
-      </mwc-select>
-
-      <!-- Methode -->
-      <div id="method-container" style="display: none;">
-        <mwc-select label="Methode" id="method" @change="loadChapters()">
-          <mwc-list-item value="" disabled selected>Kies een methode</mwc-list-item>
-        </mwc-select>
+      <div class="input-field">
+        <select id="level">
+          <option value="" disabled selected>Kies je leerniveau</option>
+          <option value="vmbo">VMBO</option>
+          <option value="havo">HAVO</option>
+          <option value="vwo">VWO</option>
+        </select>
+        <label>Leerniveau</label>
       </div>
 
-      <!-- Hoofdstuk -->
-      <div id="chapter-container" style="display: none;">
-        <mwc-select label="Hoofdstuk" id="chapter">
-          <mwc-list-item value="" disabled selected>Kies een hoofdstuk</mwc-list-item>
-        </mwc-select>
+      <div class="input-field">
+        <select id="year">
+          <option value="" disabled selected>Kies je leerjaar</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <label>Leerjaar</label>
       </div>
-
-      <!-- Aantal vragen -->
-      <div class="mdc-text-field">
-        <input type="number" id="numQuestions" min="5" max="30" value="15" class="mdc-text-field__input" />
-        <label class="mdc-floating-label" for="numQuestions">Aantal vragen</label>
+      
+      <!-- Selectie voor Vak -->
+      <div class="input-field">
+        <select id="subject" onchange="loadMethods()">
+          <option value="" disabled selected>Kies je vak</option>
+          <option value="duits">Duits</option>
+          <option value="nederlands">Nederlands</option>
+        </select>
+        <label>Vak</label>
       </div>
-
-      <!-- Buttons -->
-      <mwc-button raised id="loadBtn" @click="loadQuestions()">Vragen Laden</mwc-button>
+      
+      <!-- Selectie voor Methode -->
+      <div class="input-field" id="method-container" style="display: none;">
+        <select id="method" onchange="loadChapters()">
+          <option value="" disabled selected>Kies een methode</option>
+        </select>
+        <label>Methode</label>
+      </div>
+      
+      <!-- Selectie voor Hoofdstuk -->
+      <div class="input-field" id="chapter-container" style="display: none;">
+        <select id="chapter">
+          <option value="" disabled selected>Kies een hoofdstuk</option>
+        </select>
+        <label>Hoofdstuk</label>
+      </div>
+      
+      <div class="input-field">
+        <label for="numQuestions">Aantal vragen:</label>
+        <input type="number" id="numQuestions" min="5" max="30" value="15" />
+      </div>
+      
+      <button class="btn waves-effect waves-light blue" id="loadBtn" onclick="loadQuestions()">Vragen Laden</button>
     </div>
 
     <!-- Quiz Container -->
     <div id="quizContainer" style="display: none"></div>
-
+    
     <!-- Toets en Antwoorden Knoppen -->
-    <mwc-button raised id="generateBtn" style="display:none;" @click="generateQuiz()">Toets Genereren</mwc-button>
-    <mwc-button raised id="downloadBtn" style="display:none;" @click="downloadPDF()">Download als PDF</mwc-button>
-    <mwc-button raised id="downloadAnswersBtn" style="display:none;" @click="downloadAnswersPDF()">Download Antwoorden PDF</mwc-button>
+    <button class="btn waves-effect waves-light blue" id="generateBtn" style="display:none;" onclick="generateQuiz()">Toets Genereren</button>
+    <button class="btn waves-effect waves-light blue" id="downloadBtn" style="display:none;" onclick="downloadPDF()">Download als PDF</button>
+    <button class="btn waves-effect waves-light green" id="downloadAnswersBtn" style="display:none;" onclick="downloadAnswersPDF()">Download Antwoorden PDF</button>
+  
+
+    <!-- Antwoorden en Normering sectie -->
+    <div class="answers-container" id="answersContainer" style="display: none">
+      <h2>Antwoorden</h2>
+      <div id="answersList"></div>
+      <div class="normering">
+        <p>
+          Normering: Om een voldoende te halen, moet je minimaal 70% goed
+          hebben.
+        </p>
+        <p>Bereken je cijfer: (Aantal goed / Totaal aantal vragen) * 10</p>
+      </div>
+    </div>
 
     <!-- Overlay en dialoog voor bevestiging -->
-    <div class="mdc-dialog" id="dialog">
+    <div class="overlay" id="overlay" onclick="closeDialog()"></div>
+    <div class="dialog" id="dialog">
       <h2>Informatie</h2>
       <p>De toets is succesvol gegenereerd!</p>
-      <mwc-button raised id="closeBtn" @click="closeDialog()">Sluiten</mwc-button>
+      <button class="btn waves-effect waves-light blue" id="closeBtn" onclick="closeDialog()">Sluiten</button>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
