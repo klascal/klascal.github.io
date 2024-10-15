@@ -210,9 +210,10 @@ function fetchAppointments(date) {
         };
 
         // Map subjects abbreviations to full names
-        const subjectsFullNames = appointment.subjects.map(
+        let subjectsFullNames = appointment.subjects.map(
           (subject) => subjectsMapping[subject] || subject
         );
+        if (localStorage.getItem("afkorting") === true) {subjectsFullNames = subject;}
 
         let changeDescription = "";
 
