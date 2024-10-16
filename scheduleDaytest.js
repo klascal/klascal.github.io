@@ -131,13 +131,13 @@ function fetchAppointments(date) {
 
         // Format start and end times
         const startTimeString = startTime
-          .toLocaleTimeString([], {
+          .toLocaleTimeString("nl-NL", {
             hour: "2-digit",
             minute: "2-digit",
           })
           .replace(/^0+/, "");
         const endTimeString = endTime
-          .toLocaleTimeString([], {
+          .toLocaleTimeString("nl-NL", {
             hour: "2-digit",
             minute: "2-digit",
           })
