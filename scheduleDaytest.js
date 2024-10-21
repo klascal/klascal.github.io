@@ -213,7 +213,10 @@ function fetchAppointments(date) {
         let subjectsFullNames = appointment.subjects.map(
           (subject) => subjectsMapping[subject] || subject
         );
-        if (localStorage.getItem("afkorting") === true) {subjectsFullNames = subject;}
+
+        if (localStorage.getItem("afkorting") === "true") {
+          subjectsFullNames = appointment.subjects;
+        }
 
         let changeDescription = "";
 
