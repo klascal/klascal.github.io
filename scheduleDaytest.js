@@ -383,6 +383,10 @@ document.getElementById("dateInput").addEventListener("change", function () {
   const dateInput = document.getElementById("dateInput").value;
   fetchAppointments(dateInput);
 });
+document.querySelector("td").addEventListener("click", function () {
+  const dateInput = document.getElementById("dateInput").value;
+  fetchAppointments(dateInput);
+});
 document.getElementById("add").addEventListener("click", function () {
   const today = new Date();
   const day = today.getDate();
