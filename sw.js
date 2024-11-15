@@ -1,5 +1,3 @@
-// This is the "Offline copy of pages" service worker
-
 const CACHE = "pwabuilder-offline";
 
 importScripts(
@@ -11,6 +9,28 @@ self.addEventListener("message", (event) => {
     self.skipWaiting();
   }
 });
+
+workbox.routing.registerRoute(
+  ({ request }) => request.destination === 'image',
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: `${CACHE}-images`,
+  })
+);
+
+workbox.routing.registerRoute(
+  ({ request }) => request.destination === 'font',
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: `${CACHE}-fonts`,
+  })
+);
+
+workbox.routing.registerRoute(
+  ({ request }) =>
+    request.destination === 'script' && !/scheduleDay/.test(request.url),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: `${CACHE}-scripts`,
+  })
+);
 
 workbox.routing.registerRoute(
   new RegExp("/*"),
