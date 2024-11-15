@@ -379,7 +379,7 @@ function filterCancelledLessons(appointments) {
 }
 
 // Function to handle loading schedule when button is clicked
-document.getElementById("dateInput").addEventListener("input", function () {
+document.getElementById("dateInput").addEventListener("change", function () {
   const dateInput = document.getElementById("dateInput").value;
   fetchAppointments(dateInput);
 });
