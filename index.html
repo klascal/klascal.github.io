@@ -390,6 +390,7 @@
 
       input {
         font-size: 16px;
+        display: block;
       }
 
       .btn {
@@ -830,8 +831,8 @@
               d="m4.21 4.387.083-.094a1 1 0 0 1 1.32-.083l.094.083L12 10.585l6.293-6.292a1 1 0 1 1 1.414 1.414L13.415 12l6.292 6.293a1 1 0 0 1 .083 1.32l-.083.094a1 1 0 0 1-1.32.083l-.094-.083L12 13.415l-6.293 6.292a1 1 0 0 1-1.414-1.414L10.585 12 4.293 5.707a1 1 0 0 1-.083-1.32l.083-.094-.083.094Z"
             />
           </svg></button
-        ><br /><br />
-        <label for="schoolName">Schoolnaam:</label>
+        >
+        <label for="schoolName">School</label>
         <input
           type="text"
           id="schoolName"
@@ -839,9 +840,9 @@
           class="btn"
           autocomplete="off"
           required
-        /><br /><br />
+        />
 
-        <label for="authorizationCode">Koppelcode:</label>
+        <label for="authorizationCode">Koppelcode</label>
         <input
           type="text"
           id="authorizationCode"
@@ -852,7 +853,7 @@
           size="10"
           class="btn"
           required
-        /><br /><br /><button onclick="load();" class="btn">
+        /><button onclick="load();" class="btn">
           QR-code scannen
         </button>
         <div id="outdiv"></div>
@@ -888,14 +889,14 @@
         </script>
         <br />
 
-        <label for="user">Gebruikersnaam:</label>
+        <label for="user">Gebruikersnaam</label>
         <input
           type="text"
           autocomplete="off"
           id="user"
           name="user"
           class="btn"
-        /><br /><br /><label for="css">CSS-code (optioneel):</label><br /><br />
+        /><label for="css">CSS-code (optioneel)</label>
         <input
           type="text"
           autocomplete="off"
@@ -904,15 +905,15 @@
           onclick="update_section(this.value, 'about');"
           id="css"
           class="btn"
-        /><br /><br />
+        />
         <details>
           <summary>CSS voorbeelden</summary>
           <br />
-          <p>Laat klassennamen zien:</p>
+          <p>Laat klassennamen zien</p>
           <pre><code class="language-css hljs" data-highlighted="yes"><span class="hljs-selector-id">.className</span> {<span class="hljs-attribute">display</span>: block;}</code></pre>
         </details>
         <br />
-        <label for="color-select">Thema:</label>
+        <label for="color-select">Thema</label>
         <select id="color-select" class="btn">
           <option value="css">Themakleur</option>
           <option value="rood">Rood</option>
@@ -927,7 +928,7 @@
 
           <!-- Add more color options here -->
         </select>
-        <br /><br /><label for="meldingen">Zet roostermeldingen aan:</label
+        <label for="meldingen">Zet roostermeldingen aan</label
         ><input type="checkbox" name="meldingen" id="meldingen" />
       </dialog>
       <style id="aboutgoeshere"></style>
