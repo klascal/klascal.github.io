@@ -308,6 +308,11 @@
         max-width: 95%;
       }
 
+      label {
+	      display: block;
+	      margin: 5px 0 5px 0;
+      }
+
       .warning:hover .warningMessage {
         display: block;
       }
@@ -390,6 +395,8 @@
 
       input {
         font-size: 16px;
+      }
+      dialog input {
         display: block;
       }
 
@@ -832,7 +839,7 @@
             />
           </svg></button
         >
-        <label for="schoolName">School</label>
+        <label for="schoolName" style="margin-top: 50px;">School</label>
         <input
           type="text"
           id="schoolName"
