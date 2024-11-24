@@ -105,8 +105,9 @@ function displaySchedule(scheduleData) {
                 ? appointment.groups.join(", ")
                 : subjects.join(", ");
 
-            // Generate HTML for each appointment
-            return `<div style="left:${left}px;width:${width}px;"
+            // Generate HTML for each
+            if (appointment.appointmentInstance !== null) {
+              return `<div style="left:${left}px;width:${width}px;"
                       class="les ${
                         appointment.cancelled
                           ? "cancelled"
@@ -123,8 +124,8 @@ function displaySchedule(scheduleData) {
               <p class="lestijden">${startTime}-${endTime}</p>
               <span>
                 ${appointment.locations.join(", ")} ${
-              teachers == "()" ? "" : teachers
-            }
+                teachers == "()" ? "" : teachers
+              }
                 <div class="warning">
                   ${warningsymbol}
                   <span class="warningMessage">${warning}</span>
@@ -137,6 +138,7 @@ function displaySchedule(scheduleData) {
                 ${subjects.join(",")}
               </p>
             </div>`;
+            }
           })
           .join("");
 
@@ -291,6 +293,17 @@ function showDialog() {
   const dialog = document.getElementById("dialog");
   dialog.showModal();
 }
+
+function handleArrowKeyPress(event) {
+  const key = event.key;
+  if (key === "ArrowLeft") {
+    document.getElementById("previousDay").click();
+  } else if (key === "ArrowRight") {
+    document.getElementById("nextDay").click();
+  }
+}
+
+document.addEventListener("keydown", handleArrowKeyPress);
 
 // Functie om dialoogvenster te verbergen
 function hideDialog() {
