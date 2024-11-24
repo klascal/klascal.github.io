@@ -248,7 +248,7 @@ span.schedule {
 
 span.day {
   display: block;
-  margin-bottom: 110px;
+  margin-bottom: 90px;
 }
 
 .les {
@@ -257,8 +257,19 @@ span.day {
   margin-right: 5px;
   margin-left: 5px;
   border-radius: 10px;
-  height: 90px;
   position: absolute;
+}
+
+#week {
+  font-size: initial;
+  color: #000;
+  vertical-align: middle;
+}
+
+@media (prefers-color-scheme: dark) {
+  #week {
+    color: #fff;
+  }
 }
 
 .lesson {
@@ -361,7 +372,7 @@ dialog[open] {
 }
 
 .schedule {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .className {
