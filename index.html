@@ -27,6 +27,15 @@
     ></script>
     <script type="text/javascript" src="llqrcode.js" defer></script>
     <script type="text/javascript" src="webqr.js"></script>
+    <script src="refresh.js"></script>
+    <script>
+      /* global PullToRefresh */
+      PullToRefresh.init({
+        onRefresh: function () {
+          fetchAppointments(document.getElementById("dateInput").value);
+        },
+      });
+    </script>
     <script>
       // Functie om URL-parameters op te halen
       function getQueryParams() {
