@@ -191,6 +191,7 @@ async function handleFormSubmit(event) {
   const year = currentDate.getFullYear();
   let week = Math.floor((currentDate - new Date(year, 0, 1)) / 604800000) + 1; // Bereken weeknummer
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
+  document.getElementById("week").innerText = "Week " + week;
 
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
   let accessToken = localStorage.getItem("access_token");
@@ -202,6 +203,63 @@ async function handleFormSubmit(event) {
   // Haal het rooster op
   fetchSchedule(accessToken, userType, year, week, schoolName);
 }
+
+document.getElementById("nextDay").addEventListener("click", function () {
+  const schoolName = document.getElementById("schoolName").value;
+  const authorizationCode = document
+    .getElementById("authorizationCode")
+    .value.replace(/\s/g, "");
+  const userType = document.getElementById("userType").value;
+  const currentDate = new Date();
+  let year = currentDate.getFullYear();
+  let week = document.getElementById("week").innerText.replace("Week ", "");
+  week = parseInt(week, 10);
+  week = week + 1;
+  if (week === 53) {
+    week = `1`;
+    year = parseInt(year, 10);
+    year = year + 1;
+  }
+
+  document.getElementById("week").innerText = "Week " + week;
+  if (week < 10) {
+    week = `0${week}`;
+  }
+
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+
+  // Haal het rooster op
+  fetchSchedule(accessToken, userType, year, week, schoolName);
+});
+
+document.getElementById("previousDay").addEventListener("click", function () {
+  const schoolName = document.getElementById("schoolName").value;
+  const authorizationCode = document
+    .getElementById("authorizationCode")
+    .value.replace(/\s/g, "");
+  const userType = document.getElementById("userType").value;
+  const currentDate = new Date();
+  let year = currentDate.getFullYear();
+  let week = document.getElementById("week").innerText.replace("Week ", "");
+  week = parseInt(week, 10);
+  week = week - 1;
+  if (week < 10) {
+    week = `0${week}`;
+  }
+  if (week === "00") {
+    week = `52`;
+    year = parseInt(year, 10);
+    year = year - 1;
+  }
+  document.getElementById("week").innerText = "Week " + week;
+
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+
+  // Haal het rooster op
+  fetchSchedule(accessToken, userType, year, week, schoolName);
+});
 
 // Voeg een gebeurtenisluisteraar toe voor de formulierinzending
 document
