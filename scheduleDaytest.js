@@ -102,12 +102,9 @@ function fetchAppointments(date) {
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
   const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,type,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
-  var fetchTime = performance.now();
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
-      fetchTime = performance.now() - fetchtime;
-      console.log(fetchTime + "ms");
       const appointments = data.response.data;
       // Sort appointments by start time
       appointments.sort((a, b) => a.start - b.start);
