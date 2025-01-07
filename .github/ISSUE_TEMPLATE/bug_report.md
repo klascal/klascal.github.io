@@ -10,11 +10,11 @@ assignees: ''
 **Beschrijf de bug**
 Een duidelijke en beknopte beschrijving van wat de bug is.
 
-**Te reproduceren**
+**Hoe te reproduceren**
 Stappen om het gedrag te reproduceren:
 1. Ga naar '...'
 2. Klik op '...'
-3. Scroll naar beneden naar '....'
+3. Scroll beneden naar '....'
 4. Zie fout
 
 **Verwacht gedrag**
@@ -29,10 +29,10 @@ Voeg indien van toepassing schermafbeeldingen toe om uw probleem te helpen verkl
   - Versie [bijv. 124]
 
 **Smartphone (vul de volgende informatie in):**
-  - Apparaat: [bijv. iPhone 8, Samsung Galaxy S9]
-  - Besturingssysteem: [bijv. iOS 17, Android 14]
-  - Browser [bijv. Chrome, Safari]
-  - Versie [bijv. 124]
+  - Apparaat: [bijv. iPhone 16, Samsung Galaxy S24]
+  - Besturingssysteem: [bijv. iOS 18, Android 15]
+  - Browser [bijv. Chrome, Firefox]
+  - Versie [bijv. 133]
 
 **Aanvullende context**
 Voeg hier eventuele andere context over het probleem toe.
