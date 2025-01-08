@@ -1,3 +1,20 @@
+async function userInfo() {
+  const response = await fetch(
+    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=cfboatb6ugv61ke1idmugc8dk8"
+  );
+  const data = await response.json();
+  const isEmployee = data.response.data[0].isEmployee;
+  var userType = "student";
+  if (isEmployee == true) {
+    userType = "teacher";
+  }
+  console.log(userType);
+  localStorage.setItem("selectedUserType", userType);
+  localStorage.setItem("userType", userType);
+}
+if (!localStorage.getItem("userType")) {
+  userInfo();
+}
 // Functie om rooster op te halen met behulp van fetch
 async function fetchSchedule(
   authorizationCode,
@@ -204,7 +221,7 @@ async function handleFormSubmit(event) {
   const authorizationCode = document
     .getElementById("authorizationCode")
     .value.replace(/\s/g, "");
-  const userType = document.getElementById("userType").value;
+  const userType = localStorage.getItem("userType");
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   let week = currentDate.getWeek(); // Bereken weeknummer
@@ -296,12 +313,6 @@ authorizationCode.value = localStorage.getItem("authorizationCode");
 authorizationCode.oninput = () => {
   localStorage.setItem("authorizationCode", authorizationCode.value);
   localStorage.setItem("access_token", "undefined");
-};
-
-const userType = document.getElementById("userType");
-userType.value = localStorage.getItem("userType");
-userType.oninput = () => {
-  localStorage.setItem("userType", userType.value);
 };
 
 // Functie om dialoogvenster te tonen
