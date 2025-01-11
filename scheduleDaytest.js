@@ -256,7 +256,11 @@ function fetchAppointments(date) {
         appointmentDiv.classList.add(
           appointment.cancelled ? "cancelled" : appointment.type
         );
-  const dago = Date.now(); if (dago <= appointment.end * 1000) {appointmentDiv.classList.add("test");} localStorage.setItem("LaatsteSync", dago);
+        const dago = Date.now();
+        if (dago <= appointment.end * 1000) {
+          appointmentDiv.classList.add("test");
+        }
+        localStorage.setItem("LaatsteSync", dago);
         // Check if the browser supports notifications
         if ("Notification" in window) {
           // Check if permission has already been granted
@@ -381,11 +385,14 @@ document.getElementById("dateInput").addEventListener("change", function () {
   const dateInput = document.getElementById("dateInput").value;
   fetchAppointments(dateInput);
 });
-setInterval(function() {if (document.querySelector("td")) {
-document.querySelector("td").addEventListener("click", function () {
-  const dateInput = document.getElementById("dateInput").value;
-  fetchAppointments(dateInput);
-});}}, 500);
+setInterval(function () {
+  if (document.querySelector("td")) {
+    document.querySelector("td").addEventListener("click", function () {
+      const dateInput = document.getElementById("dateInput").value;
+      fetchAppointments(dateInput);
+    });
+  }
+}, 500);
 document.getElementById("add").addEventListener("click", function () {
   const today = new Date();
   const day = today.getDate();
@@ -496,7 +503,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const formattedDate = `${day} ${monthName}`;
   const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
   document.getElementById("dateInput").value = formattedDate1;
-  fetchAppointments(formattedDate);
+  if (
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("schoolName")
+  ) {
+    fetchAppointments(formattedDate);
+  }
 });
 
 // Sla schoolnaam en token op
@@ -611,42 +623,44 @@ function handleArrowKeyPress(event) {
 }
 
 let startX;
-    let startY;
-    const minSwipeDistance = 50;
+let startY;
+const minSwipeDistance = 50;
 
-    // Event listeners for touch events
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchmove', handleTouchMove, false);
-    document.addEventListener('touchend', handleTouchEnd, false);
+// Event listeners for touch events
+document.addEventListener("touchstart", handleTouchStart, false);
+document.addEventListener("touchmove", handleTouchMove, false);
+document.addEventListener("touchend", handleTouchEnd, false);
 
-    function handleTouchStart(e) {
-      const touch = e.touches[0];
-      startX = touch.pageX;
-      startY = touch.pageY;
-    }
+function handleTouchStart(e) {
+  const touch = e.touches[0];
+  startX = touch.pageX;
+  startY = touch.pageY;
+}
 
-    function handleTouchMove(e) {e.preventDefault();}
+function handleTouchMove(e) {
+  e.preventDefault();
+}
 
-    function handleTouchEnd(e) {
-      const touch = e.changedTouches[0];
-      const endX = touch.pageX;
-      const endY = touch.pageY;
+function handleTouchEnd(e) {
+  const touch = e.changedTouches[0];
+  const endX = touch.pageX;
+  const endY = touch.pageY;
 
-      const deltaX = endX - startX;
-      const deltaY = endY - startY;
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
 
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-         if (Math.abs(deltaX) > minSwipeDistance) {
-        if (deltaX > 0) {
-          // Swipe left
-          loadPreviousDaySchedule();
-        } else {
-          // Swipe right
-          loadNextDaySchedule();
-        }
-       }
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        // Swipe left
+        loadPreviousDaySchedule();
+      } else {
+        // Swipe right
+        loadNextDaySchedule();
       }
     }
+  }
+}
 
 // Add event listener for keydown event on the document
 document.addEventListener("keydown", handleArrowKeyPress);
