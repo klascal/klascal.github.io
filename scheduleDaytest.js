@@ -262,6 +262,31 @@ function fetchAppointments(date) {
         if (i >= 1 && startTimeString != window.endTime) {
           appointmentDiv.style = "margin-top: 20px";
         }
+        if (i == 0) {
+          if (startTimeString == "8:55") {
+            appointmentDiv.style = "margin-top: 60px";
+          } else if (startTimeString == "9:05") {
+            appointmentDiv.style = "margin-top: 70px";
+          } else if (startTimeString == "9:35") {
+            appointmentDiv.style = "margin-top: 120px";
+          } else if (startTimeString == "10:10") {
+            appointmentDiv.style = "margin-top: 140px";
+          } else if (startTimeString == "10:30") {
+            appointmentDiv.style = "margin-top: 180px";
+          } else if (startTimeString == "11:00") {
+            appointmentDiv.style = "margin-top: 210px";
+          } else if (startTimeString == "11:10") {
+            appointmentDiv.style = "margin-top: 240px";
+          } else if (startTimeString == "12:15") {
+            appointmentDiv.style = "margin-top: 280px";
+          } else if (startTimeString == "13:05") {
+            appointmentDiv.style = "margin-top: 350px";
+          } else if (startTimeString == "14:10") {
+            appointmentDiv.style = "margin-top: 420px";
+          } else if (startTimeString == "15:00") {
+            appointmentDiv.style = "margin-top: 490px";
+          }
+        }
         window.endTime = endTimeString;
         i++;
         const dago = Date.now();
