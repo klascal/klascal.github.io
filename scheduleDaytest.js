@@ -125,7 +125,7 @@ function fetchAppointments(date) {
 
       // Filter out cancelled lessons if there are multiple lessons for the same hour
       const filteredAppointments = filterCancelledLessons(appointments);
-
+      let i = 0;
       filteredAppointments.forEach((appointment) => {
         const startTime = new Date(appointment.start * 1000);
         const endTime = new Date(appointment.end * 1000);
@@ -259,6 +259,11 @@ function fetchAppointments(date) {
         appointmentDiv.classList.add(
           appointment.cancelled ? "cancelled" : appointment.type
         );
+        if (i >= 1 && startTimeString != window.endTime) {
+          appointmentDiv.style = "margin-top: 20px";
+        }
+        window.endTime = endTimeString;
+        i++;
         const dago = Date.now();
         if (dago >= appointment.end * 1000) {
           appointmentDiv.classList.add("test");
