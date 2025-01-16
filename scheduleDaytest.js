@@ -110,14 +110,17 @@ function fetchAppointments(date) {
       appointments.sort((a, b) => a.start - b.start);
       const scheduleDiv = document.getElementById("schedule");
       scheduleDiv.innerHTML = ""; // Clear existing schedule
-      const errorMessageDiv = document.getElementById("error-message");
-
       if (appointments.length === 0) {
-        scheduleDiv.style.display = "none";
-        errorMessageDiv.style.display = "block";
-      } else {
-        scheduleDiv.style.display = "block";
-        errorMessageDiv.style.display = "none";
+        scheduleDiv.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
+        ><img
+          src="es_geenresultaten.webp"
+          alt="Geen rooster gevonden"
+          style="text-align: center"
+          width="200px"
+          height="104px"
+        /><br />
+        Geen rooster gevonden voor deze dag.</strong
+      >`;
       }
 
       // Filter out cancelled lessons if there are multiple lessons for the same hour
@@ -257,7 +260,7 @@ function fetchAppointments(date) {
           appointment.cancelled ? "cancelled" : appointment.type
         );
         const dago = Date.now();
-        if (dago <= appointment.end * 1000) {
+        if (dago >= appointment.end * 1000) {
           appointmentDiv.classList.add("test");
         }
         localStorage.setItem("LaatsteSync", dago);
