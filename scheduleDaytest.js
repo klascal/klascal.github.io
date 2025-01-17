@@ -1,3 +1,6 @@
+window.onfocus = function () {
+  fetchAppointments(document.getElementById("dateInput").value);
+};
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
