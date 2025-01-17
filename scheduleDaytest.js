@@ -1,5 +1,5 @@
 window.onfocus = function () {
-  fetchAppointments(document.getElementById("dateInput").value);
+  fetchAppointments(document.getElementById("dateInput").value, "focus");
 };
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
@@ -47,7 +47,7 @@ window.onload = restoreCheckboxState;
 checkbox.addEventListener("change", saveCheckboxState);
 
 // Function to fetch appointments for the specified date
-function fetchAppointments(date) {
+function fetchAppointments(date, focus) {
   // Parse the input date string to get the date and month
   const datum = document.getElementById("dateInput").value;
   if (/^[a-zA-Z]{2}\s/.test(datum)) {
@@ -292,6 +292,14 @@ function fetchAppointments(date) {
         }
         window.endTime = endTimeString;
         i++;
+        if (focus) {
+          if (appointmentDiv.getAttribute("style") != null) {
+            appointmentDiv.style =
+              appointmentDiv.getAttribute("style") + "; animation-name: none";
+          } else {
+            appointmentDiv.style = "animation-name: none";
+          }
+        }
         const dago = Date.now();
         if (dago >= appointment.end * 1000) {
           appointmentDiv.classList.add("test");
