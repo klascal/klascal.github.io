@@ -1,5 +1,7 @@
 window.onfocus = function () {
-  fetchAppointments(document.getElementById("dateInput").value, "focus");
+  if (document.getElementById("dateInput").value !== "") {
+    fetchAppointments(document.getElementById("dateInput").value, "focus");
+  }
 };
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
@@ -45,7 +47,52 @@ window.onload = restoreCheckboxState;
 
 // Save state when checkbox is clicked
 checkbox.addEventListener("change", saveCheckboxState);
-
+async function fetchAnnouncements() {
+  const response = await fetch(
+    "https://" +
+      localStorage.getItem("schoolName") +
+      ".zportal.nl/api/v3/announcements?user=~me&current=true&access_token=" +
+      localStorage.getItem("access_token")
+  );
+  const data = await response.json();
+  const appointments = data.response.data;
+  var announcementsContainer = document.getElementById("schedule");
+  var announcementsDiv = document.createElement("div");
+  announcementsContainer.innerHTML = "";
+  if (appointments.length === 0) {
+    announcementsContainer.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
+  ><img
+    src="es_geenresultaten.webp"
+    alt=""
+    style="text-align: center"
+    width="200px"
+    height="104px"
+  /><br />
+  Geen mededelingen gevonden.</strong
+>`;
+  }
+  appointments.forEach((announcement) => {
+    var start = announcement.start * 1000;
+    start = new Date(start);
+    var date = start
+      .toLocaleTimeString("nl-NL", {
+        day: "2-digit",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+      .replace(/^0+/, "");
+    announcementsDiv.innerHTML =
+      "<strong>" +
+      announcement.title +
+      "</strong><span> " +
+      date +
+      "<p>" +
+      announcement.text +
+      "</p>";
+    announcementsContainer.appendChild(announcementsDiv);
+  });
+}
 // Function to fetch appointments for the specified date
 function fetchAppointments(date, focus) {
   // Parse the input date string to get the date and month
@@ -117,7 +164,7 @@ function fetchAppointments(date, focus) {
         scheduleDiv.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
         ><img
           src="es_geenresultaten.webp"
-          alt="Geen rooster gevonden"
+          alt=""
           style="text-align: center"
           width="200px"
           height="104px"
@@ -163,7 +210,7 @@ function fetchAppointments(date, focus) {
           mn: "Mens en natuur",
           mu: "Muziek",
           ne: "Nederlands",
-          te: "Tekenen/Techniek",
+          te: "Tekenen",
           wi: "Wiskunde",
           wis: "Wiskunde",
           fr: "Frans",
@@ -185,7 +232,7 @@ function fetchAppointments(date, focus) {
           gr: "Grieks",
           PROJECT: "Project",
           rkn: "Rekentoets",
-          pe: "Physical education",
+          pe: "Physical Education",
           ontw: "Ontwerpen",
           ltc: "Latijn",
           gtc: "Grieks",
