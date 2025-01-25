@@ -47,6 +47,10 @@ window.onload = restoreCheckboxState;
 
 // Save state when checkbox is clicked
 checkbox.addEventListener("change", saveCheckboxState);
+function convertH2M(timeInHour) {
+  var timeParts = timeInHour.split(":");
+  return Number(timeParts[0]) * 60 + Number(timeParts[1]);
+}
 async function fetchAnnouncements() {
   const response = await fetch(
     "https://" +
@@ -311,30 +315,48 @@ function fetchAppointments(date, focus) {
         );
         if (i >= 1 && startTimeString != window.endTime) {
           appointmentDiv.style = "margin-top: 20px";
+          const startDecimal = convertH2M(startTimeString);
+          const endDecimal = convertH2M(window.endTime);
+          const pauzeTijd = startDecimal - endDecimal;
+          if (pauzeTijd >= 280) {
+            appointmentDiv.style = "margin-top: 525px";
+          } else if (pauzeTijd >= 240) {
+            appointmentDiv.style = "margin-top: 450px";
+          } else if (pauzeTijd >= 200) {
+            appointmentDiv.style = "margin-top: 375px";
+          } else if (pauzeTijd >= 160) {
+            appointmentDiv.style = "margin-top: 300px";
+          } else if (pauzeTijd >= 120) {
+            appointmentDiv.style = "margin-top: 225px";
+          } else if (pauzeTijd >= 80) {
+            appointmentDiv.style = "margin-top: 150px";
+          } else if (pauzeTijd >= 40) {
+            appointmentDiv.style = "margin-top: 75px";
+          }
         }
         if (i == 0) {
           if (startTimeString == "8:55") {
-            appointmentDiv.style = "margin-top: 60px";
+            appointmentDiv.style = "margin-top: 75px";
           } else if (startTimeString == "9:05") {
-            appointmentDiv.style = "margin-top: 70px";
+            appointmentDiv.style = "margin-top: 75px";
           } else if (startTimeString == "9:35") {
-            appointmentDiv.style = "margin-top: 120px";
+            appointmentDiv.style = "margin-top: 150px";
           } else if (startTimeString == "10:10") {
-            appointmentDiv.style = "margin-top: 140px";
+            appointmentDiv.style = "margin-top: 150px";
           } else if (startTimeString == "10:30") {
-            appointmentDiv.style = "margin-top: 180px";
+            appointmentDiv.style = "margin-top: 225px";
           } else if (startTimeString == "11:00") {
-            appointmentDiv.style = "margin-top: 210px";
+            appointmentDiv.style = "margin-top: 225px";
           } else if (startTimeString == "11:10") {
-            appointmentDiv.style = "margin-top: 240px";
+            appointmentDiv.style = "margin-top: 300px";
           } else if (startTimeString == "12:15") {
-            appointmentDiv.style = "margin-top: 280px";
+            appointmentDiv.style = "margin-top: 300px";
           } else if (startTimeString == "13:05") {
-            appointmentDiv.style = "margin-top: 350px";
+            appointmentDiv.style = "margin-top: 375px";
           } else if (startTimeString == "14:10") {
-            appointmentDiv.style = "margin-top: 420px";
+            appointmentDiv.style = "margin-top: 375px";
           } else if (startTimeString == "15:00") {
-            appointmentDiv.style = "margin-top: 490px";
+            appointmentDiv.style = "margin-top: 450px";
           }
         }
         window.endTime = endTimeString;
