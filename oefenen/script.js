@@ -186,7 +186,7 @@ function closeDialog() {
 
   // Hoofdstuk opties voor verschillende methoden
   const chapters = {
-    'Neue Kontakte': ['sein und haben'],
+    'Neue Kontakte': ['sein und haben', 'Kapitel 5'],
     'Deutsch Aktuell': [],
     'Nieuw Nederlands': [],
     'Taal Actief': []
