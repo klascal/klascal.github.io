@@ -1,0 +1,4 @@
+Vetaal de volgende woorden:
+
+de aardappel -  &input&,die Kartoffel
+de groente - &input&,das Gemüse
