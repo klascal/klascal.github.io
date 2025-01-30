@@ -565,7 +565,7 @@
         right: 8px;
         z-index: 2;
         border-radius: 17.5px;
-        background: #bae2fd;
+        background: var(--primary-light);
         border: 0px;
         box-shadow: none;
         outline: none;
@@ -575,9 +575,6 @@
         animation-duration: 0.25s;
         transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
         box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
-      }
-      #add:hover {
-        background: #a3daff;
       }
       #closeBtn {
         float: right;
@@ -593,15 +590,6 @@
           width: 60px;
           height: 60px;
           opacity: 100;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        #add {
-          background: #7ac7fb;
-        }
-        #add:hover {
-          background: #58b9fb;
         }
       }
     </style>
