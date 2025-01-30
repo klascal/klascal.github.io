@@ -19,6 +19,7 @@
     <link rel="manifest" href="app.webmanifest" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="material.css" />
+    <link rel="stylesheet" href="css.css" />
     <script type="text/javascript" src="llqrcode.js" defer></script>
     <script type="text/javascript" src="webqr.js"></script>
     <script>
@@ -330,7 +331,9 @@
       }
 
       h2 {
-        font-weight: 500;
+        font-weight: 400;
+        margin-top: 0;
+        margin-bottom: 24px;
       }
 
       #schedule {
@@ -467,7 +470,7 @@
 
       @media (prefers-color-scheme: dark) {
         dialog {
-          background-color: #000000a1 !important;
+          background-color: #222 !important;
           color: white;
         }
 
@@ -741,9 +744,8 @@
         style="
           border: 0;
           border-radius: 2rem;
-          background-color: #ffffffa1;
-          backdrop-filter: blur(10px);
-          user-select: none;
+          background-color: #fff;
+          padding: 24px;
         "
       >
         <h2>Instellingen</h2>
@@ -794,38 +796,6 @@
             <span class="theme__icon" style="--color: #6200ee"></span>
           </label>
         </div>
-
-        <script>
-          const $ = (e) => document.querySelectorAll(e);
-          const _switches = $("body")[0];
-          const _colors = $("input[name='color']");
-
-          // Load saved theme on page load
-          const savedTheme = localStorage.getItem("theme");
-          if (savedTheme) {
-            _switches.setAttribute("data-theme", savedTheme);
-            _colors.forEach((radio) => {
-              radio.checked = radio.value === savedTheme;
-            });
-          } else {
-            // Set default theme from checked radio
-            const defaultTheme = document.querySelector(
-              'input[name="color"]:checked'
-            ).value;
-            _switches.setAttribute("data-theme", defaultTheme);
-          }
-
-          // Save theme when changed
-          _colors.forEach((radio) => {
-            radio.addEventListener("change", (e) => {
-              if (e.target.checked) {
-                _switches.setAttribute("data-theme", e.target.value);
-                localStorage.setItem("theme", e.target.value);
-              }
-            });
-          });
-        </script>
-        <br />
         <section class="switches">
           <div class="switch switch--2">
             <label for="meldingen">Zet roostermeldingen aan</label>
@@ -858,8 +828,8 @@
             <input id="css" placeholder=" " autocomplete="off" />
             <label for="css">CSS-code</label>
           </div>
-          <br />
         </details>
+        <br />
         <button class="btn" id="closeBtn" onclick="hideDialog()">
           Sluiten
         </button>

@@ -3,6 +3,34 @@ window.onfocus = function () {
     fetchAppointments(document.getElementById("dateInput").value, "focus");
   }
 };
+const $ = (e) => document.querySelectorAll(e);
+const _switches = $("body")[0];
+const _colors = $("input[name='color']");
+
+// Load saved theme on page load
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  _switches.setAttribute("data-theme", savedTheme);
+  _colors.forEach((radio) => {
+    radio.checked = radio.value === savedTheme;
+  });
+} else {
+  // Set default theme from checked radio
+  const defaultTheme = document.querySelector(
+    'input[name="color"]:checked'
+  ).value;
+  _switches.setAttribute("data-theme", defaultTheme);
+}
+
+// Save theme when changed
+_colors.forEach((radio) => {
+  radio.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      _switches.setAttribute("data-theme", e.target.value);
+      localStorage.setItem("theme", e.target.value);
+    }
+  });
+});
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
 // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
@@ -390,35 +418,43 @@ function fetchAppointments(date, focus) {
         }
         localStorage.setItem("LaatsteSync", dago);
         // Check if the browser supports notifications
-        if ("Notification" in window) {
-          // Check if permission has already been granted
-          if (
-            Notification.permission === "granted" &&
-            appointment.cancelled === false
-          ) {
-            if (datum === formattedDate3 || datum === formattedDate2) {
-              if (localStorage.getItem("LastNotificationDate") !== datum) {
-                const startTime = new Date(appointment.start * 1000);
-                // If it's okay, create a notification
-                new Notification(subjectsFullNames, {
-                  body:
-                    startTimeString +
-                    "-" +
-                    endTimeString +
-                    " • " +
-                    appointment.locations +
-                    " (" +
-                    appointment.teachers +
-                    ")",
-                  icon: "logo.svg",
-                  timestamp: startTime,
-                });
+        if (
+          localStorage.getItem("checkboxState") === "true" &&
+          localStorage.getItem("checkboxState") != null
+        ) {
+          if ("Notification" in window) {
+            // Check if permission has already been granted
+            if (
+              Notification.permission === "granted" &&
+              appointment.cancelled === false
+            ) {
+              if (datum === formattedDate3 || datum === formattedDate2) {
+                if (localStorage.getItem("LastNotificationDate") !== datum) {
+                  const startTime = new Date(appointment.start * 1000);
+                  // If it's okay, create a notification
+                  new Notification(subjectsFullNames, {
+                    body:
+                      startTimeString +
+                      "-" +
+                      endTimeString +
+                      " • " +
+                      appointment.locations +
+                      " (" +
+                      appointment.teachers +
+                      ")",
+                    icon: "logo.svg",
+                    timestamp: startTime,
+                  });
+                }
               }
             }
           }
           // If the permission is not granted yet, request for it
-          else if (Notification.permission !== "denied") {
-            if (localStorage.getItem("checkboxState") === "true") {
+          else if (
+            localStorage.getItem("checkboxState") === "true" &&
+            localStorage.getItem("checkboxState") != null
+          ) {
+            if (Notification.permission !== "denied") {
               Notification.requestPermission().then(function (permission) {
                 // If the user accepts, send the notification
                 if (
@@ -450,8 +486,6 @@ function fetchAppointments(date, focus) {
               });
             }
           }
-        } else {
-          console.log("This browser does not support notifications.");
         }
 
         scheduleDiv.appendChild(appointmentDiv);
@@ -644,10 +678,10 @@ schoolName.value = localStorage.getItem("schoolName");
 schoolName.oninput = () => {
   localStorage.setItem("schoolName", schoolName.value);
 };
-
-authorizationCode.value = localStorage.getItem("authorizationCode");
-authorizationCode.oninput = () => {
-  localStorage.setItem("authorizationCode", authorizationCode.value);
+const authorizationCode1 = document.getElementById("authorizationCode");
+authorizationCode1.value = localStorage.getItem("authorizationCode");
+authorizationCode1.oninput = () => {
+  localStorage.setItem("authorizationCode", authorizationCode1.value);
 };
 
 user.value = localStorage.getItem("user");
@@ -749,17 +783,12 @@ const minSwipeDistance = 50;
 
 // Event listeners for touch events
 document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchmove", handleTouchMove, false);
 document.addEventListener("touchend", handleTouchEnd, false);
 
 function handleTouchStart(e) {
   const touch = e.touches[0];
   startX = touch.pageX;
   startY = touch.pageY;
-}
-
-function handleTouchMove(e) {
-  e.preventDefault();
 }
 
 function handleTouchEnd(e) {
