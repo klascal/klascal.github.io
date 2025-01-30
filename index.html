@@ -18,8 +18,7 @@
     <script src="scheduleDaytest.js" defer></script>
     <link rel="manifest" href="app.webmanifest" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="css.css" />
-    <link id="color-theme" rel="stylesheet" href="css.css" />
+    <link rel="stylesheet" href="material.css" />
     <script type="text/javascript" src="llqrcode.js" defer></script>
     <script type="text/javascript" src="webqr.js"></script>
     <script>
@@ -314,7 +313,6 @@
       }
 
       label {
-        display: block;
         margin: 5px 0 5px 0;
       }
 
@@ -329,6 +327,10 @@
         background-color: #eee;
         animation-name: load;
         animation-duration: 0.1s;
+      }
+
+      h2 {
+        font-weight: 500;
       }
 
       #schedule {
@@ -574,6 +576,9 @@
       #add:hover {
         background: #a3daff;
       }
+      #closeBtn {
+        float: right;
+      }
 
       @keyframes popOut {
         from {
@@ -732,8 +737,6 @@
       <dialog
         id="dialog"
         role="dialog"
-        oncontextmenu="return false"
-        draggable="false"
         aria-label="Voer je schoolnaam en koppelcode in."
         style="
           border: 0;
@@ -743,194 +746,123 @@
           user-select: none;
         "
       >
-        <a href="week" id="weekButton">
-          <button
-            class="btn"
-            aria-label="Weekrooster"
-            style="
-              position: absolute;
-              right: 194px;
-              padding-bottom: 10px;
-              top: 8px;
-            "
-          >
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              id="icon"
-            >
-              <path
-                d="M17.75 3A3.25 3.25 0 0 1 21 6.25v11.5A3.25 3.25 0 0 1 17.75 21H6.25A3.25 3.25 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.5Zm-10 4a.75.75 0 0 0-.743.648L7 7.75v8.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-8.5l-.007-.102A.75.75 0 0 0 7.75 7Zm8.5 0a.75.75 0 0 0-.743.648l-.007.102v8.5l.007.102a.75.75 0 0 0 1.486 0L17 16.25v-8.5l-.007-.102A.75.75 0 0 0 16.25 7ZM12 7a.75.75 0 0 0-.743.648l-.007.102v8.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-8.5l-.007-.102A.75.75 0 0 0 12 7Z"
-              />
-            </svg></button
-        ></a>
-        <a href="token">
-          <button
-            class="btn"
-            aria-label="Hulp"
-            style="
-              position: absolute;
-              right: 132px;
-              padding-bottom: 10px;
-              top: 8px;
-            "
-          >
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              id="icon"
-            >
-              <path
-                d="M12 4C9.238 4 7 6.238 7 9a1 1 0 0 0 2 0c0-1.658 1.342-3 3-3s3 1.342 3 3c0 .816-.199 1.294-.438 1.629-.262.365-.625.638-1.128.985l-.116.078c-.447.306-1.023.699-1.469 1.247-.527.648-.849 1.467-.849 2.561v.5a1 1 0 1 0 2 0v-.5c0-.656.178-1.024.4-1.299.257-.314.603-.552 1.114-.903l.053-.037c.496-.34 1.133-.786 1.62-1.468C16.7 11.081 17 10.183 17 9c0-2.762-2.238-5-5-5ZM12 21.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z"
-              />
-            </svg></button
-        ></a>
-        <a href="info"
-          ><button
-            class="btn"
-            aria-label="Info"
-            style="
-              position: absolute;
-              right: 70px;
-              padding-bottom: 10px;
-              top: 8px;
-            "
-          >
-            <svg
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              id="icon"
-            >
-              <path
-                d="M12 1.999c5.524 0 10.002 4.478 10.002 10.002 0 5.523-4.478 10.001-10.002 10.001-5.524 0-10.002-4.478-10.002-10.001C1.998 6.477 6.476 1.999 12 1.999Zm-.004 8.25a1 1 0 0 0-.992.885l-.007.116.003 5.502.007.117a1 1 0 0 0 1.987-.002L13 16.75l-.003-5.501-.007-.117a1 1 0 0 0-.994-.882ZM12 6.5a1.251 1.251 0 1 0 0 2.503A1.251 1.251 0 0 0 12 6.5Z"
-              />
-            </svg></button
-        ></a>
-        <button
-          class="btn"
-          onclick="hideDialog()"
-          id="close"
-          aria-label="Instellingen sluiten"
-          style="position: absolute; right: 8px; padding-bottom: 10px; top: 8px"
-        >
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            id="icon"
-          >
-            <path
-              d="m4.21 4.387.083-.094a1 1 0 0 1 1.32-.083l.094.083L12 10.585l6.293-6.292a1 1 0 1 1 1.414 1.414L13.415 12l6.292 6.293a1 1 0 0 1 .083 1.32l-.083.094a1 1 0 0 1-1.32.083l-.094-.083L12 13.415l-6.293 6.292a1 1 0 0 1-1.414-1.414L10.585 12 4.293 5.707a1 1 0 0 1-.083-1.32l.083-.094-.083.094Z"
+        <h2>Instellingen</h2>
+        <div class="material-textfield">
+          <input id="schoolName" placeholder=" " autocomplete="off" />
+          <label for="schoolName">Schoolnaam</label>
+        </div>
+        <br />
+        <div class="material-textfield">
+          <input id="authorizationCode" placeholder=" " autocomplete="off" />
+          <label for="authorizationCode">Koppelcode</label>
+        </div>
+        <br />
+        <div class="themes">
+          <p>Thema</p>
+          <label class="theme__color">
+            <input
+              type="radio"
+              name="color"
+              class="theme__input"
+              value="blue"
+              checked
             />
-          </svg>
-        </button>
-        <label for="schoolName" style="margin-top: 50px">School</label>
-        <input
-          type="text"
-          id="schoolName"
-          name="schoolName"
-          class="btn"
-          autocomplete="off"
-          required
-        />
+            <span
+              class="theme__icon"
+              style="--color: hsl(200, 79%, 46%)"
+            ></span>
+          </label>
+          <label class="theme__color">
+            <input
+              type="radio"
+              name="color"
+              class="theme__input"
+              value="green"
+            />
+            <span
+              class="theme__icon"
+              style="--color: hsl(160, 79%, 46%)"
+            ></span>
+          </label>
+          <label class="theme__color">
+            <input
+              type="radio"
+              name="color"
+              class="theme__input"
+              value="purple"
+            />
+            <span class="theme__icon" style="--color: #6200ee"></span>
+          </label>
+        </div>
 
-        <label for="authorizationCode">Koppelcode</label>
-        <input
-          type="text"
-          id="authorizationCode"
-          name="authorizationCode"
-          onclick="this.value = localStorage.getItem(`authorizationCode`);"
-          oninput="localStorage.setItem(`authorizationCode`, this.value);"
-          autocomplete="off"
-          size="10"
-          class="btn"
-          required
-        /><button onclick="load();" class="btn">QR-code scannen</button>
-        <div id="outdiv"></div>
-        <div id="result"></div>
-        <canvas id="qr-canvas" width="0" height="0"></canvas>
-        <script type="text/javascript">
-          // Function to check and store QR code data if it contains "institution"
-          function checkQRCode() {
-            const resultElement = document.getElementById("result").innerText;
-            try {
-              const qrData = JSON.parse(resultElement);
-              // Check if the object contains the 'institution' key
-              if (qrData.institution) {
-                // Store the institution and code in localStorage
-                localStorage.setItem("schoolName", qrData.institution);
-                localStorage.setItem("authorizationCode", qrData.code);
-                document.getElementById("authorizationCode").value =
-                  qrData.code;
-                document.getElementById("schoolName").value =
-                  qrData.institution;
-                document.getElementById("result").innerHTML = "";
-                console.log("Data saved to localStorage: ", qrData);
-              }
-            } catch (e) {
-              console.error("Invalid QR code format or error parsing JSON:", e);
-            }
+        <script>
+          const $ = (e) => document.querySelectorAll(e);
+          const _switches = $("body")[0];
+          const _colors = $("input[name='color']");
+
+          // Load saved theme on page load
+          const savedTheme = localStorage.getItem("theme");
+          if (savedTheme) {
+            _switches.setAttribute("data-theme", savedTheme);
+            _colors.forEach((radio) => {
+              radio.checked = radio.value === savedTheme;
+            });
+          } else {
+            // Set default theme from checked radio
+            const defaultTheme = document.querySelector(
+              'input[name="color"]:checked'
+            ).value;
+            _switches.setAttribute("data-theme", defaultTheme);
           }
-          // Observe changes in the #result element
-          const observer = new MutationObserver(checkQRCode);
-          observer.observe(document.getElementById("result"), {
-            childList: true,
+
+          // Save theme when changed
+          _colors.forEach((radio) => {
+            radio.addEventListener("change", (e) => {
+              if (e.target.checked) {
+                _switches.setAttribute("data-theme", e.target.value);
+                localStorage.setItem("theme", e.target.value);
+              }
+            });
           });
         </script>
         <br />
-
-        <label for="user">Gebruikersnaam</label>
-        <input
-          type="text"
-          autocomplete="off"
-          id="user"
-          name="user"
-          class="btn"
-        /><label for="css">CSS-code (optioneel)</label>
-        <input
-          type="text"
-          autocomplete="off"
-          style="width: 90%"
-          oninput="update_section(this.value, 'about');"
-          onclick="update_section(this.value, 'about');"
-          id="css"
-          class="btn"
-        />
-        <details>
-          <summary>CSS voorbeelden</summary>
-          <br />
-          <p>Laat klassennamen zien</p>
-          <pre><code class="language-css hljs" data-highlighted="yes"><span class="hljs-selector-id">.className</span> {<span class="hljs-attribute">display</span>: block;}</code></pre>
-        </details>
+        <section class="switches">
+          <div class="switch switch--2">
+            <label for="meldingen">Zet roostermeldingen aan</label>
+            <label class="switch__label">
+              <input type="checkbox" id="meldingen" class="switch__input" />
+              <span class="switch__design"></span>
+            </label>
+          </div>
+        </section>
         <br />
-        <label for="color-select">Thema</label>
-        <select id="color-select" class="btn">
-          <option value="css">Themakleur</option>
-          <option value="rood">Rood</option>
-          <option value="roze">Roze</option>
-          <option value="paars">Paars</option>
-          <option value="blauw">Blauw</option>
-          <option value="groen">Groen</option>
-          <option value="geel">Geel</option>
-          <option value="oranje">Oranje</option>
-          <option value="rainbow">Regenboog</option>
-          <option value="css">Origineel</option>
-
-          <!-- Add more color options here -->
-        </select>
-        <label for="meldingen">Zet roostermeldingen aan</label
-        ><input type="checkbox" name="meldingen" id="meldingen" />
+        <section class="switches">
+          <div class="switch switch--2">
+            <label for="vakafkorting">Gebruik vakafkorting</label>
+            <label class="switch__label">
+              <input type="checkbox" id="vakafkorting" class="switch__input" />
+              <span class="switch__design"></span>
+            </label>
+          </div>
+        </section>
+        <br />
+        <details>
+          <summary>Geavanceerde opties</summary>
+          <br />
+          <div class="material-textfield">
+            <input id="user" placeholder=" " autocomplete="off" />
+            <label for="user">Gebruikersnaam</label>
+          </div>
+          <br />
+          <div class="material-textfield">
+            <input id="css" placeholder=" " autocomplete="off" />
+            <label for="css">CSS-code</label>
+          </div>
+          <br />
+        </details>
+        <button class="btn" id="closeBtn" onclick="hideDialog()">
+          Sluiten
+        </button>
       </dialog>
       <style id="aboutgoeshere"></style>
       <input type="text" id="keyboard" style="display: none" />

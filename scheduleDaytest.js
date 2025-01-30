@@ -45,6 +45,21 @@ function restoreCheckboxState() {
 }
 window.onload = restoreCheckboxState;
 
+const checkbox1 = document.getElementById("vakafkorting");
+// Function to save checkbox state to localStorage
+function saveCheckboxState1() {
+  localStorage.setItem("afkorting", checkbox1.checked);
+}
+
+// Function to restore checkbox state from localStorage
+function restoreCheckboxState1() {
+  const savedState = localStorage.getItem("afkorting");
+  if (savedState !== null) {
+    checkbox1.checked = JSON.parse(savedState);
+  }
+}
+window.onload = restoreCheckboxState1;
+checkbox1.addEventListener("change", saveCheckboxState1);
 // Save state when checkbox is clicked
 checkbox.addEventListener("change", saveCheckboxState);
 function convertH2M(timeInHour) {
@@ -686,13 +701,6 @@ async function hideDialog() {
   } else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
     localStorage.setItem("access_token", authorizationCodeLS);
   }
-  // Apply stored color theme on page load
-  const storedColor = localStorage.getItem("color");
-  if (storedColor) {
-    document
-      .getElementById("color-theme")
-      .setAttribute("href", `${storedColor}.css`);
-  }
   dialog.close();
   const dateInput = document.getElementById("dateInput").value;
   fetchAppointments(dateInput);
@@ -783,24 +791,3 @@ document.getElementById("keyboard").focus();
 if (typeof navigator.serviceWorker !== "undefined") {
   navigator.serviceWorker.register("sw.js");
 }
-// Function to apply color theme
-function applyColorTheme(color) {
-  // Save selected color to local storage
-  localStorage.setItem("color", color);
-
-  // Apply color theme stylesheet
-  document
-    .getElementById("color-theme")
-    .setAttribute("href", `${storedColor}.css`);
-}
-
-// Apply stored color theme on page load
-const storedColor = localStorage.getItem("color");
-if (storedColor) {
-  applyColorTheme(storedColor);
-}
-
-// Color theme selector event listener
-document.getElementById("color-select").addEventListener("change", function () {
-  applyColorTheme(this.value);
-});

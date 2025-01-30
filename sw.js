@@ -10,28 +10,32 @@ self.addEventListener("message", (event) => {
   }
 });
 
+// Cache images using StaleWhileRevalidate strategy
 workbox.routing.registerRoute(
-  ({ request }) => request.destination === 'image',
+  ({ request }) => request.destination === "image",
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: `${CACHE}-images`,
   })
 );
 
+// Cache fonts using StaleWhileRevalidate strategy
 workbox.routing.registerRoute(
-  ({ request }) => request.destination === 'font',
+  ({ request }) => request.destination === "font",
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: `${CACHE}-fonts`,
   })
 );
 
+// Cache scripts using StaleWhileRevalidate strategy, excluding "scheduleDay"
 workbox.routing.registerRoute(
   ({ request }) =>
-    request.destination === 'script' && !/scheduleDay/.test(request.url),
+    request.destination === "script" && !/scheduleDay/.test(request.url),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: `${CACHE}-scripts`,
   })
 );
 
+// Use NetworkFirst strategy for all other requests
 workbox.routing.registerRoute(
   new RegExp("/*"),
   new workbox.strategies.NetworkFirst({
