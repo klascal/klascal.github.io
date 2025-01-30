@@ -1,5 +1,9 @@
 window.onfocus = function () {
-  if (document.getElementById("dateInput").value !== "") {
+  if (
+    document.getElementById("dateInput").value !== "" &&
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("schoolName")
+  ) {
     fetchAppointments(document.getElementById("dateInput").value, "focus");
   }
 };
