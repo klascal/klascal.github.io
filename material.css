@@ -194,6 +194,7 @@ body[data-theme="pink"] {
   border-radius: 5px;
   padding: 1rem 0.7rem;
   color: #000;
+  max-width: calc(100% - 24px);
 }
 @media (prefers-color-scheme: dark) {
   .material-textfield label {
