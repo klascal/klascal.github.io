@@ -1,6 +1,8 @@
 async function userInfo() {
+  const authorizationCode = localStorage.getItem("access_token");
   const response = await fetch(
-    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=cfboatb6ugv61ke1idmugc8dk8"
+    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=" +
+      authorizationCode
   );
   const data = await response.json();
   const isEmployee = data.response.data[0].isEmployee;
@@ -11,8 +13,25 @@ async function userInfo() {
   console.log(userType);
   localStorage.setItem("selectedUserType", userType);
   localStorage.setItem("userType", userType);
+  const schoolName = document.getElementById("schoolName").value;
+  const authorizationCode1 = document
+    .getElementById("authorizationCode")
+    .value.replace(/\s/g, "");
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  let week = currentDate.getWeek(); // Bereken weeknummer
+  document.getElementById("week").innerText = "Week " + week;
+  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
+
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+  if (accessToken == null || accessToken == "undefined") {
+    accessToken = await fetchToken(authorizationCode1, schoolName);
+    localStorage.setItem("access_token", accessToken);
+  }
+  fetchSchedule(accessToken, userType, year, week, schoolName);
 }
-if (!localStorage.getItem("userType")) {
+if (!localStorage.getItem("userType") && localStorage.getItem("access_token")) {
   userInfo();
 }
 // Functie om rooster op te halen met behulp van fetch
@@ -221,9 +240,9 @@ async function handleFormSubmit(event) {
   const authorizationCode = document
     .getElementById("authorizationCode")
     .value.replace(/\s/g, "");
-  const userType = localStorage.getItem("userType");
   const currentDate = new Date();
   const year = currentDate.getFullYear();
+  const userType = localStorage.getItem("userType");
   let week = currentDate.getWeek(); // Bereken weeknummer
   document.getElementById("week").innerText = "Week " + week;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
@@ -234,9 +253,14 @@ async function handleFormSubmit(event) {
     accessToken = await fetchToken(authorizationCode, schoolName);
     localStorage.setItem("access_token", accessToken);
   }
-
-  // Haal het rooster op
-  fetchSchedule(accessToken, userType, year, week, schoolName);
+  if (
+    !localStorage.getItem("userType") &&
+    localStorage.getItem("access_token")
+  ) {
+    userInfo();
+  } else {
+    fetchSchedule(accessToken, userType, year, week, schoolName);
+  }
 }
 
 document.getElementById("nextDay").addEventListener("click", function () {
