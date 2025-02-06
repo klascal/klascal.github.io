@@ -339,7 +339,73 @@
       #schedule {
         perspective: 75px;
         margin-bottom: 65px;
-        margin-top: 57px;
+        margin-top: 37px;
+        height: calc(100vh - 118px);
+        position: relative;
+      }
+      @keyframes day1left {
+        from {
+          right: 100vw;
+        }
+        to {
+          right: 0;
+        }
+      }
+      @keyframes day2 {
+        from {
+          right: 0;
+        }
+        to {
+          right: 100vw;
+        }
+      }
+      @keyframes day2left {
+        from {
+          right: 200vw;
+        }
+        to {
+          right: 100vw;
+        }
+      }
+      @keyframes day3 {
+        from {
+          right: 100vw;
+        }
+        to {
+          right: 200vw;
+        }
+      }
+      @keyframes day3left {
+        from {
+          right: 300vw;
+        }
+        to {
+          right: 200vw;
+        }
+      }
+      @keyframes day4 {
+        from {
+          right: 200vw;
+        }
+        to {
+          right: 300vw;
+        }
+      }
+      @keyframes day4left {
+        from {
+          right: 400vw;
+        }
+        to {
+          right: 300vw;
+        }
+      }
+      @keyframes day5 {
+        from {
+          right: 300vw;
+        }
+        to {
+          right: 400vw;
+        }
       }
 
       @keyframes load {
@@ -548,6 +614,29 @@
         top: 10px;
       }
 
+      .container {
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
+      .\32 {
+        left: 100vw;
+      }
+      .\33 {
+        left: 200vw;
+      }
+      .\34 {
+        left: 300vw;
+      }
+      .\35 {
+        left: 400vw;
+      }
+
+      .notEnrolled {
+        opacity: 0.7;
+      }
+
       @media (max-width: 481px) {
         #field span {
           display: none;
@@ -754,9 +843,286 @@
       >
         <h2>Instellingen</h2>
         <div class="material-textfield">
-          <input id="schoolName" placeholder=" " autocomplete="off" />
+          <input
+            id="schoolName"
+            list="scholen"
+            placeholder=" "
+            autocomplete="off"
+          />
           <label for="schoolName">Schoolnaam</label>
         </div>
+        <datalist id="scholen">
+          <option value="terra">terra</option>
+          <option value="ehl">ehl</option>
+          <option value="rsgdeborgen">rsgdeborgen</option>
+          <option value="munnikenheide">munnikenheide</option>
+          <option value="newmancollege">newmancollege</option>
+          <option value="gomarus">gomarus</option>
+          <option value="mhc">mhc</option>
+          <option value="baudartius">baudartius</option>
+          <option value="arentheem">arentheem</option>
+          <option value="csb">csb</option>
+          <option value="strabrecht">strabrecht</option>
+          <option value="rlo">rlo</option>
+          <option value="osb">osb</option>
+          <option value="hoekschlyceum">hoekschlyceum</option>
+          <option value="jpthijsse">jpthijsse</option>
+          <option value="pieterzandt">pieterzandt</option>
+          <option value="daltondenhaag">daltondenhaag</option>
+          <option value="csg">csg</option>
+          <option value="blariacum">blariacum</option>
+          <option value="mlfbhc">mlfbhc</option>
+          <option value="goudsewaarden">goudsewaarden</option>
+          <option value="penta">penta</option>
+          <option value="willem2">willem2</option>
+          <option value="coenecoop">coenecoop</option>
+          <option value="depassiescholen">depassiescholen</option>
+          <option value="kwcollege">kwcollege</option>
+          <option value="csghetstreek-college">csghetstreek-college</option>
+          <option value="tvo-rotterdam">tvo-rotterdam</option>
+          <option value="montessoriarnhem">montessoriarnhem</option>
+          <option value="develsteincollege">develsteincollege</option>
+          <option value="reggesteyn">reggesteyn</option>
+          <option value="msa">msa</option>
+          <option value="dollardcollege">dollardcollege</option>
+          <option value="carmelcollegesalland">carmelcollegesalland</option>
+          <option value="wdezwijger">wdezwijger</option>
+          <option value="pierson">pierson</option>
+          <option value="willemvanoranje">willemvanoranje</option>
+          <option value="sft">sft</option>
+          <option value="chrlyceumdelft">chrlyceumdelft</option>
+          <option value="groenehartscholen">groenehartscholen</option>
+          <option value="hetstedelijk">hetstedelijk</option>
+          <option value="rsgrijks">rsgrijks</option>
+          <option value="www">www</option>
+          <option value="viaan">viaan</option>
+          <option value="vandercapellen">vandercapellen</option>
+          <option value="valuascollege">valuascollege</option>
+          <option value="ursula">ursula</option>
+          <option value="tsgzwolle">tsgzwolle</option>
+          <option value="trevianum">trevianum</option>
+          <option value="staring">staring</option>
+          <option value="spieringshoek">spieringshoek</option>
+          <option value="sjl">sjl</option>
+          <option value="sintermeerten">sintermeerten</option>
+          <option value="sgreigersbos">sgreigersbos</option>
+          <option value="rsgenkhuizen">rsgenkhuizen</option>
+          <option value="quadraamarnhemzuidenelst">
+            quadraamarnhemzuidenelst
+          </option>
+          <option value="paxchristicollege">paxchristicollege</option>
+          <option value="ostrealyceum">ostrealyceum</option>
+          <option value="nsg">nsg</option>
+          <option value="mondia">mondia</option>
+          <option value="lrc">lrc</option>
+          <option value="kwc-culemborg">kwc-culemborg</option>
+          <option value="jfc">jfc</option>
+          <option value="ichthus">ichthus</option>
+          <option value="fonsvitae">fonsvitae</option>
+          <option value="emmauscollege">emmauscollege</option>
+          <option value="dorenweerd">dorenweerd</option>
+          <option value="dominicuscollege">dominicuscollege</option>
+          <option value="compute">compute</option>
+          <option value="canisiuscollege">canisiuscollege</option>
+          <option value="adelbert">adelbert</option>
+          <option value="wartburg">wartburg</option>
+          <option value="school">school</option>
+          <option value="calvijncollege">calvijncollege</option>
+          <option value="viertaal">viertaal</option>
+          <option value="vo-veghel">vo-veghel</option>
+          <option value="hetbouwens">hetbouwens</option>
+          <option value="lvo-weert">lvo-weert</option>
+          <option value="maartvlinder">maartvlinder</option>
+          <option value="amadeuslyceum">amadeuslyceum</option>
+          <option value="kandinsky">kandinsky</option>
+          <option value="wiringherlant">wiringherlant</option>
+          <option value="murmellius">murmellius</option>
+          <option value="andreascollege">andreascollege</option>
+          <option value="clv">clv</option>
+          <option value="hondsrugcollege">hondsrugcollege</option>
+          <option value="praediniusgymnasium">praediniusgymnasium</option>
+          <option value="rml">rml</option>
+          <option value="farelcollege">farelcollege</option>
+          <option value="sgvvs">sgvvs</option>
+          <option value="augustinianum">augustinianum</option>
+          <option value="hogeland">hogeland</option>
+          <option value="vobo">vobo</option>
+          <option value="nuovomdvcm">nuovomdvcm</option>
+          <option value="ovc">ovc</option>
+          <option value="bernardinuscollege">bernardinuscollege</option>
+          <option value="lauwerscollege">lauwerscollege</option>
+          <option value="ggh">ggh</option>
+          <option value="piusx">piusx</option>
+          <option value="t-atrium">t-atrium</option>
+          <option value="pvanhorne">pvanhorne</option>
+          <option value="rgomiddelharnis">rgomiddelharnis</option>
+          <option value="espritscholen">espritscholen</option>
+          <option value="cvog">cvog</option>
+          <option value="2college">2college</option>
+          <option value="sanctamariamavo">sanctamariamavo</option>
+          <option value="hetnieuwelyceum">hetnieuwelyceum</option>
+          <option value="bc-enschede">bc-enschede</option>
+          <option value="smc">smc</option>
+          <option value="varendonck">varendonck</option>
+          <option value="alkwin">alkwin</option>
+          <option value="mcnijmegen">mcnijmegen</option>
+          <option value="sdca">sdca</option>
+          <option value="sovon2">sovon2</option>
+          <option value="kompaancollegevorden">kompaancollegevorden</option>
+          <option value="keizerkarelcollege">keizerkarelcollege</option>
+          <option value="ccnv">ccnv</option>
+          <option value="bonhoeffer">bonhoeffer</option>
+          <option value="theresialyceum">theresialyceum</option>
+          <option value="calscollege">calscollege</option>
+          <option value="maartenscollege">maartenscollege</option>
+          <option value="cvo-nf">cvo-nf</option>
+          <option value="veenlandencollege">veenlandencollege</option>
+          <option value="alfrink">alfrink</option>
+          <option value="daltonvoorburg">daltonvoorburg</option>
+          <option value="gsf">gsf</option>
+          <option value="psg">psg</option>
+          <option value="bona">bona</option>
+          <option value="ichthuslyceum">ichthuslyceum</option>
+          <option value="damstedelyceum">damstedelyceum</option>
+          <option value="felisenum">felisenum</option>
+          <option value="secvo">secvo</option>
+          <option value="sevenwolden">sevenwolden</option>
+          <option value="vozvl">vozvl</option>
+          <option value="elde">elde</option>
+          <option value="gymnasiumleiden">gymnasiumleiden</option>
+          <option value="hetbaken">hetbaken</option>
+          <option value="roosteren15022023onl3">roosteren15022023onl3</option>
+          <option value="scalacollege">scalacollege</option>
+          <option value="hetrhedens">hetrhedens</option>
+          <option value="driestarcollege">driestarcollege</option>
+          <option value="hzm-gsf">hzm-gsf</option>
+          <option value="ozhw">ozhw</option>
+          <option value="romboutscollege">romboutscollege</option>
+          <option value="vossius">vossius</option>
+          <option value="st-maartenscollege">st-maartenscollege</option>
+          <option value="dalton-dordrecht">dalton-dordrecht</option>
+          <option value="gregorius">gregorius</option>
+          <option value="gymnasiumnovum">gymnasiumnovum</option>
+          <option value="dedijk">dedijk</option>
+          <option value="cvo-zwfryslan">cvo-zwfryslan</option>
+          <option value="snz">snz</option>
+          <option value="hoogeland">hoogeland</option>
+          <option value="montaignelyceum">montaignelyceum</option>
+          <option value="metameer">metameer</option>
+          <option value="boni">boni</option>
+          <option value="broekhinjenaplan">broekhinjenaplan</option>
+          <option value="stadenesch">stadenesch</option>
+          <option value="wolfert">wolfert</option>
+          <option value="laurenslyceum">laurenslyceum</option>
+          <option value="sgtongerlo">sgtongerlo</option>
+          <option value="ams">ams</option>
+          <option value="maaswaalcollege">maaswaalcollege</option>
+          <option value="ldvleiden">ldvleiden</option>
+          <option value="cgu">cgu</option>
+          <option value="graafengelbrecht">graafengelbrecht</option>
+          <option value="lentiz-14yd">lentiz-14yd</option>
+          <option value="meergrondenarte">meergrondenarte</option>
+          <option value="isendoorn">isendoorn</option>
+          <option value="marianum">marianum</option>
+          <option value="barlaeus">barlaeus</option>
+          <option value="loketzwijndrecht">loketzwijndrecht</option>
+          <option value="carmelhengelo">carmelhengelo</option>
+          <option value="newton">newton</option>
+          <option value="denhulster">denhulster</option>
+          <option value="jrl">jrl</option>
+          <option value="detriade">detriade</option>
+          <option value="ovofn">ovofn</option>
+          <option value="nuovozeist">nuovozeist</option>
+          <option value="echhp">echhp</option>
+          <option value="calsng">calsng</option>
+          <option value="hml">hml</option>
+          <option value="csvincentvangogh">csvincentvangogh</option>
+          <option value="bertrand">bertrand</option>
+          <option value="groenewald">groenewald</option>
+          <option value="pascalcollege">pascalcollege</option>
+          <option value="lentiz-17wq">lentiz-17wq</option>
+          <option value="copernicus">copernicus</option>
+          <option value="lyceumypenburg">lyceumypenburg</option>
+          <option value="rsg-sneek">rsg-sneek</option>
+          <option value="hethooghuis">hethooghuis</option>
+          <option value="hofstadscholen">hofstadscholen</option>
+          <option value="esdalcollege">esdalcollege</option>
+          <option value="esc">esc</option>
+          <option value="insulacollege">insulacollege</option>
+          <option value="citadelcollege">citadelcollege</option>
+          <option value="udenscollege">udenscollege</option>
+          <option value="jdw">jdw</option>
+          <option value="melanchthon">melanchthon</option>
+          <option value="pontes">pontes</option>
+          <option value="twentscarmelcollege">twentscarmelcollege</option>
+          <option value="jvo">jvo</option>
+          <option value="mencia-isbreda">mencia-isbreda</option>
+          <option value="griftland">griftland</option>
+          <option value="hpc-zetten">hpc-zetten</option>
+          <option value="nassau">nassau</option>
+          <option value="ssvo">ssvo</option>
+          <option value="lcl">lcl</option>
+          <option value="lvomaastrichtoost">lvomaastrichtoost</option>
+          <option value="pcc">pcc</option>
+          <option value="tabor">tabor</option>
+          <option value="arhc-gsf">arhc-gsf</option>
+          <option value="roercollegeschondeln">roercollegeschondeln</option>
+          <option value="vog">vog</option>
+          <option value="scholengroepspinoza">scholengroepspinoza</option>
+          <option value="hermannwesselinkcollege">
+            hermannwesselinkcollege
+          </option>
+          <option value="scmoost">scmoost</option>
+          <option value="vhl">vhl</option>
+          <option value="sc-delfland">sc-delfland</option>
+          <option value="gsr">gsr</option>
+          <option value="annavanrijn">annavanrijn</option>
+          <option value="trinitascollege">trinitascollege</option>
+          <option value="ccg">ccg</option>
+          <option value="vechtdalcollege">vechtdalcollege</option>
+          <option value="grotiuscollege">grotiuscollege</option>
+          <option value="schoolnaam">schoolnaam</option>
+          <option value="sgdelangstraat">sgdelangstraat</option>
+          <option value="haarlemmermeerlyceum">haarlemmermeerlyceum</option>
+          <option value="willemblaeu">willemblaeu</option>
+          <option value="veurslyceum">veurslyceum</option>
+          <option value="osg">osg</option>
+          <option value="rls">rls</option>
+          <option value="avoo">avoo</option>
+          <option value="stanislascollege">stanislascollege</option>
+          <option value="bsg">bsg</option>
+          <option value="usgym">usgym</option>
+          <option value="cvo-av">cvo-av</option>
+          <option value="atlascollege">atlascollege</option>
+          <option value="csghetstreek">csghetstreek</option>
+          <option value="aletta">aletta</option>
+          <option value="piterjelles">piterjelles</option>
+          <option value="ig">ig</option>
+          <option value="driestarwartburg">driestarwartburg</option>
+          <option value="candea">candea</option>
+          <option value="vsc-gsf">vsc-gsf</option>
+          <option value="martinus">martinus</option>
+          <option value="sgkwadrant">sgkwadrant</option>
+          <option value="scholenaanzee">scholenaanzee</option>
+          <option value="pantarijn">pantarijn</option>
+          <option value="canisius">canisius</option>
+          <option value="sghetplein">sghetplein</option>
+          <option value="kennemercollege">kennemercollege</option>
+          <option value="broekhin">broekhin</option>
+          <option value="rvec">rvec</option>
+          <option value="parmantscholen">parmantscholen</option>
+          <option value="sondervick">sondervick</option>
+          <option value="stedelijkgymnijmegen">stedelijkgymnijmegen</option>
+          <option value="northgo">northgo</option>
+          <option value="sgpantarhei">sgpantarhei</option>
+          <option value="ghc">ghc</option>
+          <option value="schoonhovenscollege">schoonhovenscollege</option>
+          <option value="oelbert">oelbert</option>
+          <option value="stadslyceum">stadslyceum</option>
+          <option value="gerritkomrijcollege">gerritkomrijcollege</option>
+          <option value="zernike">zernike</option>
+        </datalist>
+
         <br />
         <div class="material-textfield">
           <input id="authorizationCode" placeholder=" " autocomplete="off" />

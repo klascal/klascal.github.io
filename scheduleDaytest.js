@@ -144,6 +144,37 @@ async function fetchAnnouncements() {
     announcementsContainer.appendChild(announcementsDiv);
   });
 }
+async function userInfo(date) {
+  const authorizationCode = localStorage.getItem("access_token");
+  const response = await fetch(
+    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=" +
+      authorizationCode
+  );
+  const data = await response.json();
+  const isEmployee = data.response.data[0].isEmployee;
+  var userType = "student";
+  if (isEmployee == true) {
+    userType = "teacher";
+  }
+  localStorage.setItem("selectedUserType", userType);
+  localStorage.setItem("userType", userType);
+  fetchAppointments(date);
+}
+Date.prototype.getWeek = function () {
+  var date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  return (
+    1 +
+    Math.round(
+      ((date.getTime() - week1.getTime()) / 86400000 -
+        3 +
+        ((week1.getDay() + 6) % 7)) /
+        7
+    )
+  );
+};
 // Function to fetch appointments for the specified date
 function fetchAppointments(date, focus) {
   // Parse the input date string to get the date and month
@@ -173,7 +204,7 @@ function fetchAppointments(date, focus) {
 
   if (monthIndex === -1 || isNaN(parseInt(day))) {
     console.error(
-      "Invalid date format. Please enter date in the format 'DD Month', e.g., '12 aug'."
+      "Incorrecte datumformaat. Voer de datum in in het formaat '12 aug' of 'di 12 aug'."
     );
     return;
   }
@@ -186,6 +217,10 @@ function fetchAppointments(date, focus) {
   const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + 1);
   const user = document.getElementById("user").value || "~me";
+  const userType = localStorage.getItem("userType");
+  const year = startDate.getFullYear();
+  let week = startDate.getWeek(); // Bereken weeknummer
+  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document.getElementById("authorizationCode").value;
   let accessToken = localStorage.getItem("access_token");
@@ -202,11 +237,11 @@ function fetchAppointments(date, focus) {
   const startTimestamp = Math.floor(startDate.getTime() / 1000);
   const endTimestamp = Math.floor(endDate.getTime() / 1000);
 
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/appointments?user=${user}&start=${startTimestamp}&end=${endTimestamp}&valid=true&fields=subjects,type,cancelled,locations,startTimeSlot,endTimeSlot,start,end,groups,teachers,changeDescription&access_token=${accessToken}`;
+  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${accessToken}&${userType}=~me&week=${year}${week}`;
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
-      const appointments = data.response.data;
+      const appointments = data.response.data[0].appointments;
       // Sort appointments by start time
       appointments.sort((a, b) => a.start - b.start);
       const scheduleDiv = document.getElementById("schedule");
@@ -316,8 +351,17 @@ function fetchAppointments(date, focus) {
           (subject) => subjectsMapping[subject] || subject
         );
 
+        if (appointment.appointmentInstance == null) {
+          subjectsFullNames = appointment.actions[0].appointment.subjects.map(
+            (subject) => subjectsMapping[subject] || subject
+          );
+        }
+
         if (localStorage.getItem("afkorting") === "true") {
           subjectsFullNames = appointment.subjects;
+          if (appointment.appointmentInstance == null) {
+            subjectsFullNames = appointment.actions[0].appointment.subjects;
+          }
         }
 
         let changeDescription = "";
@@ -343,6 +387,12 @@ function fetchAppointments(date, focus) {
             ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ff9800" style="vertical-align: sub; margin-right: 2.5px;"><path d="M120-103q-18 0-32.09-8.8Q73.83-120.6 66-135q-8-14-8.5-30.6Q57-182.19 66-198l359-622q9-16 24.1-23.5 15.11-7.5 31-7.5 15.9 0 30.9 7.5 15 7.5 24 23.5l359 622q9 15.81 8.5 32.4Q902-149 894-135t-22 23q-14 9-32 9H120Zm360-140q18 0 31.5-13.5T525-288q0-18-13.5-31T480-332q-18 0-31.5 13T435-288q0 18 13.5 31.5T480-243Zm0-117q17 0 28.5-11.5T520-400v-109q0-17-11.5-28.5T480-549q-17 0-28.5 11.5T440-509v109q0 17 11.5 28.5T480-360Z"/></svg>'
             : "";
         }
+        if (appointment.appointmentInstance == null) {
+          warning = "Afgemeld";
+          warningsymbol = warning
+            ? "<span style='margin-right: 5px;'>🛇</span>"
+            : "";
+        }
         const teachers =
           "(" + appointment.teachers.filter((e) => e != user).join(", ") + ")";
         appointmentDiv.innerHTML = `
@@ -358,13 +408,19 @@ function fetchAppointments(date, focus) {
         <p class="className">${appointment.groups.join(", ")}</p>
         `;
         appointmentDiv.classList.add(
-          appointment.cancelled ? "cancelled" : appointment.type
+          appointment.cancelled ? "cancelled" : appointment.appointmentType
         );
+        if (appointment.appointmentInstance == null) {
+          appointmentDiv.classList.remove("cancelled");
+          appointmentDiv.classList.add("notEnrolled");
+        }
+        if (i >= -1 && window.endTime) {
+          var startDecimal = convertH2M(startTimeString);
+          var endDecimal = convertH2M(window.endTime);
+          var pauzeTijd = startDecimal - endDecimal;
+        }
         if (i >= 1 && startTimeString != window.endTime) {
           appointmentDiv.style = "margin-top: 20px";
-          const startDecimal = convertH2M(startTimeString);
-          const endDecimal = convertH2M(window.endTime);
-          const pauzeTijd = startDecimal - endDecimal;
           if (pauzeTijd >= 280) {
             appointmentDiv.style = "margin-top: 525px";
           } else if (pauzeTijd >= 240) {
@@ -381,7 +437,7 @@ function fetchAppointments(date, focus) {
             appointmentDiv.style = "margin-top: 75px";
           }
         }
-        if (i == 0) {
+        if (i == 0 || pauzeTijd <= -1) {
           if (startTimeString == "8:55") {
             appointmentDiv.style = "margin-top: 75px";
           } else if (startTimeString == "9:05") {
@@ -491,11 +547,62 @@ function fetchAppointments(date, focus) {
             }
           }
         }
-
+        appointmentDiv.classList.add(startTime.getDay());
         scheduleDiv.appendChild(appointmentDiv);
       });
     })
-    .catch((error) => console.error("Error fetching data: ", error));
+    .catch((error) =>
+      console.error("Probleem met het laden van het rooster: ", error)
+    )
+    .then((data) => {
+      var div1 = document.createElement("span");
+      var scheduleDiv = document.getElementById("schedule");
+      div1.classList.add("1", "container");
+      scheduleDiv.appendChild(div1);
+
+      [...document.getElementsByClassName("1")].forEach((element) => {
+        if (element !== div1) {
+          div1.appendChild(element);
+        }
+      });
+      var div2 = document.createElement("span");
+      div2.classList.add("2", "container");
+      scheduleDiv.appendChild(div2);
+
+      [...document.getElementsByClassName("2")].forEach((element) => {
+        if (element !== div2) {
+          div2.appendChild(element);
+        }
+      });
+      var div3 = document.createElement("span");
+      div3.classList.add("3", "container");
+      scheduleDiv.appendChild(div3);
+
+      [...document.getElementsByClassName("3")].forEach((element) => {
+        if (element !== div3) {
+          div3.appendChild(element);
+        }
+      });
+      var div4 = document.createElement("span");
+      div4.classList.add("4", "container");
+      scheduleDiv.appendChild(div4);
+
+      [...document.getElementsByClassName("4")].forEach((element) => {
+        if (element !== div4) {
+          div4.appendChild(element);
+        }
+      });
+      var div5 = document.createElement("span");
+      div5.classList.add("5", "container");
+      scheduleDiv.appendChild(div5);
+
+      [...document.getElementsByClassName("5")].forEach((element) => {
+        if (element !== div5) {
+          div5.appendChild(element);
+        }
+      });
+    });
+
   // Retry every 500ms until the element with id 'vaknaam' exists
   const retryInterval = setInterval(function () {
     const vaknaamElement = document.getElementById("vaknaam");
@@ -549,26 +656,94 @@ function filterCancelledLessons(appointments) {
 // Function to handle loading schedule when button is clicked
 document.getElementById("dateInput").addEventListener("change", function () {
   const dateInput = document.getElementById("dateInput").value;
+  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
+    var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
+  } else {
+    var [day1, month] = dateInput.split(" ");
+  }
+  const monthShort = month.substring(0, 3);
+  const monthIndex = dutchMonthNames.findIndex(
+    (monthName) => monthName.toLowerCase() === monthShort
+  );
+  const currentDate = new Date();
+  currentDate.setFullYear(
+    currentDate.getFullYear(),
+    monthIndex,
+    parseInt(day1)
+  );
+  const currentDay = currentDate.getDay();
+  if (currentDay == 1) {
+    document.getElementById("schedule").style = "right: 0;";
+  } else if (currentDay == 2) {
+    document.getElementById("schedule").style = "right: 100vw;";
+  } else if (currentDay == 3) {
+    document.getElementById("schedule").style = "right: 200vw;";
+  } else if (currentDay == 4) {
+    document.getElementById("schedule").style = "right: 300vw;";
+  } else if (currentDay == 5) {
+    document.getElementById("schedule").style = "right: 400vw;";
+  }
   fetchAppointments(dateInput);
 });
-setInterval(function () {
-  if (document.querySelector("td")) {
-    document.querySelector("td").addEventListener("click", function () {
-      const dateInput = document.getElementById("dateInput").value;
-      fetchAppointments(dateInput);
-    });
-  }
-}, 500);
+Date.prototype.getWeek = function () {
+  var date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  return (
+    1 +
+    Math.round(
+      ((date.getTime() - week1.getTime()) / 86400000 -
+        3 +
+        ((week1.getDay() + 6) % 7)) /
+        7
+    )
+  );
+};
 document.getElementById("add").addEventListener("click", function () {
+  const dateInput = document.getElementById("dateInput").value;
+  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
+    var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
+  } else {
+    var [day1, month] = dateInput.split(" ");
+  }
+  const monthShort = month.substring(0, 3);
+  const monthIndex = dutchMonthNames.findIndex(
+    (monthName) => monthName.toLowerCase() === monthShort
+  );
+  const previousDate = new Date();
+  previousDate.setFullYear(
+    previousDate.getFullYear(),
+    monthIndex,
+    parseInt(day1)
+  );
+  const previousWeek = previousDate.getWeek();
   const today = new Date();
   const day = today.getDate();
+  const currentWeek = today.getWeek();
+  const currentDay = today.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza = daysOfWeek[today.getDay()];
   const monthName = dutchMonthNames[today.getMonth()];
   const formattedDate = `${day} ${monthName}`;
   const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
   document.getElementById("dateInput").value = formattedDate1;
-  fetchAppointments(formattedDate);
+  if (currentDay == 1) {
+    document.getElementById("schedule").style = "right: 0;";
+  } else if (currentDay == 2) {
+    document.getElementById("schedule").style = "right: 100vw;";
+  } else if (currentDay == 3) {
+    document.getElementById("schedule").style = "right: 200vw;";
+  } else if (currentDay == 4) {
+    document.getElementById("schedule").style = "right: 300vw;";
+  } else if (currentDay == 5) {
+    document.getElementById("schedule").style = "right: 400vw;";
+  }
+  if (currentWeek - previousWeek != 0) {
+    document.getElementById("schedule").innerHTML = "";
+    fetchAppointments(formattedDate);
+  }
+  document.getElementById("add").setAttribute("style", "display: none;");
 });
 // Function to handle previous day button click
 document.getElementById("previousDay").addEventListener("click", function () {
@@ -582,6 +757,13 @@ document.getElementById("previousDay").addEventListener("click", function () {
   const monthIndex = dutchMonthNames.findIndex(
     (monthName) => monthName.toLowerCase() === monthShort
   );
+  const previousDate = new Date();
+  previousDate.setFullYear(
+    previousDate.getFullYear(),
+    monthIndex,
+    parseInt(day)
+  );
+  var previousWeek = previousDate.getWeek();
   const currentDate = new Date();
   currentDate.setFullYear(
     currentDate.getFullYear(),
@@ -602,6 +784,8 @@ document.getElementById("previousDay").addEventListener("click", function () {
       parseInt(day) - 2
     );
   }
+  var currentWeek = currentDate.getWeek();
+  var currentDay = currentDate.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
   const nextDay =
@@ -611,7 +795,25 @@ document.getElementById("previousDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  fetchAppointments(nextDay);
+  if (currentDay == 1) {
+    document.getElementById("schedule").style =
+      "animation: day1left 0.15s ease-in-out forwards; right: 0;";
+  } else if (currentDay == 2) {
+    document.getElementById("schedule").style =
+      "animation: day2left 0.15s ease-in-out forwards; right: 100vw;";
+  } else if (currentDay == 3) {
+    document.getElementById("schedule").style =
+      "animation: day3left 0.15s ease-in-out forwards; right: 200vw;";
+  } else if (currentDay == 4) {
+    document.getElementById("schedule").style =
+      "animation: day4left 0.15s ease-in-out forwards; right: 300vw;";
+  } else if (currentDay == 5) {
+    document.getElementById("schedule").style = "right: 400vw;";
+  }
+  if (currentWeek - previousWeek != 0) {
+    document.getElementById("schedule").innerHTML = "";
+    fetchAppointments(nextDay);
+  }
 });
 
 // Function to handle next day button click
@@ -626,6 +828,13 @@ document.getElementById("nextDay").addEventListener("click", function () {
   const monthIndex = dutchMonthNames.findIndex(
     (monthName) => monthName.toLowerCase() === monthShort
   );
+  const previousDate = new Date();
+  previousDate.setFullYear(
+    previousDate.getFullYear(),
+    monthIndex,
+    parseInt(day)
+  );
+  var previousWeek = previousDate.getWeek();
   const currentDate = new Date();
   currentDate.setFullYear(
     currentDate.getFullYear(),
@@ -646,6 +855,8 @@ document.getElementById("nextDay").addEventListener("click", function () {
       parseInt(day) + 3
     );
   }
+  var currentWeek = currentDate.getWeek();
+  var currentDay = currentDate.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
   const nextDay =
@@ -655,7 +866,25 @@ document.getElementById("nextDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  fetchAppointments(nextDay);
+  if (currentDay == 1) {
+    document.getElementById("schedule").style = "right: 0;";
+  } else if (currentDay == 2) {
+    document.getElementById("schedule").style =
+      "animation: day2 0.15s ease-in-out forwards; right: 100vw;";
+  } else if (currentDay == 3) {
+    document.getElementById("schedule").style =
+      "animation: day3 0.15s ease-in-out forwards; right: 200vw;";
+  } else if (currentDay == 4) {
+    document.getElementById("schedule").style =
+      "animation: day4 0.15s ease-in-out forwards; right: 300vw;";
+  } else if (currentDay == 5) {
+    document.getElementById("schedule").style =
+      "animation: day5 0.15s ease-in-out forwards; right: 400vw;";
+  }
+  if (currentWeek - previousWeek != 0) {
+    document.getElementById("schedule").innerHTML = "";
+    fetchAppointments(nextDay);
+  }
 });
 
 // Fetch appointments for today when the page loads
@@ -663,17 +892,45 @@ document.addEventListener("DOMContentLoaded", function () {
   // Default to today's date
   const today = new Date();
   const day = today.getDate();
+  const currentDay = today.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza = daysOfWeek[today.getDay()];
   const monthName = dutchMonthNames[today.getMonth()];
   const formattedDate = `${day} ${monthName}`;
   const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
   document.getElementById("dateInput").value = formattedDate1;
+  if (currentDay == 1) {
+    document.getElementById("schedule").style = "right: 0;";
+  }
+  if (currentDay == 2) {
+    document.getElementById("schedule").style = "right: 100vw;";
+  }
+  if (currentDay == 3) {
+    document.getElementById("schedule").style = "right: 200vw;";
+  }
+  if (currentDay == 4) {
+    document.getElementById("schedule").style = "right: 300vw;";
+  }
+  if (currentDay == 5) {
+    document.getElementById("schedule").style = "right: 400vw;";
+  }
+  if (currentDay == 6) {
+    document.getElementById("schedule").style = "right: 500vw;";
+  }
+  if (currentDay == 0) {
+    document.getElementById("schedule").style = "right: 600vw;";
+  }
   if (
     localStorage.getItem("access_token") &&
-    localStorage.getItem("schoolName")
+    localStorage.getItem("schoolName") &&
+    localStorage.getItem("userType")
   ) {
     fetchAppointments(formattedDate);
+  } else if (
+    !localStorage.getItem("userType") &&
+    localStorage.getItem("access_token")
+  ) {
+    userInfo(formattedDate);
   }
 });
 
@@ -721,7 +978,10 @@ async function fetchToken(authorizationCode, schoolName) {
     localStorage.setItem("access_token", accessToken);
     return accessToken;
   } catch (error) {
-    console.error("Error fetching access token:", error.message);
+    console.error(
+      "Probleem met het ophalen van de access_token:",
+      error.message
+    );
   }
 }
 // Functie om dialoogvenster te verbergen
@@ -741,7 +1001,18 @@ async function hideDialog() {
   }
   dialog.close();
   const dateInput = document.getElementById("dateInput").value;
-  fetchAppointments(dateInput);
+  if (
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("schoolName") &&
+    localStorage.getItem("userType")
+  ) {
+    fetchAppointments(dateInput);
+  } else if (
+    !localStorage.getItem("userType") &&
+    localStorage.getItem("access_token")
+  ) {
+    userInfo(dateInput);
+  }
   document.getElementById("css").click();
 }
 document.addEventListener("DOMContentLoaded", function () {
