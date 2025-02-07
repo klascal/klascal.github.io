@@ -175,6 +175,32 @@ Date.prototype.getWeek = function () {
     )
   );
 };
+function cleanupOldStorage() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentWeek = now.getWeek(); // Using your custom getWeek method
+
+  const twoWeeksAgo = new Date();
+  twoWeeksAgo.setDate(now.getDate() - 14);
+  const yearTwoWeeksAgo = twoWeeksAgo.getFullYear();
+  const weekTwoWeeksAgo = twoWeeksAgo.getWeek();
+
+  Object.keys(localStorage).forEach((key) => {
+    if (/^\d{4}\d+$/.test(key)) {
+      // Match format YYYYW
+      const year = parseInt(key.substring(0, 4), 10);
+      const week = parseInt(key.substring(4), 10);
+
+      if (
+        year < yearTwoWeeksAgo ||
+        (year === yearTwoWeeksAgo && week < weekTwoWeeksAgo)
+      ) {
+        localStorage.removeItem(key);
+      }
+    }
+  });
+}
+
 // Function to fetch appointments for the specified date
 function fetchAppointments(date, focus) {
   // Parse the input date string to get the date and month
@@ -438,7 +464,9 @@ function fetchAppointments(date, focus) {
           }
         }
         if (i == 0 || pauzeTijd <= -1) {
-          if (startTimeString == "8:55") {
+          if (startTimeString == "8:15") {
+            appointmentDiv.style = "margin-top: 20px";
+          } else if (startTimeString == "8:55") {
             appointmentDiv.style = "margin-top: 75px";
           } else if (startTimeString == "9:05") {
             appointmentDiv.style = "margin-top: 75px";
@@ -555,6 +583,8 @@ function fetchAppointments(date, focus) {
       console.error("Probleem met het laden van het rooster: ", error)
     )
     .then((data) => {
+      var week1 = startDate.getWeek();
+      var yearWeek = year + "" + week1;
       var div1 = document.createElement("span");
       var scheduleDiv = document.getElementById("schedule");
       div1.classList.add("1", "container");
@@ -601,6 +631,7 @@ function fetchAppointments(date, focus) {
           div5.appendChild(element);
         }
       });
+      localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
     });
 
   // Retry every 500ms until the element with id 'vaknaam' exists
@@ -685,21 +716,6 @@ document.getElementById("dateInput").addEventListener("change", function () {
   }
   fetchAppointments(dateInput);
 });
-Date.prototype.getWeek = function () {
-  var date = new Date(this.getTime());
-  date.setHours(0, 0, 0, 0);
-  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
-  var week1 = new Date(date.getFullYear(), 0, 4);
-  return (
-    1 +
-    Math.round(
-      ((date.getTime() - week1.getTime()) / 86400000 -
-        3 +
-        ((week1.getDay() + 6) % 7)) /
-        7
-    )
-  );
-};
 document.getElementById("add").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;
   if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
@@ -785,6 +801,7 @@ document.getElementById("previousDay").addEventListener("click", function () {
     );
   }
   var currentWeek = currentDate.getWeek();
+  var currentYear = currentDate.getFullYear();
   var currentDay = currentDate.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
@@ -795,7 +812,13 @@ document.getElementById("previousDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  if (currentDay == 1) {
+  if (
+    document.getElementById("schedule").innerHTML ==
+    `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
+        Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
+  ) {
+    document.getElementById("schedule").style = "right: 0;";
+  } else if (currentDay == 1) {
     document.getElementById("schedule").style =
       "animation: day1left 0.15s ease-in-out forwards; right: 0;";
   } else if (currentDay == 2) {
@@ -811,7 +834,13 @@ document.getElementById("previousDay").addEventListener("click", function () {
     document.getElementById("schedule").style = "right: 400vw;";
   }
   if (currentWeek - previousWeek != 0) {
-    document.getElementById("schedule").innerHTML = "";
+    if (localStorage.getItem(currentYear + "" + currentWeek)) {
+      document.getElementById("schedule").innerHTML = localStorage.getItem(
+        currentYear + "" + currentWeek
+      );
+    } else {
+      document.getElementById("schedule").innerHTML = "";
+    }
     fetchAppointments(nextDay);
   }
 });
@@ -856,6 +885,7 @@ document.getElementById("nextDay").addEventListener("click", function () {
     );
   }
   var currentWeek = currentDate.getWeek();
+  var currentYear = currentDate.getFullYear();
   var currentDay = currentDate.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
@@ -866,7 +896,18 @@ document.getElementById("nextDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  if (currentDay == 1) {
+  if (
+    document.getElementById("schedule").innerHTML ==
+    `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
+        Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
+  ) {
+    document.getElementById("schedule").style = "right: 0;";
+  } else if (
+    currentDay == 1 ||
+    document.getElementById("schedule").innerHTML ==
+      `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
+      Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
+  ) {
     document.getElementById("schedule").style = "right: 0;";
   } else if (currentDay == 2) {
     document.getElementById("schedule").style =
@@ -882,13 +923,20 @@ document.getElementById("nextDay").addEventListener("click", function () {
       "animation: day5 0.15s ease-in-out forwards; right: 400vw;";
   }
   if (currentWeek - previousWeek != 0) {
-    document.getElementById("schedule").innerHTML = "";
+    if (localStorage.getItem(currentYear + "" + currentWeek)) {
+      document.getElementById("schedule").innerHTML = localStorage.getItem(
+        currentYear + "" + currentWeek
+      );
+    } else {
+      document.getElementById("schedule").innerHTML = "";
+    }
     fetchAppointments(nextDay);
   }
 });
 
 // Fetch appointments for today when the page loads
 document.addEventListener("DOMContentLoaded", function () {
+  cleanupOldStorage();
   // Default to today's date
   const today = new Date();
   const day = today.getDate();
