@@ -75,7 +75,6 @@ function restoreCheckboxState() {
     checkbox.checked = JSON.parse(savedState);
   }
 }
-window.onload = restoreCheckboxState;
 
 const checkbox1 = document.getElementById("vakafkorting");
 // Function to save checkbox state to localStorage
@@ -85,12 +84,11 @@ function saveCheckboxState1() {
 
 // Function to restore checkbox state from localStorage
 function restoreCheckboxState1() {
-  const savedState = localStorage.getItem("afkorting");
-  if (savedState !== null) {
-    checkbox1.checked = JSON.parse(savedState);
+  const savedState1 = localStorage.getItem("afkorting");
+  if (savedState1 !== null) {
+    checkbox1.checked = JSON.parse(savedState1);
   }
 }
-window.onload = restoreCheckboxState1;
 checkbox1.addEventListener("change", saveCheckboxState1);
 // Save state when checkbox is clicked
 checkbox.addEventListener("change", saveCheckboxState);
@@ -937,6 +935,8 @@ document.getElementById("nextDay").addEventListener("click", function () {
 // Fetch appointments for today when the page loads
 document.addEventListener("DOMContentLoaded", function () {
   cleanupOldStorage();
+  restoreCheckboxState();
+  restoreCheckboxState1();
   // Default to today's date
   const today = new Date();
   const day = today.getDate();
