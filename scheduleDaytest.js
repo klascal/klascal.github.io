@@ -174,12 +174,8 @@ Date.prototype.getWeek = function () {
   );
 };
 function cleanupOldStorage() {
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentWeek = now.getWeek(); // Using your custom getWeek method
-
   const twoWeeksAgo = new Date();
-  twoWeeksAgo.setDate(now.getDate() - 14);
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
   const yearTwoWeeksAgo = twoWeeksAgo.getFullYear();
   const weekTwoWeeksAgo = twoWeeksAgo.getWeek();
 
@@ -270,19 +266,6 @@ function fetchAppointments(date, focus) {
       appointments.sort((a, b) => a.start - b.start);
       const scheduleDiv = document.getElementById("schedule");
       scheduleDiv.innerHTML = ""; // Clear existing schedule
-      if (appointments.length === 0) {
-        scheduleDiv.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
-        ><img
-          src="es_geenresultaten.webp"
-          alt=""
-          style="text-align: center"
-          width="200px"
-          height="104px"
-        /><br />
-        Geen rooster gevonden voor deze dag.</strong
-      >`;
-      }
-
       // Filter out cancelled lessons if there are multiple lessons for the same hour
       const filteredAppointments = filterCancelledLessons(appointments);
       let i = 0;
@@ -414,7 +397,7 @@ function fetchAppointments(date, focus) {
         if (appointment.appointmentInstance == null) {
           warning = "Afgemeld";
           warningsymbol = warning
-            ? "<span style='margin-right: 5px;'>🛇</span>"
+            ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 1px"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>`
             : "";
         }
         const teachers =
@@ -463,7 +446,7 @@ function fetchAppointments(date, focus) {
         }
         if (i == 0 || pauzeTijd <= -1) {
           if (startTimeString == "8:15") {
-            appointmentDiv.style = "margin-top: 20px";
+            appointmentDiv.style = "margin-top: 0";
           } else if (startTimeString == "8:55") {
             appointmentDiv.style = "margin-top: 75px";
           } else if (startTimeString == "9:05") {
@@ -629,6 +612,39 @@ function fetchAppointments(date, focus) {
           div5.appendChild(element);
         }
       });
+      var div6 = document.createElement("span");
+      div6.classList.add("6", "container");
+      scheduleDiv.appendChild(div6);
+
+      [...document.getElementsByClassName("6")].forEach((element) => {
+        if (element !== div6) {
+          div6.appendChild(element);
+        }
+      });
+      var div0 = document.createElement("span");
+      div0.classList.add("0", "container");
+      scheduleDiv.appendChild(div0);
+
+      [...document.getElementsByClassName("0")].forEach((element) => {
+        if (element !== div0) {
+          div0.appendChild(element);
+        }
+      });
+      [1, 2, 3, 4, 5, 6, 0].forEach((num) => {
+        let element = document.querySelector(`.${CSS.escape(num)}`);
+        if (element && element.innerHTML.trim() === "") {
+          element.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
+        ><img
+          src="es_geenresultaten.webp"
+          alt=""
+          style="text-align: center"
+          width="200px"
+          height="104px"
+        /><br />
+        Geen rooster gevonden voor deze dag.</strong
+      >`;
+        }
+      });
       localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
     });
 
@@ -700,7 +716,11 @@ document.getElementById("dateInput").addEventListener("change", function () {
     monthIndex,
     parseInt(day1)
   );
+  var currentWeek = currentDate.getWeek();
+  var currentYear = currentDate.getFullYear();
   const currentDay = currentDate.getDay();
+  const today = new Date();
+  const nowWeek = today.getWeek();
   if (currentDay == 1) {
     document.getElementById("schedule").style = "right: 0;";
   } else if (currentDay == 2) {
@@ -711,8 +731,21 @@ document.getElementById("dateInput").addEventListener("change", function () {
     document.getElementById("schedule").style = "right: 300vw;";
   } else if (currentDay == 5) {
     document.getElementById("schedule").style = "right: 400vw;";
+  } else if (currentDay == 6) {
+    document.getElementById("schedule").style = "right: 500vw;";
+  } else if (currentDay == 0) {
+    document.getElementById("schedule").style = "right: 600vw;";
   }
-  fetchAppointments(dateInput);
+  if (currentWeek - nowWeek != 0) {
+    if (localStorage.getItem(currentYear + "" + currentWeek)) {
+      document.getElementById("schedule").innerHTML = localStorage.getItem(
+        currentYear + "" + currentWeek
+      );
+    } else {
+      document.getElementById("schedule").innerHTML = "";
+    }
+    fetchAppointments(dateInput);
+  }
 });
 document.getElementById("add").addEventListener("click", function () {
   const dateInput = document.getElementById("dateInput").value;
@@ -735,6 +768,7 @@ document.getElementById("add").addEventListener("click", function () {
   const today = new Date();
   const day = today.getDate();
   const currentWeek = today.getWeek();
+  var currentYear = today.getFullYear();
   const currentDay = today.getDay();
   const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
   const zomadiwodovrza = daysOfWeek[today.getDay()];
@@ -752,9 +786,19 @@ document.getElementById("add").addEventListener("click", function () {
     document.getElementById("schedule").style = "right: 300vw;";
   } else if (currentDay == 5) {
     document.getElementById("schedule").style = "right: 400vw;";
+  } else if (currentDay == 6) {
+    document.getElementById("schedule").style = "right: 500vw;";
+  } else if (currentDay == 0) {
+    document.getElementById("schedule").style = "right: 600vw;";
   }
   if (currentWeek - previousWeek != 0) {
-    document.getElementById("schedule").innerHTML = "";
+    if (localStorage.getItem(currentYear + "" + currentWeek)) {
+      document.getElementById("schedule").innerHTML = localStorage.getItem(
+        currentYear + "" + currentWeek
+      );
+    } else {
+      document.getElementById("schedule").innerHTML = "";
+    }
     fetchAppointments(formattedDate);
   }
   document.getElementById("add").setAttribute("style", "display: none;");
@@ -810,13 +854,7 @@ document.getElementById("previousDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  if (
-    document.getElementById("schedule").innerHTML ==
-    `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
-        Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
-  ) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (currentDay == 1) {
+  if (currentDay == 1) {
     document.getElementById("schedule").style =
       "animation: day1left 0.15s ease-in-out forwards; right: 0;";
   } else if (currentDay == 2) {
@@ -830,6 +868,10 @@ document.getElementById("previousDay").addEventListener("click", function () {
       "animation: day4left 0.15s ease-in-out forwards; right: 300vw;";
   } else if (currentDay == 5) {
     document.getElementById("schedule").style = "right: 400vw;";
+  } else if (currentDay == 6) {
+    document.getElementById("schedule").style = "right: 500vw;";
+  } else if (currentDay == 0) {
+    document.getElementById("schedule").style = "right: 600vw;";
   }
   if (currentWeek - previousWeek != 0) {
     if (localStorage.getItem(currentYear + "" + currentWeek)) {
@@ -894,18 +936,7 @@ document.getElementById("nextDay").addEventListener("click", function () {
     " " +
     dutchMonthNames[currentDate.getMonth()];
   document.getElementById("dateInput").value = nextDay;
-  if (
-    document.getElementById("schedule").innerHTML ==
-    `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
-        Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
-  ) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (
-    currentDay == 1 ||
-    document.getElementById("schedule").innerHTML ==
-      `<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"><br>
-      Geen rooster gevonden voor deze dag.</strong><span class="1 container"></span><span class="2 container"></span><span class="3 container"></span><span class="4 container"></span><span class="5 container"></span>`
-  ) {
+  if (currentDay == 1) {
     document.getElementById("schedule").style = "right: 0;";
   } else if (currentDay == 2) {
     document.getElementById("schedule").style =
@@ -919,6 +950,10 @@ document.getElementById("nextDay").addEventListener("click", function () {
   } else if (currentDay == 5) {
     document.getElementById("schedule").style =
       "animation: day5 0.15s ease-in-out forwards; right: 400vw;";
+  } else if (currentDay == 6) {
+    document.getElementById("schedule").style = "right: 500vw;";
+  } else if (currentDay == 0) {
+    document.getElementById("schedule").style = "right: 600vw;";
   }
   if (currentWeek - previousWeek != 0) {
     if (localStorage.getItem(currentYear + "" + currentWeek)) {
@@ -949,23 +984,17 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("dateInput").value = formattedDate1;
   if (currentDay == 1) {
     document.getElementById("schedule").style = "right: 0;";
-  }
-  if (currentDay == 2) {
+  } else if (currentDay == 2) {
     document.getElementById("schedule").style = "right: 100vw;";
-  }
-  if (currentDay == 3) {
+  } else if (currentDay == 3) {
     document.getElementById("schedule").style = "right: 200vw;";
-  }
-  if (currentDay == 4) {
+  } else if (currentDay == 4) {
     document.getElementById("schedule").style = "right: 300vw;";
-  }
-  if (currentDay == 5) {
+  } else if (currentDay == 5) {
     document.getElementById("schedule").style = "right: 400vw;";
-  }
-  if (currentDay == 6) {
+  } else if (currentDay == 6) {
     document.getElementById("schedule").style = "right: 500vw;";
-  }
-  if (currentDay == 0) {
+  } else if (currentDay == 0) {
     document.getElementById("schedule").style = "right: 600vw;";
   }
   if (
