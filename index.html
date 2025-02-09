@@ -326,8 +326,6 @@
         border-radius: 10px;
         margin-bottom: 7.5px;
         background-color: #eee;
-        animation-name: load;
-        animation-duration: 0.1s;
       }
 
       h2 {
@@ -337,11 +335,11 @@
       }
 
       #schedule {
-        perspective: 75px;
         margin-bottom: 65px;
         margin-top: 37px;
         height: calc(100vh - 118px);
         position: relative;
+        will-change: right;
       }
       @keyframes day1left {
         from {
@@ -445,9 +443,6 @@
 
       p {
         margin: 0;
-        transform-style: preserve-3d;
-        animation-name: load;
-        animation-duration: 0.1s;
       }
 
       h1 {
