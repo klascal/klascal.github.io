@@ -196,6 +196,9 @@ body[data-theme="pink"] {
   color: #000;
   max-width: calc(100% - 24px);
 }
+#schoolName {
+  max-width: calc(100% - 95px);
+}
 @media (prefers-color-scheme: dark) {
   .material-textfield label {
     color: rgba(255, 255, 255, 0.6);
