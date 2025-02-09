@@ -323,7 +323,6 @@ function fetchAppointments(date, focus) {
           fi: "Filosofie",
           la: "Latijn",
           gr: "Grieks",
-          PROJECT: "Project",
           rkn: "Rekentoets",
           pe: "Physical Education",
           ontw: "Ontwerpen",
@@ -340,34 +339,74 @@ function fetchAppointments(date, focus) {
           kubv: "Kunst Beeldende Vakken",
           bg: "Begeleiding",
           sp: "Spaans",
-          BSA: "Bindend studieadvies",
           bsa: "Bindend studieadvies",
           bo: "Bewegingsonderwijs",
-          glstnl: "Global Studies NL",
           nlt: "Natuur leven technologie",
           wisd: "Wiskunde D",
           wisc: "Wiskunde C",
           wisb: "Wiskunde B",
           wisa: "Wiskunde A",
           Act: "Activiteit",
-          SPORTDAG: "Sportdag",
         };
 
         // Map subjects abbreviations to full names
         let subjectsFullNames = appointment.subjects.map(
           (subject) => subjectsMapping[subject] || subject
         );
+        if (
+          subjectsFullNames.toString() ===
+          subjectsFullNames.toString().toUpperCase()
+        ) {
+          subjectsFullNames = [
+            subjectsFullNames.toString().charAt(0) +
+              subjectsFullNames.toString().slice(1).toLowerCase(),
+          ];
+        }
 
         if (appointment.appointmentInstance == null) {
           subjectsFullNames = appointment.actions[0].appointment.subjects.map(
             (subject) => subjectsMapping[subject] || subject
           );
+          if (
+            subjectsFullNames.toString() ===
+            subjectsFullNames.toString().toUpperCase()
+          ) {
+            subjectsFullNames = [
+              subjectsFullNames.toString().charAt(0) +
+                subjectsFullNames.toString().slice(1).toLowerCase(),
+            ];
+          }
         }
 
         if (localStorage.getItem("afkorting") === "true") {
           subjectsFullNames = appointment.subjects;
+          if (
+            appointment.subjects.toString() ===
+            appointment.subjects.toString().toUpperCase()
+          ) {
+            subjectsFullNames = [
+              appointment.subjects.toString().charAt(0) +
+                appointment.subjects.toString().slice(1).toLowerCase(),
+            ];
+          }
           if (appointment.appointmentInstance == null) {
             subjectsFullNames = appointment.actions[0].appointment.subjects;
+            if (
+              appointment.actions[0].appointment.subjects.toString() ===
+              appointment.actions[0].appointment.subjects
+                .toString()
+                .toUpperCase()
+            ) {
+              subjectsFullNames = [
+                appointment.actions[0].appointment.subjects
+                  .toString()
+                  .charAt(0) +
+                  appointment.actions[0].appointment.subjects
+                    .toString()
+                    .slice(1)
+                    .toLowerCase(),
+              ];
+            }
           }
         }
 
@@ -375,16 +414,18 @@ function fetchAppointments(date, focus) {
 
         // Create appointment HTML
         const appointmentDiv = document.createElement("div");
+        var timeSlot = "";
         if (!appointment.startTimeSlot) {
-          var timeSlot = "";
-          if (appointment.type === "exam") {
-            var timeSlot = "Toets";
-          }
-          if (appointment.type === "activity") {
-            var timeSlot = "Activiteit";
-          }
+          timeSlot = "";
         } else {
-          var timeSlot = appointment.startTimeSlot;
+          timeSlot = appointment.startTimeSlot;
+        }
+        var info = "";
+        if (appointment.appointmentType === "exam") {
+          info = '<span id="exam"> Toets</span>';
+        }
+        if (appointment.appointmentType === "activity") {
+          info = '<span id="activity"> Activiteit</span>';
         }
         let warning = "";
         let warningsymbol = "";
@@ -400,12 +441,30 @@ function fetchAppointments(date, focus) {
             ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 1px"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>`
             : "";
         }
+        if (appointment.schedulerRemark !== "") {
+          warning = appointment.schedulerRemark;
+          warningsymbol = warning
+            ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 1px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>`
+            : "";
+        }
+        if (
+          appointment.schedulerRemark !== "" &&
+          appointment.changeDescription !== ""
+        ) {
+          warning =
+            appointment.schedulerRemark +
+            "<br>" +
+            appointment.changeDescription;
+          warningsymbol = warning
+            ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 1px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ff9800" style="vertical-align: sub; margin-right: 2.5px;"><path d="M120-103q-18 0-32.09-8.8Q73.83-120.6 66-135q-8-14-8.5-30.6Q57-182.19 66-198l359-622q9-16 24.1-23.5 15.11-7.5 31-7.5 15.9 0 30.9 7.5 15 7.5 24 23.5l359 622q9 15.81 8.5 32.4Q902-149 894-135t-22 23q-14 9-32 9H120Zm360-140q18 0 31.5-13.5T525-288q0-18-13.5-31T480-332q-18 0-31.5 13T435-288q0 18 13.5 31.5T480-243Zm0-117q17 0 28.5-11.5T520-400v-109q0-17-11.5-28.5T480-549q-17 0-28.5 11.5T440-509v109q0 17 11.5 28.5T480-360Z"/></svg>`
+            : "";
+        }
         const teachers =
           "(" + appointment.teachers.filter((e) => e != user).join(", ") + ")";
         appointmentDiv.innerHTML = `
           <p><strong id="vaknaam">${subjectsFullNames.join(
             ", "
-          )}</strong><strong style="position:absolute;right:7.5px;" id="timeSlot">${timeSlot}</strong></p>
+          )}</strong><strong style="position:absolute;right:7.5px;" id="timeSlot">${info}${timeSlot}</strong></p>
           <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
           ", "
         )} ${teachers == "()" ? "" : teachers} <span class="warning">
