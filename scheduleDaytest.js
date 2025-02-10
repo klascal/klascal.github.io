@@ -266,6 +266,24 @@ function fetchAppointments(date, focus) {
       appointments.sort((a, b) => a.start - b.start);
       const scheduleDiv = document.getElementById("schedule");
       scheduleDiv.innerHTML = ""; // Clear existing schedule
+      // Checkt bij lege weken of het in een maand met vakanties zit en bepaalt op basis daarvan de vakantie
+      if (appointments.length === 0) {
+        if (monthName == "okt" || monthName == "nov") {
+          scheduleDiv.setAttribute("class", "herfstVak");
+        }
+        if (monthName == "dec" || monthName == "jan") {
+          scheduleDiv.setAttribute("class", "kerstVak");
+        }
+        if (monthName == "feb" || monthName == "mar") {
+          scheduleDiv.setAttribute("class", "voorjaarsVak");
+        }
+        if (monthName == "apr" || monthName == "mei") {
+          scheduleDiv.setAttribute("class", "meiVak");
+        }
+        if (monthName == "juli" || monthName == "aug" || monthName == "sep") {
+          scheduleDiv.setAttribute("class", "zomerVak");
+        }
+      }
       // Filter out cancelled lessons if there are multiple lessons for the same hour
       const filteredAppointments = filterCancelledLessons(appointments);
       let i = 0;
@@ -623,6 +641,7 @@ function fetchAppointments(date, focus) {
       console.error("Probleem met het laden van het rooster: ", error)
     )
     .then((data) => {
+      // Filter rooster van de week op basis van dag
       var week1 = startDate.getWeek();
       var yearWeek = year + "" + week1;
       var div1 = document.createElement("span");
@@ -689,6 +708,7 @@ function fetchAppointments(date, focus) {
           div0.appendChild(element);
         }
       });
+      // Laat bij lege dagen een bericht zien en laat vakanties zien
       [1, 2, 3, 4, 5, 6, 0].forEach((num) => {
         let element = document.querySelector(`.${CSS.escape(num)}`);
         if (element && element.innerHTML.trim() === "") {
@@ -702,6 +722,22 @@ function fetchAppointments(date, focus) {
         /><br />
         Geen rooster gevonden voor deze dag.</strong
       >`;
+          if (document.querySelector(".herfstVak")) {
+            element.innerHTML = "<div>Herfstvakantie</div>" + element.innerHTML;
+          }
+          if (document.querySelector(".kerstVak")) {
+            element.innerHTML = "<div>Kerstvakantie</div>" + element.innerHTML;
+          }
+          if (document.querySelector(".voorjaarsVak")) {
+            element.innerHTML =
+              "<div>Voorjaarsvakantie</div>" + element.innerHTML;
+          }
+          if (document.querySelector(".meiVak")) {
+            element.innerHTML = "<div>Meivakantie</div>" + element.innerHTML;
+          }
+          if (document.querySelector(".zomerVak")) {
+            element.innerHTML = "<div>Zomervakantie</div>" + element.innerHTML;
+          }
         }
       });
       localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
