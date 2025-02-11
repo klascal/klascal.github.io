@@ -806,6 +806,7 @@ document.getElementById("dateInput").addEventListener("change", function () {
     (monthName) => monthName.toLowerCase() === monthShort
   );
   const currentDate = new Date();
+  const ActualCurrentDate = new Date();
   currentDate.setFullYear(
     currentDate.getFullYear(),
     monthIndex,
@@ -830,6 +831,15 @@ document.getElementById("dateInput").addEventListener("change", function () {
     document.getElementById("schedule").style = "right: 500vw;";
   } else if (currentDay == 0) {
     document.getElementById("schedule").style = "right: 600vw;";
+  }
+  const ActualCurrentDateInfo =
+    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
+  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+  if (ActualCurrentDateInfo != currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: block;");
+  }
+  if (ActualCurrentDateInfo == currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: none;");
   }
   if (currentWeek - nowWeek != 0) {
     if (localStorage.getItem(currentYear + "" + currentWeek)) {
@@ -917,6 +927,7 @@ document.getElementById("previousDay").addEventListener("click", function () {
     parseInt(day)
   );
   var previousWeek = previousDate.getWeek();
+  const ActualCurrentDate = new Date();
   const currentDate = new Date();
   currentDate.setFullYear(
     currentDate.getFullYear(),
@@ -968,6 +979,15 @@ document.getElementById("previousDay").addEventListener("click", function () {
   } else if (currentDay == 0) {
     document.getElementById("schedule").style = "right: 600vw;";
   }
+  const ActualCurrentDateInfo =
+    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
+  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+  if (ActualCurrentDateInfo != currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: block;");
+  }
+  if (ActualCurrentDateInfo == currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: none;");
+  }
   if (currentWeek - previousWeek != 0) {
     if (localStorage.getItem(currentYear + "" + currentWeek)) {
       document.getElementById("schedule").innerHTML = localStorage.getItem(
@@ -1000,6 +1020,7 @@ document.getElementById("nextDay").addEventListener("click", function () {
   );
   var previousWeek = previousDate.getWeek();
   const currentDate = new Date();
+  const ActualCurrentDate = new Date();
   currentDate.setFullYear(
     currentDate.getFullYear(),
     monthIndex,
@@ -1049,6 +1070,15 @@ document.getElementById("nextDay").addEventListener("click", function () {
     document.getElementById("schedule").style = "right: 500vw;";
   } else if (currentDay == 0) {
     document.getElementById("schedule").style = "right: 600vw;";
+  }
+  const ActualCurrentDateInfo =
+    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
+  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+  if (ActualCurrentDateInfo != currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: block;");
+  }
+  if (ActualCurrentDateInfo == currentDateInfo) {
+    document.getElementById("add").setAttribute("style", "display: none;");
   }
   if (currentWeek - previousWeek != 0) {
     if (localStorage.getItem(currentYear + "" + currentWeek)) {
