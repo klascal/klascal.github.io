@@ -1,8 +1,13 @@
+window.onblur = function () {
+  window.blurTime = performance.now();
+};
 window.onfocus = function () {
+  const focusTime = performance.now();
   if (
     document.getElementById("dateInput").value !== "" &&
     localStorage.getItem("access_token") &&
-    localStorage.getItem("schoolName")
+    localStorage.getItem("schoolName") &&
+    focusTime - window.blurTime >= 60000
   ) {
     fetchAppointments(document.getElementById("dateInput").value, "focus");
   }
