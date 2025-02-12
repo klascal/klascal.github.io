@@ -39,15 +39,15 @@ body[data-theme="yellow"] {
   --primary-dark: #fff;
 }
 body[data-theme="green"] {
-  --primary-light: #57b06a;
+  --primary-light: #66bb6a;
   --primary-dark: #fff;
 }
 body[data-theme="cyan"] {
-  --primary-light: #02ffe7;
+  --primary-light: #26c6da;
   --primary-dark: #fff;
 }
 body[data-theme="blue"] {
-  --primary-light: #1e89e8;
+  --primary-light: #2196f3;
   --primary-dark: #fff;
 }
 body[data-theme="purple"] {
@@ -55,12 +55,12 @@ body[data-theme="purple"] {
   --primary-dark: #fff;
 }
 body[data-theme="pink"] {
-  --primary-light: #ff00a7;
+  --primary-light: #ec407a;
   --primary-dark: #fff;
 }
 @media (prefers-color-scheme: dark) {
   body[data-theme="red"] {
-    --primary-light: #ff2f2f;
+    --primary-light: #f44336;
     --primary-dark: hsl(0, 79%, 16%);
   }
   body[data-theme="orange"] {
@@ -68,19 +68,19 @@ body[data-theme="pink"] {
     --primary-dark: hsl(25, 79%, 16%);
   }
   body[data-theme="yellow"] {
-    --primary-light: #ffef02;
+    --primary-light: #ffcc02;
     --primary-dark: hsl(62, 79%, 16%);
   }
   body[data-theme="green"] {
-    --primary-light: #80e695;
+    --primary-light: #2ecc71;
     --primary-dark: hsl(160, 79%, 16%);
   }
   body[data-theme="cyan"] {
-    --primary-light: #02ffe7;
+    --primary-light: #4dd0e1;
     --primary-dark: hsl(181, 79%, 16%);
   }
   body[data-theme="blue"] {
-    --primary-light: #009dfb;
+    --primary-light: #42a5f5;
     --primary-dark: hsl(200, 79%, 16%);
   }
   body[data-theme="purple"] {
@@ -88,7 +88,7 @@ body[data-theme="pink"] {
     --primary-dark: hsl(261, 79%, 16%);
   }
   body[data-theme="pink"] {
-    --primary-light: #ff37d6;
+    --primary-light: #f06292;
     --primary-dark: hsl(318, 79%, 16%);
   }
 }
@@ -135,7 +135,6 @@ body[data-theme="pink"] {
   }
 }
 .switch__design {
-  display: inline-block;
   width: var(--width);
   height: var(--height);
   border: var(--border);
@@ -144,6 +143,7 @@ body[data-theme="pink"] {
   position: relative;
   transition: 0.2s, box-shadow 0s;
   border: 2px solid var(--thumb-background);
+  float: right;
 }
 .switch__design::before {
   content: "";
