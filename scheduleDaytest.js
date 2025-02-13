@@ -32,20 +32,34 @@ if (savedTheme) {
 }
 // Get computed style from the body
 const bodyStyles = getComputedStyle(document.body);
+function hexToRgb(hex) {
+  hex = hex.replace(/^#/, "");
+  let bigint = parseInt(hex, 16);
+  return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+}
+function blendWithBlack(rgb, alpha) {
+  return rgb.map((channel) => Math.round(channel * (1 - alpha)));
+}
+function rgbToHex(rgb) {
+  return `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+}
 
 // Get the CSS variable value
 const primaryLight = bodyStyles.getPropertyValue("--primary-light").trim();
+const rgb = hexToRgb(primaryLight);
+const darkerRgb = blendWithBlack(rgb, 0.3);
+const darkerHex = rgbToHex(darkerRgb);
 
 // Select the meta tag
 let themeMetaTag = document.querySelector('meta[name="theme-color"]');
 
 // If the meta tag exists, update it; otherwise, create a new one
 if (themeMetaTag) {
-  themeMetaTag.setAttribute("content", primaryLight);
+  themeMetaTag.setAttribute("content", darkerHex);
 } else {
   themeMetaTag = document.createElement("meta");
   themeMetaTag.setAttribute("name", "theme-color");
-  themeMetaTag.setAttribute("content", primaryLight);
+  themeMetaTag.setAttribute("content", darkerHex);
   document.head.appendChild(themeMetaTag);
 }
 
