@@ -112,8 +112,8 @@ body[data-theme="pink"] {
   box-shadow: 0 0 0 0.1rem var(--global-background), 0 0 0 0.2rem var(--focus);
 }
 .switch {
-  --width: 50px;
-  --height: 30px;
+  --width: 48px;
+  --height: 28px;
   --background: hsl(0, 0%, 30%);
   --checked-background: var(--primary-light);
   --thumb-size: 16px;
@@ -161,7 +161,7 @@ body[data-theme="pink"] {
   border-color: transparent;
   background: var(--checked-background);
   --thumb-size: 24px;
-  --thumb-space-between-edges: 0.2rem;
+  --thumb-space-between-edges: 0.1rem;
   --thumb-out: var(--thumb-space-between-edges);
 }
 .switch__input:checked + .switch__design::before {
