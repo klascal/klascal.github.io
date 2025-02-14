@@ -213,6 +213,9 @@ async function userInfo(date) {
   }
   localStorage.setItem("selectedUserType", userType);
   localStorage.setItem("userType", userType);
+  if (!localStorage.getItem("subjects")) {
+    retrieveSubjectFullNames();
+  }
   fetchAppointments(date);
 }
 Date.prototype.getWeek = function () {
@@ -250,6 +253,37 @@ function cleanupOldStorage() {
       }
     }
   });
+}
+
+async function retrieveSubjectFullNames() {
+  let url = `https://${localStorage.getItem(
+    "schoolName"
+  )}.zportal.nl/api/v3/subjectselectionsubjects?access_token=${localStorage.getItem(
+    "access_token"
+  )}&fields=code,name`;
+
+  return fetch(url)
+    .then((r) => r.json())
+    .then((result) => {
+      let teacherTranslations = {};
+      let subjects = result.response.data;
+      subjects.forEach((subject) => {
+        let lastName = subject.name;
+
+        if (!lastName) {
+          return;
+        }
+
+        let commaIndex = lastName.indexOf(",");
+        if (commaIndex != -1) {
+          lastName = lastName.substring(0, commaIndex);
+        }
+
+        let fullName = lastName;
+        teacherTranslations[subject.code] = fullName;
+      });
+      localStorage.setItem("subjects", JSON.stringify(teacherTranslations));
+    });
 }
 
 // Function to fetch appointments for the specified date
@@ -363,71 +397,25 @@ function fetchAppointments(date, focus) {
           .replace(/^0+/, "");
 
         // Object met vak afkortingen en hun volledige namen
-        const subjectsMapping = {
-          ak: "Aardrijkskunde",
-          en: "Engels",
-          fa: "Frans",
-          gd: "Godsdienst",
-          gs: "Geschiedenis",
-          ha: "Handvaardigheid",
-          ict: "Informatiekunde",
-          in: "Informatiekunde",
-          kcv: "Klassieke Culturele Vorming",
-          lo: "Lichamelijke opvoeding",
-          men: "Mentorles",
-          mn: "Mens en natuur",
-          mu: "Muziek",
-          ne: "Nederlands",
-          te: "Tekenen",
-          wi: "Wiskunde",
-          wis: "Wiskunde",
-          fr: "Frans",
-          nl: "Nederlands",
-          du: "Duits",
-          bi: "Biologie",
-          na: "Natuurkunde",
-          nat: "Natuurkunde",
-          sk: "Scheikunde",
-          nask: "NaSk",
-          ec: "Economie",
-          econ: "Economie",
-          ma: "Maatschappijleer",
-          maat: "Maatschappijleer",
-          be: "Beeldende Vorming",
-          kv: "Kunstvakken",
-          fi: "Filosofie",
-          la: "Latijn",
-          gr: "Grieks",
-          rkn: "Rekentoets",
-          pe: "Physical Education",
-          ontw: "Ontwerpen",
-          ltc: "Latijn",
-          gtc: "Grieks",
-          entl: "Engels",
-          ges: "Geschiedenis",
-          fatl: "Frans",
-          biol: "Biologie",
-          netl: "Nederlands",
-          gds: "Godsdienst",
-          wis: "Wiskunde",
-          die: "Diëtetiek",
-          kubv: "Kunst Beeldende Vakken",
-          bg: "Begeleiding",
-          sp: "Spaans",
-          bsa: "Bindend studieadvies",
-          bo: "Bewegingsonderwijs",
-          nlt: "Natuur leven technologie",
-          wisd: "Wiskunde D",
-          wisc: "Wiskunde C",
-          wisb: "Wiskunde B",
-          wisa: "Wiskunde A",
-          Act: "Activiteit",
-        };
+        if (localStorage.getItem("subjects")) {
+          var subjectsMapping = JSON.parse(localStorage.getItem("subjects"));
+        }
 
         // Map subjects abbreviations to full names
         let subjectsFullNames = appointment.subjects.map(
           (subject) => subjectsMapping[subject] || subject
         );
+        if (
+          appointment.subjects.toString() == "men" &&
+          localStorage.getItem("schoolName") == "csvincentvangogh"
+        ) {
+          if (
+            appointment.groups.toString().includes("1") ||
+            appointment.groups.toString().includes("2")
+          ) {
+            subjectsFullNames = ["Mentorles"];
+          }
+        }
         if (
           subjectsFullNames.toString() ===
           subjectsFullNames.toString().toUpperCase()
@@ -1182,14 +1170,17 @@ document.addEventListener("DOMContentLoaded", function () {
   if (
     localStorage.getItem("access_token") &&
     localStorage.getItem("schoolName") &&
-    localStorage.getItem("userType")
+    localStorage.getItem("userType") &&
+    localStorage.getItem("subjects")
   ) {
     fetchAppointments(formattedDate);
   } else if (
-    !localStorage.getItem("userType") &&
-    localStorage.getItem("access_token")
+    !localStorage.getItem("userType") ||
+    !localStorage.getItem("subjects")
   ) {
-    userInfo(formattedDate);
+    if (localStorage.getItem("access_token")) {
+      userInfo(formattedDate);
+    }
   }
 });
 

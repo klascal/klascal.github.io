@@ -1296,6 +1296,7 @@
     <script>
       /* global PullToRefresh */
       PullToRefresh.init({
+        distIgnore: 50,
         onRefresh: function () {
           fetchAppointments(document.getElementById("dateInput").value);
         },
