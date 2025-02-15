@@ -487,10 +487,13 @@ function fetchAppointments(date, focus) {
         }
         var info = "";
         if (appointment.appointmentType === "exam") {
-          info = '<span id="exam"> Toets</span>';
+          info = '<span id="exam">Toets</span>';
         }
         if (appointment.appointmentType === "activity") {
-          info = '<span id="activity"> Activiteit</span>';
+          info = '<span id="activity">Activiteit</span>';
+        }
+        if (appointment.appointmentType === "interlude") {
+          info = '<span id="interlude">Pauze</span>';
         }
         let warning = "";
         let warningsymbol = "";
