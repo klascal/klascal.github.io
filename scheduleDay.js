@@ -374,6 +374,8 @@ function fetchAppointments(date, focus) {
         if (monthName == "juli" || monthName == "aug" || monthName == "sep") {
           scheduleDiv.setAttribute("class", "zomerVak");
         }
+      } else {
+        scheduleDiv.classList.remove(scheduleDiv.getAttribute("class"));
       }
       // Filter out cancelled lessons if there are multiple lessons for the same hour
       const filteredAppointments = filterCancelledLessons(appointments);
