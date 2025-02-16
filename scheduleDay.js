@@ -47,7 +47,13 @@ function rgbToHex(rgb) {
 // Get the CSS variable value
 const primaryLight = bodyStyles.getPropertyValue("--primary-light").trim();
 const rgb = hexToRgb(primaryLight);
-const darkerRgb = blendWithBlack(rgb, 0.3);
+var darkerRgb = blendWithBlack(rgb, 0.3);
+if (primaryLight == "#4dd0e1") {
+  darkerRgb = blendWithBlack(rgb, 0.34);
+}
+if (primaryLight == "#ffcc02") {
+  darkerRgb = blendWithBlack(rgb, 0.4);
+}
 const darkerHex = rgbToHex(darkerRgb);
 
 // Select the meta tag
@@ -69,24 +75,30 @@ _colors.forEach((radio) => {
     if (e.target.checked) {
       _switches.setAttribute("data-theme", e.target.value);
       localStorage.setItem("theme", e.target.value);
-      // Get computed style from the body
-      const bodyStyles = getComputedStyle(document.body);
-
       // Get the CSS variable value
       const primaryLight = bodyStyles
         .getPropertyValue("--primary-light")
         .trim();
+      const rgb = hexToRgb(primaryLight);
+      var darkerRgb = blendWithBlack(rgb, 0.3);
+      if (primaryLight == "#4dd0e1") {
+        darkerRgb = blendWithBlack(rgb, 0.34);
+      }
+      if (primaryLight == "#ffcc02") {
+        darkerRgb = blendWithBlack(rgb, 0.4);
+      }
+      const darkerHex = rgbToHex(darkerRgb);
 
       // Select the meta tag
       let themeMetaTag = document.querySelector('meta[name="theme-color"]');
 
       // If the meta tag exists, update it; otherwise, create a new one
       if (themeMetaTag) {
-        themeMetaTag.setAttribute("content", primaryLight);
+        themeMetaTag.setAttribute("content", darkerHex);
       } else {
         themeMetaTag = document.createElement("meta");
         themeMetaTag.setAttribute("name", "theme-color");
-        themeMetaTag.setAttribute("content", primaryLight);
+        themeMetaTag.setAttribute("content", darkerHex);
         document.head.appendChild(themeMetaTag);
       }
     }
