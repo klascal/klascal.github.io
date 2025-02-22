@@ -397,7 +397,7 @@ function fetchAppointments(date, focus) {
         const endTime = new Date(appointment.end * 1000);
 
         // Format start and end times
-        const startTimeString = startTime
+        var startTimeString = startTime
           .toLocaleTimeString("nl-NL", {
             hour: "2-digit",
             minute: "2-digit",
@@ -560,11 +560,13 @@ function fetchAppointments(date, focus) {
           appointmentDiv.classList.remove("cancelled");
           appointmentDiv.classList.add("notEnrolled");
         }
+        // Zet pauze tijd om van uren naar minuten
         if (i >= -1 && window.endTime) {
           var startDecimal = convertH2M(startTimeString);
           var endDecimal = convertH2M(window.endTime);
-          var pauzeTijd = startDecimal - endDecimal;
+          var pauzeTijd = Number(startDecimal - endDecimal);
         }
+        // Stel pauzetijd in bij dezelfde dag
         if (i >= 1 && startTimeString != window.endTime) {
           appointmentDiv.style = "margin-top: 20px";
           if (pauzeTijd >= 280) {
@@ -583,30 +585,35 @@ function fetchAppointments(date, focus) {
             appointmentDiv.style = "margin-top: 75px";
           }
         }
+        // Stel pauzetijd in als het het eerste uur is van de week of een andere dag
         if (i == 0 || pauzeTijd <= -1) {
-          if (startTimeString == "8:15") {
+          startTimeString = Number(startTimeString.replace(":", ""));
+          // 1e uur
+          if (startTimeString <= 855) {
             appointmentDiv.style = "margin-top: 0";
-          } else if (startTimeString == "8:55") {
+          }
+          // 2e uur
+          if (startTimeString >= 855) {
             appointmentDiv.style = "margin-top: 75px";
-          } else if (startTimeString == "9:05") {
-            appointmentDiv.style = "margin-top: 75px";
-          } else if (startTimeString == "9:35") {
+          }
+          // 3e uur
+          if (startTimeString >= 935) {
             appointmentDiv.style = "margin-top: 150px";
-          } else if (startTimeString == "10:10") {
-            appointmentDiv.style = "margin-top: 150px";
-          } else if (startTimeString == "10:30") {
+          }
+          // 4e uur
+          if (startTimeString >= 1020) {
             appointmentDiv.style = "margin-top: 225px";
-          } else if (startTimeString == "11:00") {
-            appointmentDiv.style = "margin-top: 225px";
-          } else if (startTimeString == "11:10") {
+          }
+          // 5e uur
+          if (startTimeString >= 1110) {
             appointmentDiv.style = "margin-top: 300px";
-          } else if (startTimeString == "12:15") {
-            appointmentDiv.style = "margin-top: 300px";
-          } else if (startTimeString == "13:05") {
+          }
+          // Na 5e uur verschuift het teveel, dus maar hardcoden voor nu *LATER FIXEN*
+          if (startTimeString == "1305") {
             appointmentDiv.style = "margin-top: 375px";
-          } else if (startTimeString == "14:10") {
+          } else if (startTimeString == "1410") {
             appointmentDiv.style = "margin-top: 375px";
-          } else if (startTimeString == "15:00") {
+          } else if (startTimeString == "1500") {
             appointmentDiv.style = "margin-top: 450px";
           }
         }
