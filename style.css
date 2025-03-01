@@ -1,197 +1,30 @@
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-MediumItalic.woff")
-      format("woff");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv11" 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+  }
 }
 
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBold.woff")
-      format("woff");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+.check_box {
+  display: none;
 }
 
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-BlackItalic.woff")
-      format("woff");
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Regular.woff")
-      format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-LightItalic.woff")
-      format("woff");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-SemiBoldItalic.woff")
-      format("woff");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-BoldItalic.woff")
-      format("woff");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-SemiBold.woff")
-      format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Black.woff")
-      format("woff");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLightItalic.woff")
-      format("woff");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Light.woff")
-      format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraLight.woff")
-      format("woff");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Medium.woff")
-      format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-ExtraBoldItalic.woff")
-      format("woff");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Thin.woff") format("woff");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-ThinItalic.woff")
-      format("woff");
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff2")
-      format("woff2"),
-    url("https://fonts.xz.style/serve/src/inter/Inter-Italic.woff")
-      format("woff");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
+.check_box + label {
+  background: url("https://csvincentvangogh.zportal.nl/static/v/25.02j28/sc/skins/zermelo/custom_images/ToolStripIcons/transpose.png");
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  background-size: cover;
+  vertical-align: bottom;
+  cursor: pointer;
 }
 
 body,
@@ -247,7 +80,8 @@ span.schedule {
 }
 
 span.day {
-  display: block;
+  /* block voor ltr */
+  display: inline-block;
   margin-bottom: 90px;
 }
 
@@ -258,6 +92,7 @@ span.day {
   margin-left: 5px;
   border-radius: 10px;
   position: absolute;
+  width: 107px;
 }
 
 #week {
@@ -287,7 +122,9 @@ span.day {
 .warning {
   color: yellow;
   text-shadow: 0px 0px 2px #000;
-  float: right;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
   padding: 0px;
   margin-right: 0px;
   background-color: inherit;
@@ -312,8 +149,10 @@ strong.lesuur {
   float: right;
 }
 
-.les p {
+.les p,
+.les span {
   margin: 0;
+  font-size: 14px;
 }
 
 p.lestijden {
@@ -330,7 +169,58 @@ p.lestijden {
 }
 
 strong {
-  font-size: x-large;
+  font-size: 16px;
+}
+
+h3 {
+  margin: 0px;
+  width: 150px;
+  text-align: left;
+}
+
+.screen-unsupported {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  .les p,
+  .les span {
+    font-size: 12px;
+  }
+  strong {
+    font-size: 14px;
+  }
+  .les {
+    width: initial;
+    padding: 5px;
+  }
+  .warning {
+    right: 2.5px;
+    bottom: 2.5px;
+  }
+  h3 {
+    width: 80px;
+    text-align: center;
+  }
+}
+@media (max-width: 402px) {
+  h3 {
+    width: 75px;
+  }
+}
+@media (max-width: 375px) {
+  h3 {
+    width: 73px;
+  }
+}
+@media (max-width: 365px) {
+  #schedule {
+    display: none;
+  }
+  .screen-unsupported {
+    display: block;
+    margin-top: 50px;
+  }
 }
 
 @font-face {
@@ -350,12 +240,6 @@ h1 {
   width: 100%;
   backdrop-filter: blur(3px);
   z-index: 1;
-}
-
-h3 {
-  margin: 0px;
-  width: 150px;
-  text-align: left;
 }
 
 dialog[open] {

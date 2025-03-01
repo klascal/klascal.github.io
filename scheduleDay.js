@@ -120,7 +120,7 @@ if (/^\d{12}$/.test(authorizationCodeLS)) {
 const dutchMonthNames = [
   "jan",
   "feb",
-  "mar",
+  "mrt",
   "apr",
   "mei",
   "jun",
@@ -223,7 +223,6 @@ async function userInfo(date) {
   if (isEmployee == true) {
     userType = "teacher";
   }
-  localStorage.setItem("selectedUserType", userType);
   localStorage.setItem("userType", userType);
   if (!localStorage.getItem("subjects")) {
     retrieveSubjectFullNames();
@@ -377,7 +376,7 @@ function fetchAppointments(date, focus) {
         if (monthName == "dec" || monthName == "jan") {
           scheduleDiv.setAttribute("class", "kerstVak");
         }
-        if (monthName == "feb" || monthName == "mar") {
+        if (monthName == "feb" || monthName == "mrt") {
           scheduleDiv.setAttribute("class", "voorjaarsVak");
         }
         if (monthName == "apr" || monthName == "mei") {

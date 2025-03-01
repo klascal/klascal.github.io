@@ -6,13 +6,15 @@ async function userInfo() {
   );
   const data = await response.json();
   const isEmployee = data.response.data[0].isEmployee;
+  const userCode = data.response.data[0].code;
   var userType = "student";
   if (isEmployee == true) {
     userType = "teacher";
   }
   console.log(userType);
-  localStorage.setItem("selectedUserType", userType);
   localStorage.setItem("userType", userType);
+  localStorage.setItem("user", userCode);
+  if (userCode === "baas") localStorage.setItem("ltr", "true");
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode1 = document
     .getElementById("authorizationCode")
@@ -31,9 +33,45 @@ async function userInfo() {
   }
   fetchSchedule(accessToken, userType, year, week, schoolName);
 }
-if (!localStorage.getItem("userType") && localStorage.getItem("access_token")) {
-  userInfo();
+if (localStorage.getItem("access_token")) {
+  if (!localStorage.getItem("userType") || !localStorage.getItem("user")) {
+    userInfo();
+  }
 }
+const checkbox2 = document.getElementById("checkbox1");
+// Function to save checkbox state to localStorage
+async function saveCheckboxState2() {
+  localStorage.setItem("ltr", checkbox1.checked);
+  const schoolName = document.getElementById("schoolName").value;
+  const authorizationCode1 = document
+    .getElementById("authorizationCode")
+    .value.replace(/\s/g, "");
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const userType = localStorage.getItem("userType");
+  let week = currentDate.getWeek(); // Bereken weeknummer
+  document.getElementById("week").innerText = "Week " + week;
+  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
+
+  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  let accessToken = localStorage.getItem("access_token");
+  if (accessToken == null || accessToken == "undefined") {
+    accessToken = await fetchToken(authorizationCode1, schoolName);
+    localStorage.setItem("access_token", accessToken);
+  }
+  fetchSchedule(accessToken, userType, year, week, schoolName);
+}
+
+// Function to restore checkbox state from localStorage
+function restoreCheckboxState2() {
+  const savedState2 = localStorage.getItem("ltr");
+  if (savedState2 !== null) {
+    checkbox2.checked = JSON.parse(savedState2);
+  }
+}
+restoreCheckboxState2();
+checkbox2.addEventListener("change", saveCheckboxState2);
+// Save state when checkbox is clicked
 // Functie om rooster op te halen met behulp van fetch
 async function fetchSchedule(
   authorizationCode,
@@ -68,15 +106,18 @@ function displaySchedule(scheduleData) {
     const appointments = scheduleData.response.data[0].appointments;
     const user = scheduleData.response.data[0].user;
 
-    const daysOfWeek = [
-      "Zondag:",
-      "Maandag:",
-      "Dinsdag:",
-      "Woensdag:",
-      "Donderdag:",
-      "Vrijdag:",
-      "Zaterdag:",
+    var daysOfWeek = [
+      "Zondag",
+      "Maandag",
+      "Dinsdag",
+      "Woensdag",
+      "Donderdag",
+      "Vrijdag",
+      "Zaterdag",
     ];
+    if (screen.width <= 750) {
+      daysOfWeek = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
+    }
 
     // Group appointments by day
     const appointmentsByDay = appointments.reduce((acc, appointment) => {
@@ -98,7 +139,7 @@ function displaySchedule(scheduleData) {
             const uur = appointment.startTimeSlotName;
 
             // Format start and end time
-            const startTime = new Date(appointment.start * 1000)
+            var startTime = new Date(appointment.start * 1000)
               .toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -110,26 +151,45 @@ function displaySchedule(scheduleData) {
                 minute: "2-digit",
               })
               .replace(/^0+/, "");
-
-            const left =
+            var left =
               (parseInt(startTime.split(":")[1]) +
                 (parseInt(startTime.split(":")[0]) - 8) * 60) *
-              3;
-            const width =
+              2;
+            var width =
               (parseInt(endTime.split(":")[1]) +
                 (parseInt(endTime.split(":")[0]) - 8) * 60) *
-                3 -
+                2 -
               left -
               30;
+            var positie = `margin-top:${left}px;height:${width}px;`;
+            if (localStorage.getItem("ltr") === "true" && screen.width >= 750) {
+              left =
+                (parseInt(startTime.split(":")[1]) +
+                  (parseInt(startTime.split(":")[0]) - 8) * 60) *
+                3;
+              width =
+                (parseInt(endTime.split(":")[1]) +
+                  (parseInt(endTime.split(":")[0]) - 8) * 60) *
+                  3 -
+                left -
+                30;
+              positie = `margin-left:${left}px;width:${width}px;`;
+              document.getElementById("schedule").style = "display: grid";
+            } else {
+              document.getElementById("schedule").style = "";
+            }
 
             // Map subject abbreviations to full names
             const subjects = appointment.subjects.map((subject) =>
               subject.toUpperCase()
             );
-            const teachers =
+            var teachers =
               "(" +
               appointment.teachers.filter((e) => e != user).join(", ") +
               ")";
+            if (screen.width <= 750) {
+              teachers = "";
+            }
             const warning =
               appointment.changeDescription + appointment.schedulerRemark;
             const warningsymbol = warning
@@ -143,7 +203,8 @@ function displaySchedule(scheduleData) {
 
             // Generate HTML for each
             if (appointment.appointmentInstance !== null) {
-              return `<div style="left:${left}px;width:${width}px;"
+              // margin-left en width voor ltr
+              return `<div style="${positie}"
                       class="les ${
                         appointment.cancelled
                           ? "cancelled"
