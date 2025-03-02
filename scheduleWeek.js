@@ -12,7 +12,6 @@ async function userInfo() {
     userCode = data.response.data[0].code;
     if (isEmployee == true) userType = "teacher";
   }
-  console.log(userType);
   localStorage.setItem("userType", userType);
   localStorage.setItem("user", userCode);
   if (userCode === "baas") localStorage.setItem("ltr", "true");
