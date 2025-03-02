@@ -218,10 +218,10 @@ async function userInfo(date) {
       authorizationCode
   );
   const data = await response.json();
-  const isEmployee = data.response.data[0].isEmployee;
   var userType = "student";
-  if (isEmployee == true) {
-    userType = "teacher";
+  if (data.response.data[0]) {
+    const isEmployee = data.response.data[0].isEmployee;
+    if (isEmployee == true) userType = "teacher";
   }
   localStorage.setItem("userType", userType);
   if (!localStorage.getItem("subjects")) {
