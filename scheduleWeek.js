@@ -5,11 +5,12 @@ async function userInfo() {
       authorizationCode
   );
   const data = await response.json();
-  const isEmployee = data.response.data[0].isEmployee;
-  const userCode = data.response.data[0].code;
   var userType = "student";
-  if (isEmployee == true) {
-    userType = "teacher";
+  var userCode = "undefined";
+  if (data.response.data[0]) {
+    const isEmployee = data.response.data[0].isEmployee;
+    userCode = data.response.data[0].code;
+    if (isEmployee == true) userType = "teacher";
   }
   console.log(userType);
   localStorage.setItem("userType", userType);
