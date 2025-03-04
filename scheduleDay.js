@@ -1,17 +1,14 @@
-window.onblur = function () {
-  window.blurTime = performance.now();
-};
-window.onfocus = function () {
-  const focusTime = performance.now();
+// Haal elke 5 minuten het rooster op
+setInterval(function () {
   if (
     document.getElementById("dateInput").value !== "" &&
     localStorage.getItem("access_token") &&
     localStorage.getItem("schoolName") &&
-    focusTime - window.blurTime >= 60000
+    localStorage.getItem("userType")
   ) {
     fetchAppointments(document.getElementById("dateInput").value, "focus");
   }
-};
+}, 300000);
 const $ = (e) => document.querySelectorAll(e);
 const _switches = $("body")[0];
 const _colors = $("input[name='color']");
@@ -159,6 +156,20 @@ function restoreCheckboxState1() {
   }
 }
 checkbox1.addEventListener("change", saveCheckboxState1);
+const checkbox2 = document.getElementById("afkortingHl");
+// Function to save checkbox state to localStorage
+function saveCheckboxState2() {
+  localStorage.setItem("hoofdletter", checkbox2.checked);
+}
+
+// Function to restore checkbox state from localStorage
+function restoreCheckboxState2() {
+  const savedState2 = localStorage.getItem("hoofdletter");
+  if (savedState2 !== null) {
+    checkbox2.checked = JSON.parse(savedState2);
+  }
+}
+checkbox2.addEventListener("change", saveCheckboxState2);
 // Save state when checkbox is clicked
 checkbox.addEventListener("change", saveCheckboxState);
 function convertH2M(timeInHour) {
@@ -465,6 +476,9 @@ function fetchAppointments(date, focus) {
                 appointment.subjects.toString().slice(1).toLowerCase(),
             ];
           }
+          if (localStorage.getItem("hoofdletter") === "true") {
+            subjectsFullNames = [appointment.subjects.toString().toUpperCase()];
+          }
           if (appointment.appointmentInstance == null) {
             subjectsFullNames = appointment.actions[0].appointment.subjects;
             if (
@@ -481,6 +495,13 @@ function fetchAppointments(date, focus) {
                     .toString()
                     .slice(1)
                     .toLowerCase(),
+              ];
+            }
+            if (localStorage.getItem("hoofdletter") === "true") {
+              subjectsFullNames = [
+                appointment.actions[0].appointment.subjects
+                  .toString()
+                  .toUpperCase(),
               ];
             }
           }
@@ -525,8 +546,17 @@ function fetchAppointments(date, focus) {
             ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>`
             : "";
         }
-        const teachers =
+        var teachers =
           "(" + appointment.teachers.filter((e) => e != user).join(", ") + ")";
+        if (localStorage.getItem("hoofdletter") === "true") {
+          teachers =
+            "(" +
+            appointment.teachers
+              .filter((e) => e != user)
+              .join(", ")
+              .toUpperCase() +
+            ")";
+        }
         appointmentDiv.innerHTML = `
           <p><strong id="vaknaam">${subjectsFullNames.join(
             ", "
@@ -1146,6 +1176,7 @@ document.addEventListener("DOMContentLoaded", function () {
   cleanupOldStorage();
   restoreCheckboxState();
   restoreCheckboxState1();
+  restoreCheckboxState2();
   // Default to today's date
   const today = new Date();
   const day = today.getDate();
