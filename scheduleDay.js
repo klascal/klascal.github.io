@@ -1,3 +1,10 @@
+const dialogs = document.querySelectorAll("dialog");
+
+dialogs.forEach((dialog) => {
+  if (typeof dialog.showModal !== "function") {
+    dialogPolyfill.registerDialog(dialog);
+  }
+});
 // Haal elke 5 minuten het rooster op
 setInterval(function () {
   if (
@@ -177,6 +184,8 @@ function convertH2M(timeInHour) {
   return Number(timeParts[0]) * 60 + Number(timeParts[1]);
 }
 async function fetchAnnouncements() {
+  document.getElementById("schedule").innerHTML = "";
+  document.getElementById("schedule").style = "";
   const response = await fetch(
     "https://" +
       localStorage.getItem("schoolName") +
