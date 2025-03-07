@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <textarea
+      rows="4"
+      cols="50"
+      id="question"
+      placeholder="Jouw bug"
+    ></textarea>
+    <button id="send">Send</button>
+    <script>
+      document.getElementById("send").onclick = function () {
+        var request = new XMLHttpRequest();
+        request.open(
+          "POST",
+          "https://discord.com/api/webhooks/1346779699782881320/6A2Q_HiMdRBYV2fwPcpG6l2UvgHvWxHjOAWsiISS3DOwLWkcxB7Coc16vlZeU6HGrSMr"
+        );
+        request.setRequestHeader("Content-type", "application/json");
+        var params = {
+          username: "Bug" + new Date().getTime(), // you can make this whatever you want
+          content: document.getElementById("question").value,
+        };
+        request.send(JSON.stringify(params));
+
+        // below gives your user some helpful feedback letting them know their message has been sent
+        alert("Bedankt, je bug is verstuurd!");
+        // below clears the form fields after submission
+        document.getElementById("question").value = "";
+      };
+    </script>
+  </body>
+</html>
