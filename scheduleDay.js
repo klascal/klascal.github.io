@@ -222,12 +222,19 @@ async function fetchAnnouncements() {
   /><br />
   Geen mededelingen gevonden.</strong
 >`;
-    check_webp_feature("lossy", function (feature, isSupported) {
-      if (!isSupported) {
-        var webpMachine = new webpHero.WebpMachine();
-        webpMachine.polyfillDocument();
-      }
-    });
+    if (!localStorage.getItem("webp")) {
+      check_webp_feature("lossy", function (feature, isSupported) {
+        localStorage.setItem("webp", "true");
+        if (!isSupported) {
+          localStorage.setItem("webp", "false");
+          var webpMachine = new webpHero.WebpMachine();
+          webpMachine.polyfillDocument();
+        }
+      });
+    } else if (localStorage.getItem("webp") == "false") {
+      var webpMachine = new webpHero.WebpMachine();
+      webpMachine.polyfillDocument();
+    }
   }
   appointments.forEach((announcement) => {
     var start = announcement.start * 1000;
@@ -846,12 +853,52 @@ function fetchAppointments(date, focus) {
           if (document.querySelector(".zomerVak")) {
             element.innerHTML = "<div>Zomervakantie</div>" + element.innerHTML;
           }
-          check_webp_feature("lossy", function (feature, isSupported) {
-            if (!isSupported) {
-              var webpMachine = new webpHero.WebpMachine();
-              webpMachine.polyfillDocument();
-            }
-          });
+          function loadScript(src) {
+            return new Promise((resolve, reject) => {
+              const script = document.createElement("script");
+              script.src = src;
+              script.onload = resolve;
+              script.onerror = reject;
+              document.head.appendChild(script);
+            });
+          }
+          if (!localStorage.getItem("webp")) {
+            check_webp_feature("lossy", function (feature, isSupported) {
+              localStorage.setItem("webp", "true");
+              if (!isSupported) {
+                localStorage.setItem("webp", "false");
+                Promise.all([
+                  loadScript("polyfills.js"),
+                  loadScript("webp-hero.bundle.js"),
+                ])
+                  .then(() => {
+                    const webpMachine = new webpHero.WebpMachine();
+                    webpMachine.polyfillDocument();
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Een of meer scripts konden niet worden geladen:",
+                      error
+                    );
+                  });
+              }
+            });
+          } else if (localStorage.getItem("webp") == "false") {
+            Promise.all([
+              loadScript("polyfills.js"),
+              loadScript("webp-hero.bundle.js"),
+            ])
+              .then(() => {
+                const webpMachine = new webpHero.WebpMachine();
+                webpMachine.polyfillDocument();
+              })
+              .catch((error) => {
+                console.error(
+                  "Een of meer scripts konden niet worden geladen:",
+                  error
+                );
+              });
+          }
         }
       });
       localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
