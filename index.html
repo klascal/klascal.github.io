@@ -20,8 +20,6 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="material.css" />
     <link rel="stylesheet" href="css.css" />
-    <script type="text/javascript" src="llqrcode.js" defer></script>
-    <script type="text/javascript" src="webqr.js"></script>
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="dialog-polyfill.min.css" />
@@ -36,22 +34,18 @@
         });
         return params;
       }
-
       // Functie om de form velden in te vullen
       function fillForm() {
         const queryParams = getQueryParams();
-
         // Schoolnaam invullen
         if (queryParams.school) {
           document.getElementById("schoolName").value = queryParams.school;
         }
-
         // Token invullen
         if (queryParams.token) {
           document.getElementById("authorizationCode").value =
             queryParams.token;
         }
-
         // Gebruikersnaam invullen
         if (queryParams.gebruikersnaam) {
           document.getElementById("user").value = queryParams.gebruikersnaam;
@@ -64,7 +58,6 @@
           document.getElementById("close").click();
         }
       }
-
       // Form invullen zodra de pagina geladen is
       window.onload = fillForm;
     </script>
@@ -88,12 +81,10 @@
         user-select: none;
         margin-bottom: 0;
       }
-
       #schedule .cancelled {
         background-color: #f7baba !important;
         border: 2px solid #ff2f2f !important;
       }
-
       #schedule div.cancelled.test {
         background-color: #f7baba !important;
         border: 2px solid #ff2f2f !important;
@@ -101,22 +92,18 @@
       #schedule .cancelled p span.warning .warningMessage {
         font-size: 14px;
       }
-
       #schedule .cancelled p span {
         font-size: 0;
       }
-
       #v {
         display: none;
       }
-
       .warning {
         float: right;
         padding: 0px;
         margin-right: 0px;
         background-color: inherit;
       }
-
       .warning .warningMessage {
         display: none;
         z-index: 9999;
@@ -129,28 +116,23 @@
         right: 5px;
         max-width: 95%;
       }
-
       label {
         margin: 5px 0 5px 0;
       }
-
       .warning:hover .warningMessage {
         display: block;
       }
-
       #schedule div {
         padding: 7.5px;
         border-radius: 10px;
         margin-bottom: 7.5px;
         background-color: #eee;
       }
-
       h2 {
         font-weight: 400;
         margin-top: 0;
         margin-bottom: 24px;
       }
-
       #schedule {
         margin-bottom: 65px;
         margin-top: 37px;
@@ -222,7 +204,6 @@
           right: 400vw;
         }
       }
-
       @keyframes load {
         from {
           transform: rotateX(5deg);
@@ -231,41 +212,34 @@
           transform: rotateX(0deg);
         }
       }
-
       @media (prefers-color-scheme: dark) {
         body,
         html {
           background-color: #000;
           color: #ffffff;
         }
-
         #schedule div {
           background-color: #2a2a2f;
         }
-
         #schedule .cancelled {
           background-color: #ff2f2f73 !important;
           border: 2px solid #ff2f2f !important;
         }
-
         #schedule div.cancelled.test {
           background-color: #ff2f2f73 !important;
           border: 2px solid #ff2f2f !important;
         }
       }
-
       strong {
         font-size: 16px;
         font-weight: 600;
       }
-
       p {
         margin: 0;
         font-size: 14px;
         font-variation-settings: "opsz" 17;
         line-height: 1.4;
       }
-
       h1 {
         margin: 0;
       }
@@ -278,7 +252,6 @@
         padding: 8px;
         z-index: 1;
       }
-
       #activity {
         background-color: #268e26;
         border-radius: 10px;
@@ -287,7 +260,6 @@
         font-size: 14px;
         margin-right: 7.5px;
       }
-
       #exam {
         background-color: #e8cb22;
         border-radius: 10px;
@@ -297,7 +269,6 @@
         margin-right: 7.5px;
         color: black;
       }
-
       #interlude {
         background-color: #0000002e;
         border-radius: 10px;
@@ -306,16 +277,13 @@
         font-size: 14px;
         margin-right: 7.5px;
       }
-
       button {
         font-family: inherit;
         font-size: inherit;
       }
-
       dialog input {
         display: block;
       }
-
       .btn {
         background-color: #f1f1f1;
         border: 0;
@@ -325,7 +293,6 @@
         transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
         text-decoration: none !important;
       }
-
       #dateInput {
         padding: 0.5rem 0rem;
         text-align: center;
@@ -335,62 +302,50 @@
         color: #fff;
         vertical-align: bottom;
       }
-
       #previousDay,
       #nextDay,
       #loadSchedule,
       #settingsButton {
         transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
       }
-
       #color-select {
         font-family: inherit;
       }
-
       button:not(:disabled) {
         cursor: pointer;
       }
-
       .btn:hover {
         text-decoration: none;
       }
-
       button:not(:disabled):not(.disabled) {
         cursor: pointer;
       }
-
       .btn:hover,
       .btn:active {
         text-decoration: none;
       }
-
       @media (prefers-color-scheme: light) {
         dialog .btn {
           background-color: #ddd;
         }
       }
-
       .test {
         border: 2px solid #5ebb60;
       }
-
       @media (prefers-color-scheme: dark) {
         dialog {
           background-color: #222 !important;
           color: white;
         }
-
         .btn {
           color: white !important;
           background-color: #363636;
           text-shadow: none !important;
         }
-
         .btn:hover {
           color: white !important;
           background-color: #444;
         }
-
         .btn:hover,
         .btn:active,
         #previousDay:hover,
@@ -400,16 +355,13 @@
           color: white !important;
           background-color: #444;
         }
-
         #icon,
         .icon {
           fill: white !important;
         }
-
         .test {
           border: 2px solid #007503;
         }
-
         #previousDay,
         #nextDay,
         #loadSchedule,
@@ -417,53 +369,43 @@
           background-color: #363636;
         }
       }
-
       #close:hover {
         background-color: red !important;
       }
-
       #icon,
       .icon {
         fill: black;
         vertical-align: middle;
       }
-
       #add .icon,
       #field #icon {
         fill: white;
       }
-
       input {
         font-family: inherit;
         font-size: 16px;
         font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv11" 1;
       }
-
       .hide {
         display: none;
       }
-
       .className {
         display: none;
       }
-
       details summary {
         cursor: pointer;
       }
-
       .loadSettings {
         display: inline-block;
         position: absolute;
         right: 8px;
         top: 10px;
       }
-
       .container {
         position: absolute;
         top: 20px;
         width: 100%;
       }
-
       .\32 {
         left: 100vw;
       }
@@ -482,17 +424,14 @@
       .\30 {
         left: 600vw;
       }
-
       .notEnrolled {
         opacity: 0.7;
       }
-
       @media (max-width: 275px) {
         #logo {
           display: none;
         }
       }
-
       #add {
         width: 60px;
         height: 60px;
@@ -515,7 +454,6 @@
       #closeBtn {
         float: right;
       }
-
       @keyframes popOut {
         from {
           width: 0;
@@ -559,7 +497,6 @@
         </svg>
       </div>
     </div>
-
     <!-- Main Content -->
     <div class="main-content" id="main-content">
       <!-- Date input field -->
@@ -978,7 +915,6 @@
           <option value="gerritkomrijcollege">gerritkomrijcollege</option>
           <option value="zernike">zernike</option>
         </datalist>
-
         <br />
         <div class="material-textfield">
           <input id="authorizationCode" placeholder=" " autocomplete="off" />

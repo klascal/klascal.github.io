@@ -1,59 +1,50 @@
 const dialogs = document.querySelectorAll("dialog");
-
-dialogs.forEach((dialog) => {
-  if (typeof dialog.showModal !== "function") {
-    dialogPolyfill.registerDialog(dialog);
-  }
-});
 function check_webp_feature(feature, callback) {
-  var kTestImages = {
-    lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
-  };
   var img = new Image();
-  img.onload = function () {
+  (img.onload = function () {
     var result = img.width > 0 && img.height > 0;
     callback(feature, result);
-  };
-  img.onerror = function () {
-    callback(feature, false);
-  };
-  img.src = "data:image/webp;base64," + kTestImages[feature];
+  }),
+    (img.onerror = function () {
+      callback(feature, !1);
+    }),
+    (img.src =
+      "data:image/webp;base64," +
+      { lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA" }[
+        feature
+      ]);
 }
-// Haal elke 5 minuten het rooster op
-setInterval(function () {
-  if (
-    document.getElementById("dateInput").value !== "" &&
-    localStorage.getItem("access_token") &&
-    localStorage.getItem("schoolName") &&
-    localStorage.getItem("userType")
-  ) {
-    fetchAppointments(document.getElementById("dateInput").value, "focus");
-  }
-}, 300000);
-const $ = (e) => document.querySelectorAll(e);
-const _switches = $("body")[0];
-const _colors = $("input[name='color']");
-
-// Load saved theme on page load
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  _switches.setAttribute("data-theme", savedTheme);
-  _colors.forEach((radio) => {
-    radio.checked = radio.value === savedTheme;
-  });
-} else {
-  // Set default theme from checked radio
+dialogs.forEach((dialog) => {
+  "function" != typeof dialog.showModal &&
+    dialogPolyfill.registerDialog(dialog);
+}),
+  setInterval(function () {
+    "" !== document.getElementById("dateInput").value &&
+      localStorage.getItem("access_token") &&
+      localStorage.getItem("schoolName") &&
+      localStorage.getItem("userType") &&
+      fetchAppointments(document.getElementById("dateInput").value, "focus");
+  }, 3e5);
+const $ = (e) => document.querySelectorAll(e),
+  _switches = $("body")[0],
+  _colors = $("input[name='color']"),
+  savedTheme = localStorage.getItem("theme");
+if (savedTheme)
+  _switches.setAttribute("data-theme", savedTheme),
+    _colors.forEach((radio) => {
+      radio.checked = radio.value === savedTheme;
+    });
+else {
   const defaultTheme = document.querySelector(
     'input[name="color"]:checked'
   ).value;
   _switches.setAttribute("data-theme", defaultTheme);
 }
-// Get computed style from the body
 const bodyStyles = getComputedStyle(document.body);
 function hexToRgb(hex) {
   hex = hex.replace(/^#/, "");
   let bigint = parseInt(hex, 16);
-  return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+  return [(bigint >> 16) & 255, (bigint >> 8) & 255, 255 & bigint];
 }
 function blendWithBlack(rgb, alpha) {
   return rgb.map((channel) => Math.round(channel * (1 - alpha)));
@@ -61,638 +52,475 @@ function blendWithBlack(rgb, alpha) {
 function rgbToHex(rgb) {
   return `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`;
 }
-
-// Get the CSS variable value
-const primaryLight = bodyStyles.getPropertyValue("--primary-light").trim();
-const rgb = hexToRgb(primaryLight);
+const primaryLight = bodyStyles.getPropertyValue("--primary-light").trim(),
+  rgb = hexToRgb(primaryLight);
 var darkerRgb = blendWithBlack(rgb, 0.3);
-if (primaryLight == "#4dd0e1") {
-  darkerRgb = blendWithBlack(rgb, 0.34);
-}
-if (primaryLight == "#ffcc02") {
-  darkerRgb = blendWithBlack(rgb, 0.4);
-}
+"#4dd0e1" == primaryLight && (darkerRgb = blendWithBlack(rgb, 0.34)),
+  "#ffcc02" == primaryLight && (darkerRgb = blendWithBlack(rgb, 0.4));
 const darkerHex = rgbToHex(darkerRgb);
-
-// Select the meta tag
 let themeMetaTag = document.querySelector('meta[name="theme-color"]');
-
-// If the meta tag exists, update it; otherwise, create a new one
-if (themeMetaTag) {
-  themeMetaTag.setAttribute("content", darkerHex);
-} else {
-  themeMetaTag = document.createElement("meta");
-  themeMetaTag.setAttribute("name", "theme-color");
-  themeMetaTag.setAttribute("content", darkerHex);
-  document.head.appendChild(themeMetaTag);
-}
-
-// Save theme when changed
-_colors.forEach((radio) => {
-  radio.addEventListener("change", (e) => {
-    if (e.target.checked) {
-      _switches.setAttribute("data-theme", e.target.value);
-      localStorage.setItem("theme", e.target.value);
-      // Get the CSS variable value
-      const primaryLight = bodyStyles
-        .getPropertyValue("--primary-light")
-        .trim();
-      const rgb = hexToRgb(primaryLight);
-      var darkerRgb = blendWithBlack(rgb, 0.3);
-      if (primaryLight == "#4dd0e1") {
-        darkerRgb = blendWithBlack(rgb, 0.34);
+themeMetaTag
+  ? themeMetaTag.setAttribute("content", darkerHex)
+  : ((themeMetaTag = document.createElement("meta")),
+    themeMetaTag.setAttribute("name", "theme-color"),
+    themeMetaTag.setAttribute("content", darkerHex),
+    document.head.appendChild(themeMetaTag)),
+  _colors.forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      if (e.target.checked) {
+        _switches.setAttribute("data-theme", e.target.value),
+          localStorage.setItem("theme", e.target.value);
+        const primaryLight = bodyStyles
+            .getPropertyValue("--primary-light")
+            .trim(),
+          rgb = hexToRgb(primaryLight);
+        var darkerRgb = blendWithBlack(rgb, 0.3);
+        "#4dd0e1" == primaryLight && (darkerRgb = blendWithBlack(rgb, 0.34)),
+          "#ffcc02" == primaryLight && (darkerRgb = blendWithBlack(rgb, 0.4));
+        const darkerHex = rgbToHex(darkerRgb);
+        let themeMetaTag = document.querySelector('meta[name="theme-color"]');
+        themeMetaTag
+          ? themeMetaTag.setAttribute("content", darkerHex)
+          : ((themeMetaTag = document.createElement("meta")),
+            themeMetaTag.setAttribute("name", "theme-color"),
+            themeMetaTag.setAttribute("content", darkerHex),
+            document.head.appendChild(themeMetaTag));
       }
-      if (primaryLight == "#ffcc02") {
-        darkerRgb = blendWithBlack(rgb, 0.4);
-      }
-      const darkerHex = rgbToHex(darkerRgb);
-
-      // Select the meta tag
-      let themeMetaTag = document.querySelector('meta[name="theme-color"]');
-
-      // If the meta tag exists, update it; otherwise, create a new one
-      if (themeMetaTag) {
-        themeMetaTag.setAttribute("content", darkerHex);
-      } else {
-        themeMetaTag = document.createElement("meta");
-        themeMetaTag.setAttribute("name", "theme-color");
-        themeMetaTag.setAttribute("content", darkerHex);
-        document.head.appendChild(themeMetaTag);
-      }
-    }
+    });
   });
-});
 const authorizationCode = document.getElementById("authorizationCode").value;
 var authorizationCodeLS = localStorage.getItem("authorizationCode");
-// Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
 let accessToken = localStorage.getItem("access_token");
-if (/^\d{12}$/.test(authorizationCodeLS)) {
-  if (accessToken == null || accessToken == "[object Promise]") {
-    hideDialog();
-  }
-} else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
-  localStorage.setItem("access_token", authorizationCodeLS);
-}
-
-// Dutch month names
+/^\d{12}$/.test(authorizationCodeLS)
+  ? (null != accessToken && "[object Promise]" != accessToken) || hideDialog()
+  : /^[a-z0-9]{26}$/.test(authorizationCodeLS) &&
+    localStorage.setItem("access_token", authorizationCodeLS);
 const dutchMonthNames = [
-  "jan",
-  "feb",
-  "mrt",
-  "apr",
-  "mei",
-  "jun",
-  "jul",
-  "aug",
-  "sep",
-  "okt",
-  "nov",
-  "dec",
-];
-const checkbox = document.getElementById("meldingen");
-// Function to save checkbox state to localStorage
+    "jan",
+    "feb",
+    "mrt",
+    "apr",
+    "mei",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "okt",
+    "nov",
+    "dec",
+  ],
+  checkbox = document.getElementById("meldingen");
 function saveCheckboxState() {
   localStorage.setItem("checkboxState", checkbox.checked);
 }
-
-// Function to restore checkbox state from localStorage
 function restoreCheckboxState() {
   const savedState = localStorage.getItem("checkboxState");
-  if (savedState !== null) {
-    checkbox.checked = JSON.parse(savedState);
-  }
+  null !== savedState && (checkbox.checked = JSON.parse(savedState));
 }
-
 const checkbox1 = document.getElementById("vakafkorting");
-// Function to save checkbox state to localStorage
 function saveCheckboxState1() {
   localStorage.setItem("afkorting", checkbox1.checked);
 }
-
-// Function to restore checkbox state from localStorage
 function restoreCheckboxState1() {
   const savedState1 = localStorage.getItem("afkorting");
-  if (savedState1 !== null) {
-    checkbox1.checked = JSON.parse(savedState1);
-  }
+  null !== savedState1 && (checkbox1.checked = JSON.parse(savedState1));
 }
 checkbox1.addEventListener("change", saveCheckboxState1);
 const checkbox2 = document.getElementById("afkortingHl");
-// Function to save checkbox state to localStorage
 function saveCheckboxState2() {
   localStorage.setItem("hoofdletter", checkbox2.checked);
 }
-
-// Function to restore checkbox state from localStorage
 function restoreCheckboxState2() {
   const savedState2 = localStorage.getItem("hoofdletter");
-  if (savedState2 !== null) {
-    checkbox2.checked = JSON.parse(savedState2);
-  }
+  null !== savedState2 && (checkbox2.checked = JSON.parse(savedState2));
 }
-checkbox2.addEventListener("change", saveCheckboxState2);
-// Save state when checkbox is clicked
-checkbox.addEventListener("change", saveCheckboxState);
 function convertH2M(timeInHour) {
   var timeParts = timeInHour.split(":");
-  return Number(timeParts[0]) * 60 + Number(timeParts[1]);
+  return 60 * Number(timeParts[0]) + Number(timeParts[1]);
 }
 async function fetchAnnouncements() {
-  document.getElementById("schedule").innerHTML = "";
-  document.getElementById("schedule").style = "";
+  (document.getElementById("schedule").innerHTML = ""),
+    (document.getElementById("schedule").style = "");
   const response = await fetch(
-    "https://" +
-      localStorage.getItem("schoolName") +
-      ".zportal.nl/api/v3/announcements?user=~me&current=true&access_token=" +
-      localStorage.getItem("access_token")
-  );
-  const data = await response.json();
-  const appointments = data.response.data;
-  var announcementsContainer = document.getElementById("schedule");
-  var announcementsDiv = document.createElement("div");
-  announcementsContainer.innerHTML = "";
-  if (appointments.length === 0) {
-    announcementsContainer.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
-  ><img
-    src="es_geenresultaten.webp"
-    alt=""
-    style="text-align: center"
-    width="200px"
-    height="104px"
-  /><br />
-  Geen mededelingen gevonden.</strong
->`;
-    if (!localStorage.getItem("webp")) {
+      "https://" +
+        localStorage.getItem("schoolName") +
+        ".zportal.nl/api/v3/announcements?user=~me&current=true&access_token=" +
+        localStorage.getItem("access_token")
+    ),
+    appointments = (await response.json()).response.data;
+  var announcementsContainer = document.getElementById("schedule"),
+    announcementsDiv = document.createElement("div");
+  if (((announcementsContainer.innerHTML = ""), 0 === appointments.length))
+    if (
+      ((announcementsContainer.innerHTML =
+        '<strong id="error-message" style="text-align: center; display: block"\n  ><img\n    src="es_geenresultaten.webp"\n    alt=""\n    style="text-align: center"\n    width="200px"\n    height="104px"\n  /><br />\n  Geen mededelingen gevonden.</strong\n>'),
+      localStorage.getItem("webp"))
+    ) {
+      if ("false" == localStorage.getItem("webp")) {
+        new webpHero.WebpMachine().polyfillDocument();
+      }
+    } else
       check_webp_feature("lossy", function (feature, isSupported) {
-        localStorage.setItem("webp", "true");
-        if (!isSupported) {
-          localStorage.setItem("webp", "false");
-          var webpMachine = new webpHero.WebpMachine();
-          webpMachine.polyfillDocument();
-        }
+        (localStorage.setItem("webp", "true"), isSupported) ||
+          (localStorage.setItem("webp", "false"),
+          new webpHero.WebpMachine().polyfillDocument());
       });
-    } else if (localStorage.getItem("webp") == "false") {
-      var webpMachine = new webpHero.WebpMachine();
-      webpMachine.polyfillDocument();
-    }
-  }
   appointments.forEach((announcement) => {
-    var start = announcement.start * 1000;
-    start = new Date(start);
-    var date = start
-      .toLocaleTimeString("nl-NL", {
-        day: "2-digit",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-      .replace(/^0+/, "");
-    announcementsDiv.innerHTML =
+    var start = 1e3 * announcement.start,
+      date = (start = new Date(start))
+        .toLocaleTimeString("nl-NL", {
+          day: "2-digit",
+          month: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        .replace(/^0+/, "");
+    (announcementsDiv.innerHTML =
       "<strong>" +
       announcement.title +
       "</strong><span> " +
       date +
       "<p>" +
       announcement.text +
-      "</p>";
-    announcementsContainer.appendChild(announcementsDiv);
+      "</p>"),
+      announcementsContainer.appendChild(announcementsDiv);
   });
 }
 async function userInfo(date) {
-  const authorizationCode = localStorage.getItem("access_token");
-  const response = await fetch(
-    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=" +
-      authorizationCode
-  );
-  const data = await response.json();
+  const authorizationCode = localStorage.getItem("access_token"),
+    response = await fetch(
+      "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=" +
+        authorizationCode
+    ),
+    data = await response.json();
   var userType = "student";
   if (data.response.data[0]) {
-    const isEmployee = data.response.data[0].isEmployee;
-    if (isEmployee == true) userType = "teacher";
+    1 == data.response.data[0].isEmployee && (userType = "teacher");
   }
-  localStorage.setItem("userType", userType);
-  if (!localStorage.getItem("subjects")) {
-    retrieveSubjectFullNames();
-  }
-  fetchAppointments(date);
+  localStorage.setItem("userType", userType),
+    localStorage.getItem("subjects") || retrieveSubjectFullNames(),
+    fetchAppointments(date);
 }
-Date.prototype.getWeek = function () {
-  var date = new Date(this.getTime());
-  date.setHours(0, 0, 0, 0);
-  date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
-  var week1 = new Date(date.getFullYear(), 0, 4);
-  return (
-    1 +
-    Math.round(
-      ((date.getTime() - week1.getTime()) / 86400000 -
-        3 +
-        ((week1.getDay() + 6) % 7)) /
-        7
-    )
-  );
-};
 function cleanupOldStorage() {
   const twoWeeksAgo = new Date();
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-  const yearTwoWeeksAgo = twoWeeksAgo.getFullYear();
-  const weekTwoWeeksAgo = twoWeeksAgo.getWeek();
-
+  const yearTwoWeeksAgo = twoWeeksAgo.getFullYear(),
+    weekTwoWeeksAgo = twoWeeksAgo.getWeek();
   Object.keys(localStorage).forEach((key) => {
     if (/^\d{4}\d+$/.test(key)) {
-      // Match format YYYYW
-      const year = parseInt(key.substring(0, 4), 10);
-      const week = parseInt(key.substring(4), 10);
-
-      if (
-        year < yearTwoWeeksAgo ||
-        (year === yearTwoWeeksAgo && week < weekTwoWeeksAgo)
-      ) {
+      const year = parseInt(key.substring(0, 4), 10),
+        week = parseInt(key.substring(4), 10);
+      (year < yearTwoWeeksAgo ||
+        (year === yearTwoWeeksAgo && week < weekTwoWeeksAgo)) &&
         localStorage.removeItem(key);
-      }
     }
   });
 }
-
 async function retrieveSubjectFullNames() {
   let url = `https://${localStorage.getItem(
     "schoolName"
   )}.zportal.nl/api/v3/subjectselectionsubjects?access_token=${localStorage.getItem(
     "access_token"
   )}&fields=code,name`;
-
   return fetch(url)
     .then((r) => r.json())
     .then((result) => {
       let teacherTranslations = {};
-      let subjects = result.response.data;
-      subjects.forEach((subject) => {
+      result.response.data.forEach((subject) => {
         let lastName = subject.name;
-
-        if (!lastName) {
-          return;
-        }
-
+        if (!lastName) return;
         let commaIndex = lastName.indexOf(",");
-        if (commaIndex != -1) {
-          lastName = lastName.substring(0, commaIndex);
-        }
-
+        -1 != commaIndex && (lastName = lastName.substring(0, commaIndex));
         let fullName = lastName;
         teacherTranslations[subject.code] = fullName;
-      });
-      localStorage.setItem("subjects", JSON.stringify(teacherTranslations));
+      }),
+        localStorage.setItem("subjects", JSON.stringify(teacherTranslations));
     });
 }
-
-// Function to fetch appointments for the specified date
 function fetchAppointments(date, focus) {
-  // Parse the input date string to get the date and month
   const datum = document.getElementById("dateInput").value;
-  if (/^[a-zA-Z]{2}\s/.test(datum)) {
+  if (/^[a-zA-Z]{2}\s/.test(datum))
     var [zomadiwodovrza, day, monthName] = datum.split(" ");
-  } else {
-    var [day, monthName] = datum.split(" ");
-  }
-  const today1 = new Date();
-  const day1 = today1.getDate();
-  const daysOfWeek1 = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-  const zomadiwodovrza1 = daysOfWeek1[today1.getDay()];
-  const monthName1 = dutchMonthNames[today1.getMonth()];
-  const formattedDate3 = `${day1} ${monthName1}`;
-  const formattedDate2 = `${zomadiwodovrza1} ${day1} ${monthName1}`;
-  if (datum !== formattedDate3 && datum !== formattedDate2) {
-    document.getElementById("add").setAttribute("style", "display: block;");
-  }
-  if (datum === formattedDate3 || datum === formattedDate2) {
-    document.getElementById("add").setAttribute("style", "display: none;");
-  }
-  const monthShort = monthName.substring(0, 3);
-  const monthIndex = dutchMonthNames.findIndex(
-    (month) => month.toLowerCase() === monthShort
-  );
-
-  if (monthIndex === -1 || isNaN(parseInt(day))) {
-    console.error(
+  else var [day, monthName] = datum.split(" ");
+  const today1 = new Date(),
+    day1 = today1.getDate(),
+    zomadiwodovrza1 = ["zo", "ma", "di", "wo", "do", "vr", "za"][
+      today1.getDay()
+    ],
+    monthName1 = dutchMonthNames[today1.getMonth()],
+    formattedDate3 = `${day1} ${monthName1}`,
+    formattedDate2 = `${zomadiwodovrza1} ${day1} ${monthName1}`;
+  datum !== formattedDate3 &&
+    datum !== formattedDate2 &&
+    document.getElementById("add").setAttribute("style", "display: block;"),
+    (datum !== formattedDate3 && datum !== formattedDate2) ||
+      document.getElementById("add").setAttribute("style", "display: none;");
+  const monthShort = monthName.substring(0, 3),
+    monthIndex = dutchMonthNames.findIndex(
+      (month) => month.toLowerCase() === monthShort
+    );
+  if (-1 === monthIndex || isNaN(parseInt(day)))
+    return void console.error(
       "Incorrecte datumformaat. Voer de datum in in het formaat '12 aug' of 'di 12 aug'."
     );
-    return;
-  }
-
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-
-  // Construct a Date object with the specified date and current year
-  const startDate = new Date(currentYear, monthIndex, parseInt(day, 10));
-  const endDate = new Date(startDate);
+  const currentYear = new Date().getFullYear(),
+    startDate = new Date(currentYear, monthIndex, parseInt(day, 10)),
+    endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + 1);
-  const user = document.getElementById("user").value || "~me";
-  const userType = localStorage.getItem("userType");
-  const year = startDate.getFullYear();
-  let week = startDate.getWeek(); // Bereken weeknummer
-  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode = document.getElementById("authorizationCode").value;
-  let accessToken = localStorage.getItem("access_token");
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken1 = localStorage.getItem("access_token");
-  if (/^\d{12}$/.test(authorizationCodeLS)) {
-    if (accessToken1 == null || accessToken == "undefined") {
-      accessToken1 = fetchToken(authorizationCode, schoolName);
-      localStorage.setItem("access_token", accessToken1);
-    }
-  } else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
-    localStorage.setItem("access_token", authorizationCodeLS);
-  }
-  const startTimestamp = Math.floor(startDate.getTime() / 1000);
-  const endTimestamp = Math.floor(endDate.getTime() / 1000);
-
-  const apiUrl = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${accessToken}&${userType}=~me&week=${year}${week}`;
-  fetch(apiUrl)
+  const user = document.getElementById("user").value || "~me",
+    userType = localStorage.getItem("userType"),
+    year = startDate.getFullYear();
+  let week = startDate.getWeek();
+  week < 10 && (week = `0${week}`);
+  const schoolName = document.getElementById("schoolName").value,
+    authorizationCode = document.getElementById("authorizationCode").value;
+  let accessToken = localStorage.getItem("access_token"),
+    accessToken1 = localStorage.getItem("access_token");
+  /^\d{12}$/.test(authorizationCodeLS)
+    ? (null != accessToken1 && "undefined" != accessToken) ||
+      ((accessToken1 = fetchToken(authorizationCode, schoolName)),
+      localStorage.setItem("access_token", accessToken1))
+    : /^[a-z0-9]{26}$/.test(authorizationCodeLS) &&
+      localStorage.setItem("access_token", authorizationCodeLS);
+  Math.floor(startDate.getTime() / 1e3), Math.floor(endDate.getTime() / 1e3);
+  fetch(
+    `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${accessToken}&${userType}=~me&week=${year}${week}`
+  )
     .then((response) => response.json())
     .then((data) => {
       const appointments = data.response.data[0].appointments;
-      // Sort appointments by start time
       appointments.sort((a, b) => a.start - b.start);
       const scheduleDiv = document.getElementById("schedule");
-      scheduleDiv.innerHTML = ""; // Clear existing schedule
-      // Checkt bij lege weken of het in een maand met vakanties zit en bepaalt op basis daarvan de vakantie
-      if (appointments.length === 0) {
-        if (monthName == "okt" || monthName == "nov") {
-          scheduleDiv.setAttribute("class", "herfstVak");
-        }
-        if (monthName == "dec" || monthName == "jan") {
-          scheduleDiv.setAttribute("class", "kerstVak");
-        }
-        if (monthName == "feb" || monthName == "mrt") {
-          scheduleDiv.setAttribute("class", "voorjaarsVak");
-        }
-        if (monthName == "apr" || monthName == "mei") {
-          scheduleDiv.setAttribute("class", "meiVak");
-        }
-        if (monthName == "juli" || monthName == "aug" || monthName == "sep") {
-          scheduleDiv.setAttribute("class", "zomerVak");
-        }
-      } else if (scheduleDiv.getAttribute("class")) {
-        scheduleDiv.classList.remove(scheduleDiv.getAttribute("class"));
-      }
-      // Filter out cancelled lessons if there are multiple lessons for the same hour
+      (scheduleDiv.innerHTML = ""),
+        0 === appointments.length
+          ? (("okt" != monthName && "nov" != monthName) ||
+              scheduleDiv.setAttribute("class", "herfstVak"),
+            ("dec" != monthName && "jan" != monthName) ||
+              scheduleDiv.setAttribute("class", "kerstVak"),
+            ("feb" != monthName && "mrt" != monthName) ||
+              scheduleDiv.setAttribute("class", "voorjaarsVak"),
+            ("apr" != monthName && "mei" != monthName) ||
+              scheduleDiv.setAttribute("class", "meiVak"),
+            ("juli" != monthName && "aug" != monthName && "sep" != monthName) ||
+              scheduleDiv.setAttribute("class", "zomerVak"))
+          : scheduleDiv.getAttribute("class") &&
+            scheduleDiv.classList.remove(scheduleDiv.getAttribute("class"));
       const filteredAppointments = filterCancelledLessons(appointments);
       let i = 0;
       filteredAppointments.forEach((appointment) => {
-        const startTime = new Date(appointment.start * 1000);
-        const endTime = new Date(appointment.end * 1000);
-
-        // Format start and end times
+        const startTime = new Date(1e3 * appointment.start),
+          endTime = new Date(1e3 * appointment.end);
         var startTimeString = startTime
-          .toLocaleTimeString("nl-NL", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+          .toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit" })
           .replace(/^0+/, "");
         const endTimeString = endTime
-          .toLocaleTimeString("nl-NL", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+          .toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit" })
           .replace(/^0+/, "");
-
-        // Object met vak afkortingen en hun volledige namen
-        if (localStorage.getItem("subjects")) {
+        if (localStorage.getItem("subjects"))
           var subjectsMapping = JSON.parse(localStorage.getItem("subjects"));
-        }
-
-        // Map subjects abbreviations to full names
         let subjectsFullNames = appointment.subjects.map(
           (subject) => subjectsMapping[subject] || subject
         );
-        if (
-          appointment.subjects.toString() == "men" &&
-          localStorage.getItem("schoolName") == "csvincentvangogh"
-        ) {
-          if (
-            appointment.groups.toString().includes("1") ||
-            appointment.groups.toString().includes("2")
-          ) {
-            subjectsFullNames = ["Mentorles"];
-          }
-        }
-        if (
+        "men" == appointment.subjects.toString() &&
+          "csvincentvangogh" == localStorage.getItem("schoolName") &&
+          (appointment.groups.toString().includes("1") ||
+            appointment.groups.toString().includes("2")) &&
+          (subjectsFullNames = ["Mentorles"]),
           subjectsFullNames.toString() ===
-          subjectsFullNames.toString().toUpperCase()
-        ) {
-          subjectsFullNames = [
-            subjectsFullNames.toString().charAt(0) +
-              subjectsFullNames.toString().slice(1).toLowerCase(),
-          ];
-        }
-
-        if (appointment.appointmentInstance == null) {
-          subjectsFullNames = appointment.actions[0].appointment.subjects.map(
-            (subject) => subjectsMapping[subject] || subject
-          );
-          if (
-            subjectsFullNames.toString() ===
-            subjectsFullNames.toString().toUpperCase()
-          ) {
-            subjectsFullNames = [
+            subjectsFullNames.toString().toUpperCase() &&
+            (subjectsFullNames = [
               subjectsFullNames.toString().charAt(0) +
                 subjectsFullNames.toString().slice(1).toLowerCase(),
-            ];
-          }
-        }
-
-        if (localStorage.getItem("afkorting") === "true") {
-          subjectsFullNames = appointment.subjects;
-          if (
+            ]),
+          null == appointment.appointmentInstance &&
+            ((subjectsFullNames =
+              appointment.actions[0].appointment.subjects.map(
+                (subject) => subjectsMapping[subject] || subject
+              )),
+            subjectsFullNames.toString() ===
+              subjectsFullNames.toString().toUpperCase() &&
+              (subjectsFullNames = [
+                subjectsFullNames.toString().charAt(0) +
+                  subjectsFullNames.toString().slice(1).toLowerCase(),
+              ])),
+          "true" === localStorage.getItem("afkorting") &&
+            ((subjectsFullNames = appointment.subjects),
             appointment.subjects.toString() ===
-            appointment.subjects.toString().toUpperCase()
-          ) {
-            subjectsFullNames = [
-              appointment.subjects.toString().charAt(0) +
-                appointment.subjects.toString().slice(1).toLowerCase(),
-            ];
-          }
-          if (localStorage.getItem("hoofdletter") === "true") {
-            subjectsFullNames = [appointment.subjects.toString().toUpperCase()];
-          }
-          if (appointment.appointmentInstance == null) {
-            subjectsFullNames = appointment.actions[0].appointment.subjects;
-            if (
+              appointment.subjects.toString().toUpperCase() &&
+              (subjectsFullNames = [
+                appointment.subjects.toString().charAt(0) +
+                  appointment.subjects.toString().slice(1).toLowerCase(),
+              ]),
+            "true" === localStorage.getItem("hoofdletter") &&
+              (subjectsFullNames = [
+                appointment.subjects.toString().toUpperCase(),
+              ]),
+            null == appointment.appointmentInstance &&
+              ((subjectsFullNames =
+                appointment.actions[0].appointment.subjects),
               appointment.actions[0].appointment.subjects.toString() ===
-              appointment.actions[0].appointment.subjects
-                .toString()
-                .toUpperCase()
-            ) {
-              subjectsFullNames = [
                 appointment.actions[0].appointment.subjects
                   .toString()
-                  .charAt(0) +
+                  .toUpperCase() &&
+                (subjectsFullNames = [
                   appointment.actions[0].appointment.subjects
                     .toString()
-                    .slice(1)
-                    .toLowerCase(),
-              ];
-            }
-            if (localStorage.getItem("hoofdletter") === "true") {
-              subjectsFullNames = [
-                appointment.actions[0].appointment.subjects
-                  .toString()
-                  .toUpperCase(),
-              ];
-            }
-          }
-        }
-
-        let changeDescription = "";
-
-        // Create appointment HTML
+                    .charAt(0) +
+                    appointment.actions[0].appointment.subjects
+                      .toString()
+                      .slice(1)
+                      .toLowerCase(),
+                ]),
+              "true" === localStorage.getItem("hoofdletter") &&
+                (subjectsFullNames = [
+                  appointment.actions[0].appointment.subjects
+                    .toString()
+                    .toUpperCase(),
+                ])));
         const appointmentDiv = document.createElement("div");
         var timeSlot = "";
-        if (!appointment.startTimeSlot) {
-          timeSlot = "";
-        } else {
-          timeSlot = appointment.startTimeSlot;
-        }
+        timeSlot = appointment.startTimeSlot ? appointment.startTimeSlot : "";
         var info = "";
-        if (appointment.appointmentType === "exam") {
-          info = '<span id="exam">Toets</span>';
-        }
-        if (appointment.appointmentType === "activity") {
-          info = '<span id="activity">Activiteit</span>';
-        }
-        if (appointment.appointmentType === "interlude") {
-          info = '<span id="interlude">Pauze</span>';
-        }
-        let warning = "";
-        let warningsymbol = "";
-        if (appointment.changeDescription !== "") {
-          warning = appointment.changeDescription;
-          warningsymbol = warning
+        "exam" === appointment.appointmentType &&
+          (info = '<span id="exam">Toets</span>'),
+          "activity" === appointment.appointmentType &&
+            (info = '<span id="activity">Activiteit</span>'),
+          "interlude" === appointment.appointmentType &&
+            (info = '<span id="interlude">Pauze</span>');
+        let warning = "",
+          warningsymbol = "";
+        "" !== appointment.changeDescription &&
+          ((warning = appointment.changeDescription),
+          (warningsymbol = warning
             ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ff9800" style="vertical-align: sub; margin-right: 2.5px;"><path d="M120-103q-18 0-32.09-8.8Q73.83-120.6 66-135q-8-14-8.5-30.6Q57-182.19 66-198l359-622q9-16 24.1-23.5 15.11-7.5 31-7.5 15.9 0 30.9 7.5 15 7.5 24 23.5l359 622q9 15.81 8.5 32.4Q902-149 894-135t-22 23q-14 9-32 9H120Zm360-140q18 0 31.5-13.5T525-288q0-18-13.5-31T480-332q-18 0-31.5 13T435-288q0 18 13.5 31.5T480-243Zm0-117q17 0 28.5-11.5T520-400v-109q0-17-11.5-28.5T480-549q-17 0-28.5 11.5T440-509v109q0 17 11.5 28.5T480-360Z"/></svg>'
-            : "";
-        }
-        if (appointment.appointmentInstance == null) {
-          warning = "Afgemeld";
-          warningsymbol = warning
-            ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>`
-            : "";
-        } else if (appointment.schedulerRemark !== "") {
-          warning = appointment.schedulerRemark;
-          warningsymbol = warning
-            ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>`
-            : "";
-        }
+            : "")),
+          null == appointment.appointmentInstance
+            ? ((warning = "Afgemeld"),
+              (warningsymbol = warning
+                ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>'
+                : ""))
+            : "" !== appointment.schedulerRemark &&
+              ((warning = appointment.schedulerRemark),
+              (warningsymbol = warning
+                ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>'
+                : ""));
         var teachers =
           "(" + appointment.teachers.filter((e) => e != user).join(", ") + ")";
-        if (localStorage.getItem("hoofdletter") === "true") {
-          teachers =
-            "(" +
-            appointment.teachers
-              .filter((e) => e != user)
-              .join(", ")
-              .toUpperCase() +
-            ")";
-        }
-        appointmentDiv.innerHTML = `
-          <p><strong id="vaknaam">${subjectsFullNames.join(
-            ", "
-          )}</strong><strong style="float: right; margin-right: 9px" id="timeSlot">${info}${timeSlot}</strong></p>
-          <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
-          ", "
-        )} ${teachers == "()" ? "" : teachers} <span class="warning">
-                  ${warningsymbol}
-                  <span class="warningMessage">${warning}</span>
-                </span></span></p>
-        <p class="className">${appointment.groups.join(", ")}</p>
-        `;
-        appointmentDiv.classList.add(
-          appointment.cancelled ? "cancelled" : appointment.appointmentType
-        );
-        if (appointment.appointmentInstance == null) {
-          appointmentDiv.classList.remove("cancelled");
-          appointmentDiv.classList.add("notEnrolled");
-        }
-        // Zet pauze tijd om van uren naar minuten
-        if (i >= -1 && window.endTime) {
-          var startDecimal = convertH2M(startTimeString);
-          var endDecimal = convertH2M(window.endTime);
-          var pauzeTijd = startDecimal - endDecimal;
-        }
-        // Stel pauzetijd in bij dezelfde dag
-        if (i >= 1 && startTimeString != window.endTime) {
-          appointmentDiv.style = "margin-top: 20px";
-          if (pauzeTijd >= 280) {
-            appointmentDiv.style = "margin-top: 525px";
-          } else if (pauzeTijd >= 240) {
-            appointmentDiv.style = "margin-top: 450px";
-          } else if (pauzeTijd >= 200) {
-            appointmentDiv.style = "margin-top: 375px";
-          } else if (pauzeTijd >= 160) {
-            appointmentDiv.style = "margin-top: 300px";
-          } else if (pauzeTijd >= 120) {
-            appointmentDiv.style = "margin-top: 225px";
-          } else if (pauzeTijd >= 80) {
-            appointmentDiv.style = "margin-top: 150px";
-          } else if (pauzeTijd >= 40) {
-            appointmentDiv.style = "margin-top: 75px";
-          }
-        }
-        // Stel pauzetijd in als het het eerste uur is van de week of een andere dag
-        if (i == 0 || pauzeTijd <= -1) {
-          startTimeString = Number(startTimeString.replace(":", ""));
-          // 1e uur
-          if (timeSlot == 1) {
-            appointmentDiv.style = "margin-top: 0";
-          } else if (timeSlot == 2) {
-            appointmentDiv.style = "margin-top: 75px";
-          } else if (timeSlot == 3) {
-            appointmentDiv.style = "margin-top: 150px";
-          } else if (timeSlot == 4) {
-            appointmentDiv.style = "margin-top: 225px";
-          } else if (timeSlot == 5) {
-            appointmentDiv.style = "margin-top: 300px";
-          } else if (timeSlot == 6) {
-            appointmentDiv.style = "margin-top: 375px";
-          } else if (timeSlot == 7) {
-            appointmentDiv.style = "margin-top: 450px";
-          } else if (timeSlot == 8) {
-            appointmentDiv.style = "margin-top: 525px";
-          } else if (timeSlot == 9) {
-            appointmentDiv.style = "margin-top: 600px";
-          } else if (timeSlot == 10) {
-            appointmentDiv.style = "margin-top: 675px";
-          }
-        }
-        window.endTime = endTimeString;
-        i++;
-        if (focus) {
-          if (appointmentDiv.getAttribute("style") != null) {
-            appointmentDiv.style =
-              appointmentDiv.getAttribute("style") + "; animation-name: none";
-          } else {
-            appointmentDiv.style = "animation-name: none";
-          }
-        }
-        const dago = Date.now();
-        if (dago >= appointment.end * 1000) {
-          appointmentDiv.classList.add("test");
-        }
-        localStorage.setItem("LaatsteSync", dago);
-        // Check if the browser supports notifications
         if (
-          localStorage.getItem("checkboxState") === "true" &&
-          localStorage.getItem("checkboxState") != null
-        ) {
+          ("true" === localStorage.getItem("hoofdletter") &&
+            (teachers =
+              "(" +
+              appointment.teachers
+                .filter((e) => e != user)
+                .join(", ")
+                .toUpperCase() +
+              ")"),
+          (appointmentDiv.innerHTML = `\n          <p><strong id="vaknaam">${subjectsFullNames.join(
+            ", "
+          )}</strong><strong style="float: right; margin-right: 9px" id="timeSlot">${info}${timeSlot}</strong></p>\n          <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
+            ", "
+          )} ${
+            "()" == teachers ? "" : teachers
+          } <span class="warning">\n                  ${warningsymbol}\n                  <span class="warningMessage">${warning}</span>\n                </span></span></p>\n        <p class="className">${appointment.groups.join(
+            ", "
+          )}</p>\n        `),
+          appointmentDiv.classList.add(
+            appointment.cancelled ? "cancelled" : appointment.appointmentType
+          ),
+          null == appointment.appointmentInstance &&
+            (appointmentDiv.classList.remove("cancelled"),
+            appointmentDiv.classList.add("notEnrolled")),
+          i >= -1 && window.endTime)
+        )
+          var pauzeTijd =
+            convertH2M(startTimeString) - convertH2M(window.endTime);
+        i >= 1 &&
+          startTimeString != window.endTime &&
+          ((appointmentDiv.style = "margin-top: 20px"),
+          pauzeTijd >= 280
+            ? (appointmentDiv.style = "margin-top: 525px")
+            : pauzeTijd >= 240
+            ? (appointmentDiv.style = "margin-top: 450px")
+            : pauzeTijd >= 200
+            ? (appointmentDiv.style = "margin-top: 375px")
+            : pauzeTijd >= 160
+            ? (appointmentDiv.style = "margin-top: 300px")
+            : pauzeTijd >= 120
+            ? (appointmentDiv.style = "margin-top: 225px")
+            : pauzeTijd >= 80
+            ? (appointmentDiv.style = "margin-top: 150px")
+            : pauzeTijd >= 40 && (appointmentDiv.style = "margin-top: 75px")),
+          (0 == i || pauzeTijd <= -1) &&
+            ((startTimeString = Number(startTimeString.replace(":", ""))),
+            1 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 0")
+              : 2 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 75px")
+              : 3 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 150px")
+              : 4 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 225px")
+              : 5 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 300px")
+              : 6 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 375px")
+              : 7 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 450px")
+              : 8 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 525px")
+              : 9 == timeSlot
+              ? (appointmentDiv.style = "margin-top: 600px")
+              : 10 == timeSlot && (appointmentDiv.style = "margin-top: 675px")),
+          (window.endTime = endTimeString),
+          i++,
+          focus &&
+            (null != appointmentDiv.getAttribute("style")
+              ? (appointmentDiv.style =
+                  appointmentDiv.getAttribute("style") +
+                  "; animation-name: none")
+              : (appointmentDiv.style = "animation-name: none"));
+        const dago = Date.now();
+        if (
+          (dago >= 1e3 * appointment.end &&
+            appointmentDiv.classList.add("test"),
+          localStorage.setItem("LaatsteSync", dago),
+          "true" === localStorage.getItem("checkboxState") &&
+            null != localStorage.getItem("checkboxState"))
+        )
           if ("Notification" in window) {
-            // Check if permission has already been granted
             if (
-              Notification.permission === "granted" &&
-              appointment.cancelled === false
+              "granted" === Notification.permission &&
+              !1 === appointment.cancelled &&
+              (datum === formattedDate3 || datum === formattedDate2) &&
+              localStorage.getItem("LastNotificationDate") !== datum
             ) {
-              if (datum === formattedDate3 || datum === formattedDate2) {
-                if (localStorage.getItem("LastNotificationDate") !== datum) {
-                  const startTime = new Date(appointment.start * 1000);
-                  // If it's okay, create a notification
+              const startTime = new Date(1e3 * appointment.start);
+              new Notification(subjectsFullNames, {
+                body:
+                  startTimeString +
+                  "-" +
+                  endTimeString +
+                  " • " +
+                  appointment.locations +
+                  " (" +
+                  appointment.teachers +
+                  ")",
+                icon: "logo.svg",
+                timestamp: startTime,
+              });
+            }
+          } else
+            "true" === localStorage.getItem("checkboxState") &&
+              null != localStorage.getItem("checkboxState") &&
+              "denied" !== Notification.permission &&
+              Notification.requestPermission().then(function (permission) {
+                if (
+                  "granted" === permission &&
+                  !1 === appointment.cancelled &&
+                  (datum === formattedDate3 || datum === formattedDate2) &&
+                  localStorage.getItem("LastNotificationDate") !== datum
+                ) {
+                  const startTime = new Date(1e3 * appointment.start);
                   new Notification(subjectsFullNames, {
                     body:
                       startTimeString +
@@ -707,643 +535,487 @@ function fetchAppointments(date, focus) {
                     timestamp: startTime,
                   });
                 }
-              }
-            }
-          }
-          // If the permission is not granted yet, request for it
-          else if (
-            localStorage.getItem("checkboxState") === "true" &&
-            localStorage.getItem("checkboxState") != null
-          ) {
-            if (Notification.permission !== "denied") {
-              Notification.requestPermission().then(function (permission) {
-                // If the user accepts, send the notification
-                if (
-                  permission === "granted" &&
-                  appointment.cancelled === false
-                ) {
-                  if (datum === formattedDate3 || datum === formattedDate2) {
-                    if (
-                      localStorage.getItem("LastNotificationDate") !== datum
-                    ) {
-                      const startTime = new Date(appointment.start * 1000);
-                      // If it's okay, create a notification
-                      new Notification(subjectsFullNames, {
-                        body:
-                          startTimeString +
-                          "-" +
-                          endTimeString +
-                          " • " +
-                          appointment.locations +
-                          " (" +
-                          appointment.teachers +
-                          ")",
-                        icon: "logo.svg",
-                        timestamp: startTime,
-                      });
-                    }
-                  }
-                }
               });
-            }
-          }
-        }
-        appointmentDiv.classList.add(startTime.getDay());
-        scheduleDiv.appendChild(appointmentDiv);
+        appointmentDiv.classList.add(startTime.getDay()),
+          scheduleDiv.appendChild(appointmentDiv);
       });
     })
     .catch((error) =>
       console.error("Probleem met het laden van het rooster: ", error)
     )
     .then((data) => {
-      // Filter rooster van de week op basis van dag
-      var week1 = startDate.getWeek();
-      var yearWeek = year + "" + week1;
-      var div1 = document.createElement("span");
-      var scheduleDiv = document.getElementById("schedule");
-      div1.classList.add("1", "container");
-      scheduleDiv.appendChild(div1);
-
-      [...document.getElementsByClassName("1")].forEach((element) => {
-        if (element !== div1) {
-          div1.appendChild(element);
-        }
-      });
+      var week1 = startDate.getWeek(),
+        yearWeek = year + "" + week1,
+        div1 = document.createElement("span"),
+        scheduleDiv = document.getElementById("schedule");
+      div1.classList.add("1", "container"),
+        scheduleDiv.appendChild(div1),
+        [...document.getElementsByClassName("1")].forEach((element) => {
+          element !== div1 && div1.appendChild(element);
+        });
       var div2 = document.createElement("span");
-      div2.classList.add("2", "container");
-      scheduleDiv.appendChild(div2);
-
-      [...document.getElementsByClassName("2")].forEach((element) => {
-        if (element !== div2) {
-          div2.appendChild(element);
-        }
-      });
+      div2.classList.add("2", "container"),
+        scheduleDiv.appendChild(div2),
+        [...document.getElementsByClassName("2")].forEach((element) => {
+          element !== div2 && div2.appendChild(element);
+        });
       var div3 = document.createElement("span");
-      div3.classList.add("3", "container");
-      scheduleDiv.appendChild(div3);
-
-      [...document.getElementsByClassName("3")].forEach((element) => {
-        if (element !== div3) {
-          div3.appendChild(element);
-        }
-      });
+      div3.classList.add("3", "container"),
+        scheduleDiv.appendChild(div3),
+        [...document.getElementsByClassName("3")].forEach((element) => {
+          element !== div3 && div3.appendChild(element);
+        });
       var div4 = document.createElement("span");
-      div4.classList.add("4", "container");
-      scheduleDiv.appendChild(div4);
-
-      [...document.getElementsByClassName("4")].forEach((element) => {
-        if (element !== div4) {
-          div4.appendChild(element);
-        }
-      });
+      div4.classList.add("4", "container"),
+        scheduleDiv.appendChild(div4),
+        [...document.getElementsByClassName("4")].forEach((element) => {
+          element !== div4 && div4.appendChild(element);
+        });
       var div5 = document.createElement("span");
-      div5.classList.add("5", "container");
-      scheduleDiv.appendChild(div5);
-
-      [...document.getElementsByClassName("5")].forEach((element) => {
-        if (element !== div5) {
-          div5.appendChild(element);
-        }
-      });
+      div5.classList.add("5", "container"),
+        scheduleDiv.appendChild(div5),
+        [...document.getElementsByClassName("5")].forEach((element) => {
+          element !== div5 && div5.appendChild(element);
+        });
       var div6 = document.createElement("span");
-      div6.classList.add("6", "container");
-      scheduleDiv.appendChild(div6);
-
-      [...document.getElementsByClassName("6")].forEach((element) => {
-        if (element !== div6) {
-          div6.appendChild(element);
-        }
-      });
+      div6.classList.add("6", "container"),
+        scheduleDiv.appendChild(div6),
+        [...document.getElementsByClassName("6")].forEach((element) => {
+          element !== div6 && div6.appendChild(element);
+        });
       var div0 = document.createElement("span");
-      div0.classList.add("0", "container");
-      scheduleDiv.appendChild(div0);
-
-      [...document.getElementsByClassName("0")].forEach((element) => {
-        if (element !== div0) {
-          div0.appendChild(element);
-        }
-      });
-      // Laat bij lege dagen een bericht zien en laat vakanties zien
-      [1, 2, 3, 4, 5, 6, 0].forEach((num) => {
-        let element = document.querySelector(`.${CSS.escape(num)}`);
-        if (element && element.innerHTML.trim() === "") {
-          element.innerHTML = `<strong id="error-message" style="text-align: center; display: block"
-        ><img
-          src="es_geenresultaten.webp"
-          alt=""
-          style="text-align: center"
-          width="200px"
-          height="104px"
-        /><br />
-        Geen rooster gevonden voor deze dag.</strong
-      >`;
-          if (document.querySelector(".herfstVak")) {
-            element.innerHTML = "<div>Herfstvakantie</div>" + element.innerHTML;
-          }
-          if (document.querySelector(".kerstVak")) {
-            element.innerHTML = "<div>Kerstvakantie</div>" + element.innerHTML;
-          }
-          if (document.querySelector(".voorjaarsVak")) {
-            element.innerHTML =
-              "<div>Voorjaarsvakantie</div>" + element.innerHTML;
-          }
-          if (document.querySelector(".meiVak")) {
-            element.innerHTML = "<div>Meivakantie</div>" + element.innerHTML;
-          }
-          if (document.querySelector(".zomerVak")) {
-            element.innerHTML = "<div>Zomervakantie</div>" + element.innerHTML;
-          }
-          function loadScript(src) {
-            return new Promise((resolve, reject) => {
-              const script = document.createElement("script");
-              script.src = src;
-              script.onload = resolve;
-              script.onerror = reject;
-              document.head.appendChild(script);
-            });
-          }
-          if (!localStorage.getItem("webp")) {
-            check_webp_feature("lossy", function (feature, isSupported) {
-              localStorage.setItem("webp", "true");
-              if (!isSupported) {
-                localStorage.setItem("webp", "false");
-                Promise.all([
-                  loadScript("polyfills.js"),
-                  loadScript("webp-hero.bundle.js"),
-                ])
-                  .then(() => {
-                    const webpMachine = new webpHero.WebpMachine();
-                    webpMachine.polyfillDocument();
-                  })
-                  .catch((error) => {
-                    console.error(
-                      "Een of meer scripts konden niet worden geladen:",
-                      error
-                    );
-                  });
-              }
-            });
-          } else if (localStorage.getItem("webp") == "false") {
-            Promise.all([
-              loadScript("polyfills.js"),
-              loadScript("webp-hero.bundle.js"),
-            ])
-              .then(() => {
-                const webpMachine = new webpHero.WebpMachine();
-                webpMachine.polyfillDocument();
-              })
-              .catch((error) => {
-                console.error(
-                  "Een of meer scripts konden niet worden geladen:",
-                  error
-                );
+      div0.classList.add("0", "container"),
+        scheduleDiv.appendChild(div0),
+        [...document.getElementsByClassName("0")].forEach((element) => {
+          element !== div0 && div0.appendChild(element);
+        }),
+        [1, 2, 3, 4, 5, 6, 0].forEach((num) => {
+          let element = document.querySelector(`.${CSS.escape(num)}`);
+          if (element && "" === element.innerHTML.trim()) {
+            function loadScript(src) {
+              return new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                (script.src = src),
+                  (script.onload = resolve),
+                  (script.onerror = reject),
+                  document.head.appendChild(script);
               });
+            }
+            (element.innerHTML =
+              '<strong id="error-message" style="text-align: center; display: block"\n        ><img\n          src="es_geenresultaten.webp"\n          alt=""\n          style="text-align: center"\n          width="200px"\n          height="104px"\n        /><br />\n        Geen rooster gevonden voor deze dag.</strong\n      >'),
+              document.querySelector(".herfstVak") &&
+                (element.innerHTML =
+                  "<div>Herfstvakantie</div>" + element.innerHTML),
+              document.querySelector(".kerstVak") &&
+                (element.innerHTML =
+                  "<div>Kerstvakantie</div>" + element.innerHTML),
+              document.querySelector(".voorjaarsVak") &&
+                (element.innerHTML =
+                  "<div>Voorjaarsvakantie</div>" + element.innerHTML),
+              document.querySelector(".meiVak") &&
+                (element.innerHTML =
+                  "<div>Meivakantie</div>" + element.innerHTML),
+              document.querySelector(".zomerVak") &&
+                (element.innerHTML =
+                  "<div>Zomervakantie</div>" + element.innerHTML),
+              localStorage.getItem("webp")
+                ? "false" == localStorage.getItem("webp") &&
+                  Promise.all([
+                    loadScript("polyfills.js"),
+                    loadScript("webp-hero.bundle.js"),
+                  ])
+                    .then(() => {
+                      new webpHero.WebpMachine().polyfillDocument();
+                    })
+                    .catch((error) => {
+                      console.error(
+                        "Een of meer scripts konden niet worden geladen:",
+                        error
+                      );
+                    })
+                : check_webp_feature("lossy", function (feature, isSupported) {
+                    localStorage.setItem("webp", "true"),
+                      isSupported ||
+                        (localStorage.setItem("webp", "false"),
+                        Promise.all([
+                          loadScript("polyfills.js"),
+                          loadScript("webp-hero.bundle.js"),
+                        ])
+                          .then(() => {
+                            new webpHero.WebpMachine().polyfillDocument();
+                          })
+                          .catch((error) => {
+                            console.error(
+                              "Een of meer scripts konden niet worden geladen:",
+                              error
+                            );
+                          }));
+                  });
           }
-        }
-      });
-      localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
+        }),
+        localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
     });
-
-  // Retry every 500ms until the element with id 'vaknaam' exists
   const retryInterval = setInterval(function () {
-    const vaknaamElement = document.getElementById("vaknaam");
-
-    if (vaknaamElement) {
-      if (datum === formattedDate3 || datum === formattedDate2) {
-        // Element exists, save the date from dateInput to localStorage
-        const dateInputValue = document.getElementById("dateInput").value;
-        localStorage.setItem("LastNotificationDate", dateInputValue);
-
-        // Stop retrying
+    if (
+      document.getElementById("vaknaam") &&
+      (datum === formattedDate3 || datum === formattedDate2)
+    ) {
+      const dateInputValue = document.getElementById("dateInput").value;
+      localStorage.setItem("LastNotificationDate", dateInputValue),
         clearInterval(retryInterval);
-      }
     }
-  }, 50); // Check every 50ms
+  }, 50);
 }
-// Function to filter out cancelled lessons if there are multiple lessons for the same hour
 function filterCancelledLessons(appointments) {
   const filteredAppointments = [];
-
-  appointments.forEach((appointment) => {
-    // Check if there is already an appointment for the same hour
-    const existingAppointment = filteredAppointments.find(
-      (appt) =>
-        appt.startTimeSlot === appointment.startTimeSlot &&
-        appt.start <= appointment.start &&
-        appt.end >= appointment.end
+  return (
+    appointments.forEach((appointment) => {
+      const existingAppointment = filteredAppointments.find(
+        (appt) =>
+          appt.startTimeSlot === appointment.startTimeSlot &&
+          appt.start <= appointment.start &&
+          appt.end >= appointment.end
+      );
+      if (existingAppointment) {
+        if (!existingAppointment.cancelled && appointment.cancelled) return;
+        existingAppointment.cancelled &&
+          !appointment.cancelled &&
+          filteredAppointments.splice(
+            filteredAppointments.indexOf(existingAppointment),
+            1,
+            appointment
+          );
+      } else filteredAppointments.push(appointment);
+    }),
+    filteredAppointments
+  );
+}
+checkbox2.addEventListener("change", saveCheckboxState2),
+  checkbox.addEventListener("change", saveCheckboxState),
+  (Date.prototype.getWeek = function () {
+    var date = new Date(this.getTime());
+    date.setHours(0, 0, 0, 0),
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    return (
+      1 +
+      Math.round(
+        ((date.getTime() - week1.getTime()) / 864e5 -
+          3 +
+          ((week1.getDay() + 6) % 7)) /
+          7
+      )
     );
-
-    if (existingAppointment) {
-      // If there's already an appointment and it's not cancelled, keep it and discard the current one
-      if (!existingAppointment.cancelled && appointment.cancelled) {
-        return;
-      }
-      // If the existing appointment is cancelled, replace it with the current one
-      if (existingAppointment.cancelled && !appointment.cancelled) {
-        filteredAppointments.splice(
-          filteredAppointments.indexOf(existingAppointment),
-          1,
-          appointment
+  }),
+  document.getElementById("dateInput").addEventListener("change", function () {
+    const dateInput = document.getElementById("dateInput").value;
+    if (/^[a-zA-Z]{2}\s/.test(dateInput))
+      var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
+    else var [day1, month] = dateInput.split(" ");
+    const monthShort = month.substring(0, 3),
+      monthIndex = dutchMonthNames.findIndex(
+        (monthName) => monthName.toLowerCase() === monthShort
+      ),
+      currentDate = new Date(),
+      ActualCurrentDate = new Date();
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day1)
+    );
+    var currentWeek = currentDate.getWeek(),
+      currentYear = currentDate.getFullYear();
+    const currentDay = currentDate.getDay(),
+      nowWeek = new Date().getWeek();
+    1 == currentDay
+      ? (document.getElementById("schedule").style = "right: 0;")
+      : 2 == currentDay
+      ? (document.getElementById("schedule").style = "right: 100vw;")
+      : 3 == currentDay
+      ? (document.getElementById("schedule").style = "right: 200vw;")
+      : 4 == currentDay
+      ? (document.getElementById("schedule").style = "right: 300vw;")
+      : 5 == currentDay
+      ? (document.getElementById("schedule").style = "right: 400vw;")
+      : 6 == currentDay
+      ? (document.getElementById("schedule").style = "right: 500vw;")
+      : 0 == currentDay &&
+        (document.getElementById("schedule").style = "right: 600vw;");
+    const ActualCurrentDateInfo =
+        ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth(),
+      currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+    ActualCurrentDateInfo != currentDateInfo &&
+      document.getElementById("add").setAttribute("style", "display: block;"),
+      ActualCurrentDateInfo == currentDateInfo &&
+        document.getElementById("add").setAttribute("style", "display: none;"),
+      currentWeek - nowWeek != 0 &&
+        (localStorage.getItem(currentYear + "" + currentWeek)
+          ? (document.getElementById("schedule").innerHTML =
+              localStorage.getItem(currentYear + "" + currentWeek))
+          : (document.getElementById("schedule").innerHTML = ""),
+        fetchAppointments(dateInput));
+  }),
+  document.getElementById("add").addEventListener("click", function () {
+    const dateInput = document.getElementById("dateInput").value;
+    if (/^[a-zA-Z]{2}\s/.test(dateInput))
+      var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
+    else var [day1, month] = dateInput.split(" ");
+    const monthShort = month.substring(0, 3),
+      monthIndex = dutchMonthNames.findIndex(
+        (monthName) => monthName.toLowerCase() === monthShort
+      ),
+      previousDate = new Date();
+    previousDate.setFullYear(
+      previousDate.getFullYear(),
+      monthIndex,
+      parseInt(day1)
+    );
+    const previousWeek = previousDate.getWeek(),
+      today = new Date(),
+      day = today.getDate(),
+      currentWeek = today.getWeek();
+    var currentYear = today.getFullYear();
+    const currentDay = today.getDay(),
+      zomadiwodovrza = ["zo", "ma", "di", "wo", "do", "vr", "za"][
+        today.getDay()
+      ],
+      monthName = dutchMonthNames[today.getMonth()],
+      formattedDate = `${day} ${monthName}`,
+      formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
+    (document.getElementById("dateInput").value = formattedDate1),
+      1 == currentDay
+        ? (document.getElementById("schedule").style = "right: 0;")
+        : 2 == currentDay
+        ? (document.getElementById("schedule").style = "right: 100vw;")
+        : 3 == currentDay
+        ? (document.getElementById("schedule").style = "right: 200vw;")
+        : 4 == currentDay
+        ? (document.getElementById("schedule").style = "right: 300vw;")
+        : 5 == currentDay
+        ? (document.getElementById("schedule").style = "right: 400vw;")
+        : 6 == currentDay
+        ? (document.getElementById("schedule").style = "right: 500vw;")
+        : 0 == currentDay &&
+          (document.getElementById("schedule").style = "right: 600vw;"),
+      currentWeek - previousWeek != 0 &&
+        (localStorage.getItem(currentYear + "" + currentWeek)
+          ? (document.getElementById("schedule").innerHTML =
+              localStorage.getItem(currentYear + "" + currentWeek))
+          : (document.getElementById("schedule").innerHTML = ""),
+        fetchAppointments(formattedDate)),
+      document.getElementById("add").setAttribute("style", "display: none;");
+  }),
+  document.getElementById("previousDay").addEventListener("click", function () {
+    const dateInput = document.getElementById("dateInput").value;
+    if (/^[a-zA-Z]{2}\s/.test(dateInput))
+      var [zomadiwodovrza, day, month] = dateInput.split(" ");
+    else var [day, month] = dateInput.split(" ");
+    const monthShort = month.substring(0, 3),
+      monthIndex = dutchMonthNames.findIndex(
+        (monthName) => monthName.toLowerCase() === monthShort
+      ),
+      previousDate = new Date();
+    previousDate.setFullYear(
+      previousDate.getFullYear(),
+      monthIndex,
+      parseInt(day)
+    );
+    var previousWeek = previousDate.getWeek();
+    const ActualCurrentDate = new Date(),
+      currentDate = new Date();
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) - 1
+    ),
+      0 == currentDate.getDay() &&
+        currentDate.setFullYear(
+          currentDate.getFullYear(),
+          monthIndex,
+          parseInt(day) - 3
+        ),
+      6 == currentDate.getDay() &&
+        currentDate.setFullYear(
+          currentDate.getFullYear(),
+          monthIndex,
+          parseInt(day) - 2
         );
-      }
-    } else {
-      filteredAppointments.push(appointment);
-    }
+    var currentWeek = currentDate.getWeek(),
+      currentYear = currentDate.getFullYear(),
+      currentDay = currentDate.getDay();
+    const nextDay =
+      ["zo", "ma", "di", "wo", "do", "vr", "za"][currentDate.getDay()] +
+      " " +
+      currentDate.getDate() +
+      " " +
+      dutchMonthNames[currentDate.getMonth()];
+    (document.getElementById("dateInput").value = nextDay),
+      1 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day1left 0.1s ease-in-out forwards; right: 0;")
+        : 2 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day2left 0.1s ease-in-out forwards; right: 100vw;")
+        : 3 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day3left 0.1s ease-in-out forwards; right: 200vw;")
+        : 4 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day4left 0.1s ease-in-out forwards; right: 300vw;")
+        : 5 == currentDay
+        ? (document.getElementById("schedule").style = "right: 400vw;")
+        : 6 == currentDay
+        ? (document.getElementById("schedule").style = "right: 500vw;")
+        : 0 == currentDay &&
+          (document.getElementById("schedule").style = "right: 600vw;");
+    const ActualCurrentDateInfo =
+        ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth(),
+      currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+    ActualCurrentDateInfo != currentDateInfo &&
+      document.getElementById("add").setAttribute("style", "display: block;"),
+      ActualCurrentDateInfo == currentDateInfo &&
+        document.getElementById("add").setAttribute("style", "display: none;"),
+      currentWeek - previousWeek != 0 &&
+        (localStorage.getItem(currentYear + "" + currentWeek)
+          ? (document.getElementById("schedule").innerHTML =
+              localStorage.getItem(currentYear + "" + currentWeek))
+          : (document.getElementById("schedule").innerHTML = ""),
+        fetchAppointments(nextDay));
+  }),
+  document.getElementById("nextDay").addEventListener("click", function () {
+    const dateInput = document.getElementById("dateInput").value;
+    if (/^[a-zA-Z]{2}\s/.test(dateInput))
+      var [zomadiwodovrza, day, month] = dateInput.split(" ");
+    else var [day, month] = dateInput.split(" ");
+    const monthShort = month.substring(0, 3),
+      monthIndex = dutchMonthNames.findIndex(
+        (monthName) => monthName.toLowerCase() === monthShort
+      ),
+      previousDate = new Date();
+    previousDate.setFullYear(
+      previousDate.getFullYear(),
+      monthIndex,
+      parseInt(day)
+    );
+    var previousWeek = previousDate.getWeek();
+    const currentDate = new Date(),
+      ActualCurrentDate = new Date();
+    currentDate.setFullYear(
+      currentDate.getFullYear(),
+      monthIndex,
+      parseInt(day) + 1
+    ),
+      0 == currentDate.getDay() &&
+        currentDate.setFullYear(
+          currentDate.getFullYear(),
+          monthIndex,
+          parseInt(day) + 2
+        ),
+      6 == currentDate.getDay() &&
+        currentDate.setFullYear(
+          currentDate.getFullYear(),
+          monthIndex,
+          parseInt(day) + 3
+        );
+    var currentWeek = currentDate.getWeek(),
+      currentYear = currentDate.getFullYear(),
+      currentDay = currentDate.getDay();
+    const nextDay =
+      ["zo", "ma", "di", "wo", "do", "vr", "za"][currentDate.getDay()] +
+      " " +
+      currentDate.getDate() +
+      " " +
+      dutchMonthNames[currentDate.getMonth()];
+    (document.getElementById("dateInput").value = nextDay),
+      1 == currentDay
+        ? (document.getElementById("schedule").style = "right: 0;")
+        : 2 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day2 0.1s ease-in-out forwards; right: 100vw;")
+        : 3 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day3 0.1s ease-in-out forwards; right: 200vw;")
+        : 4 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day4 0.1s ease-in-out forwards; right: 300vw;")
+        : 5 == currentDay
+        ? (document.getElementById("schedule").style =
+            "animation: day5 0.1s ease-in-out forwards; right: 400vw;")
+        : 6 == currentDay
+        ? (document.getElementById("schedule").style = "right: 500vw;")
+        : 0 == currentDay &&
+          (document.getElementById("schedule").style = "right: 600vw;");
+    const ActualCurrentDateInfo =
+        ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth(),
+      currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
+    ActualCurrentDateInfo != currentDateInfo &&
+      document.getElementById("add").setAttribute("style", "display: block;"),
+      ActualCurrentDateInfo == currentDateInfo &&
+        document.getElementById("add").setAttribute("style", "display: none;"),
+      currentWeek - previousWeek != 0 &&
+        (localStorage.getItem(currentYear + "" + currentWeek)
+          ? (document.getElementById("schedule").innerHTML =
+              localStorage.getItem(currentYear + "" + currentWeek))
+          : (document.getElementById("schedule").innerHTML = ""),
+        fetchAppointments(nextDay));
+  }),
+  document.addEventListener("DOMContentLoaded", function () {
+    cleanupOldStorage(),
+      restoreCheckboxState(),
+      restoreCheckboxState1(),
+      restoreCheckboxState2();
+    const today = new Date(),
+      day = today.getDate(),
+      currentDay = today.getDay(),
+      zomadiwodovrza = ["zo", "ma", "di", "wo", "do", "vr", "za"][
+        today.getDay()
+      ],
+      monthName = dutchMonthNames[today.getMonth()],
+      formattedDate = `${day} ${monthName}`,
+      formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
+    (document.getElementById("dateInput").value = formattedDate1),
+      1 == currentDay
+        ? (document.getElementById("schedule").style = "right: 0;")
+        : 2 == currentDay
+        ? (document.getElementById("schedule").style = "right: 100vw;")
+        : 3 == currentDay
+        ? (document.getElementById("schedule").style = "right: 200vw;")
+        : 4 == currentDay
+        ? (document.getElementById("schedule").style = "right: 300vw;")
+        : 5 == currentDay
+        ? (document.getElementById("schedule").style = "right: 400vw;")
+        : 6 == currentDay
+        ? (document.getElementById("schedule").style = "right: 500vw;")
+        : 0 == currentDay &&
+          (document.getElementById("schedule").style = "right: 600vw;"),
+      localStorage.getItem("access_token") &&
+      localStorage.getItem("schoolName") &&
+      localStorage.getItem("userType") &&
+      localStorage.getItem("subjects")
+        ? fetchAppointments(formattedDate)
+        : (localStorage.getItem("userType") &&
+            localStorage.getItem("subjects")) ||
+          (localStorage.getItem("access_token") && userInfo(formattedDate));
+  }),
+  (schoolName.value = localStorage.getItem("schoolName")),
+  (schoolName.oninput = () => {
+    localStorage.setItem("schoolName", schoolName.value);
   });
-
-  return filteredAppointments;
-}
-
-// Function to handle loading schedule when button is clicked
-document.getElementById("dateInput").addEventListener("change", function () {
-  const dateInput = document.getElementById("dateInput").value;
-  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
-    var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
-  } else {
-    var [day1, month] = dateInput.split(" ");
-  }
-  const monthShort = month.substring(0, 3);
-  const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === monthShort
-  );
-  const currentDate = new Date();
-  const ActualCurrentDate = new Date();
-  currentDate.setFullYear(
-    currentDate.getFullYear(),
-    monthIndex,
-    parseInt(day1)
-  );
-  var currentWeek = currentDate.getWeek();
-  var currentYear = currentDate.getFullYear();
-  const currentDay = currentDate.getDay();
-  const today = new Date();
-  const nowWeek = today.getWeek();
-  if (currentDay == 1) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (currentDay == 2) {
-    document.getElementById("schedule").style = "right: 100vw;";
-  } else if (currentDay == 3) {
-    document.getElementById("schedule").style = "right: 200vw;";
-  } else if (currentDay == 4) {
-    document.getElementById("schedule").style = "right: 300vw;";
-  } else if (currentDay == 5) {
-    document.getElementById("schedule").style = "right: 400vw;";
-  } else if (currentDay == 6) {
-    document.getElementById("schedule").style = "right: 500vw;";
-  } else if (currentDay == 0) {
-    document.getElementById("schedule").style = "right: 600vw;";
-  }
-  const ActualCurrentDateInfo =
-    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
-  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
-  if (ActualCurrentDateInfo != currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: block;");
-  }
-  if (ActualCurrentDateInfo == currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: none;");
-  }
-  if (currentWeek - nowWeek != 0) {
-    if (localStorage.getItem(currentYear + "" + currentWeek)) {
-      document.getElementById("schedule").innerHTML = localStorage.getItem(
-        currentYear + "" + currentWeek
-      );
-    } else {
-      document.getElementById("schedule").innerHTML = "";
-    }
-    fetchAppointments(dateInput);
-  }
-});
-document.getElementById("add").addEventListener("click", function () {
-  const dateInput = document.getElementById("dateInput").value;
-  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
-    var [zomadiwodovrza1, day1, month] = dateInput.split(" ");
-  } else {
-    var [day1, month] = dateInput.split(" ");
-  }
-  const monthShort = month.substring(0, 3);
-  const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === monthShort
-  );
-  const previousDate = new Date();
-  previousDate.setFullYear(
-    previousDate.getFullYear(),
-    monthIndex,
-    parseInt(day1)
-  );
-  const previousWeek = previousDate.getWeek();
-  const today = new Date();
-  const day = today.getDate();
-  const currentWeek = today.getWeek();
-  var currentYear = today.getFullYear();
-  const currentDay = today.getDay();
-  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-  const zomadiwodovrza = daysOfWeek[today.getDay()];
-  const monthName = dutchMonthNames[today.getMonth()];
-  const formattedDate = `${day} ${monthName}`;
-  const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
-  document.getElementById("dateInput").value = formattedDate1;
-  if (currentDay == 1) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (currentDay == 2) {
-    document.getElementById("schedule").style = "right: 100vw;";
-  } else if (currentDay == 3) {
-    document.getElementById("schedule").style = "right: 200vw;";
-  } else if (currentDay == 4) {
-    document.getElementById("schedule").style = "right: 300vw;";
-  } else if (currentDay == 5) {
-    document.getElementById("schedule").style = "right: 400vw;";
-  } else if (currentDay == 6) {
-    document.getElementById("schedule").style = "right: 500vw;";
-  } else if (currentDay == 0) {
-    document.getElementById("schedule").style = "right: 600vw;";
-  }
-  if (currentWeek - previousWeek != 0) {
-    if (localStorage.getItem(currentYear + "" + currentWeek)) {
-      document.getElementById("schedule").innerHTML = localStorage.getItem(
-        currentYear + "" + currentWeek
-      );
-    } else {
-      document.getElementById("schedule").innerHTML = "";
-    }
-    fetchAppointments(formattedDate);
-  }
-  document.getElementById("add").setAttribute("style", "display: none;");
-});
-// Function to handle previous day button click
-document.getElementById("previousDay").addEventListener("click", function () {
-  const dateInput = document.getElementById("dateInput").value;
-  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
-    var [zomadiwodovrza, day, month] = dateInput.split(" ");
-  } else {
-    var [day, month] = dateInput.split(" ");
-  }
-  const monthShort = month.substring(0, 3);
-  const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === monthShort
-  );
-  const previousDate = new Date();
-  previousDate.setFullYear(
-    previousDate.getFullYear(),
-    monthIndex,
-    parseInt(day)
-  );
-  var previousWeek = previousDate.getWeek();
-  const ActualCurrentDate = new Date();
-  const currentDate = new Date();
-  currentDate.setFullYear(
-    currentDate.getFullYear(),
-    monthIndex,
-    parseInt(day) - 1
-  );
-  if (currentDate.getDay() == 0) {
-    currentDate.setFullYear(
-      currentDate.getFullYear(),
-      monthIndex,
-      parseInt(day) - 3
-    );
-  }
-  if (currentDate.getDay() == 6) {
-    currentDate.setFullYear(
-      currentDate.getFullYear(),
-      monthIndex,
-      parseInt(day) - 2
-    );
-  }
-  var currentWeek = currentDate.getWeek();
-  var currentYear = currentDate.getFullYear();
-  var currentDay = currentDate.getDay();
-  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-  const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
-  const nextDay =
-    zomadiwodovrza1 +
-    " " +
-    currentDate.getDate() +
-    " " +
-    dutchMonthNames[currentDate.getMonth()];
-  document.getElementById("dateInput").value = nextDay;
-  if (currentDay == 1) {
-    document.getElementById("schedule").style =
-      "animation: day1left 0.1s ease-in-out forwards; right: 0;";
-  } else if (currentDay == 2) {
-    document.getElementById("schedule").style =
-      "animation: day2left 0.1s ease-in-out forwards; right: 100vw;";
-  } else if (currentDay == 3) {
-    document.getElementById("schedule").style =
-      "animation: day3left 0.1s ease-in-out forwards; right: 200vw;";
-  } else if (currentDay == 4) {
-    document.getElementById("schedule").style =
-      "animation: day4left 0.1s ease-in-out forwards; right: 300vw;";
-  } else if (currentDay == 5) {
-    document.getElementById("schedule").style = "right: 400vw;";
-  } else if (currentDay == 6) {
-    document.getElementById("schedule").style = "right: 500vw;";
-  } else if (currentDay == 0) {
-    document.getElementById("schedule").style = "right: 600vw;";
-  }
-  const ActualCurrentDateInfo =
-    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
-  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
-  if (ActualCurrentDateInfo != currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: block;");
-  }
-  if (ActualCurrentDateInfo == currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: none;");
-  }
-  if (currentWeek - previousWeek != 0) {
-    if (localStorage.getItem(currentYear + "" + currentWeek)) {
-      document.getElementById("schedule").innerHTML = localStorage.getItem(
-        currentYear + "" + currentWeek
-      );
-    } else {
-      document.getElementById("schedule").innerHTML = "";
-    }
-    fetchAppointments(nextDay);
-  }
-});
-
-// Function to handle next day button click
-document.getElementById("nextDay").addEventListener("click", function () {
-  const dateInput = document.getElementById("dateInput").value;
-  if (/^[a-zA-Z]{2}\s/.test(dateInput)) {
-    var [zomadiwodovrza, day, month] = dateInput.split(" ");
-  } else {
-    var [day, month] = dateInput.split(" ");
-  }
-  const monthShort = month.substring(0, 3);
-  const monthIndex = dutchMonthNames.findIndex(
-    (monthName) => monthName.toLowerCase() === monthShort
-  );
-  const previousDate = new Date();
-  previousDate.setFullYear(
-    previousDate.getFullYear(),
-    monthIndex,
-    parseInt(day)
-  );
-  var previousWeek = previousDate.getWeek();
-  const currentDate = new Date();
-  const ActualCurrentDate = new Date();
-  currentDate.setFullYear(
-    currentDate.getFullYear(),
-    monthIndex,
-    parseInt(day) + 1
-  );
-  if (currentDate.getDay() == 0) {
-    currentDate.setFullYear(
-      currentDate.getFullYear(),
-      monthIndex,
-      parseInt(day) + 2
-    );
-  }
-  if (currentDate.getDay() == 6) {
-    currentDate.setFullYear(
-      currentDate.getFullYear(),
-      monthIndex,
-      parseInt(day) + 3
-    );
-  }
-  var currentWeek = currentDate.getWeek();
-  var currentYear = currentDate.getFullYear();
-  var currentDay = currentDate.getDay();
-  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-  const zomadiwodovrza1 = daysOfWeek[currentDate.getDay()];
-  const nextDay =
-    zomadiwodovrza1 +
-    " " +
-    currentDate.getDate() +
-    " " +
-    dutchMonthNames[currentDate.getMonth()];
-  document.getElementById("dateInput").value = nextDay;
-  if (currentDay == 1) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (currentDay == 2) {
-    document.getElementById("schedule").style =
-      "animation: day2 0.1s ease-in-out forwards; right: 100vw;";
-  } else if (currentDay == 3) {
-    document.getElementById("schedule").style =
-      "animation: day3 0.1s ease-in-out forwards; right: 200vw;";
-  } else if (currentDay == 4) {
-    document.getElementById("schedule").style =
-      "animation: day4 0.1s ease-in-out forwards; right: 300vw;";
-  } else if (currentDay == 5) {
-    document.getElementById("schedule").style =
-      "animation: day5 0.1s ease-in-out forwards; right: 400vw;";
-  } else if (currentDay == 6) {
-    document.getElementById("schedule").style = "right: 500vw;";
-  } else if (currentDay == 0) {
-    document.getElementById("schedule").style = "right: 600vw;";
-  }
-  const ActualCurrentDateInfo =
-    ActualCurrentDate.getDate() + "" + ActualCurrentDate.getMonth();
-  const currentDateInfo = currentDate.getDate() + "" + currentDate.getMonth();
-  if (ActualCurrentDateInfo != currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: block;");
-  }
-  if (ActualCurrentDateInfo == currentDateInfo) {
-    document.getElementById("add").setAttribute("style", "display: none;");
-  }
-  if (currentWeek - previousWeek != 0) {
-    if (localStorage.getItem(currentYear + "" + currentWeek)) {
-      document.getElementById("schedule").innerHTML = localStorage.getItem(
-        currentYear + "" + currentWeek
-      );
-    } else {
-      document.getElementById("schedule").innerHTML = "";
-    }
-    fetchAppointments(nextDay);
-  }
-});
-
-// Fetch appointments for today when the page loads
-document.addEventListener("DOMContentLoaded", function () {
-  cleanupOldStorage();
-  restoreCheckboxState();
-  restoreCheckboxState1();
-  restoreCheckboxState2();
-  // Default to today's date
-  const today = new Date();
-  const day = today.getDate();
-  const currentDay = today.getDay();
-  const daysOfWeek = ["zo", "ma", "di", "wo", "do", "vr", "za"];
-  const zomadiwodovrza = daysOfWeek[today.getDay()];
-  const monthName = dutchMonthNames[today.getMonth()];
-  const formattedDate = `${day} ${monthName}`;
-  const formattedDate1 = `${zomadiwodovrza} ${day} ${monthName}`;
-  document.getElementById("dateInput").value = formattedDate1;
-  if (currentDay == 1) {
-    document.getElementById("schedule").style = "right: 0;";
-  } else if (currentDay == 2) {
-    document.getElementById("schedule").style = "right: 100vw;";
-  } else if (currentDay == 3) {
-    document.getElementById("schedule").style = "right: 200vw;";
-  } else if (currentDay == 4) {
-    document.getElementById("schedule").style = "right: 300vw;";
-  } else if (currentDay == 5) {
-    document.getElementById("schedule").style = "right: 400vw;";
-  } else if (currentDay == 6) {
-    document.getElementById("schedule").style = "right: 500vw;";
-  } else if (currentDay == 0) {
-    document.getElementById("schedule").style = "right: 600vw;";
-  }
-  if (
-    localStorage.getItem("access_token") &&
-    localStorage.getItem("schoolName") &&
-    localStorage.getItem("userType") &&
-    localStorage.getItem("subjects")
-  ) {
-    fetchAppointments(formattedDate);
-  } else if (
-    !localStorage.getItem("userType") ||
-    !localStorage.getItem("subjects")
-  ) {
-    if (localStorage.getItem("access_token")) {
-      userInfo(formattedDate);
-    }
-  }
-});
-
-// Sla schoolnaam en token op
-schoolName.value = localStorage.getItem("schoolName");
-schoolName.oninput = () => {
-  localStorage.setItem("schoolName", schoolName.value);
-};
 const authorizationCode1 = document.getElementById("authorizationCode");
-authorizationCode1.value = localStorage.getItem("authorizationCode");
-authorizationCode1.oninput = () => {
-  localStorage.setItem("authorizationCode", authorizationCode1.value);
-};
-
-user.value = localStorage.getItem("user");
-user.oninput = () => {
-  localStorage.setItem("user", user.value);
-};
-
-css.value = localStorage.getItem("css");
-css.oninput = () => {
-  localStorage.setItem("css", css.value);
-};
-
-// Functie om dialoogvenster te tonen
 function showDialog() {
-  const dialog = document.getElementById("dialog");
-  dialog.showModal();
+  document.getElementById("dialog").showModal();
 }
-// Functie om de access token te verkrijgen door middel van de koppelcode.
 async function fetchToken(authorizationCode, schoolName) {
   try {
-    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
+    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`,
+      response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+    if (!response.ok)
       throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-    const parsedresp = await response.json();
-    const accessToken = parsedresp["access_token"];
-    localStorage.setItem("access_token", accessToken);
-    return accessToken;
+    const accessToken = (await response.json()).access_token;
+    return localStorage.setItem("access_token", accessToken), accessToken;
   } catch (error) {
     console.error(
       "Probleem met het ophalen van de access_token:",
@@ -1351,114 +1023,83 @@ async function fetchToken(authorizationCode, schoolName) {
     );
   }
 }
-// Functie om dialoogvenster te verbergen
 async function hideDialog() {
-  const dialog = document.getElementById("dialog");
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode = document.getElementById("authorizationCode").value;
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
+  const dialog = document.getElementById("dialog"),
+    schoolName = document.getElementById("schoolName").value,
+    authorizationCode = document.getElementById("authorizationCode").value;
   let accessToken = localStorage.getItem("access_token");
-  if (/^\d{12}$/.test(authorizationCode)) {
-    if (accessToken == null || accessToken == "[object Promise]") {
-      accessToken = await fetchToken(authorizationCode, schoolName);
-      localStorage.setItem("access_token", accessToken);
-    }
-  } else if (/^[a-z0-9]{26}$/.test(authorizationCodeLS)) {
-    localStorage.setItem("access_token", authorizationCodeLS);
-  }
-  dialog.close();
+  /^\d{12}$/.test(authorizationCode)
+    ? (null != accessToken && "[object Promise]" != accessToken) ||
+      ((accessToken = await fetchToken(authorizationCode, schoolName)),
+      localStorage.setItem("access_token", accessToken))
+    : /^[a-z0-9]{26}$/.test(authorizationCodeLS) &&
+      localStorage.setItem("access_token", authorizationCodeLS),
+    dialog.close();
   const dateInput = document.getElementById("dateInput").value;
-  if (
-    localStorage.getItem("access_token") &&
-    localStorage.getItem("schoolName") &&
-    localStorage.getItem("userType")
-  ) {
-    fetchAppointments(dateInput);
-  } else if (
-    !localStorage.getItem("userType") &&
-    localStorage.getItem("access_token")
-  ) {
-    userInfo(dateInput);
-  }
-  document.getElementById("css").click();
+  localStorage.getItem("access_token") &&
+  localStorage.getItem("schoolName") &&
+  localStorage.getItem("userType")
+    ? fetchAppointments(dateInput)
+    : !localStorage.getItem("userType") &&
+      localStorage.getItem("access_token") &&
+      userInfo(dateInput),
+    document.getElementById("css").click();
 }
-document.addEventListener("DOMContentLoaded", function () {
-  const schoolName = localStorage.getItem("schoolName") || "";
-  const authorizationCode = localStorage.getItem("authorizationCode") || "";
-  if (schoolName.trim() === "" || authorizationCode.trim() === "") {
-    // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
-    showDialog();
-  } else {
-  }
-});
-
 function update_section(with_what, what) {
   document.getElementById(what + "goeshere").innerHTML = with_what;
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("css").click();
-});
-
 function loadPreviousDaySchedule() {
   document.getElementById("previousDay").click();
 }
-
 function loadNextDaySchedule() {
   document.getElementById("nextDay").click();
 }
-// Function to handle arrow key presses
 function handleArrowKeyPress(event) {
   const key = event.key;
-  if (key === "ArrowLeft") {
-    // Arrow left, load previous day schedule
-    loadPreviousDaySchedule();
-  } else if (key === "ArrowRight") {
-    // Arrow right, load next day schedule
-    loadNextDaySchedule();
-  }
+  "ArrowLeft" === key
+    ? loadPreviousDaySchedule()
+    : "ArrowRight" === key && loadNextDaySchedule();
 }
-
-let startX;
-let startY;
+let startX, startY;
+(authorizationCode1.value = localStorage.getItem("authorizationCode")),
+  (authorizationCode1.oninput = () => {
+    localStorage.setItem("authorizationCode", authorizationCode1.value);
+  }),
+  (user.value = localStorage.getItem("user")),
+  (user.oninput = () => {
+    localStorage.setItem("user", user.value);
+  }),
+  (css.value = localStorage.getItem("css")),
+  (css.oninput = () => {
+    localStorage.setItem("css", css.value);
+  }),
+  document.addEventListener("DOMContentLoaded", function () {
+    const schoolName = localStorage.getItem("schoolName") || "",
+      authorizationCode = localStorage.getItem("authorizationCode") || "";
+    ("" !== schoolName.trim() && "" !== authorizationCode.trim()) ||
+      showDialog();
+  }),
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("css").click();
+  });
 const minSwipeDistance = 50;
-
-// Event listeners for touch events
-document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchend", handleTouchEnd, false);
-
 function handleTouchStart(e) {
   const touch = e.touches[0];
-  startX = touch.pageX;
-  startY = touch.pageY;
+  (startX = touch.pageX), (startY = touch.pageY);
 }
-
 function handleTouchEnd(e) {
-  const touch = e.changedTouches[0];
-  const endX = touch.pageX;
-  const endY = touch.pageY;
-
-  const deltaX = endX - startX;
-  const deltaY = endY - startY;
-
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (Math.abs(deltaX) > minSwipeDistance) {
-      if (deltaX > 0) {
-        // Swipe left
-        loadPreviousDaySchedule();
-      } else {
-        // Swipe right
-        loadNextDaySchedule();
-      }
-    }
-  }
+  const touch = e.changedTouches[0],
+    endX = touch.pageX,
+    endY = touch.pageY,
+    deltaX = endX - startX,
+    deltaY = endY - startY;
+  Math.abs(deltaX) > Math.abs(deltaY) &&
+    Math.abs(deltaX) > 50 &&
+    (deltaX > 0 ? loadPreviousDaySchedule() : loadNextDaySchedule());
 }
-
-// Add event listener for keydown event on the document
-document.addEventListener("keydown", handleArrowKeyPress);
-
-// Focus on the input field to capture arrow key events
-document.getElementById("keyboard").focus();
-if (typeof navigator.serviceWorker !== "undefined") {
-  navigator.serviceWorker.register("sw.js");
-}
+document.addEventListener("touchstart", handleTouchStart, !1),
+  document.addEventListener("touchend", handleTouchEnd, !1),
+  document.addEventListener("keydown", handleArrowKeyPress),
+  document.getElementById("keyboard").focus(),
+  void 0 !== navigator.serviceWorker &&
+    navigator.serviceWorker.register("sw.js");
