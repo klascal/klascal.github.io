@@ -19,7 +19,7 @@ dialogs.forEach((dialog) => {
     dialogPolyfill.registerDialog(dialog);
 }),
   setInterval(function () {
-    "" !== document.getElementById("dateInput").value &&
+    document.getElementById("dateInput").value !== "" &&
       localStorage.getItem("access_token") &&
       localStorage.getItem("schoolName") &&
       localStorage.getItem("userType") &&
@@ -115,7 +115,7 @@ function saveCheckboxState() {
 }
 function restoreCheckboxState() {
   const savedState = localStorage.getItem("checkboxState");
-  null !== savedState && (checkbox.checked = JSON.parse(savedState));
+  savedState !== null && (checkbox.checked = JSON.parse(savedState));
 }
 const checkbox1 = document.getElementById("vakafkorting");
 function saveCheckboxState1() {
@@ -123,7 +123,7 @@ function saveCheckboxState1() {
 }
 function restoreCheckboxState1() {
   const savedState1 = localStorage.getItem("afkorting");
-  null !== savedState1 && (checkbox1.checked = JSON.parse(savedState1));
+  savedState1 !== null && (checkbox1.checked = JSON.parse(savedState1));
 }
 checkbox1.addEventListener("change", saveCheckboxState1);
 const checkbox2 = document.getElementById("afkortingHl");
@@ -132,7 +132,7 @@ function saveCheckboxState2() {
 }
 function restoreCheckboxState2() {
   const savedState2 = localStorage.getItem("hoofdletter");
-  null !== savedState2 && (checkbox2.checked = JSON.parse(savedState2));
+  savedState2 !== null && (checkbox2.checked = JSON.parse(savedState2));
 }
 function convertH2M(timeInHour) {
   var timeParts = timeInHour.split(":");
@@ -250,10 +250,10 @@ function fetchAppointments(date, focus) {
     monthName1 = dutchMonthNames[today1.getMonth()],
     formattedDate3 = `${day1} ${monthName1}`,
     formattedDate2 = `${zomadiwodovrza1} ${day1} ${monthName1}`;
-  datum !== formattedDate3 &&
-    datum !== formattedDate2 &&
+  formattedDate3 !== datum &&
+    formattedDate2 !== datum &&
     document.getElementById("add").setAttribute("style", "display: block;"),
-    (datum !== formattedDate3 && datum !== formattedDate2) ||
+    (formattedDate3 !== (datum && formattedDate2)) !== datum ||
       document.getElementById("add").setAttribute("style", "display: none;");
   const monthShort = monthName.substring(0, 3),
     monthIndex = dutchMonthNames.findIndex(
@@ -389,7 +389,7 @@ function fetchAppointments(date, focus) {
             (info = '<span id="interlude">Pauze</span>');
         let warning = "",
           warningsymbol = "";
-        "" !== appointment.changeDescription &&
+        appointment.changeDescription !== "" &&
           ((warning = appointment.changeDescription),
           (warningsymbol = warning
             ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ff9800" style="vertical-align: sub; margin-right: 2.5px;"><path d="M120-103q-18 0-32.09-8.8Q73.83-120.6 66-135q-8-14-8.5-30.6Q57-182.19 66-198l359-622q9-16 24.1-23.5 15.11-7.5 31-7.5 15.9 0 30.9 7.5 15 7.5 24 23.5l359 622q9 15.81 8.5 32.4Q902-149 894-135t-22 23q-14 9-32 9H120Zm360-140q18 0 31.5-13.5T525-288q0-18-13.5-31T480-332q-18 0-31.5 13T435-288q0 18 13.5 31.5T480-243Zm0-117q17 0 28.5-11.5T520-400v-109q0-17-11.5-28.5T480-549q-17 0-28.5 11.5T440-509v109q0 17 11.5 28.5T480-360Z"/></svg>'
@@ -399,7 +399,7 @@ function fetchAppointments(date, focus) {
               (warningsymbol = warning
                 ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>'
                 : ""))
-            : "" !== appointment.schedulerRemark &&
+            : appointment.schedulerRemark !== "" &&
               ((warning = appointment.schedulerRemark),
               (warningsymbol = warning
                 ? '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" style="margin-right: 2.5px"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>'
@@ -492,7 +492,7 @@ function fetchAppointments(date, focus) {
               "granted" === Notification.permission &&
               !1 === appointment.cancelled &&
               (datum === formattedDate3 || datum === formattedDate2) &&
-              localStorage.getItem("LastNotificationDate") !== datum
+              datum !== localStorage.getItem("LastNotificationDate")
             ) {
               const startTime = new Date(1e3 * appointment.start);
               new Notification(subjectsFullNames, {
@@ -512,13 +512,13 @@ function fetchAppointments(date, focus) {
           } else
             "true" === localStorage.getItem("checkboxState") &&
               null != localStorage.getItem("checkboxState") &&
-              "denied" !== Notification.permission &&
+              Notification.permission !== "denied" &&
               Notification.requestPermission().then(function (permission) {
                 if (
                   "granted" === permission &&
                   !1 === appointment.cancelled &&
                   (datum === formattedDate3 || datum === formattedDate2) &&
-                  localStorage.getItem("LastNotificationDate") !== datum
+                  datum !== localStorage.getItem("LastNotificationDate")
                 ) {
                   const startTime = new Date(1e3 * appointment.start);
                   new Notification(subjectsFullNames, {
@@ -551,43 +551,43 @@ function fetchAppointments(date, focus) {
       div1.classList.add("1", "container"),
         scheduleDiv.appendChild(div1),
         [...document.getElementsByClassName("1")].forEach((element) => {
-          element !== div1 && div1.appendChild(element);
+          div1 !== element && div1.appendChild(element);
         });
       var div2 = document.createElement("span");
       div2.classList.add("2", "container"),
         scheduleDiv.appendChild(div2),
         [...document.getElementsByClassName("2")].forEach((element) => {
-          element !== div2 && div2.appendChild(element);
+          div2 !== element && div2.appendChild(element);
         });
       var div3 = document.createElement("span");
       div3.classList.add("3", "container"),
         scheduleDiv.appendChild(div3),
         [...document.getElementsByClassName("3")].forEach((element) => {
-          element !== div3 && div3.appendChild(element);
+          div3 !== element && div3.appendChild(element);
         });
       var div4 = document.createElement("span");
       div4.classList.add("4", "container"),
         scheduleDiv.appendChild(div4),
         [...document.getElementsByClassName("4")].forEach((element) => {
-          element !== div4 && div4.appendChild(element);
+          div4 !== element && div4.appendChild(element);
         });
       var div5 = document.createElement("span");
       div5.classList.add("5", "container"),
         scheduleDiv.appendChild(div5),
         [...document.getElementsByClassName("5")].forEach((element) => {
-          element !== div5 && div5.appendChild(element);
+          div5 !== element && div5.appendChild(element);
         });
       var div6 = document.createElement("span");
       div6.classList.add("6", "container"),
         scheduleDiv.appendChild(div6),
         [...document.getElementsByClassName("6")].forEach((element) => {
-          element !== div6 && div6.appendChild(element);
+          div6 !== element && div6.appendChild(element);
         });
       var div0 = document.createElement("span");
       div0.classList.add("0", "container"),
         scheduleDiv.appendChild(div0),
         [...document.getElementsByClassName("0")].forEach((element) => {
-          element !== div0 && div0.appendChild(element);
+          div0 !== element && div0.appendChild(element);
         }),
         [1, 2, 3, 4, 5, 6, 0].forEach((num) => {
           let element = document.querySelector(`.${CSS.escape(num)}`);
@@ -1076,7 +1076,7 @@ let startX, startY;
   document.addEventListener("DOMContentLoaded", function () {
     const schoolName = localStorage.getItem("schoolName") || "",
       authorizationCode = localStorage.getItem("authorizationCode") || "";
-    ("" !== schoolName.trim() && "" !== authorizationCode.trim()) ||
+    (schoolName.trim() !== ("" && authorizationCode.trim())) !== "" ||
       showDialog();
   }),
   document.addEventListener("DOMContentLoaded", function () {
@@ -1101,5 +1101,5 @@ document.addEventListener("touchstart", handleTouchStart, !1),
   document.addEventListener("touchend", handleTouchEnd, !1),
   document.addEventListener("keydown", handleArrowKeyPress),
   document.getElementById("keyboard").focus(),
-  void 0 !== navigator.serviceWorker &&
+  void navigator.serviceWorker !== 0 &&
     navigator.serviceWorker.register("sw.js");
