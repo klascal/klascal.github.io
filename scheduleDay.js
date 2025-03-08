@@ -153,7 +153,7 @@ async function fetchAnnouncements() {
   if (((announcementsContainer.innerHTML = ""), 0 === appointments.length))
     if (
       ((announcementsContainer.innerHTML =
-        '<strong id="error-message" style="text-align: center; display: block"\n  ><img\n    src="es_geenresultaten.webp"\n    alt=""\n    style="text-align: center"\n    width="200px"\n    height="104px"\n  /><br />\n  Geen mededelingen gevonden.</strong\n>'),
+        '<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"/><br />Geen mededelingen gevonden.</strong>'),
       localStorage.getItem("webp"))
     ) {
       if ("false" == localStorage.getItem("webp")) {
@@ -415,15 +415,15 @@ function fetchAppointments(date, focus) {
                 .join(", ")
                 .toUpperCase() +
               ")"),
-          (appointmentDiv.innerHTML = `\n          <p><strong id="vaknaam">${subjectsFullNames.join(
+          (appointmentDiv.innerHTML = `<p><strong id="vaknaam">${subjectsFullNames.join(
             ", "
-          )}</strong><strong style="float: right; margin-right: 9px" id="timeSlot">${info}${timeSlot}</strong></p>\n          <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
+          )}</strong><strong style="float: right; margin-right: 9px" id="timeSlot">${info}${timeSlot}</strong></p> <p>${startTimeString} - ${endTimeString} <span style="margin-left: 10px;">${appointment.locations.join(
             ", "
           )} ${
             "()" == teachers ? "" : teachers
-          } <span class="warning">\n                  ${warningsymbol}\n                  <span class="warningMessage">${warning}</span>\n                </span></span></p>\n        <p class="className">${appointment.groups.join(
+          } <span class="warning">${warningsymbol}<span class="warningMessage">${warning}</span></span></span></p><p class="className">${appointment.groups.join(
             ", "
-          )}</p>\n        `),
+          )}</p>`),
           appointmentDiv.classList.add(
             appointment.cancelled ? "cancelled" : appointment.appointmentType
           ),
@@ -602,7 +602,7 @@ function fetchAppointments(date, focus) {
               });
             }
             (element.innerHTML =
-              '<strong id="error-message" style="text-align: center; display: block"\n        ><img\n          src="es_geenresultaten.webp"\n          alt=""\n          style="text-align: center"\n          width="200px"\n          height="104px"\n        /><br />\n        Geen rooster gevonden voor deze dag.</strong\n      >'),
+              '<strong id="error-message" style="text-align: center; display: block"><img src="es_geenresultaten.webp" alt="" style="text-align: center" width="200px" height="104px"/><br />Geen rooster gevonden voor deze dag.</strong>'),
               document.querySelector(".herfstVak") &&
                 (element.innerHTML =
                   "<div>Herfstvakantie</div>" + element.innerHTML),
