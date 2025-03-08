@@ -201,18 +201,35 @@ async function userInfo(date) {
     localStorage.getItem("subjects") || retrieveSubjectFullNames(),
     fetchAppointments(date);
 }
+function getCurrentMonday() {
+  let today = new Date();
+  let day = today.getDay(); // 0 (zondag) tot 6 (zaterdag)
+  let diff = day === 0 ? -6 : 1 - day; // Als het zondag is, ga terug naar maandag (6 dagen terug)
+  today.setDate(today.getDate() + diff);
+  today.setHours(0, 0, 0, 0);
+  return today;
+}
+function isHTML(str) {
+  var doc = new DOMParser().parseFromString(str, "text/html");
+  return [].slice.call(doc.body.childNodes).some((node) => node.nodeType === 1);
+}
 function cleanupOldStorage() {
-  const twoWeeksAgo = new Date();
-  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-  const yearTwoWeeksAgo = twoWeeksAgo.getFullYear(),
-    weekTwoWeeksAgo = twoWeeksAgo.getWeek();
+  let fourWeeksAgo = getCurrentMonday();
+  fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28);
+  const yearfourWeeksAgo = fourWeeksAgo.getFullYear(),
+    weekfourWeeksAgo = fourWeeksAgo.getWeek();
   Object.keys(localStorage).forEach((key) => {
     if (/^\d{4}\d+$/.test(key)) {
       const year = parseInt(key.substring(0, 4), 10),
         week = parseInt(key.substring(4), 10);
-      (year < yearTwoWeeksAgo ||
-        (year === yearTwoWeeksAgo && week < weekTwoWeeksAgo)) &&
+      if (
+        !isHTML(localStorage.getItem(key)) ||
+        year < yearfourWeeksAgo ||
+        (year === yearfourWeeksAgo && week < weekfourWeeksAgo)
+      ) {
         localStorage.removeItem(key);
+        retrieveSubjectFullNames();
+      }
     }
   });
 }
