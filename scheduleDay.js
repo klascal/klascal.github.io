@@ -224,7 +224,6 @@ async function fetchAnnouncements() {
 >`;
     check_webp_feature("lossy", function (feature, isSupported) {
       if (!isSupported) {
-        console.log("Not supported");
         var webpMachine = new webpHero.WebpMachine();
         webpMachine.polyfillDocument();
       }
@@ -849,7 +848,6 @@ function fetchAppointments(date, focus) {
           }
           check_webp_feature("lossy", function (feature, isSupported) {
             if (!isSupported) {
-              console.log("Not supported");
               var webpMachine = new webpHero.WebpMachine();
               webpMachine.polyfillDocument();
             }
