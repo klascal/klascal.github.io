@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" href="dialog-polyfill.min.css" />
     <script src="dialog-polyfill.min.js"></script>
+    <script src="https://unpkg.com/webp-hero@0.0.2/dist-cjs/polyfills.js"></script>
+    <script src="https://unpkg.com/webp-hero@0.0.2/dist-cjs/webp-hero.bundle.js"></script>
     <script>
       // Functie om URL-parameters op te halen
       function getQueryParams() {
@@ -1136,6 +1138,16 @@
           fetchAppointments(document.getElementById("dateInput").value);
         },
       });
+    </script>
+    <script>
+      try {
+        eval("async () => {}");
+      } catch (e) {
+        if (e instanceof SyntaxError) {
+          document.querySelector("body").innerHTML =
+            '<strong>Deze browser wordt niet ondersteund</strong><p>Deze browser ondersteunt geen async. Update naar minimaal:</p><ul><li><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" width="24px" style="vertical-align: sub;margin-right: 5px;">Chrome 55</li><li><img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" width="24px" style="vertical-align: sub;margin-right: 5px;">Firefox 52</li><li><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" width="24px" style="vertical-align: sub;margin-right: 5px;">Edge 15</li><li><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Safari_browser_logo.svg" width="24px" style="vertical-align: sub;margin-right: 5px;">Safari 11</li></ul><p>of gebruik Zermelo</p>';
+        } else throw e; // throws CSP error
+      }
     </script>
   </body>
 </html>

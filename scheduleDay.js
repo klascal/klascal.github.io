@@ -5,6 +5,20 @@ dialogs.forEach((dialog) => {
     dialogPolyfill.registerDialog(dialog);
   }
 });
+function check_webp_feature(feature, callback) {
+  var kTestImages = {
+    lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+  };
+  var img = new Image();
+  img.onload = function () {
+    var result = img.width > 0 && img.height > 0;
+    callback(feature, result);
+  };
+  img.onerror = function () {
+    callback(feature, false);
+  };
+  img.src = "data:image/webp;base64," + kTestImages[feature];
+}
 // Haal elke 5 minuten het rooster op
 setInterval(function () {
   if (
@@ -208,6 +222,13 @@ async function fetchAnnouncements() {
   /><br />
   Geen mededelingen gevonden.</strong
 >`;
+    check_webp_feature("lossy", function (feature, isSupported) {
+      if (!isSupported) {
+        console.log("Not supported");
+        var webpMachine = new webpHero.WebpMachine();
+        webpMachine.polyfillDocument();
+      }
+    });
   }
   appointments.forEach((announcement) => {
     var start = announcement.start * 1000;
@@ -826,6 +847,13 @@ function fetchAppointments(date, focus) {
           if (document.querySelector(".zomerVak")) {
             element.innerHTML = "<div>Zomervakantie</div>" + element.innerHTML;
           }
+          check_webp_feature("lossy", function (feature, isSupported) {
+            if (!isSupported) {
+              console.log("Not supported");
+              var webpMachine = new webpHero.WebpMachine();
+              webpMachine.polyfillDocument();
+            }
+          });
         }
       });
       localStorage.setItem(yearWeek, scheduleDiv.innerHTML);
