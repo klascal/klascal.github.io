@@ -1,4 +1,4 @@
-const CACHE = "pwabuilder-offline";
+const CACHE = "klascal";
 
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js"
@@ -26,10 +26,10 @@ workbox.routing.registerRoute(
   })
 );
 
-// Cache scripts using StaleWhileRevalidate strategy, excluding "scheduleDay"
+// Cache scripts using StaleWhileRevalidate strategy, excluding "schedule"
 workbox.routing.registerRoute(
   ({ request }) =>
-    request.destination === "script" && !/scheduleDay/.test(request.url),
+    request.destination === "script" && !/schedule/.test(request.url),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: `${CACHE}-scripts`,
   })

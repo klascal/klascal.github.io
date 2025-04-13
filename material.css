@@ -9,87 +9,108 @@
   top: 50%;
   z-index: -1;
 }
-.theme__input:checked + .theme__icon {
-  box-shadow: 0 0 0 0.5rem var(--global-background),
-    0 0 0 0.6rem rgba(255, 255, 255, 0.2);
-  transform: scale(1);
-}
-.theme__input:focus + .theme__icon {
-  box-shadow: 0 0 0 0.5rem var(--global-background), 0 0 0 0.6rem var(--color);
+.theme__input:checked + .theme__icon::before {
+  content: "✓";
+  font-size: 27px;
+  margin-left: 5px;
+  color: white;
 }
 .theme__icon {
   display: inline-block;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 100rem;
   background: var(--color);
-  transform: scale(0.6);
   transition: 0.2s;
+  vertical-align: middle;
+  margin: 5px;
+}
+body {
+  --background: #f1f1f1;
 }
 body[data-theme="red"] {
-  --primary-light: #ec4848;
+  --primary-light: #f2201f;
   --primary-dark: #fff;
+  --primary-accent: #a91616;
 }
 body[data-theme="orange"] {
   --primary-light: #f47734;
   --primary-dark: #fff;
+  --primary-accent: #ab5324;
 }
 body[data-theme="yellow"] {
-  --primary-light: #ffcc02;
+  --primary-light: #fb0;
   --primary-dark: #fff;
+  --primary-accent: #997a01;
 }
 body[data-theme="green"] {
-  --primary-light: #66bb6a;
+  --primary-light: #46b74f;
   --primary-dark: #fff;
+  --primary-accent: #318037;
 }
 body[data-theme="cyan"] {
-  --primary-light: #26c6da;
+  --primary-light: #01bad6;
   --primary-dark: #fff;
+  --primary-accent: #1b8b99;
 }
 body[data-theme="blue"] {
-  --primary-light: #2196f3;
+  --primary-light: #0080ff;
   --primary-dark: #fff;
+  --primary-accent: #005ab3;
 }
 body[data-theme="purple"] {
   --primary-light: #9b37ff;
   --primary-dark: #fff;
+  --primary-accent: #6d27b3;
 }
 body[data-theme="pink"] {
-  --primary-light: #ec407a;
+  --primary-light: #f20d68;
   --primary-dark: #fff;
+  --primary-accent: #a90949;
 }
 @media (prefers-color-scheme: dark) {
+  body {
+    --background: #363636;
+  }
   body[data-theme="red"] {
     --primary-light: #f44336;
     --primary-dark: hsl(0, 79%, 16%);
+    --primary-accent: #ab2f26;
   }
   body[data-theme="orange"] {
     --primary-light: #f77a2e;
     --primary-dark: hsl(25, 79%, 16%);
+    --primary-accent: #ad5520;
   }
   body[data-theme="yellow"] {
-    --primary-light: #ffcc02;
+    --primary-light: #fb0;
     --primary-dark: hsl(62, 79%, 16%);
+    --primary-accent: #997a01;
   }
   body[data-theme="green"] {
-    --primary-light: #2ecc71;
+    --primary-light: #2dcc70;
     --primary-dark: hsl(160, 79%, 16%);
+    --primary-accent: #208f4f;
   }
   body[data-theme="cyan"] {
-    --primary-light: #4dd0e1;
+    --primary-light: #01bad6;
     --primary-dark: hsl(181, 79%, 16%);
+    --primary-accent: #338994;
   }
   body[data-theme="blue"] {
-    --primary-light: #42a5f5;
+    --primary-light: #3399fe;
     --primary-dark: hsl(200, 79%, 16%);
+    --primary-accent: #246bb2;
   }
   body[data-theme="purple"] {
     --primary-light: #9e5ef9;
     --primary-dark: hsl(261, 79%, 16%);
+    --primary-accent: #6f42ae;
   }
   body[data-theme="pink"] {
-    --primary-light: #f06292;
+    --primary-light: #f65696;
     --primary-dark: hsl(318, 79%, 16%);
+    --primary-accent: #ac3c69;
   }
 }
 
@@ -144,6 +165,7 @@ body[data-theme="pink"] {
   transition: 0.2s, box-shadow 0s;
   border: 2px solid var(--thumb-background);
   float: right;
+  bottom: 2.5px;
 }
 .switch__design::before {
   content: "";
@@ -195,7 +217,19 @@ body[data-theme="pink"] {
   padding: 1rem 0.7rem;
   color: #000;
   max-width: calc(100% - 24px);
+  font-family: inherit;
+  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
 }
+p {
+  margin: 0;
+}
+#closeBtn {
+  font-family: inherit;
+  font-size: inherit;
+  float: right;
+  margin-top: 10px;
+}
+
 #schoolName {
   max-width: calc(100% - 95px);
 }
@@ -211,8 +245,8 @@ body[data-theme="pink"] {
   }
 }
 .material-textfield input:focus {
-  border: 2px solid var(--primary-light);
-  padding: calc(1rem - 1px) calc(0.7rem - 1px);
+  border: 3px solid var(--primary-light);
+  padding: calc(1rem - 2px) calc(0.7rem - 2px);
 }
 .material-textfield input:focus + label {
   color: var(--primary-light);
@@ -222,4 +256,13 @@ body[data-theme="pink"] {
 .material-textfield input:not(:placeholder-shown) + label {
   top: 0;
   transform: translateY(-50%) scale(0.9);
+}
+#content {
+  max-height: calc(100vh - 180px);
+  overflow-y: scroll;
+  padding-top: 7px;
+  width: 100vw;
+  max-width: 253px;
+  padding-right: 24px;
+  overflow-x: hidden;
 }

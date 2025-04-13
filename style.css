@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv11" 1; /* fix for Chrome */
+  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1; /* fix for Chrome */
 }
 @supports (font-variation-settings: normal) {
   :root {
@@ -10,13 +10,28 @@
       "Helvetica Neue", sans-serif;
   }
 }
+button:focus {
+  outline: none;
+}
 
 .check_box {
   display: none;
 }
+#field {
+  background: var(--primary-light);
+  position: fixed;
+  width: calc(100vw - 16px);
+  top: 0;
+  left: 0;
+  padding: 8px;
+  z-index: 1;
+}
+.cancelled .className {
+  display: none !important;
+}
 
 .check_box + label {
-  background: url("https://csvincentvangogh.zportal.nl/static/v/25.02j28/sc/skins/zermelo/custom_images/ToolStripIcons/transpose.png");
+  background: url("transpose.png");
   height: 24px;
   width: 24px;
   padding: 0;
@@ -27,18 +42,62 @@
   cursor: pointer;
 }
 
+.dag {
+  display: inline-block;
+}
+.dag.Zaterdag,
+.dag.Za,
+.dag.Zondag,
+.dag.Zo {
+  display: none;
+}
 body,
 html {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0;
   box-sizing: border-box;
-  background-color: #ffffff !important; /* Default background color */
-  color: #000000; /* Default text color */
+  overflow-x: hidden;
 }
 
 dialog {
-  background-color: white;
+  border: 0;
+  border-radius: 2rem;
+  background-color: #fff;
+  padding: 24px;
+  max-width: 253px;
+  max-height: calc(100vh - 80px);
+  animation: popIn 0.33s;
+  overflow: hidden;
+  user-select: none;
+}
+
+@keyframes popIn {
+  from {
+    max-height: 0px;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  to {
+    max-height: calc(100vh - 80px);
+    padding: 24px;
+    opacity: 1;
+    overflow: hidden;
+  }
+}
+
+@keyframes popOut {
+  from {
+    max-height: calc(100vh - 80px);
+    padding: 24px;
+    opacity: 1;
+    overflow: hidden;
+  }
+  to {
+    max-height: 0px;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
 }
 
 #inputForm {
@@ -48,8 +107,7 @@ dialog {
 }
 
 label {
-  display: block;
-  margin-bottom: 10px;
+  vertical-align: middle;
 }
 
 input[type="text"] {
@@ -79,49 +137,43 @@ span.schedule {
   display: block;
 }
 
-span.day {
-  /* block voor ltr */
-  display: inline-block;
-  margin-bottom: 90px;
-}
-
 .les {
-  display: inline-block;
-  padding: 10px;
+  padding: 7.5px;
   margin-right: 5px;
   margin-left: 5px;
   border-radius: 10px;
   position: absolute;
   width: 107px;
+  line-height: 1.4;
+  border: 1px solid #c5c9e2;
+  background-color: #f3f5f6;
+  min-width: 45px;
 }
 
 #week {
   font-size: initial;
-  color: #000;
+  color: white;
   vertical-align: middle;
+  width: 65px;
+  display: inline-block;
+}
+.geweest {
+  border: 1px solid #5ebb60;
+  background-color: #e2eedf;
 }
 
 @media (prefers-color-scheme: dark) {
+  .les {
+    background-color: #2a2a2f;
+    border: 1px solid #374048;
+  }
   #week {
     color: #fff;
   }
 }
 
-.lesson {
-  background-color: #bee;
-}
-
-.exam {
-  background-color: #beb;
-}
-
-.activity {
-  background-color: #ebb;
-}
-
 .warning {
   color: yellow;
-  text-shadow: 0px 0px 2px #000;
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -133,12 +185,14 @@ span.day {
 .warning .warningMessage {
   display: none;
   z-index: 1;
-  position: absolute;
   color: #000;
   background-color: yellow;
-  text-shadow: none;
   border-radius: 10px;
   padding: 5px;
+  position: absolute;
+  left: 5px;
+  width: max-content;
+  max-width: calc(100vw - 31px);
 }
 
 .warning:hover .warningMessage {
@@ -147,8 +201,26 @@ span.day {
 
 strong.lesuur {
   float: right;
+  margin-right: 4px;
+}
+.dayTitle {
+  width: calc(100vw - 10px);
+  margin: 0;
+  font-size: 14px;
+  background-color: #f6f8fa;
+  padding: 5px;
+}
+h2 {
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 24px;
 }
 
+.les p,
+.les span {
+  margin: 0;
+  font-size: 14px;
+}
 .les p,
 .les span {
   margin: 0;
@@ -159,70 +231,124 @@ p.lestijden {
   display: block;
 }
 
-.cancelled {
-  background-color: red;
-  color: white;
-}
-
-.cancelled strong {
-  color: white;
-}
-
 strong {
   font-size: 16px;
+  line-height: initial;
 }
 
 h3 {
   margin: 0px;
-  width: 150px;
+  width: 135px;
   text-align: left;
+  margin-left: 5px;
+  margin-right: -5px;
 }
-
-.screen-unsupported {
-  display: none;
+.schedule {
+  margin-top: 56px;
+  height: calc(100vh - 56px);
+  transition: transform ease-in-out 0.1s;
+  will-change: transform;
+  display: flex;
 }
-
-@media (max-width: 750px) {
-  .les p,
-  .les span {
+@media (max-width: 675px) {
+  .les.ltr {
+    width: 95px;
+  }
+  .les.ltr h3 {
+    width: 80px;
+  }
+  #ltr {
+    display: none;
+  }
+  h3 {
+    width: 120px;
+  }
+}
+@media (max-height: 555px) {
+  #ltr {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .les.ltr p,
+  .les.ltr span {
     font-size: 12px;
   }
-  strong {
+  .les.ltr strong {
     font-size: 14px;
   }
-  .les {
-    width: initial;
+  .les.ltr {
+    width: 80px;
     padding: 5px;
   }
-  .warning {
+  h3 {
+    width: 100px;
+    text-align: center;
+    margin: 0;
+  }
+  .les.ltr .warning {
     right: 2.5px;
     bottom: 2.5px;
   }
+}
+@media (max-width: 500px) {
   h3 {
-    width: 80px;
-    text-align: center;
+    width: 95px;
   }
 }
-@media (max-width: 402px) {
+@media (max-width: 475px) {
   h3 {
-    width: 75px;
+    width: 87px;
+  }
+  .les.ltr {
+    width: 70px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 435px) {
+  h3 {
+    width: 77px;
+  }
+  .les.ltr {
+    width: initial;
+  }
+}
+@media (max-width: 391px) {
+  #week {
+    display: block;
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: calc(100vw - 10px);
+    margin: 0;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    padding: 5px;
+    color: initial;
+  }
+  @media (prefers-color-scheme: dark) {
+    #week {
+      background-color: #f6f8fa;
+      background-color: #363636 !important;
+      color: white;
+    }
+  }
+}
+@media (max-width: 385px) {
   h3 {
     width: 73px;
   }
 }
 @media (max-width: 365px) {
-  #schedule {
-    display: none;
-  }
-  .screen-unsupported {
-    display: block;
-    margin-top: 50px;
+  h3 {
+    width: 65px;
   }
 }
-
+@media (max-width: 325px) {
+  #dayBtn,
+  #weekBtn {
+    display: none;
+  }
+}
 @font-face {
   font-family: "Pluto";
   src: url("https://blissradio.github.io/PlutoBold.woff2") format("woff2");
@@ -231,38 +357,14 @@ h3 {
   font-display: swap;
 }
 
-h1 {
-  color: #1080ce;
-  margin: 0;
-  padding-left: 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  backdrop-filter: blur(3px);
-  z-index: 1;
-}
-
-dialog[open] {
-  opacity: 1;
-  pointer-events: inherit;
-}
-
 #settingsButton {
-  right: 10px;
-  position: absolute;
-  margin: 10px;
   cursor: pointer;
   fill: black;
-}
-
-.schedule {
-  margin-top: 50px;
 }
 
 .className {
   display: none;
 }
-
 .subjectName {
   display: none;
 }
@@ -273,15 +375,14 @@ dialog[open] {
   padding: 0.5rem 1rem;
   line-height: 1.5;
   border-radius: 4rem;
-  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
-  text-decoration: none !important;
+  transition: all 0.1s ease-in-out;
 }
 
 #previousDay,
 #nextDay,
 #loadSchedule,
 #settingsButton {
-  transition: all 0.33s ease-in-out 0s, top 0.33s ease-out 0.33s;
+  transition: all 0.1s ease-in-out;
 }
 
 button:not(:disabled) {
@@ -305,24 +406,48 @@ button:not(:disabled):not(.disabled) {
 
 #icon,
 .icon {
-  fill: black !important;
+  fill: black;
   vertical-align: middle;
+}
+#add .icon,
+#field #icon {
+  fill: white;
 }
 
 #error {
   background-color: #eeb;
 }
+.cancelled span {
+  font-size: 0 !important;
+}
+.cancelled .warningMessage {
+  font-size: 14px !important;
+}
+.selected {
+  padding: 0.5rem 0;
+  width: 71.1px;
+  background-color: var(--primary-accent) !important;
+}
+.themes {
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 10px;
+}
 
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   body,
-  html,
-  dialog {
-    background-color: #000000 !important;
+  html {
+    background-color: #000000;
     color: #ffffff;
   }
+  dialog {
+    background-color: #222;
+    color: #fff;
+  }
 
-  .btn {
+  dialog .btn,
+  .dayTitle {
     color: white !important;
     background-color: #363636 !important;
     text-shadow: none !important;
@@ -335,14 +460,13 @@ button:not(:disabled):not(.disabled) {
 
   .btn:hover,
   .btn:active,
-  #previousDay:hover,
-  #nextDay:hover,
-  #loadSchedule:hover,
-  #settingsButton:hover {
+  #loadSchedule:hover {
     color: white !important;
     background-color: #444 !important;
   }
-
+  details summary {
+    cursor: pointer;
+  }
   #close:hover {
     background-color: red !important;
   }
@@ -363,5 +487,30 @@ button:not(:disabled):not(.disabled) {
 
   #settingsButton {
     fill: white;
+  }
+  .geweest {
+    border: 1px solid #007503;
+    background-color: #242d21;
+  }
+}
+.exam {
+  border-left: 8px solid #e8cb22;
+}
+
+.activity {
+  border-left: 8px solid #268e26;
+}
+.exam.dag,
+.activity.dag {
+  width: calc(100vw - 35px) !important;
+}
+.cancelled {
+  background-color: #f7baba;
+  border: 1px solid #ff2f2f;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cancelled {
+    background-color: #ff2f2f73;
   }
 }
