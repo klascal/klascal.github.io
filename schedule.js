@@ -4,6 +4,17 @@ dialogs.forEach((dialog) => {
     dialogPolyfill.registerDialog(dialog);
   }
 });
+// Haal elke 5 minuten het rooster op
+setInterval(function () {
+  if (
+    document.getElementById("dateInput").value !== "" &&
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("schoolName") &&
+    localStorage.getItem("userType")
+  ) {
+    handleFormSubmit();
+  }
+}, 300000);
 sessionStorage.setItem("transform", "");
 const startTime = document.getElementById("startTime");
 startTime.value = localStorage.getItem("startTime") || "08:00";
