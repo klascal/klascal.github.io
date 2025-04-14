@@ -508,9 +508,17 @@ button:not(:disabled):not(.disabled) {
   background-color: #f7baba;
   border: 1px solid #ff2f2f;
 }
-
+.notEnrolled {
+  border: 1px solid #c5c9e2;
+  background-color: #f3f5f6;
+  opacity: 0.75;
+}
 @media (prefers-color-scheme: dark) {
   .cancelled {
     background-color: #ff2f2f73;
+  }
+  .notEnrolled {
+    background-color: #2a2a2f;
+    border: 1px solid #374048;
   }
 }
