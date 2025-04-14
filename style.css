@@ -509,7 +509,7 @@ button:not(:disabled):not(.disabled) {
   border: 1px solid #ff2f2f;
 }
 .notEnrolled {
-  border: 1px solid #c5c9e2;
+  border: none;
   background-color: #f3f5f6;
   opacity: 0.75;
 }
@@ -519,6 +519,34 @@ button:not(:disabled):not(.disabled) {
   }
   .notEnrolled {
     background-color: #2a2a2f;
-    border: 1px solid #374048;
+  }
+}
+@media print {
+  #field {
+    display: none;
+  }
+  .schedule {
+    margin-top: 0;
+    height: 100vh;
+  }
+  .les {
+    border: 1px solid;
+  }
+  * {
+    background-color: transparent !important;
+  }
+  .cancelled {
+    border: 1px solid #ff2f2f;
+  }
+  .cancelled::after {
+    content: "⌧";
+    color: red;
+    font-weight: bold;
+  }
+  .notEnrolled {
+    border: 1px solid;
+  }
+  .notEnrolled::after {
+    content: "";
   }
 }
