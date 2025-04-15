@@ -513,6 +513,13 @@ button:not(:disabled):not(.disabled) {
   background-color: #f3f5f6;
   opacity: 0.75;
 }
+.timeline {
+  position: absolute;
+  width: 500vw;
+  height: 2px;
+  background-color: var(--primary-light);
+  transition: 0.1s top ease-in-out;
+}
 @media (prefers-color-scheme: dark) {
   .cancelled {
     background-color: #ff2f2f73;

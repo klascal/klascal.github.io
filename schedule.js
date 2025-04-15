@@ -4,6 +4,43 @@ dialogs.forEach((dialog) => {
     dialogPolyfill.registerDialog(dialog);
   }
 });
+var d = new Date();
+d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+// Update de tijdlijn elke 10 seconden
+var multiples = 1.75;
+if (localStorage.getItem("dag") == "true") {
+  multiples = 1.3;
+} else if (localStorage.getItem("klas") == "true") {
+  multiples = 2;
+}
+var topY =
+  (parseInt(d.split(":")[1]) +
+    (parseInt(d.split(":")[0]) - localStorage.getItem("decimalStartTime")) *
+      60) *
+    multiples +
+  80;
+setInterval(function () {
+  var d = new Date();
+  d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  multiples = 1.75;
+  if (localStorage.getItem("dag") == "true") {
+    multiples = 1.3;
+  } else if (localStorage.getItem("klas") == "true") {
+    multiples = 2;
+  }
+  topY =
+    (parseInt(d.split(":")[1]) +
+      (parseInt(d.split(":")[0]) - localStorage.getItem("decimalStartTime")) *
+        60) *
+      multiples +
+    27;
+  if (document.querySelector(".timeline")) {
+    document.querySelector(".timeline").style.top = topY + "px";
+  }
+}, 1000);
+var timeline = document.createElement("div");
+timeline.classList.add("timeline");
+timeline.style = "top: " + topY + "px;";
 // Haal elke 5 minuten het rooster op
 setInterval(function () {
   handleFormSubmit();
@@ -493,10 +530,6 @@ function displaySchedule(scheduleData) {
           ) {
             document.getElementById("schedule").style = "margin-top: 83px;";
           }
-          const dago = Date.now();
-          if (dago >= appointment.end * 1000) {
-            ltr += " geweest";
-          }
           if (localStorage.getItem("dag") == "true") {
             ltr += " dag";
           }
@@ -567,6 +600,11 @@ function displaySchedule(scheduleData) {
     .join("");
 
   scheduleElement.innerHTML = scheduleHTML;
+  var d = new Date();
+  d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  if (d.split(":")[1] < 17 && localStorage.getItem("ltr") != "true") {
+    scheduleElement.appendChild(timeline);
+  }
   if (localStorage.getItem("klas") == "true") {
     if (localStorage.getItem("dag") == "true") {
       document.querySelectorAll(".className").forEach((el) => {
