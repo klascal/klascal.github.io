@@ -174,12 +174,11 @@ span.schedule {
 
 .warning {
   color: yellow;
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
   padding: 0px;
   margin-right: 0px;
   background-color: inherit;
+  float: right;
+  margin-right: -2.5px;
 }
 
 .warning .warningMessage {
@@ -190,7 +189,7 @@ span.schedule {
   border-radius: 10px;
   padding: 5px;
   position: absolute;
-  left: 5px;
+  right: 5px;
   width: max-content;
   max-width: calc(100vw - 31px);
 }
@@ -225,6 +224,8 @@ h2 {
 .les span {
   margin: 0;
   font-size: 14px;
+  z-index: 1;
+  position: relative;
 }
 
 p.lestijden {

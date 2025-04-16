@@ -602,7 +602,7 @@ function displaySchedule(scheduleData) {
   scheduleElement.innerHTML = scheduleHTML;
   var d = new Date();
   d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  if (d.split(":")[1] < 17 && localStorage.getItem("ltr") != "true") {
+  if (d.split(":")[0] < 17 && localStorage.getItem("ltr") != "true") {
     scheduleElement.appendChild(timeline);
   }
   if (localStorage.getItem("klas") == "true") {
