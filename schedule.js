@@ -614,7 +614,6 @@ function displaySchedule(scheduleData) {
       maxMarginTop = marginTop + 268.6; // 30 min na einde rooster
     }
   });
-  console.log(maxMarginTop, topY);
   if (topY < maxMarginTop && localStorage.getItem("ltr") != "true") {
     scheduleElement.appendChild(timeline);
   }
