@@ -41,6 +41,11 @@ setInterval(function () {
 var timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = "top: " + topY + "px;";
+timeline.innerHTML = `<div class="circle-marker" style="left: 0;"></div>
+  <div class="circle-marker" style="left: 100vw;"></div>
+  <div class="circle-marker" style="left: 200vw;"></div>
+  <div class="circle-marker" style="left: 300vw;"></div>
+  <div class="circle-marker" style="left: 400vw;"></div>`;
 // Haal elke 5 minuten het rooster op
 setInterval(function () {
   handleFormSubmit();
@@ -663,7 +668,7 @@ Date.prototype.getWeek = function () {
 };
 
 // Functie om formulierinzending te verwerken
-async function handleFormSubmit(event) {
+async function handleFormSubmit() {
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document
     .getElementById("authorizationCode")

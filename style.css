@@ -521,6 +521,15 @@ button:not(:disabled):not(.disabled) {
   background-color: var(--primary-light);
   transition: 0.1s top ease-in-out;
 }
+.circle-marker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+}
 @media (prefers-color-scheme: dark) {
   .cancelled {
     background-color: #ff2f2f73;
