@@ -605,9 +605,17 @@ function displaySchedule(scheduleData) {
     .join("");
 
   scheduleElement.innerHTML = scheduleHTML;
-  var d = new Date();
-  d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  if (d.split(":")[0] < 17 && localStorage.getItem("ltr") != "true") {
+  const lesElements = document.querySelectorAll(".les");
+  let maxMarginTop = 0;
+  lesElements.forEach((el) => {
+    const computedStyle = window.getComputedStyle(el);
+    const marginTop = parseFloat(computedStyle.marginTop);
+    if (marginTop > maxMarginTop) {
+      maxMarginTop = marginTop + 268.6; // 30 min na einde rooster
+    }
+  });
+  console.log(maxMarginTop, topY);
+  if (topY < maxMarginTop && localStorage.getItem("ltr") != "true") {
     scheduleElement.appendChild(timeline);
   }
   if (localStorage.getItem("klas") == "true") {
