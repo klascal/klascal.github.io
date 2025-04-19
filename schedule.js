@@ -25,6 +25,8 @@ setInterval(function () {
   multiples = 1.75;
   if (localStorage.getItem("dag") == "true") {
     multiples = 1.3;
+  } else if (localStorage.getItem("ltr") == "true") {
+    multiples = 2.4;
   } else if (localStorage.getItem("klas") == "true") {
     multiples = 2;
   }
@@ -35,17 +37,25 @@ setInterval(function () {
       multiples +
     27;
   if (document.querySelector(".timeline")) {
-    document.querySelector(".timeline").style.top = topY + "px";
+    if (
+      localStorage.getItem("ltr") != "true" ||
+      localStorage.getItem("dag") == "true"
+    ) {
+      document.querySelector(".timeline").style.top = topY + "px";
+      document.querySelector(".timeline").style.left = "0";
+      document.querySelector(".timeline").style.height = "2px";
+      document.querySelector(".timeline").style.width = "500vw";
+    } else {
+      document.querySelector(".timeline").style.top = "0";
+      document.querySelector(".timeline").style.left = topY + "px";
+      document.querySelector(".timeline").style.height = "calc(100vh - 56px)";
+      document.querySelector(".timeline").style.width = "2px";
+    }
   }
-}, 1000);
+}, 100);
 var timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = "top: " + topY + "px;";
-timeline.innerHTML = `<div class="circle-marker" style="left: 0;"></div>
-  <div class="circle-marker" style="left: 100vw;"></div>
-  <div class="circle-marker" style="left: 200vw;"></div>
-  <div class="circle-marker" style="left: 300vw;"></div>
-  <div class="circle-marker" style="left: 400vw;"></div>`;
 // Haal elke 5 minuten het rooster op
 setInterval(function () {
   handleFormSubmit();
@@ -157,25 +167,7 @@ async function userInfo() {
   localStorage.setItem("userType", userType);
   localStorage.setItem("user", userCode);
   if (userCode === "baas") localStorage.setItem("ltr", "true");
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode1 = document
-    .getElementById("authorizationCode")
-    .value.replace(/\s/g, "");
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  let week = currentDate.getWeek(); // Bereken weeknummer
-  document.getElementById("week").innerText = "Week " + week;
-  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
-
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken = localStorage.getItem("access_token");
-  if (!accessToken && authorizationCode) {
-    accessToken = await fetchToken(authorizationCode1, schoolName);
-    localStorage.setItem("access_token", accessToken);
-  }
-  if (accessToken && userType && schoolName) {
-    fetchSchedule(accessToken, userType, year, week, schoolName);
-  }
+  handleFormSubmit();
 }
 if (localStorage.getItem("access_token")) {
   if (!localStorage.getItem("userType") || !localStorage.getItem("user")) {
@@ -186,26 +178,7 @@ const checkbox2 = document.getElementById("checkbox1");
 // Function to save checkbox state to localStorage
 async function saveCheckboxState2() {
   localStorage.setItem("ltr", checkbox2.checked);
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode1 = document
-    .getElementById("authorizationCode")
-    .value.replace(/\s/g, "");
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const userType = localStorage.getItem("userType");
-  let week = currentDate.getWeek(); // Bereken weeknummer
-  document.getElementById("week").innerText = "Week " + week;
-  if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
-
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken = localStorage.getItem("access_token");
-  if (!accessToken && authorizationCode) {
-    accessToken = await fetchToken(authorizationCode1, schoolName);
-    localStorage.setItem("access_token", accessToken);
-  }
-  if (accessToken && userType && schoolName) {
-    fetchSchedule(accessToken, userType, year, week, schoolName);
-  }
+  handleFormSubmit();
 }
 
 // Function to restore checkbox state from localStorage
@@ -434,7 +407,6 @@ function displaySchedule(scheduleData) {
                 1.3 -
               left -
               24;
-            right = "right: 5px; left: auto";
             if (width < 37) {
               positie += `;line-height:1.1`;
               bottom = `bottom: 0px`;
@@ -609,12 +581,26 @@ function displaySchedule(scheduleData) {
   let maxMarginTop = 0;
   lesElements.forEach((el) => {
     const computedStyle = window.getComputedStyle(el);
-    const marginTop = parseFloat(computedStyle.marginTop);
+    var marginTop = parseFloat(computedStyle.marginTop);
+    if (
+      localStorage.getItem("ltr") == "true" &&
+      localStorage.getItem("dag") != "true"
+    ) {
+      timeline.innerHTML =
+        '<div class="circle-marker" style="top: 6px;right: -5px"></div>';
+      marginTop = parseFloat(computedStyle.marginLeft);
+    } else {
+      timeline.innerHTML = `<div class="circle-marker" style="left: 0;"></div>
+      <div class="circle-marker" style="left: 100vw;"></div>
+      <div class="circle-marker" style="left: 200vw;"></div>
+      <div class="circle-marker" style="left: 300vw;"></div>
+      <div class="circle-marker" style="left: 400vw;"></div>`;
+    }
     if (marginTop > maxMarginTop) {
       maxMarginTop = marginTop + 268.6; // 30 min na einde rooster
     }
   });
-  if (topY < maxMarginTop && localStorage.getItem("ltr") != "true") {
+  if (topY < maxMarginTop) {
     scheduleElement.appendChild(timeline);
   }
   if (localStorage.getItem("klas") == "true") {
@@ -768,7 +754,9 @@ function switchDay(richting) {
     let accessToken = localStorage.getItem("access_token");
     // Haal het rooster op
     if (accessToken && userType && schoolName) {
-      document.getElementById("schedule").innerHTML = "";
+      if (localStorage.getItem("dag") == "true") {
+        document.getElementById("schedule").innerHTML = "";
+      }
       fetchSchedule(accessToken, userType, year, week, schoolName);
     }
   }
@@ -852,47 +840,11 @@ function update_section(with_what, what) {
 }
 document.getElementById("weekBtn").addEventListener("click", function () {
   localStorage.setItem("dag", "false");
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode = document
-    .getElementById("authorizationCode")
-    .value.replace(/\s/g, "");
-  const userType = localStorage.getItem("userType");
-  const currentDate = new Date();
-  let year = currentDate.getFullYear();
-  let week = document.getElementById("week").innerText.replace("Week ", "");
-  week = parseInt(week, 10);
-  document.getElementById("week").innerText = "Week " + week;
-  if (week < 10) {
-    week = `0${week}`;
-  }
-
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken = localStorage.getItem("access_token");
-  if (accessToken && userType && schoolName) {
-    fetchSchedule(accessToken, userType, year, week, schoolName);
-  }
+  handleFormSubmit();
 });
 document.getElementById("dayBtn").addEventListener("click", function () {
   localStorage.setItem("dag", "true");
-  const schoolName = document.getElementById("schoolName").value;
-  const authorizationCode = document
-    .getElementById("authorizationCode")
-    .value.replace(/\s/g, "");
-  const userType = localStorage.getItem("userType");
-  const currentDate = new Date();
-  let year = currentDate.getFullYear();
-  let week = document.getElementById("week").innerText.replace("Week ", "");
-  week = parseInt(week, 10);
-  document.getElementById("week").innerText = "Week " + week;
-  if (week < 10) {
-    week = `0${week}`;
-  }
-
-  // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
-  let accessToken = localStorage.getItem("access_token");
-  if (accessToken && userType && schoolName) {
-    fetchSchedule(accessToken, userType, year, week, schoolName);
-  }
+  handleFormSubmit();
 });
 let startX;
 let startY;
