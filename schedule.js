@@ -289,6 +289,20 @@ function displaySchedule(scheduleData) {
         "schedule"
       ).style = `width:500vw;transform:translateX(${transform}vw);`;
     }, 100);
+    let resizeTimeout;
+    window.addEventListener("resize", function () {
+      var schedule = document.getElementById("schedule");
+      var transform = schedule.style.transform.substring(11, 15);
+      document.getElementById(
+        "schedule"
+      ).style = `width:500vw;transform:translateX(${transform}vw);transition:none;`;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function () {
+        document.getElementById(
+          "schedule"
+        ).style = `width:500vw;transform:translateX(${transform}vw);`;
+      }, 200);
+    });
   }
 
   // Groepeer afspraken per dag
