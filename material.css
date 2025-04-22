@@ -1,268 +1,268 @@
 .theme__color {
-  cursor: pointer;
-  position: relative;
+	cursor: pointer;
+	position: relative;
 }
 .theme__input {
-  opacity: 0;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: -1;
+	opacity: 0;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: -1;
 }
 .theme__input:checked + .theme__icon::before {
-  content: "✓";
-  font-size: 27px;
-  margin-left: 5px;
-  color: white;
+	content: "✓";
+	font-size: 27px;
+	margin-left: 5px;
+	color: white;
 }
 .theme__icon {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 100rem;
-  background: var(--color);
-  transition: 0.2s;
-  vertical-align: middle;
-  margin: 5px;
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 100rem;
+	background: var(--color);
+	transition: 0.2s;
+	vertical-align: middle;
+	margin: 5px;
 }
 body {
-  --background: #f1f1f1;
+	--background: #f1f1f1;
 }
 body[data-theme="red"] {
-  --primary-light: #f2201f;
-  --primary-dark: #fff;
-  --primary-accent: #a91616;
+	--primary-light: #f2201f;
+	--primary-dark: #fff;
+	--primary-accent: #a91616;
 }
 body[data-theme="orange"] {
-  --primary-light: #f47734;
-  --primary-dark: #fff;
-  --primary-accent: #ab5324;
+	--primary-light: #f47734;
+	--primary-dark: #fff;
+	--primary-accent: #ab5324;
 }
 body[data-theme="yellow"] {
-  --primary-light: #fb0;
-  --primary-dark: #fff;
-  --primary-accent: #997a01;
+	--primary-light: #fb0;
+	--primary-dark: #fff;
+	--primary-accent: #997a01;
 }
 body[data-theme="green"] {
-  --primary-light: #46b74f;
-  --primary-dark: #fff;
-  --primary-accent: #318037;
+	--primary-light: #46b74f;
+	--primary-dark: #fff;
+	--primary-accent: #318037;
 }
 body[data-theme="cyan"] {
-  --primary-light: #01bad6;
-  --primary-dark: #fff;
-  --primary-accent: #1b8b99;
+	--primary-light: #01bad6;
+	--primary-dark: #fff;
+	--primary-accent: #1b8b99;
 }
 body[data-theme="blue"] {
-  --primary-light: #0080ff;
-  --primary-dark: #fff;
-  --primary-accent: #005ab3;
+	--primary-light: #0080ff;
+	--primary-dark: #fff;
+	--primary-accent: #005ab3;
 }
 body[data-theme="purple"] {
-  --primary-light: #9b37ff;
-  --primary-dark: #fff;
-  --primary-accent: #6d27b3;
+	--primary-light: #9b37ff;
+	--primary-dark: #fff;
+	--primary-accent: #6d27b3;
 }
 body[data-theme="pink"] {
-  --primary-light: #f20d68;
-  --primary-dark: #fff;
-  --primary-accent: #a90949;
+	--primary-light: #f20d68;
+	--primary-dark: #fff;
+	--primary-accent: #a90949;
 }
 @media (prefers-color-scheme: dark) {
-  body {
-    --background: #363636;
-  }
-  body[data-theme="red"] {
-    --primary-light: #f44336;
-    --primary-dark: hsl(0, 79%, 16%);
-    --primary-accent: #ab2f26;
-  }
-  body[data-theme="orange"] {
-    --primary-light: #f77a2e;
-    --primary-dark: hsl(25, 79%, 16%);
-    --primary-accent: #ad5520;
-  }
-  body[data-theme="yellow"] {
-    --primary-light: #fb0;
-    --primary-dark: hsl(62, 79%, 16%);
-    --primary-accent: #997a01;
-  }
-  body[data-theme="green"] {
-    --primary-light: #2dcc70;
-    --primary-dark: hsl(160, 79%, 16%);
-    --primary-accent: #208f4f;
-  }
-  body[data-theme="cyan"] {
-    --primary-light: #01bad6;
-    --primary-dark: hsl(181, 79%, 16%);
-    --primary-accent: #338994;
-  }
-  body[data-theme="blue"] {
-    --primary-light: #3399fe;
-    --primary-dark: hsl(200, 79%, 16%);
-    --primary-accent: #246bb2;
-  }
-  body[data-theme="purple"] {
-    --primary-light: #9e5ef9;
-    --primary-dark: hsl(261, 79%, 16%);
-    --primary-accent: #6f42ae;
-  }
-  body[data-theme="pink"] {
-    --primary-light: #f65696;
-    --primary-dark: hsl(318, 79%, 16%);
-    --primary-accent: #ac3c69;
-  }
+	body {
+		--background: #363636;
+	}
+	body[data-theme="red"] {
+		--primary-light: #f44336;
+		--primary-dark: hsl(0, 79%, 16%);
+		--primary-accent: #ab2f26;
+	}
+	body[data-theme="orange"] {
+		--primary-light: #f77a2e;
+		--primary-dark: hsl(25, 79%, 16%);
+		--primary-accent: #ad5520;
+	}
+	body[data-theme="yellow"] {
+		--primary-light: #fb0;
+		--primary-dark: hsl(62, 79%, 16%);
+		--primary-accent: #997a01;
+	}
+	body[data-theme="green"] {
+		--primary-light: #2dcc70;
+		--primary-dark: hsl(160, 79%, 16%);
+		--primary-accent: #208f4f;
+	}
+	body[data-theme="cyan"] {
+		--primary-light: #01bad6;
+		--primary-dark: hsl(181, 79%, 16%);
+		--primary-accent: #338994;
+	}
+	body[data-theme="blue"] {
+		--primary-light: #3399fe;
+		--primary-dark: hsl(200, 79%, 16%);
+		--primary-accent: #246bb2;
+	}
+	body[data-theme="purple"] {
+		--primary-light: #9e5ef9;
+		--primary-dark: hsl(261, 79%, 16%);
+		--primary-accent: #6f42ae;
+	}
+	body[data-theme="pink"] {
+		--primary-light: #f65696;
+		--primary-dark: hsl(318, 79%, 16%);
+		--primary-accent: #ac3c69;
+	}
 }
 
 .switch:not(:last-of-type) {
-  margin-right: 4rem;
+	margin-right: 4rem;
 }
 .switch__label {
-  position: relative;
-  cursor: pointer;
+	position: relative;
+	cursor: pointer;
 }
 .switch__input {
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  transform: translate(-50%, -50%);
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+	transform: translate(-50%, -50%);
 }
 .switch__input:focus + .switch__design {
-  box-shadow: 0 0 0 0.1rem var(--global-background), 0 0 0 0.2rem var(--focus);
+	box-shadow: 0 0 0 0.1rem var(--global-background), 0 0 0 0.2rem var(--focus);
 }
 .switch {
-  --width: 48px;
-  --height: 28px;
-  --background: hsl(0, 0%, 30%);
-  --checked-background: var(--primary-light);
-  --thumb-size: 16px;
-  --thumb-ripple-color: var(--ripple);
-  --thumb-background: hsl(0, 0%, 48.2%);
-  --checked-thumb-background: var(--primary-dark);
-  --thumb-space-between-edges: 0.4rem;
-  --thumb-out: var(--thumb-space-between-edges);
+	--width: 48px;
+	--height: 28px;
+	--background: hsl(0, 0%, 30%);
+	--checked-background: var(--primary-light);
+	--thumb-size: 16px;
+	--thumb-ripple-color: var(--ripple);
+	--thumb-background: hsl(0, 0%, 48.2%);
+	--checked-thumb-background: var(--primary-dark);
+	--thumb-space-between-edges: 0.4rem;
+	--thumb-out: var(--thumb-space-between-edges);
 }
 .switch--2 {
-  --background: #ddd;
+	--background: #ddd;
 }
 @media (prefers-color-scheme: dark) {
-  .switch--2 {
-    --background: hsla(0, 0%, 20%);
-  }
-  .switch {
-    --thumb-background: hsl(0, 0%, 65%);
-  }
+	.switch--2 {
+		--background: hsla(0, 0%, 20%);
+	}
+	.switch {
+		--thumb-background: hsl(0, 0%, 65%);
+	}
 }
 .switch__design {
-  width: var(--width);
-  height: var(--height);
-  border: var(--border);
-  border-radius: 100rem;
-  background: var(--background);
-  position: relative;
-  transition: 0.2s, box-shadow 0s;
-  border: 2px solid var(--thumb-background);
-  float: right;
-  bottom: 2.5px;
+	width: var(--width);
+	height: var(--height);
+	border: var(--border);
+	border-radius: 100rem;
+	background: var(--background);
+	position: relative;
+	transition: 0.2s, box-shadow 0s;
+	border: 2px solid var(--thumb-background);
+	float: right;
+	bottom: 2.5px;
 }
 .switch__design::before {
-  content: "";
-  position: absolute;
-  left: var(--thumb-out);
-  top: 50%;
-  transform: translateY(-50%);
-  width: var(--thumb-size);
-  height: var(--thumb-size);
-  border-radius: 100rem;
-  background: var(--thumb-background);
-  transition: inherit;
+	content: "";
+	position: absolute;
+	left: var(--thumb-out);
+	top: 50%;
+	transform: translateY(-50%);
+	width: var(--thumb-size);
+	height: var(--thumb-size);
+	border-radius: 100rem;
+	background: var(--thumb-background);
+	transition: inherit;
 }
 .switch__input:checked + .switch__design {
-  border-color: transparent;
-  background: var(--checked-background);
-  --thumb-size: 24px;
-  --thumb-space-between-edges: 0.1rem;
-  --thumb-out: var(--thumb-space-between-edges);
+	border-color: transparent;
+	background: var(--checked-background);
+	--thumb-size: 24px;
+	--thumb-space-between-edges: 0.1rem;
+	--thumb-out: var(--thumb-space-between-edges);
 }
 .switch__input:checked + .switch__design::before {
-  left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
-  background: var(--checked-thumb-background);
+	left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
+	background: var(--checked-thumb-background);
 }
 
 .material-textfield {
-  position: relative;
+	position: relative;
 }
 
 .material-textfield label {
-  position: absolute;
-  font-size: 1rem;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: white;
-  color: gray;
-  padding: 0 0.3rem;
-  margin: 0 0.5rem;
-  transition: 0.1s ease-out;
-  transform-origin: left top;
-  pointer-events: none;
+	position: absolute;
+	font-size: 1rem;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: white;
+	color: gray;
+	padding: 0 0.3rem;
+	margin: 0 0.5rem;
+	transition: 0.1s ease-out;
+	transform-origin: left top;
+	pointer-events: none;
 }
 .material-textfield input {
-  font-size: 1rem;
-  outline: none;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 1rem 0.7rem;
-  color: #000;
-  max-width: calc(100% - 24px);
-  font-family: inherit;
-  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
+	font-size: 1rem;
+	outline: none;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 1rem 0.7rem;
+	color: #000;
+	max-width: calc(100% - 24px);
+	font-family: inherit;
+	font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
 }
 p {
-  margin: 0;
+	margin: 0;
 }
 #closeBtn {
-  font-family: inherit;
-  font-size: inherit;
-  float: right;
-  margin-top: 10px;
+	font-family: inherit;
+	font-size: inherit;
+	float: right;
+	margin-top: 10px;
 }
 
 #schoolName {
-  max-width: calc(100% - 95px);
+	max-width: calc(100% - 95px);
 }
 @media (prefers-color-scheme: dark) {
-  .material-textfield label {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: #222;
-  }
-  .material-textfield input {
-    border-color: rgba(255, 255, 255, 0.38);
-    background: transparent;
-    color: #fff;
-  }
+	.material-textfield label {
+		color: rgba(255, 255, 255, 0.6);
+		background-color: #222;
+	}
+	.material-textfield input {
+		border-color: rgba(255, 255, 255, 0.38);
+		background: transparent;
+		color: #fff;
+	}
 }
 .material-textfield input:focus {
-  border: 3px solid var(--primary-light);
-  padding: calc(1rem - 2px) calc(0.7rem - 2px);
+	border: 3px solid var(--primary-light);
+	padding: calc(1rem - 2px) calc(0.7rem - 2px);
 }
 .material-textfield input:focus + label {
-  color: var(--primary-light);
-  top: 0;
-  transform: translateY(-50%) scale(0.9);
+	color: var(--primary-light);
+	top: 0;
+	transform: translateY(-50%) scale(0.9);
 }
 .material-textfield input:not(:placeholder-shown) + label {
-  top: 0;
-  transform: translateY(-50%) scale(0.9);
+	top: 0;
+	transform: translateY(-50%) scale(0.9);
 }
 #content {
-  max-height: calc(100vh - 180px);
-  overflow-y: scroll;
-  padding-top: 7px;
-  width: 100vw;
-  max-width: 253px;
-  padding-right: 24px;
-  overflow-x: hidden;
+	max-height: calc(100vh - 180px);
+	overflow-y: scroll;
+	padding-top: 7px;
+	width: 100vw;
+	max-width: 253px;
+	padding-right: 24px;
+	overflow-x: hidden;
 }
