@@ -668,7 +668,7 @@ Date.prototype.getWeek = function () {
 };
 
 // Functie om formulierinzending te verwerken
-async function handleFormSubmit() {
+async function handleFormSubmit(firstLoad) {
 	const schoolName = document.getElementById("schoolName").value;
 	const authorizationCode = document
 		.getElementById("authorizationCode")
@@ -701,7 +701,17 @@ async function handleFormSubmit() {
 	) {
 		userInfo();
 	} else if (accessToken && userType && schoolName) {
-		fetchSchedule(accessToken, userType, year, week, schoolName);
+		if (!firstLoad) {
+			if (!document.startViewTransition) {
+				fetchSchedule(accessToken, userType, year, week, schoolName);
+				return;
+			}
+			document.startViewTransition(() =>
+				fetchSchedule(accessToken, userType, year, week, schoolName),
+			);
+		} else {
+			fetchSchedule(accessToken, userType, year, week, schoolName);
+		}
 	}
 }
 function switchDay(richting) {
@@ -763,10 +773,16 @@ function switchDay(richting) {
 		const accessToken = localStorage.getItem("access_token");
 		// Haal het rooster op
 		if (accessToken && userType && schoolName) {
-			if (localStorage.getItem("dag") === "true") {
-				document.getElementById("schedule").innerHTML = "";
+			if (!document.startViewTransition) {
+				if (localStorage.getItem("dag") === "true") {
+					document.getElementById("schedule").innerHTML = "";
+				}
+				fetchSchedule(accessToken, userType, year, week, schoolName);
+				return;
 			}
-			fetchSchedule(accessToken, userType, year, week, schoolName);
+			document.startViewTransition(() =>
+				fetchSchedule(accessToken, userType, year, week, schoolName),
+			);
 		}
 	}
 }
@@ -824,7 +840,7 @@ function hideDialog() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	handleFormSubmit();
+	handleFormSubmit("true");
 	const schoolName = localStorage.getItem("schoolName") || "";
 	const authorizationCode = localStorage.getItem("authorizationCode") || "";
 	const userType = localStorage.getItem("userType") || "";
