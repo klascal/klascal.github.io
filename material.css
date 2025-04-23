@@ -78,7 +78,7 @@ body[data-theme="pink"] {
 		--primary-accent: #ab2f26;
 	}
 	body[data-theme="orange"] {
-		--primary-light: #f77a2e;
+		--primary-light: #ee803d;
 		--primary-dark: hsl(25, 79%, 16%);
 		--primary-accent: #ad5520;
 	}
@@ -90,7 +90,7 @@ body[data-theme="pink"] {
 	body[data-theme="green"] {
 		--primary-light: #2dcc70;
 		--primary-dark: hsl(160, 79%, 16%);
-		--primary-accent: #208f4f;
+		--primary-accent: #2f7d50;
 	}
 	body[data-theme="cyan"] {
 		--primary-light: #01bad6;

@@ -451,7 +451,7 @@ button:not(:disabled):not(.disabled) {
 @media (prefers-color-scheme: dark) {
 	body,
 	html {
-		background-color: #000000;
+		background-color: #121212;
 		color: #ffffff;
 	}
 	dialog {
