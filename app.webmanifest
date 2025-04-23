@@ -1,83 +1,90 @@
 {
-  "name": "Klascal",
-  "short_name": "Klascal",
-  "description": "Een rooster app voor Zermelo",
-  "start_url": "/",
-  "launch_handler": {
-    "client_mode": "auto"
-  },
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1080ce",
-  "icons": [
-    {
-      "src": "logo2.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any"
-    },
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any"
-    },
-    {
-      "src": "maskable_icon_x192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
-      "src": "maskable_icon_x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "desktop1.png",
-      "type": "image/png",
-      "sizes": "1366x768",
-      "form_factor": "wide"
-    },
-    {
-      "src": "desktop2.png",
-      "type": "image/png",
-      "sizes": "1366x768",
-      "form_factor": "wide"
-    },
-    {
-      "src": "phone1.jpg",
-      "type": "image/png",
-      "sizes": "512x1080",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "phone2.jpg",
-      "type": "image/png",
-      "sizes": "512x1080",
-      "form_factor": "narrow"
-    }
-  ],
-  "edge_side_panel": {},
-  "scope": "/",
-  "orientation": "any",
-  "id": "/",
-  "dir": "ltr",
-  "lang": "nl",
-  "shortcuts": [
-    {
-      "name": "Rooster",
-      "url": "/",
-      "description": "Bekijk je rooster."
-    },
-    {
-      "name": "Huiswerk",
-      "url": "/huiswerk",
-      "description": "Bekijk je huiswerk."
-    }
-  ],
-  "categories": ["education"]
+	"name": "Klascal",
+	"short_name": "Klascal",
+	"description": "Een rooster app voor Zermelo",
+	"start_url": "/",
+	"launch_handler": {
+		"client_mode": "auto"
+	},
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#1080ce",
+	"icons": [
+		{
+			"src": "logo2.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any"
+		},
+		{
+			"src": "logo.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "any"
+		},
+		{
+			"src": "maskable_icon_x192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "maskable"
+		},
+		{
+			"src": "maskable_icon_x512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "desktop1.png",
+			"type": "image/png",
+			"sizes": "1366x768",
+			"form_factor": "wide"
+		},
+		{
+			"src": "desktop2.png",
+			"type": "image/png",
+			"sizes": "1366x768",
+			"form_factor": "wide"
+		},
+		{
+			"src": "desktop3.png",
+			"type": "image/png",
+			"sizes": "1366x768",
+			"form_factor": "wide"
+		},
+		{
+			"src": "phone1.jpg",
+			"type": "image/png",
+			"sizes": "512x1080",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "phone2.jpg",
+			"type": "image/png",
+			"sizes": "512x1080",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "phone3.jpg",
+			"type": "image/png",
+			"sizes": "512x1080",
+			"form_factor": "narrow"
+		}
+	],
+	"edge_side_panel": {},
+	"scope": "/",
+	"orientation": "any",
+	"id": "/",
+	"dir": "ltr",
+	"lang": "nl",
+	"shortcuts": [
+		{
+			"name": "Rooster",
+			"url": "/",
+			"description": "Bekijk je rooster."
+		}
+	],
+	"categories": ["education"]
 }
