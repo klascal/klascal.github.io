@@ -668,7 +668,7 @@ Date.prototype.getWeek = function () {
 };
 
 // Functie om formulierinzending te verwerken
-async function handleFormSubmit(firstLoad) {
+async function handleFormSubmit() {
 	const schoolName = document.getElementById("schoolName").value;
 	const authorizationCode = document
 		.getElementById("authorizationCode")
@@ -701,17 +701,13 @@ async function handleFormSubmit(firstLoad) {
 	) {
 		userInfo();
 	} else if (accessToken && userType && schoolName) {
-		if (!firstLoad) {
-			if (!document.startViewTransition) {
-				fetchSchedule(accessToken, userType, year, week, schoolName);
-				return;
-			}
-			document.startViewTransition(() =>
-				fetchSchedule(accessToken, userType, year, week, schoolName),
-			);
-		} else {
+		if (!document.startViewTransition) {
 			fetchSchedule(accessToken, userType, year, week, schoolName);
+			return;
 		}
+		document.startViewTransition(() =>
+			fetchSchedule(accessToken, userType, year, week, schoolName),
+		);
 	}
 }
 function switchDay(richting) {
@@ -840,7 +836,7 @@ function hideDialog() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	handleFormSubmit("true");
+	handleFormSubmit();
 	const schoolName = localStorage.getItem("schoolName") || "";
 	const authorizationCode = localStorage.getItem("authorizationCode") || "";
 	const userType = localStorage.getItem("userType") || "";

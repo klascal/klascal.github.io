@@ -15,7 +15,15 @@ button:focus {
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-duration: 150ms;
+	animation-duration: 75ms;
+	animation-timing-function: ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root),
+	dialog {
+		animation: none !important;
+	}
 }
 .check_box {
 	display: none;
