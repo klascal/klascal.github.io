@@ -157,7 +157,12 @@ restoreCheckboxState3();
 async function userInfo() {
 	const authorizationCode = localStorage.getItem("access_token");
 	const response = await fetch(
-		`https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=${authorizationCode}`,
+		"https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee",
+		{
+			headers: {
+				Authorization: `Bearer ${authorizationCode}`,
+			},
+		},
 	);
 	const data = await response.json();
 	let userType = "student";
@@ -203,13 +208,14 @@ async function fetchSchedule(
 	schoolName,
 ) {
 	try {
-		const url = `https://${schoolName}.zportal.nl/api/v3/liveschedule?access_token=${authorizationCode}&${userType}=~me&week=${year}${week}`;
-		const response = await fetch(url, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
+		const response = await fetch(
+			`https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}`,
+			{
+				headers: {
+					Authorization: `Bearer ${authorizationCode}`,
+				},
 			},
-		});
+		);
 		if (!response.ok) {
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
