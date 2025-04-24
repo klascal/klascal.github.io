@@ -58,10 +58,10 @@ setInterval(() => {
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = `top: ${topY}px;`;
-// Haal elke 5 minuten het rooster op
+// Haal elke 1.5 minuut het rooster op
 setInterval(() => {
 	handleFormSubmit();
-}, 300000);
+}, 90000);
 sessionStorage.setItem("transform", "");
 sessionStorage.setItem("week", "");
 sessionStorage.setItem("year", "");
