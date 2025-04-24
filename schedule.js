@@ -198,7 +198,6 @@ function restoreCheckboxState2() {
 }
 restoreCheckboxState2();
 checkbox2.addEventListener("change", saveCheckboxState2);
-// Save state when checkbox is clicked
 // Functie om rooster op te halen met behulp van fetch
 async function fetchSchedule(
 	authorizationCode,
