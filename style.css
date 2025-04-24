@@ -13,16 +13,17 @@
 button:focus {
 	outline: none;
 }
-::view-transition-old(root),
-::view-transition-new(root) {
+::view-transition-group(root) {
 	animation-duration: 75ms;
 	animation-timing-function: ease-out;
 }
 @media (prefers-reduced-motion: reduce) {
-	::view-transition-old(root),
-	::view-transition-new(root),
+	::view-transition-group(root),
 	dialog {
 		animation: none !important;
+	}
+	* {
+		transition: none !important;
 	}
 }
 .check_box {
@@ -165,7 +166,7 @@ span.schedule {
 	font-size: initial;
 	color: white;
 	vertical-align: middle;
-	width: 65px;
+	width: 67.5px;
 	display: inline-block;
 }
 .geweest {

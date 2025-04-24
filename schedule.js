@@ -63,6 +63,8 @@ setInterval(() => {
 	handleFormSubmit();
 }, 300000);
 sessionStorage.setItem("transform", "");
+sessionStorage.setItem("week", "");
+sessionStorage.setItem("year", "");
 const startTime = document.getElementById("startTime");
 startTime.value = localStorage.getItem("startTime") || "08:00";
 const $ = (e) => document.querySelectorAll(e);
@@ -330,6 +332,9 @@ function displaySchedule(scheduleData) {
 			const today = new Date();
 			const ufuf = (Number(week.innerText.substring(5)) - today.getWeek()) * 7;
 			today.setDate(today.getDate() + ufuf);
+			if (sessionStorage.getItem("year")) {
+				today.setFullYear(Number(sessionStorage.getItem("year")));
+			}
 			const date = new Date(today.setDate(today.getDate() - today.getDay()));
 			date.setDate(date.getDate() + index);
 			const day = new Date();
@@ -674,7 +679,7 @@ async function handleFormSubmit() {
 		.getElementById("authorizationCode")
 		.value.replace(/\s/g, "");
 	const currentDate = new Date();
-	const year = currentDate.getFullYear();
+	let year = currentDate.getFullYear();
 	const userType = localStorage.getItem("userType");
 	let week = currentDate.getWeek(); // Bereken weeknummer
 	document.getElementById("week").innerText = `Week ${week}`;
@@ -701,6 +706,14 @@ async function handleFormSubmit() {
 	) {
 		userInfo();
 	} else if (accessToken && userType && schoolName) {
+		if (sessionStorage.getItem("week")) {
+			week = sessionStorage.getItem("week");
+			document.getElementById("week").innerText =
+				`Week ${week.replace(/^0+/, "")}`;
+		}
+		if (sessionStorage.getItem("year")) {
+			year = sessionStorage.getItem("year");
+		}
 		if (!document.startViewTransition) {
 			fetchSchedule(accessToken, userType, year, week, schoolName);
 			return;
@@ -741,22 +754,24 @@ function switchDay(richting) {
 			.value.replace(/\s/g, "");
 		const userType = localStorage.getItem("userType");
 		const currentDate = new Date();
-		let year = currentDate.getFullYear();
+		let year = sessionStorage.getItem("year") || currentDate.getFullYear();
 		let week = document.getElementById("week").innerText.replace("Week ", "");
 		week = Number.parseInt(week);
 		if (richting === "next") {
 			week = week + 1;
 			if (week === 53) {
-				week = "1";
+				week = 1;
 				year = Number.parseInt(year);
 				year = year + 1;
+				sessionStorage.setItem("year", year);
 			}
 		} else if (richting === "previous") {
 			week = week - 1;
-			if (week === "00") {
-				week = "52";
+			if (week === 0) {
+				week = 52;
 				year = Number.parseInt(year);
 				year = year - 1;
+				sessionStorage.setItem("year", year);
 			}
 		}
 
@@ -764,7 +779,7 @@ function switchDay(richting) {
 		if (week < 10) {
 			week = `0${week}`;
 		}
-
+		sessionStorage.setItem("week", week);
 		// Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)
 		const accessToken = localStorage.getItem("access_token");
 		// Haal het rooster op
