@@ -282,6 +282,11 @@ h3 {
   will-change: transform;
   display: flex;
 }
+#ltr {
+  view-transition-name: ltr;
+  position: absolute;
+  left: 200px;
+}
 @media (max-width: 675px) {
   .les.ltr {
     width: 95px;
@@ -290,7 +295,7 @@ h3 {
     width: 80px;
   }
   #ltr {
-    display: none;
+    transform: translateY(-48px);
   }
   h3 {
     width: 120px;
@@ -298,7 +303,7 @@ h3 {
 }
 @media (max-height: 555px) {
   #ltr {
-    display: none;
+    transform: translateY(-48px);
   }
 }
 @media (max-width: 600px) {

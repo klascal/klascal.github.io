@@ -230,7 +230,8 @@ async function fetchSchedule(
 function displaySchedule(scheduleData) {
   if (localStorage.getItem("dag") === "true") {
     document.getElementById("week").style = "display: none";
-    document.getElementById("ltr").style = "display: none";
+    document.getElementById("ltr").style =
+      "vertical-align: middle;background-color: #0000002e;margin-left: 5px;transform: translateY(-48px);opacity:0;";
     document.getElementById("dayBtn").innerText = "✓ Dag";
     document.getElementById("weekBtn").innerText = "Week";
     document.getElementById("dayBtn").classList.add("selected");
