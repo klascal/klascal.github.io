@@ -819,6 +819,10 @@ document.getElementById("previousDay").addEventListener("click", () => {
   switchDay("previous");
 });
 
+window.addEventListener("message", function (e) {
+  var message = e.data;
+  console.log(message);
+});
 // Sla schoolnaam en token op
 const schoolName = document.getElementById("schoolName");
 schoolName.value = localStorage.getItem("schoolName");
