@@ -174,7 +174,6 @@ span.schedule {
   border-radius: 10px;
   position: absolute;
   width: 107px;
-  line-height: 1.4;
   border: 1px solid #c5c9e2;
   background-color: #f3f5f6;
   min-width: 45px;
@@ -210,6 +209,7 @@ span.schedule {
   float: right;
   margin-right: -2.5px;
   position: relative;
+  bottom: 2.5px;
 }
 
 .warning .warningMessage {
@@ -265,7 +265,6 @@ p.lestijden {
 
 strong {
   font-size: 16px;
-  line-height: initial;
 }
 
 h3 {

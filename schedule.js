@@ -23,11 +23,11 @@ let topY =
 setInterval(() => {
   let d = new Date();
   d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  multiples = 1.75;
+  multiples = 1.4;
   if (localStorage.getItem("dag") === "true") {
     multiples = 1.3;
   } else if (localStorage.getItem("ltr") === "true") {
-    multiples = 2.4;
+    multiples = 2.2;
   } else if (localStorage.getItem("klas") === "true") {
     multiples = 2;
   }
@@ -400,15 +400,15 @@ function displaySchedule(scheduleData) {
               (Number.parseInt(startTime.split(":")[0]) -
                 localStorage.getItem("decimalStartTime")) *
                 60) *
-            1.75;
+            1.4;
           let width =
             (Number.parseInt(endTime.split(":")[1]) +
               (Number.parseInt(endTime.split(":")[0]) -
                 localStorage.getItem("decimalStartTime")) *
                 60) *
-              1.75 -
+              1.4 -
             left -
-            24;
+            20;
           positie = `margin-top:${left}px;height:${width}px`;
           if (width < 55) {
             positie += ";line-height:1.1";
@@ -446,13 +446,13 @@ function displaySchedule(scheduleData) {
                 (Number.parseInt(startTime.split(":")[0]) -
                   localStorage.getItem("decimalStartTime")) *
                   60) *
-              2.6;
+              2.4;
             width =
               (Number.parseInt(endTime.split(":")[1]) +
                 (Number.parseInt(endTime.split(":")[0]) -
                   localStorage.getItem("decimalStartTime")) *
                   60) *
-                2.6 -
+                2.4 -
               left -
               24;
             positie = `margin-left:${left}px;width:${width}px`;
