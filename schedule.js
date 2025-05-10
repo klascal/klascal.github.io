@@ -84,23 +84,12 @@ if (savedTheme) {
   ).value;
   _switches.setAttribute("data-theme", defaultTheme);
 }
-// Get the CSS variable value
-let primaryAccent = getComputedStyle(document.body)
-  .getPropertyValue("--primary-accent")
-  .trim();
-// Select the meta tag
-const themeMetaTag = document.querySelector('meta[name="theme-color"]');
-themeMetaTag.setAttribute("content", primaryAccent);
 // Save theme when changed
 for (const radio of _colors) {
   radio.addEventListener("change", (e) => {
     if (e.target.checked) {
       _switches.setAttribute("data-theme", e.target.value);
       localStorage.setItem("theme", e.target.value);
-      primaryAccent = getComputedStyle(document.body)
-        .getPropertyValue("--primary-accent")
-        .trim();
-      themeMetaTag.setAttribute("content", primaryAccent);
     }
   });
 }
@@ -111,6 +100,72 @@ if (!localStorage.getItem("dag")) {
 }
 if (!localStorage.getItem("afkorting")) {
   localStorage.setItem("afkorting", "true");
+}
+function setThemeColor() {
+  const metaTag = document.querySelector('meta[name="theme-color"]');
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  metaTag.setAttribute("content", isDarkMode ? "#2a2a2f" : "#eee");
+}
+setThemeColor();
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", setThemeColor);
+function show(id, title, hide) {
+  const content = document.querySelector(".container");
+  const children = content.querySelectorAll("div");
+  if (!document.startViewTransition) {
+    children.forEach((div) => {
+      if (div.id === id) {
+        div.style.display = "block";
+      } else {
+        div.removeAttribute("style");
+      }
+    });
+    if (id !== "submenus" && hide !== "hide") {
+      document.querySelector("#dialog h2").innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" onclick="show(`submenus`, `Instellingen`)"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>' +
+        title;
+    } else {
+      if (
+        document.querySelector("#dialog #closeBtn").innerText === "Volgende" &&
+        id !== "koppelingen"
+      ) {
+        document.querySelector("#dialog #closeBtn").innerText = "Sluiten";
+        document
+          .querySelector("#dialog #closeBtn")
+          .setAttribute("onclick", "hideDialog()");
+      }
+      document.querySelector("#dialog h2").innerHTML = title;
+    }
+    return;
+  }
+  document.startViewTransition(() => {
+    const content = document.querySelector(".container");
+    const children = content.querySelectorAll("div");
+    children.forEach((div) => {
+      if (div.id === id) {
+        div.style.display = "block";
+      } else {
+        div.removeAttribute("style");
+      }
+    });
+    if (id !== "submenus" && hide !== "hide") {
+      document.querySelector("#dialog h2").innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" onclick="show(`submenus`, `Instellingen`)"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>' +
+        title;
+    } else {
+      if (
+        document.querySelector("#dialog #closeBtn").innerText === "Volgende" &&
+        id !== "koppelingen"
+      ) {
+        document.querySelector("#dialog #closeBtn").innerText = "Sluiten";
+        document
+          .querySelector("#dialog #closeBtn")
+          .setAttribute("onclick", "hideDialog()");
+      }
+      document.querySelector("#dialog h2").innerHTML = title;
+    }
+  });
 }
 const checkbox = document.getElementById("vakafkorting");
 // Function to save checkbox state to localStorage
@@ -231,7 +286,7 @@ function displaySchedule(scheduleData) {
   if (localStorage.getItem("dag") === "true") {
     document.getElementById("week").style = "display: none";
     document.getElementById("ltr").style =
-      "vertical-align: middle;background-color: #0000002e;margin-left: 5px;transform: translateY(-48px);opacity:0;";
+      "vertical-align: middle;background-color: transparent;margin-left: 5px;transform: translateY(-48px);opacity:0;";
     document.getElementById("dayBtn").innerText = "✓ Dag";
     document.getElementById("weekBtn").innerText = "Week";
     document.getElementById("dayBtn").classList.add("selected");
@@ -239,7 +294,7 @@ function displaySchedule(scheduleData) {
   } else {
     document.getElementById("week").style = "";
     document.getElementById("ltr").style = `vertical-align: middle;
-          background-color: #0000002e !important;
+          background-color: transparent;
           margin-left: 5px;`;
     document.getElementById("weekBtn").innerText = "✓ Week";
     document.getElementById("dayBtn").innerText = "Dag";
@@ -528,7 +583,8 @@ function displaySchedule(scheduleData) {
             window.innerWidth < 391 &&
             localStorage.getItem("dag") !== "true"
           ) {
-            document.getElementById("schedule").style = "margin-top: 83px;";
+            document.getElementById("schedule").style =
+              "margin-top: 83px;height: calc(100vh - 83px);";
           }
           if (localStorage.getItem("dag") === "true") {
             ltr += " dag";
@@ -838,8 +894,11 @@ authorizationCode.oninput = () => {
 };
 
 // Functie om dialoogvenster te tonen
-function showDialog() {
-  const dialog = document.getElementById("dialog");
+function showDialog(el) {
+  let dialog = document.getElementById("dialog");
+  if (el) {
+    dialog = document.getElementById(el);
+  }
   dialog.style = "";
   dialog.showModal();
 }
@@ -850,18 +909,62 @@ function handleArrowKeyPress(event) {
     document.getElementById("previousDay").click();
   } else if (key === "ArrowRight") {
     document.getElementById("nextDay").click();
+  } else if (key === "?") {
+    showDialog("shortcuts");
+  } else if (event.ctrlKey && event.key === ",") {
+    showDialog();
+  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "d") {
+    document.getElementById("dayBtn").click();
+  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "w") {
+    document.getElementById("weekBtn").click();
+  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "o") {
+    document.getElementById("checkbox1").click();
+  } else if (key === "W") {
+    let week = prompt("Week");
+    if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 53 && week > 0) {
+      if (week < 10) week = `0${week}`;
+      if (week.length == 2) {
+        sessionStorage.setItem("week", week);
+        handleFormSubmit();
+      }
+    }
+  } else if (key === "J") {
+    let week = prompt("Jaar");
+    if (!isNaN(week) && !isNaN(parseFloat(week))) {
+      if (week.length == 4) {
+        sessionStorage.setItem("year", week);
+        handleFormSubmit();
+      }
+    }
+  } else if (key === "D") {
+    let week = prompt("Dag (1-7)");
+    if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 8 && week > 0) {
+      if (week.length == 1) {
+        const vandaag = week;
+        let transform = -600;
+        if (vandaag !== 7) {
+          transform = (vandaag - 1) * -100;
+        }
+        sessionStorage.setItem("transform", transform);
+        handleFormSubmit();
+      }
+    }
   }
 }
 
 document.addEventListener("keydown", handleArrowKeyPress);
 
 // Functie om dialoogvenster te verbergen
-function hideDialog() {
-  const dialog = document.getElementById("dialog");
+function hideDialog(el) {
+  let dialog = document.getElementById("dialog");
+  if (el) {
+    dialog = document.getElementById(el);
+  }
   dialog.style = "animation: popOut 0.33s";
   dialog.addEventListener("animationend", (event) => {
     if (event.animationName === "popOut") {
       dialog.close();
+      show("submenus", "Instellingen");
     }
   });
   document.getElementById("css").click();
@@ -879,6 +982,11 @@ document.addEventListener("DOMContentLoaded", () => {
     userType.trim() === ""
   ) {
     // Als een van de opgeslagen waarden leeg is, toon dialoogvenster
+    document.querySelector("#dialog #closeBtn").innerText = "Volgende";
+    document
+      .querySelector("#dialog #closeBtn")
+      .setAttribute("onclick", "show('submenus', 'Instellingen')");
+    show("koppelingen", "Koppelingen", "hide");
     showDialog();
   }
 });

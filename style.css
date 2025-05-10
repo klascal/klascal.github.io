@@ -30,7 +30,7 @@ button:focus {
   border: none;
   border-radius: 4rem 0 0 4rem;
   padding: 0.5rem;
-  background-color: #0000002e;
+  background-color: transparent;
   view-transition-name: prev;
   z-index: 2;
   position: relative;
@@ -39,7 +39,7 @@ button:focus {
   border: none;
   padding: 0.5rem;
   border-radius: 0 4rem 4rem 0;
-  background-color: #0000002e;
+  background-color: transparent;
   view-transition-name: next;
   z-index: 2;
   position: relative;
@@ -48,7 +48,7 @@ button:focus {
   display: none;
 }
 #field {
-  background: var(--primary-light);
+  background: #eee;
   position: fixed;
   width: calc(100vw - 16px);
   top: 0;
@@ -98,6 +98,8 @@ dialog {
   animation: popIn 0.33s;
   overflow: hidden;
   user-select: none;
+  outline: none;
+  view-transition-name: dialog;
 }
 
 @keyframes popIn {
@@ -174,14 +176,13 @@ span.schedule {
   border-radius: 10px;
   position: absolute;
   width: 107px;
-  border: 1px solid #c5c9e2;
-  background-color: #f3f5f6;
+  background-color: var(--primary-accent-faded);
+  border: 1px solid var(--primary-accent);
   min-width: 45px;
 }
 
 #week {
   font-size: initial;
-  color: white;
   vertical-align: middle;
   width: 67.5px;
   display: inline-block;
@@ -192,10 +193,6 @@ span.schedule {
 }
 
 @media (prefers-color-scheme: dark) {
-  .les {
-    background-color: #2a2a2f;
-    border: 1px solid #374048;
-  }
   #week {
     color: #fff;
   }
@@ -211,7 +208,42 @@ span.schedule {
   position: relative;
   bottom: 2.5px;
 }
-
+th {
+  font-size: 14px;
+  font-weight: normal;
+  text-align: left;
+  padding: 8px;
+}
+kbd {
+  font-family: inherit;
+  border: 1px solid #d0d6dc;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+}
+#shortcuts,
+#shortcuts #content {
+  max-width: 356px;
+}
+#submenu {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  padding-bottom: 24px;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+hr {
+  height: 1px;
+  border-width: 0;
+  background-color: gray;
+}
 .warning .warningMessage {
   display: none;
   z-index: 1;
@@ -321,10 +353,6 @@ h3 {
     width: 100px;
     text-align: center;
     margin: 0;
-  }
-  .les.ltr .warning {
-    right: 2.5px;
-    bottom: 2.5px;
   }
 }
 @media (max-width: 500px) {
@@ -445,10 +473,6 @@ button:not(:disabled):not(.disabled) {
   fill: black;
   vertical-align: middle;
 }
-#add .icon,
-#field #icon {
-  fill: white;
-}
 
 #error {
   background-color: #eeb;
@@ -463,6 +487,7 @@ button:not(:disabled):not(.disabled) {
   padding: 0.5rem 0;
   width: 71.1px;
   background-color: var(--primary-accent) !important;
+  color: var(--primary-light);
 }
 .themes {
   background-color: var(--background);
@@ -472,6 +497,12 @@ button:not(:disabled):not(.disabled) {
 
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
+  kbd {
+    border: 1px solid #374048;
+  }
+  #field {
+    background: #2a2a2f;
+  }
   body,
   html {
     background-color: #0f0f0f;
@@ -482,13 +513,14 @@ button:not(:disabled):not(.disabled) {
     color: #fff;
   }
 
-  dialog .btn,
-  .dayTitle {
+  dialog .btn {
     color: white !important;
-    background-color: #363636 !important;
+    background-color: #363636;
     text-shadow: none !important;
   }
-
+  .dayTitle {
+    background-color: #202125;
+  }
   .btn:hover {
     color: white !important;
     background-color: #444 !important;
@@ -551,8 +583,7 @@ button:not(:disabled):not(.disabled) {
 }
 .timeline {
   position: absolute;
-  width: 500vw;
-  height: 2px;
+  view-transition-name: timeline;
   background-color: var(--primary-light);
   transition: 0.1s top ease-in-out;
 }
@@ -601,4 +632,13 @@ button:not(:disabled):not(.disabled) {
   .notEnrolled::after {
     content: "";
   }
+}
+dialog #icon {
+  fill: var(--primary-light) !important;
+  transform: translateY(-2px);
+  margin-right: 5.55px;
+  cursor: pointer;
+}
+#content .submenu {
+  display: none;
 }
