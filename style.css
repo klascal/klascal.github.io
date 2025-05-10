@@ -392,7 +392,7 @@ h3 {
   @media (prefers-color-scheme: dark) {
     #week {
       background-color: #f6f8fa;
-      background-color: #363636 !important;
+      background-color: #202125 !important;
       color: white;
     }
   }
