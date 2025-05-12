@@ -493,6 +493,19 @@ button:not(:disabled):not(.disabled) {
   padding: 10px;
   border-radius: 10px;
 }
+details summary {
+  cursor: pointer;
+  font-size: 18px;
+}
+details {
+  margin-bottom: 24px;
+}
+li {
+  margin-bottom: 5px;
+}
+::marker {
+  font-weight: bold;
+}
 
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
@@ -530,9 +543,6 @@ button:not(:disabled):not(.disabled) {
   #loadSchedule:hover {
     color: white !important;
     background-color: #444 !important;
-  }
-  details summary {
-    cursor: pointer;
   }
   #close:hover {
     background-color: red !important;
