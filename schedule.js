@@ -7,9 +7,11 @@ for (const dialog of dialogs) {
 let d = new Date();
 d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 // Update de tijdlijn elke 10 seconden
-let multiples = 1.75;
+multiples = 1.45;
 if (localStorage.getItem("dag") === "true") {
   multiples = 1.3;
+} else if (localStorage.getItem("ltr") === "true") {
+  multiples = 2.3;
 } else if (localStorage.getItem("klas") === "true") {
   multiples = 2;
 }
@@ -23,11 +25,11 @@ let topY =
 setInterval(() => {
   let d = new Date();
   d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  multiples = 1.4;
+  multiples = 1.45;
   if (localStorage.getItem("dag") === "true") {
     multiples = 1.3;
   } else if (localStorage.getItem("ltr") === "true") {
-    multiples = 2.2;
+    multiples = 2.3;
   } else if (localStorage.getItem("klas") === "true") {
     multiples = 2;
   }
@@ -455,13 +457,13 @@ function displaySchedule(scheduleData) {
               (Number.parseInt(startTime.split(":")[0]) -
                 localStorage.getItem("decimalStartTime")) *
                 60) *
-            1.4;
+            1.45;
           let width =
             (Number.parseInt(endTime.split(":")[1]) +
               (Number.parseInt(endTime.split(":")[0]) -
                 localStorage.getItem("decimalStartTime")) *
                 60) *
-              1.4 -
+              1.45 -
             left -
             20;
           positie = `margin-top:${left}px;height:${width}px`;
@@ -677,7 +679,12 @@ function displaySchedule(scheduleData) {
       <div class="circle-marker" style="left: 400vw;"></div>`;
     }
     if (marginTop > maxMarginTop) {
-      maxMarginTop = marginTop + 268.6; // 30 min na einde rooster
+      maxMarginTop = marginTop + 267; // 0 min na einde rooster
+      if (localStorage.getItem("dag") === "true") {
+        maxMarginTop = marginTop + 242;
+      } else if (localStorage.getItem("ltr") === "true") {
+        maxMarginTop = marginTop + 264;
+      }
     }
   }
   if (topY < maxMarginTop) {
