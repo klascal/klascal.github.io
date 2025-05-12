@@ -583,9 +583,8 @@ button:not(:disabled):not(.disabled) {
 }
 .timeline {
   position: absolute;
-  view-transition-name: timeline;
   background-color: var(--primary-light);
-  transition: 0.1s top ease-in-out;
+  transition: 75ms top ease-in;
 }
 .circle-marker {
   position: absolute;
