@@ -113,6 +113,10 @@ window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", setThemeColor);
 function show(id, title, hide) {
+  // Titel sanitizen
+  if (!/^[A-Za-z]+$/.test(title)) {
+    title = "Instellingen";
+  }
   const content = document.querySelector(".container");
   const children = content.querySelectorAll("div");
   if (!document.startViewTransition) {
@@ -706,7 +710,7 @@ function displaySchedule(scheduleData) {
 // Functie om foutmelding weer te geven
 function displayError(message) {
   const scheduleElement = document.getElementById("schedule");
-  scheduleElement.innerHTML = `<p>${message}</p>`;
+  scheduleElement.innerText = message;
 }
 
 // Functie om de access token te verkrijgen door middel van de koppelcode.
@@ -863,7 +867,7 @@ function switchDay(richting) {
     if (accessToken && userType && schoolName) {
       if (!document.startViewTransition) {
         if (localStorage.getItem("dag") === "true") {
-          document.getElementById("schedule").innerHTML = "";
+          document.getElementById("schedule").innerText = "";
         }
         fetchSchedule(accessToken, userType, year, week, schoolName);
         return;
@@ -971,14 +975,9 @@ function hideDialog(el) {
   if (el) {
     dialog = document.getElementById(el);
   }
-  dialog.style = "animation: popOut 0.33s";
-  dialog.addEventListener("animationend", (event) => {
-    if (event.animationName === "popOut") {
-      dialog.close();
-      show("submenus", "Instellingen");
-    }
-  });
-  document.getElementById("css").click();
+  dialog.style = "animation: none";
+  dialog.close();
+  show("submenus", "Instellingen");
   handleFormSubmit();
 }
 
@@ -1006,10 +1005,10 @@ const css = document.getElementById("css");
 css.value = localStorage.getItem("css");
 css.oninput = () => {
   localStorage.setItem("css", css.value);
+  document.getElementById("styling").innerText = css.value;
 };
-
-function update_section(with_what, what) {
-  document.getElementById(`${what}goeshere`).innerText = with_what;
+if (localStorage.getItem("css")) {
+  document.getElementById("styling").innerText = localStorage.getItem("css");
 }
 document.getElementById("weekBtn").addEventListener("click", () => {
   localStorage.setItem("dag", "false");
