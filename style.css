@@ -146,10 +146,6 @@ button[type="submit"] {
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
 span.schedule {
   display: block;
 }
@@ -429,7 +425,10 @@ h3 {
   border-radius: 4rem;
   transition: all 0.1s ease-in-out;
 }
-
+dialog .btn {
+  color: var(--primary-dark);
+  background-color: var(--primary-light);
+}
 #previousDay,
 #nextDay,
 #loadSchedule,
@@ -439,21 +438,6 @@ h3 {
 
 button:not(:disabled) {
   cursor: pointer;
-}
-
-.btn:hover {
-  text-decoration: none;
-  background-color: #f1f1f1;
-}
-
-button:not(:disabled):not(.disabled) {
-  cursor: pointer;
-}
-
-.btn:hover,
-.btn:active {
-  background-color: #f1f1f1;
-  text-decoration: none;
 }
 
 #icon,
@@ -520,28 +504,8 @@ li {
     background-color: #222;
     color: #fff;
   }
-
-  dialog .btn {
-    color: white !important;
-    background-color: #363636;
-    text-shadow: none !important;
-  }
   .dayTitle {
     background-color: #202125;
-  }
-  .btn:hover {
-    color: white !important;
-    background-color: #444 !important;
-  }
-
-  .btn:hover,
-  .btn:active,
-  #loadSchedule:hover {
-    color: white !important;
-    background-color: #444 !important;
-  }
-  #close:hover {
-    background-color: red !important;
   }
 
   #icon,
