@@ -994,9 +994,13 @@ function hideDialog(el) {
   if (el) {
     dialog = document.getElementById(el);
   }
-  dialog.style = "animation: none";
-  dialog.close();
-  show("submenus", "Instellingen");
+  dialog.style = "animation: popOut 0.33s";
+  dialog.addEventListener("animationend", (event) => {
+    if (event.animationName === "popOut") {
+      dialog.close();
+      show("submenus", "Instellingen");
+    }
+  });
   handleFormSubmit();
 }
 
@@ -1031,6 +1035,9 @@ if (localStorage.getItem("css")) {
 }
 document.getElementById("weekBtn").addEventListener("click", () => {
   localStorage.setItem("dag", "false");
+  if (!document.startViewTransition) {
+    document.getElementById("schedule").innerText = "";
+  }
   handleFormSubmit();
 });
 document.getElementById("dayBtn").addEventListener("click", () => {

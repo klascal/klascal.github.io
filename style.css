@@ -117,6 +117,21 @@ dialog {
   }
 }
 
+@keyframes popOut {
+  from {
+    max-height: calc(100vh - 80px);
+    padding: 24px;
+    opacity: 1;
+    overflow: hidden;
+  }
+  to {
+    max-height: 0px;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+}
+
 #inputForm {
   max-width: 400px;
   margin: 0 auto;
