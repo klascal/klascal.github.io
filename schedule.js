@@ -384,8 +384,17 @@ function displaySchedule(scheduleData) {
     if (localStorage.getItem("dag") === "true") {
       currentDayName += ` ${currentDate.getDate()} ${currentMonthName}`;
       currentDayName = `${week.innerText}, ${currentDayName}`;
+      if (currentDate.getDay() === new Date().getDay()) {
+        localStorage.setItem("vandaag", currentDayName);
+      }
       week.style = "display: none";
+    } else {
+      localStorage.setItem("vandaag", daysOfWeek[new Date().getDay()]);
     }
+    localStorage.setItem(
+      "notThisWeek",
+      new Date(appointment.start * 1000).getWeek() != new Date().getWeek()
+    );
     if (!acc[currentDayName]) {
       acc[currentDayName] = [];
     }
@@ -654,8 +663,18 @@ function displaySchedule(scheduleData) {
 
       // Generate HTML for the day with its appointments
       if (localStorage.getItem("dag") === "true") {
+        if (
+          localStorage.getItem("vandaag") === dayName &&
+          localStorage.getItem("notThisWeek") !== "true"
+        ) {
+          return `<div class="dag ${dayName}"><p class="dayTitle" style="background-color: var(--primary-accent);"><span style="color: var(--primary-light)">●</span> ${dayName}</p>${appointmentsHTML}</div>`;
+        }
         return `<div class="dag ${dayName}"><p class="dayTitle">${dayName}</p>${appointmentsHTML}</div>`;
-        // biome-ignore lint/style/noUselessElse: <explanation>
+      } else if (
+        localStorage.getItem("vandaag") === dayName &&
+        localStorage.getItem("notThisWeek") !== "true"
+      ) {
+        return `<div class="dag ${dayName}"><h3 style="color: var(--primary-light)">${dayName}</h3>${appointmentsHTML}</div>`;
       } else {
         return `<div class="dag ${dayName}"><h3>${dayName}</h3>${appointmentsHTML}</div>`;
       }
