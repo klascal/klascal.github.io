@@ -6,14 +6,14 @@ for (const dialog of dialogs) {
 }
 let d = new Date();
 d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-// Update de tijdlijn elke 10 seconden
-multiples = 1.45;
+// Update de tijdlijn elke 100 ms
+multiples = 1.425;
 if (localStorage.getItem("dag") === "true") {
-  multiples = 1.3;
+  multiples = 1.285;
 } else if (localStorage.getItem("ltr") === "true") {
-  multiples = 2.3;
+  multiples = 2.325;
 } else if (localStorage.getItem("klas") === "true") {
-  multiples = 2;
+  multiples = 1.75;
 }
 let topY =
   (Number.parseInt(d.split(":")[1]) +
@@ -25,13 +25,13 @@ let topY =
 setInterval(() => {
   let d = new Date();
   d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  multiples = 1.45;
+  multiples = 1.425;
   if (localStorage.getItem("dag") === "true") {
-    multiples = 1.3;
+    multiples = 1.285;
   } else if (localStorage.getItem("ltr") === "true") {
-    multiples = 2.3;
+    multiples = 2.325;
   } else if (localStorage.getItem("klas") === "true") {
-    multiples = 2;
+    multiples = 1.75;
   }
   topY =
     (Number.parseInt(d.split(":")[1]) +
@@ -546,13 +546,13 @@ function displaySchedule(scheduleData) {
                 (Number.parseInt(startTime.split(":")[0]) -
                   localStorage.getItem("decimalStartTime")) *
                   60) *
-              2;
+              1.75;
             width =
               (Number.parseInt(endTime.split(":")[1]) +
                 (Number.parseInt(endTime.split(":")[0]) -
                   localStorage.getItem("decimalStartTime")) *
                   60) *
-                2 -
+                1.75 -
               left -
               20;
             positie = `margin-top:${left}px;height:${width}px`;
@@ -560,7 +560,13 @@ function displaySchedule(scheduleData) {
               positie += ";line-height:1.1";
             }
           }
-
+          if (
+            localStorage.getItem("klas") === "true" &&
+            appointment.cancelled !== true &&
+            localStorage.getItem("dag") !== "true"
+          ) {
+            bottom = "top: 12.5px; bottom: 0";
+          }
           // Uppercase subjects if enabled
           let subjects = appointment.subjects;
           if (localStorage.getItem("hoofdletter") === "true") {
@@ -702,11 +708,11 @@ function displaySchedule(scheduleData) {
       <div class="circle-marker" style="left: 400vw;"></div>`;
     }
     if (marginTop > maxMarginTop) {
-      maxMarginTop = marginTop + 267; // 0 min na einde rooster
+      maxMarginTop = marginTop + 315; // 0 min na einde rooster
       if (localStorage.getItem("dag") === "true") {
-        maxMarginTop = marginTop + 242;
+        maxMarginTop = marginTop + 235;
       } else if (localStorage.getItem("ltr") === "true") {
-        maxMarginTop = marginTop + 264;
+        maxMarginTop = marginTop + 272;
       }
     }
   }
@@ -789,7 +795,10 @@ async function handleFormSubmit() {
   if (!decimalStartTime.includes("NaN")) {
     localStorage.setItem("decimalStartTime", decimalStartTime);
   }
-  if (localStorage.getItem("dag") !== "true") {
+  if (
+    localStorage.getItem("dag") !== "true" &&
+    localStorage.getItem("ltr") !== "true"
+  ) {
     document.getElementById("schedule").style = "";
   }
   // Wissel de koppelcode in voor de access token (maar alleen als die nog niet in local storage staat)

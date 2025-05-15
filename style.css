@@ -175,6 +175,8 @@ span.schedule {
   background-color: var(--primary-accent-faded);
   border: 1px solid var(--primary-accent);
   min-width: 45px;
+  backdrop-filter: blur(0.75px);
+  -webkit-backdrop-filter: blur(0.75px);
 }
 
 #week {
@@ -443,6 +445,9 @@ h3 {
 dialog .btn {
   color: var(--primary-dark);
   background-color: var(--primary-light);
+}
+dialog .btn:focus {
+  border-radius: 0.5rem;
 }
 #previousDay,
 #nextDay,
