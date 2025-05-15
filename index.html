@@ -138,15 +138,16 @@
           class="btn"
           id="dayBtn"
           style="
-            background-color: transparent;
+            background-color: var(--primary-accent);
             font-size: 14px;
             font-family: inherit;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border: 1px solid #aaa;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
             vertical-align: middle;
-            transition: background-color 0.1s ease-in-out;
+            transition: background-color 0.1s ease-in-out,
+              border-radius 0.1s ease-in-out;
             width: 71.1px;
+            color: var(--primary-light);
           "
           onclick="localStorage.setItem('dag', 'true')"
         >
@@ -155,14 +156,16 @@
           class="btn"
           id="weekBtn"
           style="
-            background-color: transparent;
+            background-color: var(--primary-accent);
             font-size: 14px;
             font-family: inherit;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border: 1px solid #aaa;
+            border-top-left-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            margin-left: 2.5px;
             vertical-align: middle;
-            transition: background-color 0.1s ease-in-out;
+            transition: background-color 0.1s ease-in-out,
+              border-radius 0.1s ease-in-out;
+            color: var(--primary-light);
           "
         >
           Week

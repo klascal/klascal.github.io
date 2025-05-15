@@ -708,7 +708,7 @@ function displaySchedule(scheduleData) {
       <div class="circle-marker" style="left: 400vw;"></div>`;
     }
     if (marginTop > maxMarginTop) {
-      maxMarginTop = marginTop + 315; // 0 min na einde rooster
+      maxMarginTop = marginTop + 255; // 0 min na einde rooster
       if (localStorage.getItem("dag") === "true") {
         maxMarginTop = marginTop + 235;
       } else if (localStorage.getItem("ltr") === "true") {

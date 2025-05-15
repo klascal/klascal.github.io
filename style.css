@@ -447,7 +447,7 @@ dialog .btn {
   background-color: var(--primary-light);
 }
 dialog .btn:focus {
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
 }
 #previousDay,
 #nextDay,
@@ -476,10 +476,11 @@ button:not(:disabled) {
   font-size: 14px !important;
 }
 .selected {
-  padding: 0.5rem 0;
+  padding: 9px 0;
   width: 71.1px;
-  background-color: var(--primary-accent) !important;
-  color: var(--primary-light);
+  background-color: var(--primary-light) !important;
+  color: var(--primary-dark) !important;
+  border-radius: 4rem !important;
 }
 .themes {
   background-color: var(--background);
