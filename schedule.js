@@ -249,7 +249,32 @@ async function saveCheckboxState2() {
   localStorage.setItem("ltr", checkbox2.checked);
   handleFormSubmit();
 }
-
+async function retrieveSubjectFullNames() {
+  let url = `https://${localStorage.getItem(
+    "schoolName"
+  )}.zportal.nl/api/v3/subjectselectionsubjects?access_token=${localStorage.getItem(
+    "access_token"
+  )}&fields=code,name`;
+  return fetch(url)
+    .then((r) => r.json())
+    .then((result) => {
+      let subjectTranslations = {};
+      let subjects = result.response.data;
+      subjects.forEach((subject) => {
+        let subjectName = subject.name;
+        if (!subjectName) {
+          return;
+        }
+        let commaIndex = subjectName.indexOf(",");
+        if (commaIndex != -1) {
+          subjectName = subjectName.substring(0, commaIndex);
+        }
+        let fullName = subjectName;
+        subjectTranslations[subject.code] = fullName;
+      });
+      localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
+    });
+}
 // Function to restore checkbox state from localStorage
 function restoreCheckboxState2() {
   const savedState2 = localStorage.getItem("ltr");
