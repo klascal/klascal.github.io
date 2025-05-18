@@ -877,9 +877,13 @@ async function handleFormSubmit() {
     if (sessionStorage.getItem("year")) {
       year = sessionStorage.getItem("year");
     }
-    viewTrans(() => {
+    if (!document.startViewTransition) {
       fetchSchedule(accessToken, userType, year, week, schoolName);
-    });
+      return;
+    }
+    document.startViewTransition(() =>
+      fetchSchedule(accessToken, userType, year, week, schoolName)
+    );
   }
 }
 function switchDay(richting) {
