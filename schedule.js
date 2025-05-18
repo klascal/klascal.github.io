@@ -7,13 +7,13 @@ for (const dialog of dialogs) {
 let d = new Date();
 d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 // Update de tijdlijn elke 100 ms
-multiples = 1.425;
-if (localStorage.getItem("dag") === "true") {
-  multiples = 1.285;
-} else if (localStorage.getItem("ltr") === "true") {
+multiples = 1.285;
+if (localStorage.getItem("ltr") === "true") {
   multiples = 2.325;
 } else if (localStorage.getItem("klas") === "true") {
   multiples = 1.75;
+} else if (window.innerWidth < 1000 && localStorage.getItem("dag") !== "true") {
+  multiples = 1.425;
 }
 let topY =
   (Number.parseInt(d.split(":")[1]) +
@@ -25,13 +25,16 @@ let topY =
 setInterval(() => {
   let d = new Date();
   d = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-  multiples = 1.425;
-  if (localStorage.getItem("dag") === "true") {
-    multiples = 1.285;
-  } else if (localStorage.getItem("ltr") === "true") {
+  multiples = 1.285;
+  if (localStorage.getItem("ltr") === "true") {
     multiples = 2.325;
   } else if (localStorage.getItem("klas") === "true") {
     multiples = 1.75;
+  } else if (
+    window.innerWidth < 1000 &&
+    localStorage.getItem("dag") !== "true"
+  ) {
+    multiples = 1.425;
   }
   topY =
     (Number.parseInt(d.split(":")[1]) +
@@ -119,7 +122,7 @@ function show(id, title, hide) {
   }
   const content = document.querySelector(".container");
   const children = content.querySelectorAll("div");
-  if (!document.startViewTransition) {
+  viewTrans(() => {
     children.forEach((div) => {
       if (div.id === id) {
         div.style.display = "block";
@@ -129,35 +132,7 @@ function show(id, title, hide) {
     });
     if (id !== "submenus" && hide !== "hide") {
       document.querySelector("#dialog h2").innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" onclick="show(`submenus`, `Instellingen`)"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>' +
-        title;
-    } else {
-      if (
-        document.querySelector("#dialog #closeBtn").innerText === "Volgende" &&
-        id !== "koppelingen"
-      ) {
-        document.querySelector("#dialog #closeBtn").innerText = "Sluiten";
-        document
-          .querySelector("#dialog #closeBtn")
-          .setAttribute("onclick", "hideDialog()");
-      }
-      document.querySelector("#dialog h2").innerHTML = title;
-    }
-    return;
-  }
-  document.startViewTransition(() => {
-    const content = document.querySelector(".container");
-    const children = content.querySelectorAll("div");
-    children.forEach((div) => {
-      if (div.id === id) {
-        div.style.display = "block";
-      } else {
-        div.removeAttribute("style");
-      }
-    });
-    if (id !== "submenus" && hide !== "hide") {
-      document.querySelector("#dialog h2").innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" onclick="show(`submenus`, `Instellingen`)"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>' +
+        '<button style="all: unset" onclick="show(`submenus`, `Instellingen`)"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>' +
         title;
     } else {
       if (
@@ -215,6 +190,15 @@ function restoreCheckboxState3() {
 }
 checkbox3.addEventListener("change", saveCheckboxState3);
 restoreCheckboxState3();
+function viewTrans(func) {
+  if (!document.startViewTransition) {
+    func();
+    return;
+  }
+  document.startViewTransition(() => {
+    func();
+  });
+}
 async function userInfo() {
   const authorizationCode = localStorage.getItem("access_token");
   const response = await fetch(
@@ -318,6 +302,7 @@ function displaySchedule(scheduleData) {
     document.getElementById("week").style = "display: none";
     document.getElementById("ltr").style =
       "vertical-align: middle;background-color: transparent;margin-left: 5px;transform: translateY(-48px);opacity:0;";
+    document.getElementById("ltr").setAttribute("disabled", "-1");
     document.getElementById("dayBtn").innerText = "✓ Dag";
     document.getElementById("weekBtn").innerText = "Week";
     document.getElementById("dayBtn").classList.add("selected");
@@ -327,10 +312,14 @@ function displaySchedule(scheduleData) {
     document.getElementById("ltr").style = `vertical-align: middle;
           background-color: transparent;
           margin-left: 5px;`;
+    document.getElementById("ltr").setAttribute("tabindex", "0");
     document.getElementById("weekBtn").innerText = "✓ Week";
     document.getElementById("dayBtn").innerText = "Dag";
     document.getElementById("weekBtn").classList.add("selected");
     document.getElementById("dayBtn").classList.remove("selected");
+  }
+  if (window.innerHeight < 555 || window.innerWidth < 675) {
+    document.getElementById("ltr").setAttribute("tabindex", "-1");
   }
   const scheduleElement = document.getElementById("schedule");
   const appointments = scheduleData.response.data[0].appointments;
@@ -398,6 +387,24 @@ function displaySchedule(scheduleData) {
       }, 200);
     });
   }
+  const breakpoints = [
+    "min-width: 1000px",
+    "max-width: 1000px",
+    "max-width: 675px",
+    "max-width: 600px",
+    "max-width: 500px",
+    "max-width: 475px",
+    "max-width: 435px",
+    "max-width: 391px",
+  ];
+  breakpoints.forEach((query) => {
+    const mql = window.matchMedia(`(${query})`);
+    mql.addEventListener("change", function (e) {
+      if (e.matches) {
+        console.log(`Breakpoint hit: ${e.media}`);
+      }
+    });
+  });
 
   // Groepeer afspraken per dag
   const appointmentsByDay = appointments.reduce((acc, appointment) => {
@@ -490,6 +497,7 @@ function displaySchedule(scheduleData) {
           } else {
             endTime = "";
           }
+          let ltr = "";
           let left =
             (Number.parseInt(startTime.split(":")[1]) +
               (Number.parseInt(startTime.split(":")[0]) -
@@ -504,13 +512,30 @@ function displaySchedule(scheduleData) {
               1.45 -
             left -
             20;
+          if (window.innerWidth > 1000) {
+            left =
+              (Number.parseInt(startTime.split(":")[1]) +
+                (Number.parseInt(startTime.split(":")[0]) -
+                  localStorage.getItem("decimalStartTime")) *
+                  60) *
+              1.3;
+            width =
+              (Number.parseInt(endTime.split(":")[1]) +
+                (Number.parseInt(endTime.split(":")[0]) -
+                  localStorage.getItem("decimalStartTime")) *
+                  60) *
+                1.3 -
+              left -
+              24;
+          } else {
+            ltr = " ltr";
+          }
           positie = `margin-top:${left}px;height:${width}px`;
           if (width < 55) {
             positie += ";line-height:1.1";
           }
           let styling = "";
           let bottom = "";
-          let ltr = "";
           if (localStorage.getItem("dag") === "true") {
             left =
               (Number.parseInt(startTime.split(":")[1]) +
@@ -551,6 +576,7 @@ function displaySchedule(scheduleData) {
               left -
               24;
             positie = `margin-left:${left}px;width:${width}px`;
+            styling = "display: block";
             if (appointment.appointmentInstance == null) {
               positie += ";height:64px";
             }
@@ -733,11 +759,14 @@ function displaySchedule(scheduleData) {
       <div class="circle-marker" style="left: 400vw;"></div>`;
     }
     if (marginTop > maxMarginTop) {
-      maxMarginTop = marginTop + 255; // 0 min na einde rooster
-      if (localStorage.getItem("dag") === "true") {
-        maxMarginTop = marginTop + 235;
-      } else if (localStorage.getItem("ltr") === "true") {
+      maxMarginTop = marginTop + 235; // 0 min na einde rooster
+      if (localStorage.getItem("ltr") === "true") {
         maxMarginTop = marginTop + 272;
+      } else if (
+        localStorage.getItem("dag") !== "true" &&
+        window.innerWidth < 1000
+      ) {
+        maxMarginTop = marginTop + 255;
       }
     }
   }
@@ -848,13 +877,9 @@ async function handleFormSubmit() {
     if (sessionStorage.getItem("year")) {
       year = sessionStorage.getItem("year");
     }
-    if (!document.startViewTransition) {
+    viewTrans(() => {
       fetchSchedule(accessToken, userType, year, week, schoolName);
-      return;
-    }
-    document.startViewTransition(() =>
-      fetchSchedule(accessToken, userType, year, week, schoolName)
-    );
+    });
   }
 }
 function switchDay(richting) {

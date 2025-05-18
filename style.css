@@ -10,9 +10,6 @@
       "Helvetica Neue", sans-serif;
   }
 }
-button:focus {
-  outline: none;
-}
 ::view-transition-group(root) {
   animation-duration: 75ms;
   animation-timing-function: ease-out;
@@ -25,6 +22,9 @@ button:focus {
   * {
     transition: none !important;
   }
+}
+#authorizationCode:invalid {
+  background-color: #f7baba73;
 }
 #previousDay {
   border: none;
@@ -86,8 +86,12 @@ html {
   margin: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  user-select: none;
+  accent-color: var(--primary-light);
 }
-
+button:focus {
+  outline: revert !important;
+}
 dialog {
   border: 0;
   border-radius: 2rem;
@@ -171,7 +175,7 @@ span.schedule {
   margin-left: 5px;
   border-radius: 10px;
   position: absolute;
-  width: 107px;
+  width: 175px;
   background-color: var(--primary-accent-faded);
   border: 1px solid var(--primary-accent);
   min-width: 45px;
@@ -288,10 +292,11 @@ h2 {
   margin: 0;
   font-size: 14px;
   position: relative;
+  line-height: 1.4;
 }
 
 p.lestijden {
-  display: block;
+  display: inline;
 }
 
 strong {
@@ -300,7 +305,7 @@ strong {
 
 h3 {
   margin: 0px;
-  width: 135px;
+  width: 200px;
   text-align: left;
   margin-left: 5px;
   margin-right: -5px;
@@ -316,6 +321,21 @@ h3 {
   view-transition-name: ltr;
   position: absolute;
   left: 200px;
+}
+@media (max-width: 1000px) {
+  .les.ltr {
+    width: 107px;
+  }
+  h3 {
+    width: 135px;
+  }
+  p.lestijden {
+    display: block;
+  }
+  .les p,
+  .les span {
+    line-height: normal;
+  }
 }
 @media (max-width: 675px) {
   .les.ltr {
@@ -503,6 +523,9 @@ li {
 @media (prefers-color-scheme: dark) {
   #warningIcon {
     fill: #e89822;
+  }
+  #authorizationCode:invalid {
+    background-color: #ff2f2f73;
   }
   .warning .warningMessage {
     background-color: #5c4531;

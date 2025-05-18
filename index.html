@@ -70,8 +70,8 @@
       });
     </script>
   </head>
-  <body draggable="false" style="user-select: none">
-    <div id="field">
+  <body>
+    <nav id="field">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         style="
@@ -97,7 +97,7 @@
         />
       </svg>
       <span id="week">Week</span>
-      <button id="previousDay" aria-label="Vorige dag">
+      <button id="previousDay" title="Vorige dag/week">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -109,7 +109,7 @@
             d="M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0Z"
           />
         </svg></button
-      ><button id="nextDay" aria-label="Volgende dag">
+      ><button id="nextDay" title="Volgende dag/week">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -128,6 +128,7 @@
           margin-left: 5px;
           background-color: transparent;
         "
+        title="Oriëntatie"
         id="ltr"
       >
         <input type="checkbox" class="check_box" id="checkbox1" />
@@ -173,7 +174,7 @@
         <button
           onclick="showDialog()"
           id="settingsButton"
-          aria-label="Instellingen"
+          title="Instellingen"
           style="
             border: none;
             padding: 0.5rem;
@@ -194,615 +195,626 @@
           </svg>
         </button>
       </div>
-    </div>
-    <dialog id="shortcuts" role="dialog" aria-label="Sneltoetsen">
-      <h2>Sneltoetsen</h2>
-      <div id="content">
-        <table>
-          <tr>
-            <th>Vorige dag/week</th>
-            <th><kbd>←</kbd></th>
-          </tr>
-          <tr>
-            <th>Volgende dag/week</th>
-            <th><kbd>→</kbd></th>
-          </tr>
-          <tr>
-            <th>Open instellingen</th>
-            <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
-          </tr>
-          <tr>
-            <th>Dagweergave</th>
-            <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
-          </tr>
-          <tr>
-            <th>Weekweergave</th>
-            <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
-          </tr>
-          <tr>
-            <th>Oriëntatie wijzigen</th>
-            <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
-          </tr>
-          <tr>
-            <th>Stel dag in (Bij dagweergave)</th>
-            <th><kbd>D</kbd> (Hoofdletter)</th>
-          </tr>
-          <tr>
-            <th>Stel week in</th>
-            <th><kbd>W</kbd> (Hoofdletter)</th>
-          </tr>
-          <tr>
-            <th>Stel jaar in</th>
-            <th><kbd>J</kbd> (Hoofdletter)</th>
-          </tr>
-        </table>
-      </div>
-      <button class="btn" id="closeBtn" onclick="hideDialog('shortcuts')">
-        Sluiten
-      </button>
-    </dialog>
-    <dialog
-      id="dialog"
-      role="dialog"
-      aria-label="Voer je schoolnaam en koppelcode in."
-    >
-      <h2>Instellingen</h2>
-      <div id="content" class="container">
-        <div id="submenus" style="display: block" class="submenu">
-          <button id="submenu" onclick="show('rooster', 'Rooster')">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              id="icon"
-            >
-              <path
-                d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
-              />
-            </svg>
-            Rooster
-          </button>
-          <button id="submenu" onclick="show('theme', 'Thema')">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              id="icon"
-            >
-              <path
-                d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80ZM260-440q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z"
-              />
-            </svg>
-            Thema
-          </button>
-          <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              id="icon"
-            >
-              <path
-                d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h120q17 0 28.5 11.5T440-640q0 17-11.5 28.5T400-600H280q-50 0-85 35t-35 85q0 50 35 85t85 35h120q17 0 28.5 11.5T440-320q0 17-11.5 28.5T400-280H280Zm80-160q-17 0-28.5-11.5T320-480q0-17 11.5-28.5T360-520h240q17 0 28.5 11.5T640-480q0 17-11.5 28.5T600-440H360Zm200 160q-17 0-28.5-11.5T520-320q0-17 11.5-28.5T560-360h120q50 0 85-35t35-85q0-50-35-85t-85-35H560q-17 0-28.5-11.5T520-640q0-17 11.5-28.5T560-680h120q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H560Z"
-              />
-            </svg>
-            Koppelingen
-          </button>
-          <button id="submenu" onclick="show('advanced', 'Geavanceerd')">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              id="icon"
-            >
-              <path
-                d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
-              />
-            </svg>
-            Geavanceerd
-          </button>
+    </nav>
+    <main>
+      <dialog id="shortcuts" role="dialog" aria-label="Sneltoetsen">
+        <h2>Sneltoetsen</h2>
+        <div id="content">
+          <table>
+            <tr>
+              <th>Vorige dag/week</th>
+              <th><kbd>←</kbd></th>
+            </tr>
+            <tr>
+              <th>Volgende dag/week</th>
+              <th><kbd>→</kbd></th>
+            </tr>
+            <tr>
+              <th>Open instellingen</th>
+              <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
+            </tr>
+            <tr>
+              <th>Dagweergave</th>
+              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
+            </tr>
+            <tr>
+              <th>Weekweergave</th>
+              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
+            </tr>
+            <tr>
+              <th>Oriëntatie wijzigen</th>
+              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
+            </tr>
+            <tr>
+              <th>Stel dag in (Bij dagweergave)</th>
+              <th><kbd>D</kbd> (Hoofdletter)</th>
+            </tr>
+            <tr>
+              <th>Stel week in</th>
+              <th><kbd>W</kbd> (Hoofdletter)</th>
+            </tr>
+            <tr>
+              <th>Stel jaar in</th>
+              <th><kbd>J</kbd> (Hoofdletter)</th>
+            </tr>
+          </table>
         </div>
-        <div id="koppelingen" class="submenu">
-          <details>
-            <summary>Hoe vind je de koppelcode in Zermelo?</summary>
-            <ol>
-              <li>
-                Open het
-                <b
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    id="icon"
-                  >
-                    <path
-                      d="M160-240q-17 0-28.5-11.5T120-280q0-17 11.5-28.5T160-320h640q17 0 28.5 11.5T840-280q0 17-11.5 28.5T800-240H160Zm0-200q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h640q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H160Zm0-200q-17 0-28.5-11.5T120-680q0-17 11.5-28.5T160-720h640q17 0 28.5 11.5T840-680q0 17-11.5 28.5T800-640H160Z"
-                    /></svg
-                  >Menu</b
-                >
-              </li>
-              <li>
-                Klik op
-                <b
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    id="icon"
-                  >
-                    <path
-                      d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
-                    ></path></svg
-                  >Instellingen</b
-                >
-              </li>
-              <li>
-                Klik op
-                <b
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="25"
-                    id="icon"
-                    viewBox="0 -960 757.257 880"
-                  >
-                    <defs>
-                      <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                        <path
-                          d="M200-920v880h671.875v-311.484l-.08.08c-4.442 3.705-8.552 7.887-12.813 11.797-4.585 4.389-9.5 8.3-14.843 11.718-5.975 3.848-12.72 5.964-19.61 7.422-5.12.535-10.027 1.658-14.843 3.438-6.077 2.558-12.117 5.158-18.282 7.5-3.862 1.553-7.792 2.656-11.875 3.437-3.813.721-7.691.996-11.562 1.172-4.513.168-9.078.204-13.594.236-4.547-.033-9.05.068-13.594.236-3.996.256-7.955.691-11.953.938-8.061.344-16.15.456-24.219.547-6.795.372-13.53-.252-20.234-1.328-7.895-1.342-15.622-3.438-23.36-5.469-5.853-1.397-11.408-3.83-17.109-5.703a100.107 100.107 0 0 1-20-7.422c-11.459-6.314-21.069-15.412-30.703-24.14-9.21-8.126-17.398-17.399-24.062-27.735-1.947-3.02-3.7-6.136-5.547-9.219-10.588-19.347-19.371-39.586-28.75-59.531-4.134-8.627-8.037-17.425-13.125-25.547-4.112-6.738-7.273-14.045-10.469-21.25-3.775-8.762-6.606-17.861-8.906-27.11-2.407-11.895-5.335-23.658-8.438-35.39-2.136-8.099-4.402-16.154-6.328-24.297-1.82-8.476-4.091-16.806-6.406-25.156-1.206-4.42-2.4-8.861-3.281-13.36-.196-1.09-.425-2.191-.625-3.28-8.223-7.104-7.473-17.123.94-22.975 4.764-10.616 15.876-12.443 24.14-4.063 3.014.292 6.034.63 9.062.704 6.635-.058 13.293-.441 19.922-.704 4.56-.642 9.39.317 13.906-.625 2.36-.935 4.7-1.775 7.11-2.578 6.582-1.798 13.416-2.737 20.156-3.75 6.44-.985 12.89-1.54 19.375-2.109 7.379-.617 14.79-.974 22.188-1.25 7.61-.318 15.154-1.371 22.734-2.11 6.229-.573 12.504-1.128 18.75-1.484 5.161-.242 10.303-.258 15.469-.312 2.84-.028 5.674-.067 8.515-.078 5.132.012 9.966 1.75 14.61 3.75 4.236 1.712 7.912 4.33 11.562 7.031 1.369.874 2.507 2.136 3.907 2.969.124.074-.456-.288-.312-.312.67-.114 1.247.523 1.874.78 1.406.471 2.864 1.31 4.375.938 1.133-.046 2.193-.42 3.282-.703 5.247-1.49 10.684-1.93 16.093-2.422 7.283-.585 14.576-.95 21.875-1.25 4.418-.185 8.86-.353 13.282-.39 5.626-.025 11.248-.012 16.875 0 4.017-.186 7.93.174 11.875.937 5.25 1.426 10.184 3.683 15.156 5.86 3.789 1.836 7.723 3.369 11.719 4.687 4.673 1.27 8.873 3.625 13.125 5.86 2.796 1.184 5.632 2.318 8.359 3.671 4.745 2.5 8.898 5.903 12.812 9.531a88.261 88.261 0 0 1 10.782 13.282c.404.63.701 1.316 1.093 1.953V-920Zm442.344 296.016c-.728.064-1.462.09-2.188.156-8.268.804-16.46 1.959-24.765 2.266-6.817.253-13.67.532-20.47 1.093-5.781.508-11.602.997-17.343 1.875-4.81.718-9.597 1.513-14.375 2.422-4.49 1.457-8.782 3.472-13.516 4.063-5.65.642-11.352.633-17.03.86-5.963.235-11.926.441-17.891.546 2.355 8.5 4.7 17 6.562 25.625 1.838 7.842 4.054 15.647 6.094 23.438 3.147 11.92 6.169 23.847 8.594 35.937 1.772 7.289 4.03 14.492 6.953 21.406 2.536 5.734 4.995 11.482 8.203 16.875 1.915 3.093 3.295 6.478 5 9.688.541-2.424 1.395-4.625 1.953-7.031-3.87-5.852-6.037-12.36-3.906-20.625 1.76-6.83 5.09-9.535 9.453-14.532.875-.505 1.807-.922 2.656-1.484-1.93-1.422-4.008-2.764-5.703-4.453-.964-.961-.288-2.551-1.094-3.594-.638-1.299-2.333-1.724-2.812-3.125-.94-2.747-1.891-5.614-1.797-8.516.024-.72.376-1.396.469-2.109-.758-4.032-4.122-7.232-3.516-11.484 1.276-8.945 4.312-13.557 8.204-21.407 8.06-12.69 18.64-26.714 33.203-32.421 2.554-1.002 5.288-1.492 7.968-2.11 5.786-1.901 12.237-1.283 19.141.938.46.139.945.176 1.406.312 6.376-5.757 13.827-9.615 22.031-12.031-.668-.925-.763-1.692-1.484-2.578zm172.11 18.359c1.304.945 2.605 1.894 3.906 2.812 2.168 2.411 4.681 4.493 6.484 7.188.555.83-.24 1.948.236 2.812 2.533.194 4.951-.93 7.5-.625 3.027.57 4.53 2.563 7.031 3.594-1.135-1.449-2.246-2.918-3.437-4.297-1.43-1.423-3.002-2.641-4.688-3.75-2.824-1.544-6.043-2.262-8.828-3.906-2.582-1.365-5.018-2.964-7.89-3.672-.109-.037-.205-.119-.313-.156zM615.624-373.906c.384.332.546.847.938 1.172.67.609 1.439 1.106 2.109 1.719-.779-.746-1.247-1.755-2.031-2.5-.336-.132-.678-.256-1.016-.392zm3.047 2.89c6.685 6.115 13.263 12.465 21.015 17.188.244.128.538.112.782.236-7.862-4.895-14.989-11.28-21.797-17.422zm25.078 10.079c.048.184.104.364.156.546.032.108.364.18.312.08-.116-.232-.348-.396-.469-.625z"
-                          style="
-                            fill: red;
-                            fill-opacity: 1;
-                            fill-rule: nonzero;
-                            stroke: none;
-                            stroke-width: 40;
-                          "
-                        />
-                      </clipPath>
-                    </defs>
-                    <path
-                      d="M280-920c-22 0-40.818 7.849-56.484 23.516C207.849-880.818 200-862 200-840v720c0 22 7.849 40.818 23.516 56.484C239.182-47.849 258-40 280-40h400c22 0 40.818-7.849 56.484-23.516C752.151-79.182 760-98 760-120v-120c0-11.333-3.818-20.849-11.484-28.516C740.849-276.182 731.333-280 720-280c-11.333 0-20.849 3.818-28.516 11.484C683.818-260.849 680-251.333 680-240H280v-480h400c0 11.333 3.818 20.849 11.484 28.516C699.151-683.818 708.667-680 720-680c11.333 0 20.849-3.818 28.516-11.484C756.182-699.151 760-708.667 760-720v-120c0-22-7.849-40.818-23.516-56.484C720.818-912.151 702-920 680-920Zm310.078 532.813 2.89 5.156c2.667 4.666 6.35 7.864 11.016 9.531 1.278.456 2.552-.341 3.828-.156-6.225-4.454-12.202-9.247-17.734-14.531zm167.11 48.984c-.21.03-.718.122-.938.156-4.336 1.104-8.618 2.386-13.047 3.047-.861.107-3.434.455-2.578.313 14.649-2.443-3.375.59-6.484.937-3.752.4-7.56.67-11.328.86-4.004.18-7.947.139-11.954.156-9.913.327-19.797-1.114-29.453-3.204-.954-.208-1.866-.55-2.812-.78.873 4.641 2.623 8.705 5.937 11.718 3.667 3.333 8.104 5 13.438 5h44.062c5.334 0 9.771-1.667 13.438-5 3.138-2.853 4.67-6.783 5.625-11.094-1.338-.627-2.57-1.473-3.907-2.11z"
-                      clip-path="url(#a)"
-                      transform="matrix(-1 0 0 1 957.257 -40)"
-                    />
-                    <path
-                      d="M358.315-401.245q49.567 0 84.503-35.136t34.936-84.988q0-49.851-34.936-84.987-34.936-35.137-84.503-35.137h-71.663q-10.152 0-17.02 6.908-6.867 6.907-6.867 17.117t6.867 17.118q6.868 6.907 17.02 6.907h71.663q29.86 0 50.761 21.022 20.902 21.021 20.902 51.052t-20.902 51.053q-20.901 21.022-50.76 21.022h-71.664q-10.152 0-17.02 6.907-6.867 6.907-6.867 17.118 0 10.21 6.867 17.117 6.868 6.907 17.02 6.907zm-47.775-96.099q10.152 0 17.02-6.907t6.868-17.118q0-10.21-6.868-17.117t-17.02-6.907H167.214q-10.152 0-17.02 6.907t-6.868 17.117q0 10.211 6.868 17.118 6.868 6.907 17.02 6.907zm-119.439 96.1q10.153 0 17.02-6.908 6.868-6.907 6.868-17.117 0-10.211-6.868-17.118-6.867-6.907-17.02-6.907h-71.663q-29.86 0-50.76-21.022-20.903-21.022-20.903-51.053 0-30.03 20.902-51.052t50.761-21.022h71.663q10.153 0 17.02-6.907 6.868-6.907 6.868-17.118 0-10.21-6.868-17.117-6.867-6.908-17.02-6.908h-71.663q-49.566 0-84.502 35.137Q0-571.22 0-521.37q0 49.852 34.936 84.988t84.502 35.136z"
-                      style="stroke-width: 0.598905"
-                    /></svg
-                  >Koppel externe applicatie</b
-                >
-              </li>
-              <li>
-                De bovenste regel is je <b>Schoolnaam</b> (het deel voor
-                .zportal.nl) en de regel daaronder je <b>Koppelcode</b>
-              </li>
-              <li>Typ het over in Klascal of scan de QR-code</li>
-            </ol>
-          </details>
-          <div class="material-textfield">
-            <input
-              id="schoolName"
-              list="scholen"
-              placeholder=" "
-              autocomplete="off"
-            />
-            <label for="schoolName">Schoolnaam</label>
-          </div>
-          <p
-            style="
-              float: right;
-              position: relative;
-              bottom: 36px;
-              opacity: 0.6;
-              font-size: 0.9rem;
-            "
-          >
-            .zportal.nl
-          </p>
-          <datalist id="scholen">
-            <option value="2college">2college</option>
-            <option value="adelbert">adelbert</option>
-            <option value="aletta">aletta</option>
-            <option value="alfrink">alfrink</option>
-            <option value="alkwin">alkwin</option>
-            <option value="amadeuslyceum">amadeuslyceum</option>
-            <option value="ams">ams</option>
-            <option value="andreascollege">andreascollege</option>
-            <option value="annavanrijn">annavanrijn</option>
-            <option value="arentheem">arentheem</option>
-            <option value="arhc-gsf">arhc-gsf</option>
-            <option value="augustinianum">augustinianum</option>
-            <option value="barlaeus">barlaeus</option>
-            <option value="bc-enschede">bc-enschede</option>
-            <option value="bernardinuscollege">bernardinuscollege</option>
-            <option value="bertrand">bertrand</option>
-            <option value="blariacum">blariacum</option>
-            <option value="bona">bona</option>
-            <option value="bonhoeffer">bonhoeffer</option>
-            <option value="boni">boni</option>
-            <option value="broekhin">broekhin</option>
-            <option value="bsg">bsg</option>
-            <option value="calscollege">calscollege</option>
-            <option value="calsng">calsng</option>
-            <option value="calvijncollege">calvijncollege</option>
-            <option value="candea">candea</option>
-            <option value="canisius">canisius</option>
-            <option value="canisiuscollege">canisiuscollege</option>
-            <option value="carmelcollegesalland">carmelcollegesalland</option>
-            <option value="carmelhengelo">carmelhengelo</option>
-            <option value="ccg">ccg</option>
-            <option value="ccnv">ccnv</option>
-            <option value="cgu">cgu</option>
-            <option value="chrlyceumdelft">chrlyceumdelft</option>
-            <option value="citadelcollege">citadelcollege</option>
-            <option value="clv">clv</option>
-            <option value="coenecoop">coenecoop</option>
-            <option value="copernicus">copernicus</option>
-            <option value="csb">csb</option>
-            <option value="csg">csg</option>
-            <option value="csghetstreek">csghetstreek</option>
-            <option value="csghetstreek-college">csghetstreek-college</option>
-            <option value="csvincentvangogh">csvincentvangogh</option>
-            <option value="cvo-av">cvo-av</option>
-            <option value="cvo-nf">cvo-nf</option>
-            <option value="cvo-zwfryslan">cvo-zwfryslan</option>
-            <option value="cvog">cvog</option>
-            <option value="dalton-dordrecht">dalton-dordrecht</option>
-            <option value="daltondenhaag">daltondenhaag</option>
-            <option value="daltonvoorburg">daltonvoorburg</option>
-            <option value="damstedelyceum">damstedelyceum</option>
-            <option value="dedijk">dedijk</option>
-            <option value="denhulster">denhulster</option>
-            <option value="depassiescholen">depassiescholen</option>
-            <option value="detriade">detriade</option>
-            <option value="develsteincollege">develsteincollege</option>
-            <option value="dollardcollege">dollardcollege</option>
-            <option value="dorenweerd">dorenweerd</option>
-            <option value="driestarcollege">driestarcollege</option>
-            <option value="driestarwartburg">driestarwartburg</option>
-            <option value="echhp">echhp</option>
-            <option value="ehl">ehl</option>
-            <option value="elde">elde</option>
-            <option value="emmauscollege">emmauscollege</option>
-            <option value="esc">esc</option>
-            <option value="esdalcollege">esdalcollege</option>
-            <option value="espritscholen">espritscholen</option>
-            <option value="farelcollege">farelcollege</option>
-            <option value="felisenum">felisenum</option>
-            <option value="fonsvitae">fonsvitae</option>
-            <option value="gerritkomrijcollege">gerritkomrijcollege</option>
-            <option value="ggh">ggh</option>
-            <option value="ghc">ghc</option>
-            <option value="gomarus">gomarus</option>
-            <option value="goudsewaarden">goudsewaarden</option>
-            <option value="graafengelbrecht">graafengelbrecht</option>
-            <option value="gregorius">gregorius</option>
-            <option value="griftland">griftland</option>
-            <option value="groenehartscholen">groenehartscholen</option>
-            <option value="groenewald">groenewald</option>
-            <option value="grotiuscollege">grotiuscollege</option>
-            <option value="gsf">gsf</option>
-            <option value="gsr">gsr</option>
-            <option value="gymnasiumleiden">gymnasiumleiden</option>
-            <option value="gymnasiumnovum">gymnasiumnovum</option>
-            <option value="haarlemmermeerlyceum">haarlemmermeerlyceum</option>
-            <option value="hermannwesselinkcollege">
-              hermannwesselinkcollege
-            </option>
-            <option value="hetbaken">hetbaken</option>
-            <option value="hetbouwens">hetbouwens</option>
-            <option value="hethooghuis">hethooghuis</option>
-            <option value="hetnieuwelyceum">hetnieuwelyceum</option>
-            <option value="hetrhedens">hetrhedens</option>
-            <option value="hetstedelijk">hetstedelijk</option>
-            <option value="hml">hml</option>
-            <option value="hoekschlyceum">hoekschlyceum</option>
-            <option value="hofstadscholen">hofstadscholen</option>
-            <option value="hogeland">hogeland</option>
-            <option value="hondsrugcollege">hondsrugcollege</option>
-            <option value="hoogeland">hoogeland</option>
-            <option value="hpc-zetten">hpc-zetten</option>
-            <option value="hzm-gsf">hzm-gsf</option>
-            <option value="ichthus">ichthus</option>
-            <option value="ichthuslyceum">ichthuslyceum</option>
-            <option value="ig">ig</option>
-            <option value="insulacollege">insulacollege</option>
-            <option value="isendoorn">isendoorn</option>
-            <option value="jdw">jdw</option>
-            <option value="jfc">jfc</option>
-            <option value="jpthijsse">jpthijsse</option>
-            <option value="jrl">jrl</option>
-            <option value="jvo">jvo</option>
-            <option value="kandinsky">kandinsky</option>
-            <option value="keizerkarelcollege">keizerkarelcollege</option>
-            <option value="kennemercollege">kennemercollege</option>
-            <option value="kwc-culemborg">kwc-culemborg</option>
-            <option value="kwcollege">kwcollege</option>
-            <option value="laurenslyceum">laurenslyceum</option>
-            <option value="lauwerscollege">lauwerscollege</option>
-            <option value="lcl">lcl</option>
-            <option value="ldvleiden">ldvleiden</option>
-            <option value="loketzwijndrecht">loketzwijndrecht</option>
-            <option value="lrc">lrc</option>
-            <option value="lvo-weert">lvo-weert</option>
-            <option value="lvomaastrichtoost">lvomaastrichtoost</option>
-            <option value="lyceumypenburg">lyceumypenburg</option>
-            <option value="maartenscollege">maartenscollege</option>
-            <option value="maartvlinder">maartvlinder</option>
-            <option value="maaswaalcollege">maaswaalcollege</option>
-            <option value="marianum">marianum</option>
-            <option value="martinus">martinus</option>
-            <option value="mcnijmegen">mcnijmegen</option>
-            <option value="meergrondenarte">meergrondenarte</option>
-            <option value="melanchthon">melanchthon</option>
-            <option value="mencia-isbreda">mencia-isbreda</option>
-            <option value="metameer">metameer</option>
-            <option value="mhc">mhc</option>
-            <option value="mlfbhc">mlfbhc</option>
-            <option value="mondia">mondia</option>
-            <option value="montaignelyceum">montaignelyceum</option>
-            <option value="montessoriarnhem">montessoriarnhem</option>
-            <option value="msa">msa</option>
-            <option value="munnikenheide">munnikenheide</option>
-            <option value="murmellius">murmellius</option>
-            <option value="nassau">nassau</option>
-            <option value="newmancollege">newmancollege</option>
-            <option value="newton">newton</option>
-            <option value="northgo">northgo</option>
-            <option value="nsg">nsg</option>
-            <option value="nuovomdvcm">nuovomdvcm</option>
-            <option value="nuovozeist">nuovozeist</option>
-            <option value="oelbert">oelbert</option>
-            <option value="osb">osb</option>
-            <option value="osg">osg</option>
-            <option value="ostrealyceum">ostrealyceum</option>
-            <option value="ovc">ovc</option>
-            <option value="ovofn">ovofn</option>
-            <option value="ozhw">ozhw</option>
-            <option value="pantarijn">pantarijn</option>
-            <option value="parmantscholen">parmantscholen</option>
-            <option value="pascalcollege">pascalcollege</option>
-            <option value="paxchristicollege">paxchristicollege</option>
-            <option value="pcc">pcc</option>
-            <option value="penta">penta</option>
-            <option value="pierson">pierson</option>
-            <option value="pieterzandt">pieterzandt</option>
-            <option value="piusx">piusx</option>
-            <option value="pontes">pontes</option>
-            <option value="praediniusgymnasium">praediniusgymnasium</option>
-            <option value="psg">psg</option>
-            <option value="pvanhorne">pvanhorne</option>
-            <option value="quadraamarnhemzuidenelst">
-              quadraamarnhemzuidenelst
-            </option>
-            <option value="reggesteyn">reggesteyn</option>
-            <option value="rgomiddelharnis">rgomiddelharnis</option>
-            <option value="rlo">rlo</option>
-            <option value="rls">rls</option>
-            <option value="rml">rml</option>
-            <option value="roercollegeschondeln">roercollegeschondeln</option>
-            <option value="rsg-sneek">rsg-sneek</option>
-            <option value="rsgdeborgen">rsgdeborgen</option>
-            <option value="rsgenkhuizen">rsgenkhuizen</option>
-            <option value="rsgrijks">rsgrijks</option>
-            <option value="rvec">rvec</option>
-            <option value="sc-delfland">sc-delfland</option>
-            <option value="scalacollege">scalacollege</option>
-            <option value="scholenaanzee">scholenaanzee</option>
-            <option value="scholengroepspinoza">scholengroepspinoza</option>
-            <option value="schoonhovenscollege">schoonhovenscollege</option>
-            <option value="scmoost">scmoost</option>
-            <option value="sdca">sdca</option>
-            <option value="secvo">secvo</option>
-            <option value="sft">sft</option>
-            <option value="sgdelangstraat">sgdelangstraat</option>
-            <option value="sgkwadrant">sgkwadrant</option>
-            <option value="sgpantarhei">sgpantarhei</option>
-            <option value="sgreigersbos">sgreigersbos</option>
-            <option value="sgtongerlo">sgtongerlo</option>
-            <option value="sgvvs">sgvvs</option>
-            <option value="sintermeerten">sintermeerten</option>
-            <option value="sjl">sjl</option>
-            <option value="smc">smc</option>
-            <option value="snz">snz</option>
-            <option value="sondervick">sondervick</option>
-            <option value="spieringshoek">spieringshoek</option>
-            <option value="ssvo">ssvo</option>
-            <option value="st-maartenscollege">st-maartenscollege</option>
-            <option value="stadenesch">stadenesch</option>
-            <option value="stadslyceum">stadslyceum</option>
-            <option value="stanislascollege">stanislascollege</option>
-            <option value="staring">staring</option>
-            <option value="stedelijkgymnijmegen">stedelijkgymnijmegen</option>
-            <option value="strabrecht">strabrecht</option>
-            <option value="t-atrium">t-atrium</option>
-            <option value="tabor">tabor</option>
-            <option value="terra">terra</option>
-            <option value="theresialyceum">theresialyceum</option>
-            <option value="trevianum">trevianum</option>
-            <option value="trinitascollege">trinitascollege</option>
-            <option value="tsgzwolle">tsgzwolle</option>
-            <option value="tvo-rotterdam">tvo-rotterdam</option>
-            <option value="twentscarmelcollege">twentscarmelcollege</option>
-            <option value="udenscollege">udenscollege</option>
-            <option value="ursula">ursula</option>
-            <option value="usgym">usgym</option>
-            <option value="valuascollege">valuascollege</option>
-            <option value="vandercapellen">vandercapellen</option>
-            <option value="varendonck">varendonck</option>
-            <option value="vechtdalcollege">vechtdalcollege</option>
-            <option value="veenlandencollege">veenlandencollege</option>
-            <option value="veurslyceum">veurslyceum</option>
-            <option value="vhl">vhl</option>
-            <option value="viaan">viaan</option>
-            <option value="viertaal">viertaal</option>
-            <option value="vo-veghel">vo-veghel</option>
-            <option value="vobo">vobo</option>
-            <option value="vog">vog</option>
-            <option value="vossius">vossius</option>
-            <option value="vozvl">vozvl</option>
-            <option value="vsc-gsf">vsc-gsf</option>
-            <option value="wartburg">wartburg</option>
-            <option value="wdezwijger">wdezwijger</option>
-            <option value="willem2">willem2</option>
-            <option value="willemblaeu">willemblaeu</option>
-            <option value="willemvanoranje">willemvanoranje</option>
-            <option value="wiringherlant">wiringherlant</option>
-            <option value="wolfert">wolfert</option>
-            <option value="zernike">zernike</option>
-          </datalist>
-          <br />
-          <div class="material-textfield">
-            <input
-              id="authorizationCode"
-              placeholder=" "
-              autocomplete="off"
-              type="number"
-            />
-            <label for="authorizationCode">Koppelcode</label>
-          </div>
-        </div>
-        <div id="theme" class="submenu">
-          <p style="margin-bottom: 1em">Accentkleur</p>
-          <div class="themes">
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="red"
-              />
-              <span class="theme__icon" style="--color: #f2201f"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="orange"
-              />
-              <span class="theme__icon" style="--color: #f47734"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="yellow"
-              />
-              <span class="theme__icon" style="--color: #fb0"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="green"
-              />
-              <span class="theme__icon" style="--color: #46b74f"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="cyan"
-              />
-              <span class="theme__icon" style="--color: #01bad6"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="blue"
-                checked
-              />
-              <span class="theme__icon" style="--color: #0080ff"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="purple"
-              />
-              <span class="theme__icon" style="--color: #9b37ff"></span>
-            </label>
-            <label class="theme__color">
-              <input
-                type="radio"
-                name="color"
-                class="theme__input"
-                value="pink"
-              />
-              <span class="theme__icon" style="--color: #f20d68"></span>
-            </label>
-          </div>
-        </div>
-        <div id="rooster" class="submenu">
-          <div class="material-textfield">
-            <input
-              id="startTime"
-              placeholder=" "
-              autocomplete="off"
-              type="time"
-            />
-            <label for="startTime" style="padding: 2.5px">Begintijd</label>
-          </div>
-          <section class="switches">
-            <div class="switch switch--2">
-              <br />
-              <label for="vakafkorting">Gebruik vakafkorting</label>
-              <label class="switch__label">
-                <input
-                  type="checkbox"
-                  id="vakafkorting"
-                  class="switch__input"
-                />
-                <span class="switch__design"></span>
-              </label>
-            </div>
-          </section>
-          <section class="switches">
-            <div class="switch switch--2">
-              <br />
-              <label for="afkortingHl"
-                >Gebruik hoofdletters voor afkortingen</label
+        <button class="btn" id="closeBtn" onclick="hideDialog('shortcuts')">
+          Sluiten
+        </button>
+      </dialog>
+      <dialog
+        id="dialog"
+        role="dialog"
+        aria-label="Voer je schoolnaam en koppelcode in."
+        tabindex="-1"
+      >
+        <h2>Instellingen</h2>
+        <div id="content" class="container">
+          <div id="submenus" style="display: block" class="submenu">
+            <button id="submenu" onclick="show('rooster', 'Rooster')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                id="icon"
               >
-              <label class="switch__label">
-                <input type="checkbox" id="afkortingHl" class="switch__input" />
-                <span class="switch__design"></span>
+                <path
+                  d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
+                />
+              </svg>
+              Rooster
+            </button>
+            <button id="submenu" onclick="show('theme', 'Thema')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                id="icon"
+              >
+                <path
+                  d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80ZM260-440q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z"
+                />
+              </svg>
+              Thema
+            </button>
+            <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                id="icon"
+              >
+                <path
+                  d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h120q17 0 28.5 11.5T440-640q0 17-11.5 28.5T400-600H280q-50 0-85 35t-35 85q0 50 35 85t85 35h120q17 0 28.5 11.5T440-320q0 17-11.5 28.5T400-280H280Zm80-160q-17 0-28.5-11.5T320-480q0-17 11.5-28.5T360-520h240q17 0 28.5 11.5T640-480q0 17-11.5 28.5T600-440H360Zm200 160q-17 0-28.5-11.5T520-320q0-17 11.5-28.5T560-360h120q50 0 85-35t35-85q0-50-35-85t-85-35H560q-17 0-28.5-11.5T520-640q0-17 11.5-28.5T560-680h120q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H560Z"
+                />
+              </svg>
+              Koppelingen
+            </button>
+            <button id="submenu" onclick="show('advanced', 'Geavanceerd')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                id="icon"
+              >
+                <path
+                  d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                />
+              </svg>
+              Geavanceerd
+            </button>
+          </div>
+          <div id="koppelingen" class="submenu">
+            <details>
+              <summary>Hoe vind je de koppelcode in Zermelo?</summary>
+              <ol>
+                <li>
+                  Open het
+                  <b
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      id="icon"
+                    >
+                      <path
+                        d="M160-240q-17 0-28.5-11.5T120-280q0-17 11.5-28.5T160-320h640q17 0 28.5 11.5T840-280q0 17-11.5 28.5T800-240H160Zm0-200q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h640q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H160Zm0-200q-17 0-28.5-11.5T120-680q0-17 11.5-28.5T160-720h640q17 0 28.5 11.5T840-680q0 17-11.5 28.5T800-640H160Z"
+                      /></svg
+                    >Menu</b
+                  >
+                </li>
+                <li>
+                  Klik op
+                  <b
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      id="icon"
+                    >
+                      <path
+                        d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
+                      ></path></svg
+                    >Instellingen</b
+                  >
+                </li>
+                <li>
+                  Klik op
+                  <b
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="25"
+                      id="icon"
+                      viewBox="0 -960 757.257 880"
+                    >
+                      <defs>
+                        <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                          <path
+                            d="M200-920v880h671.875v-311.484l-.08.08c-4.442 3.705-8.552 7.887-12.813 11.797-4.585 4.389-9.5 8.3-14.843 11.718-5.975 3.848-12.72 5.964-19.61 7.422-5.12.535-10.027 1.658-14.843 3.438-6.077 2.558-12.117 5.158-18.282 7.5-3.862 1.553-7.792 2.656-11.875 3.437-3.813.721-7.691.996-11.562 1.172-4.513.168-9.078.204-13.594.236-4.547-.033-9.05.068-13.594.236-3.996.256-7.955.691-11.953.938-8.061.344-16.15.456-24.219.547-6.795.372-13.53-.252-20.234-1.328-7.895-1.342-15.622-3.438-23.36-5.469-5.853-1.397-11.408-3.83-17.109-5.703a100.107 100.107 0 0 1-20-7.422c-11.459-6.314-21.069-15.412-30.703-24.14-9.21-8.126-17.398-17.399-24.062-27.735-1.947-3.02-3.7-6.136-5.547-9.219-10.588-19.347-19.371-39.586-28.75-59.531-4.134-8.627-8.037-17.425-13.125-25.547-4.112-6.738-7.273-14.045-10.469-21.25-3.775-8.762-6.606-17.861-8.906-27.11-2.407-11.895-5.335-23.658-8.438-35.39-2.136-8.099-4.402-16.154-6.328-24.297-1.82-8.476-4.091-16.806-6.406-25.156-1.206-4.42-2.4-8.861-3.281-13.36-.196-1.09-.425-2.191-.625-3.28-8.223-7.104-7.473-17.123.94-22.975 4.764-10.616 15.876-12.443 24.14-4.063 3.014.292 6.034.63 9.062.704 6.635-.058 13.293-.441 19.922-.704 4.56-.642 9.39.317 13.906-.625 2.36-.935 4.7-1.775 7.11-2.578 6.582-1.798 13.416-2.737 20.156-3.75 6.44-.985 12.89-1.54 19.375-2.109 7.379-.617 14.79-.974 22.188-1.25 7.61-.318 15.154-1.371 22.734-2.11 6.229-.573 12.504-1.128 18.75-1.484 5.161-.242 10.303-.258 15.469-.312 2.84-.028 5.674-.067 8.515-.078 5.132.012 9.966 1.75 14.61 3.75 4.236 1.712 7.912 4.33 11.562 7.031 1.369.874 2.507 2.136 3.907 2.969.124.074-.456-.288-.312-.312.67-.114 1.247.523 1.874.78 1.406.471 2.864 1.31 4.375.938 1.133-.046 2.193-.42 3.282-.703 5.247-1.49 10.684-1.93 16.093-2.422 7.283-.585 14.576-.95 21.875-1.25 4.418-.185 8.86-.353 13.282-.39 5.626-.025 11.248-.012 16.875 0 4.017-.186 7.93.174 11.875.937 5.25 1.426 10.184 3.683 15.156 5.86 3.789 1.836 7.723 3.369 11.719 4.687 4.673 1.27 8.873 3.625 13.125 5.86 2.796 1.184 5.632 2.318 8.359 3.671 4.745 2.5 8.898 5.903 12.812 9.531a88.261 88.261 0 0 1 10.782 13.282c.404.63.701 1.316 1.093 1.953V-920Zm442.344 296.016c-.728.064-1.462.09-2.188.156-8.268.804-16.46 1.959-24.765 2.266-6.817.253-13.67.532-20.47 1.093-5.781.508-11.602.997-17.343 1.875-4.81.718-9.597 1.513-14.375 2.422-4.49 1.457-8.782 3.472-13.516 4.063-5.65.642-11.352.633-17.03.86-5.963.235-11.926.441-17.891.546 2.355 8.5 4.7 17 6.562 25.625 1.838 7.842 4.054 15.647 6.094 23.438 3.147 11.92 6.169 23.847 8.594 35.937 1.772 7.289 4.03 14.492 6.953 21.406 2.536 5.734 4.995 11.482 8.203 16.875 1.915 3.093 3.295 6.478 5 9.688.541-2.424 1.395-4.625 1.953-7.031-3.87-5.852-6.037-12.36-3.906-20.625 1.76-6.83 5.09-9.535 9.453-14.532.875-.505 1.807-.922 2.656-1.484-1.93-1.422-4.008-2.764-5.703-4.453-.964-.961-.288-2.551-1.094-3.594-.638-1.299-2.333-1.724-2.812-3.125-.94-2.747-1.891-5.614-1.797-8.516.024-.72.376-1.396.469-2.109-.758-4.032-4.122-7.232-3.516-11.484 1.276-8.945 4.312-13.557 8.204-21.407 8.06-12.69 18.64-26.714 33.203-32.421 2.554-1.002 5.288-1.492 7.968-2.11 5.786-1.901 12.237-1.283 19.141.938.46.139.945.176 1.406.312 6.376-5.757 13.827-9.615 22.031-12.031-.668-.925-.763-1.692-1.484-2.578zm172.11 18.359c1.304.945 2.605 1.894 3.906 2.812 2.168 2.411 4.681 4.493 6.484 7.188.555.83-.24 1.948.236 2.812 2.533.194 4.951-.93 7.5-.625 3.027.57 4.53 2.563 7.031 3.594-1.135-1.449-2.246-2.918-3.437-4.297-1.43-1.423-3.002-2.641-4.688-3.75-2.824-1.544-6.043-2.262-8.828-3.906-2.582-1.365-5.018-2.964-7.89-3.672-.109-.037-.205-.119-.313-.156zM615.624-373.906c.384.332.546.847.938 1.172.67.609 1.439 1.106 2.109 1.719-.779-.746-1.247-1.755-2.031-2.5-.336-.132-.678-.256-1.016-.392zm3.047 2.89c6.685 6.115 13.263 12.465 21.015 17.188.244.128.538.112.782.236-7.862-4.895-14.989-11.28-21.797-17.422zm25.078 10.079c.048.184.104.364.156.546.032.108.364.18.312.08-.116-.232-.348-.396-.469-.625z"
+                            style="
+                              fill: red;
+                              fill-opacity: 1;
+                              fill-rule: nonzero;
+                              stroke: none;
+                              stroke-width: 40;
+                            "
+                          />
+                        </clipPath>
+                      </defs>
+                      <path
+                        d="M280-920c-22 0-40.818 7.849-56.484 23.516C207.849-880.818 200-862 200-840v720c0 22 7.849 40.818 23.516 56.484C239.182-47.849 258-40 280-40h400c22 0 40.818-7.849 56.484-23.516C752.151-79.182 760-98 760-120v-120c0-11.333-3.818-20.849-11.484-28.516C740.849-276.182 731.333-280 720-280c-11.333 0-20.849 3.818-28.516 11.484C683.818-260.849 680-251.333 680-240H280v-480h400c0 11.333 3.818 20.849 11.484 28.516C699.151-683.818 708.667-680 720-680c11.333 0 20.849-3.818 28.516-11.484C756.182-699.151 760-708.667 760-720v-120c0-22-7.849-40.818-23.516-56.484C720.818-912.151 702-920 680-920Zm310.078 532.813 2.89 5.156c2.667 4.666 6.35 7.864 11.016 9.531 1.278.456 2.552-.341 3.828-.156-6.225-4.454-12.202-9.247-17.734-14.531zm167.11 48.984c-.21.03-.718.122-.938.156-4.336 1.104-8.618 2.386-13.047 3.047-.861.107-3.434.455-2.578.313 14.649-2.443-3.375.59-6.484.937-3.752.4-7.56.67-11.328.86-4.004.18-7.947.139-11.954.156-9.913.327-19.797-1.114-29.453-3.204-.954-.208-1.866-.55-2.812-.78.873 4.641 2.623 8.705 5.937 11.718 3.667 3.333 8.104 5 13.438 5h44.062c5.334 0 9.771-1.667 13.438-5 3.138-2.853 4.67-6.783 5.625-11.094-1.338-.627-2.57-1.473-3.907-2.11z"
+                        clip-path="url(#a)"
+                        transform="matrix(-1 0 0 1 957.257 -40)"
+                      />
+                      <path
+                        d="M358.315-401.245q49.567 0 84.503-35.136t34.936-84.988q0-49.851-34.936-84.987-34.936-35.137-84.503-35.137h-71.663q-10.152 0-17.02 6.908-6.867 6.907-6.867 17.117t6.867 17.118q6.868 6.907 17.02 6.907h71.663q29.86 0 50.761 21.022 20.902 21.021 20.902 51.052t-20.902 51.053q-20.901 21.022-50.76 21.022h-71.664q-10.152 0-17.02 6.907-6.867 6.907-6.867 17.118 0 10.21 6.867 17.117 6.868 6.907 17.02 6.907zm-47.775-96.099q10.152 0 17.02-6.907t6.868-17.118q0-10.21-6.868-17.117t-17.02-6.907H167.214q-10.152 0-17.02 6.907t-6.868 17.117q0 10.211 6.868 17.118 6.868 6.907 17.02 6.907zm-119.439 96.1q10.153 0 17.02-6.908 6.868-6.907 6.868-17.117 0-10.211-6.868-17.118-6.867-6.907-17.02-6.907h-71.663q-29.86 0-50.76-21.022-20.903-21.022-20.903-51.053 0-30.03 20.902-51.052t50.761-21.022h71.663q10.153 0 17.02-6.907 6.868-6.907 6.868-17.118 0-10.21-6.868-17.117-6.867-6.908-17.02-6.908h-71.663q-49.566 0-84.502 35.137Q0-571.22 0-521.37q0 49.852 34.936 84.988t84.502 35.136z"
+                        style="stroke-width: 0.598905"
+                      /></svg
+                    >Koppel externe applicatie</b
+                  >
+                </li>
+                <li>
+                  De bovenste regel is je <b>Schoolnaam</b> (het deel voor
+                  .zportal.nl) en de regel daaronder je <b>Koppelcode</b>
+                </li>
+                <li>Typ het over in Klascal of scan de QR-code</li>
+              </ol>
+            </details>
+            <div class="material-textfield">
+              <input
+                id="schoolName"
+                list="scholen"
+                placeholder=" "
+                autocomplete="off"
+              />
+              <label for="schoolName">Schoolnaam</label>
+            </div>
+            <p
+              style="
+                float: right;
+                position: relative;
+                bottom: 36px;
+                opacity: 0.6;
+                font-size: 0.9rem;
+              "
+            >
+              .zportal.nl
+            </p>
+            <datalist id="scholen">
+              <option value="2college">2college</option>
+              <option value="adelbert">adelbert</option>
+              <option value="aletta">aletta</option>
+              <option value="alfrink">alfrink</option>
+              <option value="alkwin">alkwin</option>
+              <option value="amadeuslyceum">amadeuslyceum</option>
+              <option value="ams">ams</option>
+              <option value="andreascollege">andreascollege</option>
+              <option value="annavanrijn">annavanrijn</option>
+              <option value="arentheem">arentheem</option>
+              <option value="arhc-gsf">arhc-gsf</option>
+              <option value="augustinianum">augustinianum</option>
+              <option value="barlaeus">barlaeus</option>
+              <option value="bc-enschede">bc-enschede</option>
+              <option value="bernardinuscollege">bernardinuscollege</option>
+              <option value="bertrand">bertrand</option>
+              <option value="blariacum">blariacum</option>
+              <option value="bona">bona</option>
+              <option value="bonhoeffer">bonhoeffer</option>
+              <option value="boni">boni</option>
+              <option value="broekhin">broekhin</option>
+              <option value="bsg">bsg</option>
+              <option value="calscollege">calscollege</option>
+              <option value="calsng">calsng</option>
+              <option value="calvijncollege">calvijncollege</option>
+              <option value="candea">candea</option>
+              <option value="canisius">canisius</option>
+              <option value="canisiuscollege">canisiuscollege</option>
+              <option value="carmelcollegesalland">carmelcollegesalland</option>
+              <option value="carmelhengelo">carmelhengelo</option>
+              <option value="ccg">ccg</option>
+              <option value="ccnv">ccnv</option>
+              <option value="cgu">cgu</option>
+              <option value="chrlyceumdelft">chrlyceumdelft</option>
+              <option value="citadelcollege">citadelcollege</option>
+              <option value="clv">clv</option>
+              <option value="coenecoop">coenecoop</option>
+              <option value="copernicus">copernicus</option>
+              <option value="csb">csb</option>
+              <option value="csg">csg</option>
+              <option value="csghetstreek">csghetstreek</option>
+              <option value="csghetstreek-college">csghetstreek-college</option>
+              <option value="csvincentvangogh">csvincentvangogh</option>
+              <option value="cvo-av">cvo-av</option>
+              <option value="cvo-nf">cvo-nf</option>
+              <option value="cvo-zwfryslan">cvo-zwfryslan</option>
+              <option value="cvog">cvog</option>
+              <option value="dalton-dordrecht">dalton-dordrecht</option>
+              <option value="daltondenhaag">daltondenhaag</option>
+              <option value="daltonvoorburg">daltonvoorburg</option>
+              <option value="damstedelyceum">damstedelyceum</option>
+              <option value="dedijk">dedijk</option>
+              <option value="denhulster">denhulster</option>
+              <option value="depassiescholen">depassiescholen</option>
+              <option value="detriade">detriade</option>
+              <option value="develsteincollege">develsteincollege</option>
+              <option value="dollardcollege">dollardcollege</option>
+              <option value="dorenweerd">dorenweerd</option>
+              <option value="driestarcollege">driestarcollege</option>
+              <option value="driestarwartburg">driestarwartburg</option>
+              <option value="echhp">echhp</option>
+              <option value="ehl">ehl</option>
+              <option value="elde">elde</option>
+              <option value="emmauscollege">emmauscollege</option>
+              <option value="esc">esc</option>
+              <option value="esdalcollege">esdalcollege</option>
+              <option value="espritscholen">espritscholen</option>
+              <option value="farelcollege">farelcollege</option>
+              <option value="felisenum">felisenum</option>
+              <option value="fonsvitae">fonsvitae</option>
+              <option value="gerritkomrijcollege">gerritkomrijcollege</option>
+              <option value="ggh">ggh</option>
+              <option value="ghc">ghc</option>
+              <option value="gomarus">gomarus</option>
+              <option value="goudsewaarden">goudsewaarden</option>
+              <option value="graafengelbrecht">graafengelbrecht</option>
+              <option value="gregorius">gregorius</option>
+              <option value="griftland">griftland</option>
+              <option value="groenehartscholen">groenehartscholen</option>
+              <option value="groenewald">groenewald</option>
+              <option value="grotiuscollege">grotiuscollege</option>
+              <option value="gsf">gsf</option>
+              <option value="gsr">gsr</option>
+              <option value="gymnasiumleiden">gymnasiumleiden</option>
+              <option value="gymnasiumnovum">gymnasiumnovum</option>
+              <option value="haarlemmermeerlyceum">haarlemmermeerlyceum</option>
+              <option value="hermannwesselinkcollege">
+                hermannwesselinkcollege
+              </option>
+              <option value="hetbaken">hetbaken</option>
+              <option value="hetbouwens">hetbouwens</option>
+              <option value="hethooghuis">hethooghuis</option>
+              <option value="hetnieuwelyceum">hetnieuwelyceum</option>
+              <option value="hetrhedens">hetrhedens</option>
+              <option value="hetstedelijk">hetstedelijk</option>
+              <option value="hml">hml</option>
+              <option value="hoekschlyceum">hoekschlyceum</option>
+              <option value="hofstadscholen">hofstadscholen</option>
+              <option value="hogeland">hogeland</option>
+              <option value="hondsrugcollege">hondsrugcollege</option>
+              <option value="hoogeland">hoogeland</option>
+              <option value="hpc-zetten">hpc-zetten</option>
+              <option value="hzm-gsf">hzm-gsf</option>
+              <option value="ichthus">ichthus</option>
+              <option value="ichthuslyceum">ichthuslyceum</option>
+              <option value="ig">ig</option>
+              <option value="insulacollege">insulacollege</option>
+              <option value="isendoorn">isendoorn</option>
+              <option value="jdw">jdw</option>
+              <option value="jfc">jfc</option>
+              <option value="jpthijsse">jpthijsse</option>
+              <option value="jrl">jrl</option>
+              <option value="jvo">jvo</option>
+              <option value="kandinsky">kandinsky</option>
+              <option value="keizerkarelcollege">keizerkarelcollege</option>
+              <option value="kennemercollege">kennemercollege</option>
+              <option value="kwc-culemborg">kwc-culemborg</option>
+              <option value="kwcollege">kwcollege</option>
+              <option value="laurenslyceum">laurenslyceum</option>
+              <option value="lauwerscollege">lauwerscollege</option>
+              <option value="lcl">lcl</option>
+              <option value="ldvleiden">ldvleiden</option>
+              <option value="loketzwijndrecht">loketzwijndrecht</option>
+              <option value="lrc">lrc</option>
+              <option value="lvo-weert">lvo-weert</option>
+              <option value="lvomaastrichtoost">lvomaastrichtoost</option>
+              <option value="lyceumypenburg">lyceumypenburg</option>
+              <option value="maartenscollege">maartenscollege</option>
+              <option value="maartvlinder">maartvlinder</option>
+              <option value="maaswaalcollege">maaswaalcollege</option>
+              <option value="marianum">marianum</option>
+              <option value="martinus">martinus</option>
+              <option value="mcnijmegen">mcnijmegen</option>
+              <option value="meergrondenarte">meergrondenarte</option>
+              <option value="melanchthon">melanchthon</option>
+              <option value="mencia-isbreda">mencia-isbreda</option>
+              <option value="metameer">metameer</option>
+              <option value="mhc">mhc</option>
+              <option value="mlfbhc">mlfbhc</option>
+              <option value="mondia">mondia</option>
+              <option value="montaignelyceum">montaignelyceum</option>
+              <option value="montessoriarnhem">montessoriarnhem</option>
+              <option value="msa">msa</option>
+              <option value="munnikenheide">munnikenheide</option>
+              <option value="murmellius">murmellius</option>
+              <option value="nassau">nassau</option>
+              <option value="newmancollege">newmancollege</option>
+              <option value="newton">newton</option>
+              <option value="northgo">northgo</option>
+              <option value="nsg">nsg</option>
+              <option value="nuovomdvcm">nuovomdvcm</option>
+              <option value="nuovozeist">nuovozeist</option>
+              <option value="oelbert">oelbert</option>
+              <option value="osb">osb</option>
+              <option value="osg">osg</option>
+              <option value="ostrealyceum">ostrealyceum</option>
+              <option value="ovc">ovc</option>
+              <option value="ovofn">ovofn</option>
+              <option value="ozhw">ozhw</option>
+              <option value="pantarijn">pantarijn</option>
+              <option value="parmantscholen">parmantscholen</option>
+              <option value="pascalcollege">pascalcollege</option>
+              <option value="paxchristicollege">paxchristicollege</option>
+              <option value="pcc">pcc</option>
+              <option value="penta">penta</option>
+              <option value="pierson">pierson</option>
+              <option value="pieterzandt">pieterzandt</option>
+              <option value="piusx">piusx</option>
+              <option value="pontes">pontes</option>
+              <option value="praediniusgymnasium">praediniusgymnasium</option>
+              <option value="psg">psg</option>
+              <option value="pvanhorne">pvanhorne</option>
+              <option value="quadraamarnhemzuidenelst">
+                quadraamarnhemzuidenelst
+              </option>
+              <option value="reggesteyn">reggesteyn</option>
+              <option value="rgomiddelharnis">rgomiddelharnis</option>
+              <option value="rlo">rlo</option>
+              <option value="rls">rls</option>
+              <option value="rml">rml</option>
+              <option value="roercollegeschondeln">roercollegeschondeln</option>
+              <option value="rsg-sneek">rsg-sneek</option>
+              <option value="rsgdeborgen">rsgdeborgen</option>
+              <option value="rsgenkhuizen">rsgenkhuizen</option>
+              <option value="rsgrijks">rsgrijks</option>
+              <option value="rvec">rvec</option>
+              <option value="sc-delfland">sc-delfland</option>
+              <option value="scalacollege">scalacollege</option>
+              <option value="scholenaanzee">scholenaanzee</option>
+              <option value="scholengroepspinoza">scholengroepspinoza</option>
+              <option value="schoonhovenscollege">schoonhovenscollege</option>
+              <option value="scmoost">scmoost</option>
+              <option value="sdca">sdca</option>
+              <option value="secvo">secvo</option>
+              <option value="sft">sft</option>
+              <option value="sgdelangstraat">sgdelangstraat</option>
+              <option value="sgkwadrant">sgkwadrant</option>
+              <option value="sgpantarhei">sgpantarhei</option>
+              <option value="sgreigersbos">sgreigersbos</option>
+              <option value="sgtongerlo">sgtongerlo</option>
+              <option value="sgvvs">sgvvs</option>
+              <option value="sintermeerten">sintermeerten</option>
+              <option value="sjl">sjl</option>
+              <option value="smc">smc</option>
+              <option value="snz">snz</option>
+              <option value="sondervick">sondervick</option>
+              <option value="spieringshoek">spieringshoek</option>
+              <option value="ssvo">ssvo</option>
+              <option value="st-maartenscollege">st-maartenscollege</option>
+              <option value="stadenesch">stadenesch</option>
+              <option value="stadslyceum">stadslyceum</option>
+              <option value="stanislascollege">stanislascollege</option>
+              <option value="staring">staring</option>
+              <option value="stedelijkgymnijmegen">stedelijkgymnijmegen</option>
+              <option value="strabrecht">strabrecht</option>
+              <option value="t-atrium">t-atrium</option>
+              <option value="tabor">tabor</option>
+              <option value="terra">terra</option>
+              <option value="theresialyceum">theresialyceum</option>
+              <option value="trevianum">trevianum</option>
+              <option value="trinitascollege">trinitascollege</option>
+              <option value="tsgzwolle">tsgzwolle</option>
+              <option value="tvo-rotterdam">tvo-rotterdam</option>
+              <option value="twentscarmelcollege">twentscarmelcollege</option>
+              <option value="udenscollege">udenscollege</option>
+              <option value="ursula">ursula</option>
+              <option value="usgym">usgym</option>
+              <option value="valuascollege">valuascollege</option>
+              <option value="vandercapellen">vandercapellen</option>
+              <option value="varendonck">varendonck</option>
+              <option value="vechtdalcollege">vechtdalcollege</option>
+              <option value="veenlandencollege">veenlandencollege</option>
+              <option value="veurslyceum">veurslyceum</option>
+              <option value="vhl">vhl</option>
+              <option value="viaan">viaan</option>
+              <option value="viertaal">viertaal</option>
+              <option value="vo-veghel">vo-veghel</option>
+              <option value="vobo">vobo</option>
+              <option value="vog">vog</option>
+              <option value="vossius">vossius</option>
+              <option value="vozvl">vozvl</option>
+              <option value="vsc-gsf">vsc-gsf</option>
+              <option value="wartburg">wartburg</option>
+              <option value="wdezwijger">wdezwijger</option>
+              <option value="willem2">willem2</option>
+              <option value="willemblaeu">willemblaeu</option>
+              <option value="willemvanoranje">willemvanoranje</option>
+              <option value="wiringherlant">wiringherlant</option>
+              <option value="wolfert">wolfert</option>
+              <option value="zernike">zernike</option>
+            </datalist>
+            <br />
+            <div class="material-textfield">
+              <input
+                id="authorizationCode"
+                placeholder=" "
+                autocomplete="off"
+                type="text"
+                inputmode="numeric"
+                pattern="\d{12}"
+              />
+              <label for="authorizationCode">Koppelcode</label>
+            </div>
+          </div>
+          <div id="theme" class="submenu">
+            <p style="margin-bottom: 1em">Accentkleur</p>
+            <div class="themes">
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="red"
+                />
+                <span class="theme__icon" style="--color: #f2201f"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="orange"
+                />
+                <span class="theme__icon" style="--color: #f47734"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="yellow"
+                />
+                <span class="theme__icon" style="--color: #fb0"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="green"
+                />
+                <span class="theme__icon" style="--color: #46b74f"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="cyan"
+                />
+                <span class="theme__icon" style="--color: #01bad6"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="blue"
+                  checked
+                />
+                <span class="theme__icon" style="--color: #0080ff"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="purple"
+                />
+                <span class="theme__icon" style="--color: #9b37ff"></span>
+              </label>
+              <label class="theme__color">
+                <input
+                  type="radio"
+                  name="color"
+                  class="theme__input"
+                  value="pink"
+                />
+                <span class="theme__icon" style="--color: #f20d68"></span>
               </label>
             </div>
-          </section>
-          <section class="switches">
-            <div class="switch switch--2">
-              <br />
-              <label for="klas">Laat klassen/clusters zien</label>
-              <label class="switch__label">
-                <input type="checkbox" id="klas" class="switch__input" />
-                <span class="switch__design"></span>
-              </label>
+          </div>
+          <div id="rooster" class="submenu">
+            <div class="material-textfield">
+              <input
+                id="startTime"
+                placeholder=" "
+                autocomplete="off"
+                type="time"
+              />
+              <label for="startTime" style="padding: 2.5px">Begintijd</label>
             </div>
-          </section>
-        </div>
-        <div id="advanced" class="submenu">
-          <div class="material-textfield">
-            <input id="css" placeholder=" " autocomplete="off" />
-            <label for="css">CSS-code</label>
+            <section class="switches">
+              <div class="switch switch--2">
+                <br />
+                <label for="vakafkorting">Gebruik vakafkorting</label>
+                <label class="switch__label">
+                  <input
+                    type="checkbox"
+                    id="vakafkorting"
+                    class="switch__input"
+                  />
+                  <span class="switch__design"></span>
+                </label>
+              </div>
+            </section>
+            <section class="switches">
+              <div class="switch switch--2">
+                <br />
+                <label for="afkortingHl"
+                  >Gebruik hoofdletters voor afkortingen</label
+                >
+                <label class="switch__label">
+                  <input
+                    type="checkbox"
+                    id="afkortingHl"
+                    class="switch__input"
+                  />
+                  <span class="switch__design"></span>
+                </label>
+              </div>
+            </section>
+            <section class="switches">
+              <div class="switch switch--2">
+                <br />
+                <label for="klas">Laat klassen/clusters zien</label>
+                <label class="switch__label">
+                  <input type="checkbox" id="klas" class="switch__input" />
+                  <span class="switch__design"></span>
+                </label>
+              </div>
+            </section>
+          </div>
+          <div id="advanced" class="submenu">
+            <div class="material-textfield">
+              <input id="css" placeholder=" " autocomplete="off" />
+              <label for="css">CSS-code</label>
+            </div>
           </div>
         </div>
-      </div>
-      <button class="btn" id="closeBtn" onclick="hideDialog()">Sluiten</button>
-    </dialog>
-    <style id="styling"></style>
-    <div id="schedule" class="schedule"></div>
+        <button class="btn" id="closeBtn" onclick="hideDialog()">
+          Sluiten
+        </button>
+      </dialog>
+      <style id="styling"></style>
+      <div id="schedule" class="schedule"></div>
+    </main>
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="schedule.js"></script>
     <script>
