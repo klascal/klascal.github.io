@@ -357,13 +357,6 @@ h3 {
   }
 }
 @media (max-width: 600px) {
-  .les.ltr p,
-  .les.ltr span {
-    font-size: 12px;
-  }
-  .les.ltr strong {
-    font-size: 14px;
-  }
   .les.ltr {
     width: 80px;
     padding: 5px;
