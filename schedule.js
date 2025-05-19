@@ -527,7 +527,7 @@ function displaySchedule(scheduleData) {
                 1.3 -
               left -
               24;
-          } else {
+          } else if (localStorage.getItem("dag") !== "true") {
             ltr = " ltr";
           }
           positie = `margin-top:${left}px;height:${width}px`;
