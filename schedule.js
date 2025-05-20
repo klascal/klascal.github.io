@@ -658,6 +658,9 @@ function displaySchedule(scheduleData) {
             document.getElementById("schedule").style =
               "margin-top: 83px;height: calc(100vh - 83px);";
           }
+          if (localStorage.getItem("dag") === "true") {
+            ltr += " dag";
+          }
           let warning =
             appointment.changeDescription + appointment.schedulerRemark;
           let warningsymbol = warning
