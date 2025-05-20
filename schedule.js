@@ -740,18 +740,12 @@ function displaySchedule(scheduleData) {
 
   scheduleElement.innerHTML = scheduleHTML;
   const scrollBarWidth =
-    (document.querySelector("body").offsetWidth -
-      document.querySelector("body").clientWidth) *
-      0.75 +
-    20;
-  if (
-    navigator.userAgent.includes("Chrome") ||
-    navigator.userAgent.includes("Chromium")
-  ) {
-    document.getElementById(
-      "field"
-    ).style.width = `calc(100vw - ${scrollBarWidth}px)`;
-  }
+    document.querySelector("body").offsetWidth -
+    document.querySelector("body").clientWidth +
+    16;
+  document.getElementById(
+    "field"
+  ).style.width = `calc(100vw - ${scrollBarWidth}px)`;
   const lessen = document.querySelectorAll(".les");
   let maxMarginTop = 0;
   for (const el of lessen) {
