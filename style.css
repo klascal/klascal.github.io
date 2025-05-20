@@ -71,12 +71,10 @@
   vertical-align: bottom;
   cursor: pointer;
 }
-
-.dag {
-  display: inline-block;
-}
+.dag.zaterdag,
 .dag.Zaterdag,
 .dag.Za,
+.dag.zondag,
 .dag.Zondag,
 .dag.Zo {
   display: none;
@@ -309,6 +307,7 @@ h3 {
   text-align: left;
   margin-left: 5px;
   margin-right: -5px;
+  height: 27px;
 }
 .schedule {
   margin-top: 56px;
