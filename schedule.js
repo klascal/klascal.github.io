@@ -739,9 +739,30 @@ function displaySchedule(scheduleData) {
     .join("");
 
   scheduleElement.innerHTML = scheduleHTML;
-  const lesElements = document.querySelectorAll(".les");
+  const scrollBarWidth =
+    (document.querySelector("body").offsetWidth -
+      document.querySelector("body").clientWidth) *
+      0.75 +
+    20;
+  if (
+    navigator.userAgent.includes("Chrome") ||
+    navigator.userAgent.includes("Chromium")
+  ) {
+    document.getElementById(
+      "field"
+    ).style.width = `calc(100vw - ${scrollBarWidth}px)`;
+  }
+  const lessen = document.querySelectorAll(".les");
   let maxMarginTop = 0;
-  for (const el of lesElements) {
+  for (const el of lessen) {
+    const scrollBarWidth =
+      (document.querySelector("body").offsetWidth -
+        document.querySelector("body").clientWidth) *
+        0.75 +
+      27;
+    if (localStorage.getItem("dag") === "true") {
+      el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
+    }
     const computedStyle = window.getComputedStyle(el);
     let marginTop = Number.parseFloat(computedStyle.marginTop);
     if (
