@@ -985,12 +985,38 @@ document.getElementById("previousDay").addEventListener("click", () => {
 
 if (window.location.hash) {
   console.log(window.location.hash.substring(1));
+  somAuth(window.location.hash.substring(1));
   history.replaceState(
     null,
     null,
     window.location.pathname + window.location.search
   );
 }
+
+async function somAuth(authCode) {
+  try {
+    const response = await fetch("https://som-server-bljr.onrender.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authCode,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
+    }
+
+    const result = await response.json();
+    localStorage.setItem("som_access_token", result.access_token);
+    console.log(result.access_token);
+    return result.access_token;
+  } catch (error) {
+    console.error("Error posting to server:", error);
+    throw error;
+  }
+}
+
 // Sla schoolnaam en token op
 const schoolName = document.getElementById("schoolName");
 schoolName.value = localStorage.getItem("schoolName");
