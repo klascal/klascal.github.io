@@ -63,9 +63,12 @@ setInterval(() => {
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = `top: ${topY}px;`;
+localStorage.setItem("huiswerk", "false");
 // Haal elke 1.5 minuut het rooster op
 setInterval(() => {
-  handleFormSubmit();
+  if (localStorage.getItem("huiswerk") !== "true") {
+    handleFormSubmit();
+  }
 }, 90000);
 sessionStorage.setItem("transform", "");
 sessionStorage.setItem("week", "");
@@ -1038,8 +1041,8 @@ document.getElementById("previousDay").addEventListener("click", () => {
 });
 
 if (window.location.hash) {
-  console.log(window.location.hash.substring(1));
-  somAuth(window.location.hash.substring(1));
+  localStorage.setItem("som_refresh_token", window.location.hash.substring(1));
+  somAuth();
   history.replaceState(
     null,
     null,
@@ -1047,13 +1050,13 @@ if (window.location.hash) {
   );
 }
 
-async function somAuth(authCode) {
+async function somAuth() {
   try {
     const response = await fetch("https://som-server-bljr.onrender.com/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: authCode,
+        Accept: "application/json",
+        Authorization: localStorage.getItem("som_refresh_token"),
       },
     });
 
@@ -1063,11 +1066,163 @@ async function somAuth(authCode) {
 
     const result = await response.json();
     localStorage.setItem("som_access_token", result.access_token);
-    console.log(result.access_token);
-    return result.access_token;
+    if (!localStorage.getItem("somUserID")) {
+      somUserInfo();
+    }
   } catch (error) {
     console.error("Error posting to server:", error);
     throw error;
+  }
+}
+
+async function somUserInfo() {
+  try {
+    const response = await fetch("https://api.somtoday.nl/rest/v1/account/me", {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("som_access_token"),
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    localStorage.setItem("somUserID", data.persoon.links[0].id);
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+async function fetchHomework(year, week) {
+  const baseUrl = "https://api.somtoday.nl/rest/v1";
+  const endpoints = [
+    "studiewijzeritemafspraaktoekenningen",
+    "studiewijzeritemdagtoekenningen",
+    "studiewijzeritemweektoekenningen",
+  ];
+  const params = new URLSearchParams({
+    geenDifferentiatieOfGedifferentieerdVoorLeerling:
+      localStorage.getItem("somUserID"),
+    jaarWeek: `${year}~${week}`,
+  });
+  const additionals = [
+    "leerlingen",
+    "swigemaaktVinkjes",
+    "lesgroep",
+    "leerlingenMetInleveringStatus",
+    "leerlingProjectgroep",
+    "studiewijzerId",
+  ];
+
+  additionals.forEach((add) => params.append("additional", add));
+  // Flatten the additional parameters
+  const flatParams = [...params.entries()].flatMap(([key, value]) =>
+    Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]
+  );
+  const queryString = new URLSearchParams(flatParams).toString();
+
+  try {
+    const responses = await Promise.all(
+      endpoints.map((endpoint) =>
+        fetch(`${baseUrl}/${endpoint}?${queryString}`, {
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer " + localStorage.getItem("som_access_token"),
+          },
+        })
+      )
+    );
+
+    const data = await Promise.all(
+      responses.map((res) => {
+        if (!res.ok) {
+          somAuth();
+          throw new Error(`Endpoint failed: ${res.url} (${res.status})`);
+        }
+        return res.json();
+      })
+    );
+
+    // Combine all item arrays
+    const allHomeworkItems = data.flatMap((d) => d.items || []);
+    return allHomeworkItems;
+  } catch (error) {
+    console.error("Fout bij het ophalen van huiswerk:", error);
+    throw error;
+  }
+}
+
+function renderHomework(homeworkItems) {
+  localStorage.setItem("huiswerk", "true");
+  const container = document.getElementById("schedule");
+  container.innerHTML = "";
+
+  const days = {
+    maandag: [],
+    dinsdag: [],
+    woensdag: [],
+    donderdag: [],
+    vrijdag: [],
+    zaterdag: [],
+    zondag: [],
+  };
+
+  homeworkItems.forEach((item) => {
+    const dateStr = item.datumTijd || item.datum; // afhankelijk van het endpoint
+    const date = dateStr ? new Date(dateStr) : null;
+    const dayName = date
+      ? date.toLocaleDateString("nl-NL", { weekday: "long" })
+      : "onbekend";
+
+    const vak = item.additionalObjects.lesgroep.vak.naam;
+    let onderwerp = item.studiewijzerItem.onderwerp;
+    let huiswerkType = item.studiewijzerItem.huiswerkType;
+    const omschrijving = item.studiewijzerItem.omschrijving.replace(
+      /style="[^"]*"/g,
+      ""
+    );
+    if (huiswerkType.includes("TOETS")) {
+      let fill = "#f49247";
+      if (huiswerkType === "GROTE_TOETS") {
+        fill = "#f47157";
+      }
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="${fill}"><path fill-rule="evenodd" d="M3.429 0A3.43 3.43 0 0 0 0 3.429V20.57A3.43 3.43 0 0 0 3.429 24H20.57A3.43 3.43 0 0 0 24 20.571V3.43A3.43 3.43 0 0 0 20.571 0zM17 8.966h-3.465v9.038h-2.912V8.966H7V6h10z"></path></svg>`;
+    } else if (huiswerkType === "HUISWERK") {
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" id="icon"><path fill-rule="evenodd" d="m7 2.804 3.623-2.39a2.5 2.5 0 0 1 2.754 0l9.5 6.269A2.5 2.5 0 0 1 24 8.769v12.735a2.5 2.5 0 0 1-2.5 2.5h-19a2.5 2.5 0 0 1-2.5-2.5V8.77a2.5 2.5 0 0 1 1.123-2.086L3 5.444V1.047a.8.8 0 0 1 .8-.8h2.4a.8.8 0 0 1 .8.8zm0 16.362h3v-4.364h4v4.364h3v-12h-3v4.364h-4V7.166H7z"></path></svg>`;
+    }
+    if (omschrijving !== "") {
+      if (onderwerp === "") {
+        onderwerp = `<details><summary>Huiswerk</summary>${omschrijving}</details>`;
+      } else {
+        onderwerp = `<details><summary>${onderwerp}</summary>${omschrijving}</details>`;
+      }
+    }
+    const tijd = date.toLocaleTimeString("nl-NL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><br>${onderwerp}</div>`;
+
+    if (days[dayName]) {
+      days[dayName].push(itemHTML);
+    } else {
+      days["onbekend"] = days["onbekend"] || [];
+      days["onbekend"].push(itemHTML);
+    }
+  });
+
+  for (const [day, items] of Object.entries(days)) {
+    if (items.length === 0) continue;
+    const dayDiv = document.createElement("div");
+    dayDiv.classList.add("day-group");
+    dayDiv.innerHTML = `<h3>${
+      day.charAt(0).toUpperCase() + day.slice(1)
+    }</h3>${items.join("")}`;
+    container.appendChild(dayDiv);
   }
 }
 

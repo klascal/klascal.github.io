@@ -497,12 +497,28 @@ button:not(:disabled) {
   padding: 10px;
   border-radius: 10px;
 }
-details summary {
+dialog details summary {
   cursor: pointer;
   font-size: 18px;
 }
-details {
+dialog details {
   margin-bottom: 24px;
+}
+.hwDiv {
+  position: initial;
+  margin-bottom: 5px;
+}
+.hwDiv svg {
+  vertical-align: sub;
+  margin-right: 5px;
+}
+.hwDiv #icon {
+  fill: var(--primary-light) !important;
+  vertical-align: sub;
+}
+.hwDiv p,
+.hwDiv span {
+  font-size: initial;
 }
 li {
   margin-bottom: 5px;
