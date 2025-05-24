@@ -117,7 +117,7 @@ window
   .addEventListener("change", setThemeColor);
 function show(id, title, hide) {
   // Titel sanitizen
-  if (!/^[A-Za-z]+$/.test(title)) {
+  if (!/^[A-Za-z\s]+$/.test(title)) {
     title = "Instellingen";
   }
   const content = document.querySelector(".container");
@@ -357,8 +357,8 @@ function displaySchedule(scheduleData) {
   if (localStorage.getItem("dag") === "true") {
     const datum = new Date();
     const vandaag = datum.getDay();
-    let transform = -600;
-    if (vandaag !== 0) {
+    let transform = -400;
+    if (vandaag !== 0 && vandaag !== 6) {
       transform = (vandaag - 1) * -100;
     }
     if (sessionStorage.getItem("transform")) {
@@ -386,6 +386,16 @@ function displaySchedule(scheduleData) {
         ).style = `width:500vw;transform:translateX(${transform}vw);`;
       }, 200);
     });
+  }
+  const datum = new Date();
+  const vandaag = datum.getDay();
+  if (vandaag === 0 || vandaag === 6) {
+    if (
+      !sessionStorage.getItem("transform") &&
+      !sessionStorage.getItem("week")
+    ) {
+      switchDay("next");
+    }
   }
   const breakpoints = [
     "min-width: 1000px",
@@ -528,7 +538,7 @@ function displaySchedule(scheduleData) {
               left -
               24;
           } else if (localStorage.getItem("dag") !== "true") {
-            ltr = "ltr";
+            ltr = " ltr";
           }
           positie = `margin-top:${left}px;height:${width}px`;
           if (width < 55) {
@@ -577,7 +587,12 @@ function displaySchedule(scheduleData) {
               24;
             positie = `margin-left:${left}px;width:${width}px`;
             styling = "display: block";
-            if (appointment.appointmentInstance == null) {
+            if (
+              appointment.appointmentInstance === null &&
+              appointment.actions[0] &&
+              appointment.actions[0].appointment.studentEnrolled === false &&
+              appointment.appointmentType !== "conflict"
+            ) {
               positie += ";height:64px";
             }
             if (width < 87.5) {
@@ -625,7 +640,12 @@ function displaySchedule(scheduleData) {
               subject.toUpperCase()
             );
           }
-          if (appointment.appointmentInstance == null) {
+          if (
+            appointment.appointmentInstance === null &&
+            appointment.actions[0] &&
+            appointment.actions[0].appointment.studentEnrolled === false &&
+            appointment.appointmentType !== "conflict"
+          ) {
             subjects = appointment.actions[0].appointment.subjects;
             if (localStorage.getItem("hoofdletter") === "true") {
               subjects = appointment.actions[0].appointment.subjects.map(
@@ -639,11 +659,34 @@ function displaySchedule(scheduleData) {
           if (localStorage.getItem("hoofdletter") === "true") {
             teachers = teachers.toUpperCase();
           }
+          if (appointment.appointmentType === "conflict") {
+            subjects = [
+              ...appointment.actions[0].appointment.subjects,
+              ...appointment.actions[1].appointment.subjects,
+            ];
+            appointment.locations = [
+              appointment.actions[0].appointment.locations.join(", ") +
+                ", " +
+                appointment.actions[1].appointment.locations.join(", "),
+            ];
+            if (appointment.actions[0].appointment.teachers.join(", ") !== "") {
+              teachers = [
+                appointment.actions[0].appointment.teachers.join(", ") +
+                  ", " +
+                  appointment.actions[1].appointment.teachers.join(", "),
+              ];
+              teachers = `(${teachers.join(", ")})`;
+            }
+            if (localStorage.getItem("hoofdletter") === "true") {
+              subjects = subjects.map((subject) => subject.toUpperCase());
+              teachers = teachers.toUpperCase();
+            }
+          }
           if (
             window.innerWidth < 676 &&
             localStorage.getItem("dag") !== "true"
           ) {
-            ltr = "ltr";
+            ltr = " ltr";
           }
           if (
             window.innerWidth < 475 &&
@@ -666,12 +709,17 @@ function displaySchedule(scheduleData) {
           let warningsymbol = warning
             ? '<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="warningIcon"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z"></path></svg>'
             : "";
-          if (appointment.appointmentInstance == null) {
+          if (
+            appointment.appointmentInstance === null &&
+            appointment.actions[0] &&
+            appointment.actions[0].appointment.studentEnrolled === false &&
+            appointment.appointmentType !== "conflict"
+          ) {
             warning = "Afgemeld";
             warningsymbol = warning
               ? `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q54 0 104-17.5t92-50.5L228-676q-33 42-50.5 92T160-480q0 134 93 227t227 93Zm252-124q33-42 50.5-92T800-480q0-134-93-227t-227-93q-54 0-104 17.5T284-732l448 448Z"/></svg>`
               : "";
-            ltr += "notEnrolled";
+            ltr += " notEnrolled";
           } else if (appointment.schedulerRemark !== "") {
             warning = appointment.schedulerRemark;
             warningsymbol = warning
@@ -689,7 +737,7 @@ function displaySchedule(scheduleData) {
                         appointment.cancelled
                           ? "cancelled"
                           : appointment.appointmentType
-                      } ${ltr}">
+                      }${ltr}">
               <p>
                 <strong>${
                   appointment.appointmentType === "exam"
@@ -863,6 +911,12 @@ async function handleFormSubmit() {
   localStorage.setItem("startTime", startTime.value);
   if (!decimalStartTime.includes("NaN")) {
     localStorage.setItem("decimalStartTime", decimalStartTime);
+  }
+  if (
+    localStorage.getItem("afkorting") === "false" &&
+    !localStorage.getItem("subjects")
+  ) {
+    retrieveSubjectFullNames();
   }
   if (
     localStorage.getItem("dag") !== "true" &&
