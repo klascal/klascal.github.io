@@ -519,6 +519,7 @@ dialog details {
 .hwDiv p,
 .hwDiv span {
   font-size: initial;
+  margin-top: 5px;
 }
 li {
   margin-bottom: 5px;
