@@ -510,12 +510,11 @@ dialog details {
   width: calc(100vw - 27px);
 }
 .hwDiv svg {
-  vertical-align: sub;
   margin-right: 5px;
 }
 .hwDiv #icon {
   fill: var(--primary-light) !important;
-  vertical-align: sub;
+  transform: translateY(-2px);
 }
 .hwDiv input[type="checkbox"] {
   scale: 1.5;
