@@ -1250,10 +1250,8 @@ function renderHomework(homeworkItems) {
     el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
   }
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  console.log(checkboxes);
   checkboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", function () {
-      console.log("h");
       updateHomeworkMade(this.id, this.checked);
     });
   });
