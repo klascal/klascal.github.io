@@ -507,6 +507,7 @@ dialog details {
 .hwDiv {
   position: initial;
   margin-bottom: 5px;
+  width: calc(100vw - 27px);
 }
 .hwDiv svg {
   vertical-align: sub;
@@ -516,10 +517,25 @@ dialog details {
   fill: var(--primary-light) !important;
   vertical-align: sub;
 }
+.hwDiv input[type="checkbox"] {
+  scale: 1.5;
+  cursor: pointer;
+  float: right;
+  margin-top: 12.5px;
+  margin-right: 12.5px;
+}
 .hwDiv p,
 .hwDiv span {
   font-size: initial;
   margin-top: 5px;
+}
+.hwDiv summary {
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  cursor: pointer;
+  max-width: calc(100% - 50px);
 }
 li {
   margin-bottom: 5px;

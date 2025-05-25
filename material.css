@@ -29,6 +29,9 @@
 }
 body {
   --background: #f1f1f1;
+  --toets: #ef8636;
+  --grote-toets: #d32f0d;
+  --lesstof: #3f8541;
 }
 body[data-theme="red"] {
   --primary-light: #9f3c3c;
@@ -81,6 +84,9 @@ body[data-theme="pink"] {
 @media (prefers-color-scheme: dark) {
   body {
     --background: #363636;
+    --toets: #f49247;
+    --grote-toets: #f47157;
+    --lesstof: #8aeb9f;
   }
   body[data-theme="red"] {
     --primary-light: #ffb3ab;

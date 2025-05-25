@@ -379,14 +379,18 @@ function displaySchedule(scheduleData) {
     window.addEventListener("resize", () => {
       const schedule = document.getElementById("schedule");
       const transform = schedule.style.transform.substring(11, 15);
-      document.getElementById(
-        "schedule"
-      ).style = `width:500vw;transform:translateX(${transform}vw);transition:none;`;
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
+      if (localStorage.getItem("huiswerk") !== "true") {
         document.getElementById(
           "schedule"
-        ).style = `width:500vw;transform:translateX(${transform}vw);`;
+        ).style = `width:500vw;transform:translateX(${transform}vw);transition:none;`;
+      }
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (localStorage.getItem("huiswerk") !== "true") {
+          document.getElementById(
+            "schedule"
+          ).style = `width:500vw;transform:translateX(${transform}vw);`;
+        }
       }, 200);
     });
   }
@@ -1148,7 +1152,7 @@ async function fetchHomework(year, week) {
 
     // Combine all item arrays
     const allHomeworkItems = data.flatMap((d) => d.items || []);
-    return allHomeworkItems;
+    renderHomework(allHomeworkItems);
   } catch (error) {
     console.error("Fout bij het ophalen van huiswerk:", error);
     throw error;
@@ -1158,6 +1162,7 @@ async function fetchHomework(year, week) {
 function renderHomework(homeworkItems) {
   localStorage.setItem("huiswerk", "true");
   const container = document.getElementById("schedule");
+  container.style = "display: block; height: initial";
   container.innerHTML = "";
 
   const days = {
@@ -1180,32 +1185,43 @@ function renderHomework(homeworkItems) {
     const vak = item.additionalObjects.lesgroep.vak.naam;
     let onderwerp = item.studiewijzerItem.onderwerp;
     let huiswerkType = item.studiewijzerItem.huiswerkType;
+    let gemaakt;
     const omschrijving = item.studiewijzerItem.omschrijving.replace(
       /style="[^"]*"/g,
       ""
     );
+    if (item.additionalObjects?.swigemaaktVinkjes?.items?.[0]?.gemaakt) {
+      gemaakt = "checked";
+    }
     if (huiswerkType.includes("TOETS")) {
-      let fill = "#f49247";
+      let fill = "var(--toets)";
       if (huiswerkType === "GROTE_TOETS") {
-        fill = "#f47157";
+        fill = "var(--grote-toets)";
       }
       huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="${fill}"><path fill-rule="evenodd" d="M3.429 0A3.43 3.43 0 0 0 0 3.429V20.57A3.43 3.43 0 0 0 3.429 24H20.57A3.43 3.43 0 0 0 24 20.571V3.43A3.43 3.43 0 0 0 20.571 0zM17 8.966h-3.465v9.038h-2.912V8.966H7V6h10z"></path></svg>`;
     } else if (huiswerkType === "HUISWERK") {
       huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" id="icon"><path fill-rule="evenodd" d="m7 2.804 3.623-2.39a2.5 2.5 0 0 1 2.754 0l9.5 6.269A2.5 2.5 0 0 1 24 8.769v12.735a2.5 2.5 0 0 1-2.5 2.5h-19a2.5 2.5 0 0 1-2.5-2.5V8.77a2.5 2.5 0 0 1 1.123-2.086L3 5.444V1.047a.8.8 0 0 1 .8-.8h2.4a.8.8 0 0 1 .8.8zm0 16.362h3v-4.364h4v4.364h3v-12h-3v4.364h-4V7.166H7z"></path></svg>`;
+    } else if (huiswerkType === "LESSTOF") {
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="var(--lesstof)"><path fill-rule="evenodd" d="M3.429 0A3.43 3.43 0 0 0 0 3.429V20.57A3.43 3.43 0 0 0 3.429 24H20.57A3.43 3.43 0 0 0 24 20.571V3.43A3.43 3.43 0 0 0 20.571 0zm1.714 6.857a1.714 1.714 0 1 1 3.428 0 1.714 1.714 0 0 1-3.428 0m5.571 0c0-.712.573-1.286 1.286-1.286h5.143c.712 0 1.286.574 1.286 1.286s-.574 1.286-1.286 1.286H12a1.283 1.283 0 0 1-1.286-1.286M12 10.714c-.713 0-1.286.573-1.286 1.286s.573 1.286 1.286 1.286h5.143c.712 0 1.286-.573 1.286-1.286s-.574-1.286-1.286-1.286zm-1.286 6.429c0-.713.573-1.286 1.286-1.286h5.143c.712 0 1.286.573 1.286 1.286 0 .712-.574 1.285-1.286 1.285H12a1.283 1.283 0 0 1-1.286-1.285m-5.069-3.93a1.714 1.714 0 1 0 2.425-2.425 1.714 1.714 0 0 0-2.425 2.424Zm-.502 3.93a1.714 1.714 0 1 1 3.429 0 1.714 1.714 0 0 1-3.43 0Z"></path></svg>`;
     }
     if (omschrijving !== "") {
       if (onderwerp === "") {
-        onderwerp = `<details><summary>Huiswerk</summary>${omschrijving}</details>`;
+        onderwerp = `<details><summary>${omschrijving.replace(
+          /<\/?[^>]+(>|$)/g,
+          ""
+        )}</summary>${omschrijving}</details>`;
       } else {
         onderwerp = `<details><summary>${onderwerp}</summary>${omschrijving}</details>`;
       }
+    } else {
+      onderwerp = `<details><summary>${onderwerp}</summary>${onderwerp}</details>`;
     }
     const tijd = date.toLocaleTimeString("nl-NL", {
       hour: "2-digit",
       minute: "2-digit",
     });
 
-    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><br>${onderwerp}</div>`;
+    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><input type="checkbox" ${gemaakt}></input><br>${onderwerp}</div>`;
 
     if (days[dayName]) {
       days[dayName].push(itemHTML);
@@ -1223,6 +1239,15 @@ function renderHomework(homeworkItems) {
       day.charAt(0).toUpperCase() + day.slice(1)
     }</h3>${items.join("")}`;
     container.appendChild(dayDiv);
+  }
+  const lessen = document.querySelectorAll(".hwDiv");
+  for (const el of lessen) {
+    const scrollBarWidth =
+      (document.querySelector("body").offsetWidth -
+        document.querySelector("body").clientWidth) *
+        0.75 +
+      27;
+    el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
   }
 }
 
