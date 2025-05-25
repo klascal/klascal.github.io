@@ -1185,7 +1185,7 @@ function renderHomework(homeworkItems) {
     const vak = item.additionalObjects.lesgroep.vak.naam;
     let onderwerp = item.studiewijzerItem.onderwerp;
     let huiswerkType = item.studiewijzerItem.huiswerkType;
-    let gemaakt;
+    let gemaakt = "";
     const omschrijving = item.studiewijzerItem.omschrijving.replace(
       /style="[^"]*"/g,
       ""
@@ -1221,7 +1221,7 @@ function renderHomework(homeworkItems) {
       minute: "2-digit",
     });
 
-    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><input type="checkbox" ${gemaakt}></input><br>${onderwerp}</div>`;
+    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><input type="checkbox" id="${item.links[0].id}" ${gemaakt}></input><br>${onderwerp}</div>`;
 
     if (days[dayName]) {
       days[dayName].push(itemHTML);
@@ -1249,8 +1249,51 @@ function renderHomework(homeworkItems) {
       27;
     el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
   }
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  console.log(checkboxes);
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+      console.log("h");
+      updateHomeworkMade(this.id, this.checked);
+    });
+  });
 }
+async function updateHomeworkMade(id, checked) {
+  try {
+    const response = await fetch(
+      "https://api.somtoday.nl/rest/v1/swigemaakt/cou",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type":
+            "application/vnd.topicus.platinum+json; charset=utf-8",
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("som_access_token"),
+        },
+        body: JSON.stringify({
+          leerling: {
+            links: [
+              {
+                id: Number(localStorage.getItem("somUserID")),
+                rel: "self",
+                type: "leerling.RLeerlingPrimer",
+              },
+            ],
+          },
+          swiToekenningId: Number(id),
+          gemaakt: checked,
+        }),
+      }
+    );
 
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error posting to server:", error);
+    throw error;
+  }
+}
 // Sla schoolnaam en token op
 const schoolName = document.getElementById("schoolName");
 schoolName.value = localStorage.getItem("schoolName");
