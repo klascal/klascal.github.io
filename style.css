@@ -325,7 +325,7 @@ h3 {
   height: calc(100vh - 56px);
   width: 78px;
   position: fixed;
-  background: #2a2a2f;
+  background: #eee;
   z-index: 1;
   top: 56px;
   display: none;
@@ -548,10 +548,12 @@ dialog details {
   margin-right: 5.5px;
 }
 .pill {
-  width: 56px;
+  width: 46px;
   height: 32px;
   border-radius: 16px;
   border: none;
+  transition: all 0.1s ease-in-out;
+  margin: auto;
 }
 .day-group h3 {
   width: fit-content;
@@ -565,6 +567,7 @@ dialog details {
   letter-spacing: 0.1px;
   text-align: center;
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 .navSelected {
   background-color: var(--primary-accent) !important;
@@ -621,7 +624,8 @@ li {
   kbd {
     border: 1px solid #374048;
   }
-  #field {
+  #field,
+  #side {
     background: #2a2a2f;
   }
   body,
