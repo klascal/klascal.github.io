@@ -810,12 +810,14 @@ function displaySchedule(scheduleData) {
         0.75 +
       27;
     if (localStorage.getItem("somUserID")) {
-      scrollBarWidth =
-        (document.querySelector("body").offsetWidth -
-          document.querySelector("body").clientWidth) *
-          0.75 +
-        105;
-      scheduleElement.classList.add("sidebarPresent");
+      if (window.innerWidth > 500) {
+        scrollBarWidth =
+          (document.querySelector("body").offsetWidth -
+            document.querySelector("body").clientWidth) *
+            0.75 +
+          105;
+        scheduleElement.classList.add("sidebarPresent");
+      }
     }
     if (localStorage.getItem("dag") === "true") {
       el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
@@ -929,6 +931,11 @@ async function handleFormSubmit() {
   }
   if (localStorage.getItem("somUserID")) {
     document.getElementById("side").style = "display: flex";
+    const pills = document.querySelectorAll(".pill");
+    pills.forEach((pill) => {
+      pill.classList.remove("navSelected");
+    });
+    document.getElementById("scheduleBtn").classList.add("navSelected");
   }
   if (
     localStorage.getItem("afkorting") === "false" &&
@@ -1193,7 +1200,12 @@ window.addEventListener("scroll", onScroll);
 function renderHomework(homeworkItems) {
   localStorage.setItem("huiswerk", "true");
   const container = document.getElementById("schedule");
-  container.style = "display: block; height: initial; margin-left: 78px";
+  const pills = document.querySelectorAll(".pill");
+  pills.forEach((pill) => {
+    pill.classList.remove("navSelected");
+  });
+  document.getElementById("homeworkBtn").classList.add("navSelected");
+  container.style = "display: block; height: initial;";
   if (document.querySelector(".les") && !document.querySelector(".hwDiv")) {
     container.innerHTML = "";
   }
@@ -1278,11 +1290,18 @@ function renderHomework(homeworkItems) {
   }
   const lessen = document.querySelectorAll(".hwDiv");
   for (const el of lessen) {
-    const scrollBarWidth =
+    let scrollBarWidth =
       (document.querySelector("body").offsetWidth -
         document.querySelector("body").clientWidth) *
         0.75 +
-      105;
+      27;
+    if (window.innerWidth > 500) {
+      scrollBarWidth =
+        (document.querySelector("body").offsetWidth -
+          document.querySelector("body").clientWidth) *
+          0.75 +
+        105;
+    }
     el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
   }
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');

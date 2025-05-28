@@ -567,7 +567,10 @@ dialog details {
   cursor: pointer;
 }
 .navSelected {
-  background-color: var(--primary-accent);
+  background-color: var(--primary-accent) !important;
+}
+.navSelected + label {
+  color: var(--primary-light);
 }
 .navSelected svg {
   fill: var(--primary-light) !important;
