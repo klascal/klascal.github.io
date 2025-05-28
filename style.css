@@ -321,6 +321,28 @@ h3 {
   position: absolute;
   left: 200px;
 }
+#side {
+  height: calc(100vh - 56px);
+  width: 78px;
+  position: fixed;
+  background: #2a2a2f;
+  z-index: 1;
+  top: 56px;
+  display: none;
+  flex-direction: column;
+}
+.pillContainer {
+  display: grid;
+  justify-content: center;
+  margin-bottom: 20px;
+  height: fit-content;
+}
+.pillContainer:first-of-type {
+  margin-top: 20px;
+}
+.sidebarPresent {
+  margin-left: 78px;
+}
 @media (max-width: 1000px) {
   .les.ltr {
     width: 107px;
@@ -369,6 +391,19 @@ h3 {
 @media (max-width: 500px) {
   h3 {
     width: 95px;
+  }
+  #side {
+    width: 100vw;
+    height: 56px;
+    bottom: 0;
+    top: auto;
+    flex-direction: row;
+    place-items: center;
+    justify-content: space-around;
+  }
+  .pillContainer,
+  .pillContainer:first-of-type {
+    margin: 0;
   }
 }
 @media (max-width: 475px) {
@@ -510,7 +545,32 @@ dialog details {
   width: calc(100vw - 27px);
 }
 .hwDiv svg {
-  margin-right: 5px;
+  margin-right: 5.5px;
+}
+.pill {
+  width: 56px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+}
+.day-group h3 {
+  width: fit-content;
+}
+.pill:not(:hover) {
+  background: none;
+}
+.pillContainer label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  text-align: center;
+  cursor: pointer;
+}
+.navSelected {
+  background-color: var(--primary-accent);
+}
+.navSelected svg {
+  fill: var(--primary-light) !important;
 }
 .hwDiv #icon {
   fill: var(--primary-light) !important;
@@ -576,7 +636,7 @@ li {
 
   #icon,
   .icon {
-    fill: white !important;
+    fill: white;
     vertical-align: middle;
   }
 

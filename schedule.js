@@ -804,11 +804,19 @@ function displaySchedule(scheduleData) {
   const lessen = document.querySelectorAll(".les");
   let maxMarginTop = 0;
   for (const el of lessen) {
-    const scrollBarWidth =
+    let scrollBarWidth =
       (document.querySelector("body").offsetWidth -
         document.querySelector("body").clientWidth) *
         0.75 +
       27;
+    if (localStorage.getItem("somUserID")) {
+      scrollBarWidth =
+        (document.querySelector("body").offsetWidth -
+          document.querySelector("body").clientWidth) *
+          0.75 +
+        105;
+      scheduleElement.classList.add("sidebarPresent");
+    }
     if (localStorage.getItem("dag") === "true") {
       el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
     }
@@ -918,6 +926,9 @@ async function handleFormSubmit() {
   localStorage.setItem("startTime", startTime.value);
   if (!decimalStartTime.includes("NaN")) {
     localStorage.setItem("decimalStartTime", decimalStartTime);
+  }
+  if (localStorage.getItem("somUserID")) {
+    document.getElementById("side").style = "display: flex";
   }
   if (
     localStorage.getItem("afkorting") === "false" &&
@@ -1100,7 +1111,11 @@ async function somUserInfo() {
   }
 }
 
+let isLoading = false;
+
 async function fetchHomework(year, week) {
+  window.week = week;
+  window.year = year;
   const baseUrl = "https://api.somtoday.nl/rest/v1";
   const endpoints = [
     "studiewijzeritemafspraaktoekenningen",
@@ -1122,13 +1137,16 @@ async function fetchHomework(year, week) {
   ];
 
   additionals.forEach((add) => params.append("additional", add));
-  // Flatten the additional parameters
+
+  // Flatten params
   const flatParams = [...params.entries()].flatMap(([key, value]) =>
     Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]
   );
   const queryString = new URLSearchParams(flatParams).toString();
 
   try {
+    isLoading = true;
+
     const responses = await Promise.all(
       endpoints.map((endpoint) =>
         fetch(`${baseUrl}/${endpoint}?${queryString}`, {
@@ -1150,38 +1168,49 @@ async function fetchHomework(year, week) {
       })
     );
 
-    // Combine all item arrays
     const allHomeworkItems = data.flatMap((d) => d.items || []);
     renderHomework(allHomeworkItems);
   } catch (error) {
     console.error("Fout bij het ophalen van huiswerk:", error);
-    throw error;
+  } finally {
+    isLoading = false;
   }
 }
+
+async function onScroll() {
+  const scrollY = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  const fullHeight = document.body.offsetHeight;
+
+  if (scrollY + viewportHeight >= fullHeight - 10 && !isLoading) {
+    week++;
+    await fetchHomework(window.year, window.week);
+  }
+}
+
+window.addEventListener("scroll", onScroll);
 
 function renderHomework(homeworkItems) {
   localStorage.setItem("huiswerk", "true");
   const container = document.getElementById("schedule");
-  container.style = "display: block; height: initial";
-  container.innerHTML = "";
+  container.style = "display: block; height: initial; margin-left: 78px";
+  if (document.querySelector(".les") && !document.querySelector(".hwDiv")) {
+    container.innerHTML = "";
+  }
 
-  const days = {
-    maandag: [],
-    dinsdag: [],
-    woensdag: [],
-    donderdag: [],
-    vrijdag: [],
-    zaterdag: [],
-    zondag: [],
-  };
+  const days = {};
 
   homeworkItems.forEach((item) => {
     const dateStr = item.datumTijd || item.datum; // afhankelijk van het endpoint
     const date = dateStr ? new Date(dateStr) : null;
     const dayName = date
-      ? date.toLocaleDateString("nl-NL", { weekday: "long" })
+      ? date.toLocaleDateString("nl-NL", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        })
       : "onbekend";
-
+    year = date.getFullYear();
     const vak = item.additionalObjects.lesgroep.vak.naam;
     let onderwerp = item.studiewijzerItem.onderwerp;
     let huiswerkType = item.studiewijzerItem.huiswerkType;
@@ -1223,15 +1252,22 @@ function renderHomework(homeworkItems) {
 
     const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><input type="checkbox" id="${item.links[0].id}" ${gemaakt}></input><br>${onderwerp}</div>`;
 
-    if (days[dayName]) {
-      days[dayName].push(itemHTML);
-    } else {
-      days["onbekend"] = days["onbekend"] || [];
-      days["onbekend"].push(itemHTML);
-    }
+    if (!days[dayName]) days[dayName] = [];
+    days[dayName].push(itemHTML);
+  });
+  // Convert the object to an array of [key, value] pairs
+  const sortedDaysArray = Object.entries(days);
+
+  // Sort the array based on the date in the key
+  sortedDaysArray.sort((a, b) => {
+    const dateA = new Date(a[0].split(" ").slice(1).join(" ") + `, ${year}`); // Assuming year 2025
+    const dateB = new Date(b[0].split(" ").slice(1).join(" ") + `, ${year}`); // Assuming year 2025
+    return dateA - dateB;
   });
 
-  for (const [day, items] of Object.entries(days)) {
+  // Convert the sorted array back to an object
+  const sortedDays = Object.fromEntries(sortedDaysArray);
+  for (const [day, items] of Object.entries(sortedDays)) {
     if (items.length === 0) continue;
     const dayDiv = document.createElement("div");
     dayDiv.classList.add("day-group");
@@ -1246,7 +1282,7 @@ function renderHomework(homeworkItems) {
       (document.querySelector("body").offsetWidth -
         document.querySelector("body").clientWidth) *
         0.75 +
-      27;
+      105;
     el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
   }
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -1422,6 +1458,13 @@ document.getElementById("weekBtn").addEventListener("click", () => {
 document.getElementById("dayBtn").addEventListener("click", () => {
   localStorage.setItem("dag", "true");
   handleFormSubmit();
+});
+document.getElementById("scheduleBtn").addEventListener("click", () => {
+  handleFormSubmit();
+});
+document.getElementById("homeworkBtn").addEventListener("click", () => {
+  const date = new Date();
+  fetchHomework(date.getFullYear(), date.getWeek());
 });
 let startX;
 let startY;
