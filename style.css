@@ -301,6 +301,7 @@ p.lestijden {
 
 strong {
   font-size: 16px;
+  font-weight: 600;
 }
 
 h3 {
@@ -310,6 +311,7 @@ h3 {
   margin-left: 5px;
   margin-right: -5px;
   height: 27px;
+  font-weight: 600;
 }
 .schedule {
   margin-top: 56px;
