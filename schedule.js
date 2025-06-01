@@ -1072,7 +1072,7 @@ if (window.location.hash) {
   );
 }
 
-async function somAuth() {
+async function somAuth(year, week) {
   try {
     const response = await fetch("https://som-server-bljr.onrender.com/", {
       method: "POST",
@@ -1088,6 +1088,9 @@ async function somAuth() {
 
     const result = await response.json();
     localStorage.setItem("som_access_token", result.access_token);
+    if (year && week) {
+      fetchHomework(year, week);
+    }
     if (!localStorage.getItem("somUserID")) {
       somUserInfo();
     }
@@ -1168,8 +1171,7 @@ async function fetchHomework(year, week) {
     const data = await Promise.all(
       responses.map((res) => {
         if (!res.ok) {
-          somAuth();
-          fetchHomework(year, week);
+          somAuth(year, week);
           throw new Error(`Endpoint failed: ${res.url} (${res.status})`);
         }
         return res.json();
