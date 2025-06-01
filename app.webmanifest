@@ -7,8 +7,6 @@
 		"client_mode": "auto"
 	},
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#1080ce",
 	"icons": [
 		{
 			"src": "logo2.png",
