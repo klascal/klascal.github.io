@@ -1231,7 +1231,10 @@ function renderHomework(homeworkItems) {
       /style="[^"]*"/g,
       ""
     );
-    if (item.additionalObjects?.swigemaaktVinkjes?.items?.[0]?.gemaakt) {
+    if (
+      item.additionalObjects.swigemaaktVinkjes &&
+      item.additionalObjects.swigemaaktVinkjes.items[0].gemaakt
+    ) {
       gemaakt = "checked";
     }
     if (huiswerkType.includes("TOETS")) {
