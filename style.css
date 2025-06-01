@@ -98,7 +98,7 @@ dialog {
   padding: 24px;
   max-width: 253px;
   max-height: calc(100vh - 80px);
-  animation: popIn 0.33s;
+  animation: popIn 0.2s;
   overflow: hidden;
   user-select: none;
   outline: none;
@@ -551,7 +551,7 @@ summary::marker {
 details::details-content {
   block-size: 0;
   opacity: 0;
-  transition: all 0.33s;
+  transition: all 0.2s;
   transition-behavior: allow-discrete;
 }
 details[open]::details-content {
