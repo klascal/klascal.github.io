@@ -1169,6 +1169,7 @@ async function fetchHomework(year, week) {
       responses.map((res) => {
         if (!res.ok) {
           somAuth();
+          fetchHomework(year, week);
           throw new Error(`Endpoint failed: ${res.url} (${res.status})`);
         }
         return res.json();
