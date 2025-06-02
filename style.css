@@ -279,7 +279,31 @@ h2 {
   font-size: 20px;
   font-weight: 500;
   margin-top: 0;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
+}
+
+.gif-mask {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-light);
+  -webkit-mask-image: url("loading.gif");
+  -webkit-mask-size: contain;
+  mask-image: url("loading.gif");
+  mask-size: contain;
+}
+.gif-container {
+  width: fit-content;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-accent);
+  margin-top: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  z-index: 1;
+  box-shadow: 0px 3px 10px 0px rgba(31, 31, 31, 0.08);
+  display: none;
 }
 
 .les p,

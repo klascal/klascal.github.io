@@ -292,7 +292,14 @@ async function fetchSchedule(
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
     const scheduleData = await response.json();
-    displaySchedule(scheduleData);
+    document.querySelector(".gif-container").style = "";
+    if (!document.startViewTransition) {
+      displaySchedule(scheduleData);
+      return;
+    }
+    document.startViewTransition(() => {
+      displaySchedule(scheduleData);
+    });
   } catch (error) {
     console.error("Error fetching schedule: ", error.message);
     displayError("Error fetching schedule. Please try again.");
@@ -926,6 +933,11 @@ async function handleFormSubmit() {
   let decimalStartTime = `${firstDigit}.${startTime.value.split(":")[1] / 60}`;
   decimalStartTime = decimalStartTime.replace(".0.", ".");
   localStorage.setItem("startTime", startTime.value);
+  setTimeout(() => {
+    if (document.getElementById("schedule").innerHTML === "") {
+      document.querySelector(".gif-container").style = "display: block;";
+    }
+  }, 250);
   if (!decimalStartTime.includes("NaN")) {
     localStorage.setItem("decimalStartTime", decimalStartTime);
   }
@@ -971,13 +983,7 @@ async function handleFormSubmit() {
     if (sessionStorage.getItem("year")) {
       year = sessionStorage.getItem("year");
     }
-    if (!document.startViewTransition) {
-      fetchSchedule(accessToken, userType, year, week, schoolName);
-      return;
-    }
-    document.startViewTransition(() =>
-      fetchSchedule(accessToken, userType, year, week, schoolName)
-    );
+    fetchSchedule(accessToken, userType, year, week, schoolName);
   }
 }
 function switchDay(richting) {
@@ -1126,6 +1132,11 @@ let isLoading = false;
 async function fetchHomework(year, week) {
   window.week = week;
   window.year = year;
+  setTimeout(() => {
+    if (document.getElementById("schedule").innerHTML === "") {
+      document.querySelector(".gif-container").style = "display: block;";
+    }
+  }, 250);
   const baseUrl = "https://api.somtoday.nl/rest/v1";
   const endpoints = [
     "studiewijzeritemafspraaktoekenningen",
@@ -1172,7 +1183,7 @@ async function fetchHomework(year, week) {
       responses.map((res) => {
         if (!res.ok) {
           somAuth(year, week);
-          throw new Error(`Endpoint failed: ${res.url} (${res.status})`);
+          throw new Error(`Authenticatie mislukt. Opnieuw proberen...`);
         }
         return res.json();
       })
@@ -1201,6 +1212,7 @@ async function onScroll() {
 window.addEventListener("scroll", onScroll);
 
 function renderHomework(homeworkItems) {
+  document.querySelector(".gif-container").style = "";
   localStorage.setItem("huiswerk", "true");
   const container = document.getElementById("schedule");
   const pills = document.querySelectorAll(".pill");
@@ -1375,6 +1387,12 @@ function showDialog(el) {
   }
   dialog.style = "";
   dialog.showModal();
+  function onClick(event) {
+    if (event.target === dialog) {
+      hideDialog();
+    }
+  }
+  dialog.addEventListener("click", onClick);
 }
 
 function handleArrowKeyPress(event) {
