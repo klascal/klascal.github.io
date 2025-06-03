@@ -63,7 +63,6 @@ setInterval(() => {
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = `top: ${topY}px;`;
-localStorage.setItem("huiswerk", "false");
 // Haal elke 1.5 minuut het rooster op
 setInterval(() => {
   if (localStorage.getItem("huiswerk") !== "true") {
@@ -920,6 +919,7 @@ Date.prototype.getWeek = function () {
 
 // Functie om formulierinzending te verwerken
 async function handleFormSubmit() {
+  localStorage.setItem("huiswerk", "false");
   const schoolName = document.getElementById("schoolName").value;
   const authorizationCode = document
     .getElementById("authorizationCode")
@@ -1397,49 +1397,63 @@ function showDialog(el) {
 }
 
 function handleArrowKeyPress(event) {
-  const key = event.key;
-  if (key === "ArrowLeft") {
-    document.getElementById("previousDay").click();
-  } else if (key === "ArrowRight") {
-    document.getElementById("nextDay").click();
-  } else if (key === "?") {
-    showDialog("shortcuts");
-  } else if (event.ctrlKey && event.key === ",") {
-    showDialog();
-  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "d") {
-    document.getElementById("dayBtn").click();
-  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "w") {
-    document.getElementById("weekBtn").click();
-  } else if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "o") {
-    document.getElementById("checkbox1").click();
-  } else if (key === "W") {
-    let week = prompt("Week");
-    if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 53 && week > 0) {
-      if (week < 10) week = `0${week}`;
-      if (week.length == 2) {
-        sessionStorage.setItem("week", week);
-        handleFormSubmit();
-      }
-    }
-  } else if (key === "J") {
-    let week = prompt("Jaar");
-    if (!isNaN(week) && !isNaN(parseFloat(week))) {
-      if (week.length == 4) {
-        sessionStorage.setItem("year", week);
-        handleFormSubmit();
-      }
-    }
-  } else if (key === "D") {
-    let week = prompt("Dag (1-7)");
-    if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 8 && week > 0) {
-      if (week.length == 1) {
-        const vandaag = week;
-        let transform = -600;
-        if (vandaag !== 7) {
-          transform = (vandaag - 1) * -100;
+  if (localStorage.getItem("huiswerk") !== "true") {
+    const key = event.key;
+    if (key === "ArrowLeft") {
+      document.getElementById("previousDay").click();
+    } else if (key === "ArrowRight") {
+      document.getElementById("nextDay").click();
+    } else if (key === "?") {
+      showDialog("shortcuts");
+    } else if (event.ctrlKey && event.key === ",") {
+      showDialog();
+    } else if (
+      event.ctrlKey &&
+      event.altKey &&
+      event.key.toLowerCase() === "d"
+    ) {
+      document.getElementById("dayBtn").click();
+    } else if (
+      event.ctrlKey &&
+      event.altKey &&
+      event.key.toLowerCase() === "w"
+    ) {
+      document.getElementById("weekBtn").click();
+    } else if (
+      event.ctrlKey &&
+      event.altKey &&
+      event.key.toLowerCase() === "o"
+    ) {
+      document.getElementById("checkbox1").click();
+    } else if (key === "W") {
+      let week = prompt("Week");
+      if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 53 && week > 0) {
+        if (week < 10) week = `0${week}`;
+        if (week.length == 2) {
+          sessionStorage.setItem("week", week);
+          handleFormSubmit();
         }
-        sessionStorage.setItem("transform", transform);
-        handleFormSubmit();
+      }
+    } else if (key === "J") {
+      let week = prompt("Jaar");
+      if (!isNaN(week) && !isNaN(parseFloat(week))) {
+        if (week.length == 4) {
+          sessionStorage.setItem("year", week);
+          handleFormSubmit();
+        }
+      }
+    } else if (key === "D") {
+      let week = prompt("Dag (1-7)");
+      if (!isNaN(week) && !isNaN(parseFloat(week)) && week < 8 && week > 0) {
+        if (week.length == 1) {
+          const vandaag = week;
+          let transform = -600;
+          if (vandaag !== 7) {
+            transform = (vandaag - 1) * -100;
+          }
+          sessionStorage.setItem("transform", transform);
+          handleFormSubmit();
+        }
       }
     }
   }
@@ -1531,12 +1545,14 @@ function handleTouchEnd(e) {
     Math.abs(deltaX) > Math.abs(deltaY) &&
     Math.abs(deltaX) > minSwipeDistance
   ) {
-    if (deltaX > 0) {
-      // Swipe left
-      switchDay("previous");
-    } else {
-      // Swipe right
-      switchDay("next");
+    if (localStorage.getItem("huiswerk") !== "true") {
+      if (deltaX > 0) {
+        // Swipe left
+        switchDay("previous");
+      } else {
+        // Swipe right
+        switchDay("next");
+      }
     }
   }
 }
