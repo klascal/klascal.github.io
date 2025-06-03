@@ -277,7 +277,8 @@ async function fetchSchedule(
   userType,
   year,
   week,
-  schoolName
+  schoolName,
+  first
 ) {
   try {
     const response = await fetch(
@@ -293,7 +294,7 @@ async function fetchSchedule(
     }
     const scheduleData = await response.json();
     document.querySelector(".gif-container").style = "";
-    if (!document.startViewTransition) {
+    if (!document.startViewTransition || first) {
       displaySchedule(scheduleData);
       return;
     }
@@ -1055,7 +1056,7 @@ function switchDay(richting) {
         return;
       }
       document.startViewTransition(() =>
-        fetchSchedule(accessToken, userType, year, week, schoolName)
+        fetchSchedule(accessToken, userType, year, week, schoolName, "hi")
       );
     }
   }
@@ -1280,7 +1281,7 @@ function renderHomework(homeworkItems) {
       minute: "2-digit",
     });
 
-    const itemHTML = `<div class="les hwDiv">${huiswerkType}<strong>${vak}</strong><input type="checkbox" id="${item.links[0].id}" ${gemaakt}></input><br>${onderwerp}</div>`;
+    const itemHTML = `<div class="les hwDiv"><input type="checkbox" id="${item.links[0].id}" ${gemaakt}></input>${huiswerkType}<strong>${vak}</strong><br>${onderwerp}</div>`;
 
     if (!days[dayName]) days[dayName] = [];
     days[dayName].push(itemHTML);
