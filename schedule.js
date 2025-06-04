@@ -1128,6 +1128,109 @@ async function somUserInfo() {
   }
 }
 
+async function fetchGrades() {
+  try {
+    const response = await fetch(
+      `https://api.somtoday.nl/rest/v1/geldendvoortgangsdossierresultaten/leerling/${localStorage.getItem(
+        "somUserID"
+      )}?type=Toetskolom&type=DeeltoetsKolom&type=Werkstukcijferkolom&type=Advieskolom&additional=vaknaam&additional=resultaatkolom&additional=naamalternatiefniveau&additional=vakuuid&additional=lichtinguuid&sort=desc-geldendResultaatCijferInvoer`,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("som_access_token"),
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const allHomeworkItems = data.items;
+    console.log(data, data.items[0].datumInvoerEerstePoging);
+    renderGrades(allHomeworkItems);
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+function renderGrades(homeworkItems) {
+  document.querySelector(".gif-container").style = "";
+  localStorage.setItem("huiswerk", "true");
+  const container = document.getElementById("schedule");
+  const pills = document.querySelectorAll(".pill");
+  pills.forEach((pill) => {
+    pill.classList.remove("navSelected");
+  });
+  document.getElementById("gradesBtn").classList.add("navSelected");
+  container.style = "display: block; height: initial;";
+  if (document.querySelector(".les") && !document.querySelector(".hwDiv")) {
+    container.innerHTML = "";
+  }
+
+  homeworkItems.forEach((item) => {
+    const date = new Date(item.datumInvoerEerstePoging);
+    const d = new Date(),
+      t = new Date(d.setHours(0, 0, 0, 0)),
+      i = new Date(date.setHours(0, 0, 0, 0));
+    const diff = (t - i) / 86400000; // 86400000ms in dag, verschil in dagen berekenen
+    const dayName =
+      diff === 0
+        ? "Vandaag"
+        : diff === 1
+        ? "Gisteren"
+        : diff === 2
+        ? "Eergisteren"
+        : date.toLocaleDateString("nl-NL", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+          });
+    const vak = item.additionalObjects.vaknaam;
+    let grade = item.formattedResultaat;
+    let weighting = item.weging + "x";
+    const omschrijving = dayName + " • " + item.omschrijving;
+    let huiswerkType = "";
+    /*
+    if (huiswerkType.includes("TOETS")) {
+      let fill = "var(--toets)";
+      if (huiswerkType === "GROTE_TOETS") {
+        fill = "var(--grote-toets)";
+      }
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="${fill}"><path fill-rule="evenodd" d="M3.429 0A3.43 3.43 0 0 0 0 3.429V20.57A3.43 3.43 0 0 0 3.429 24H20.57A3.43 3.43 0 0 0 24 20.571V3.43A3.43 3.43 0 0 0 20.571 0zM17 8.966h-3.465v9.038h-2.912V8.966H7V6h10z"></path></svg>`;
+    } else if (huiswerkType === "HUISWERK") {
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" id="icon"><path fill-rule="evenodd" d="m7 2.804 3.623-2.39a2.5 2.5 0 0 1 2.754 0l9.5 6.269A2.5 2.5 0 0 1 24 8.769v12.735a2.5 2.5 0 0 1-2.5 2.5h-19a2.5 2.5 0 0 1-2.5-2.5V8.77a2.5 2.5 0 0 1 1.123-2.086L3 5.444V1.047a.8.8 0 0 1 .8-.8h2.4a.8.8 0 0 1 .8.8zm0 16.362h3v-4.364h4v4.364h3v-12h-3v4.364h-4V7.166H7z"></path></svg>`;
+    } else if (huiswerkType === "LESSTOF") {
+      huiswerkType = `<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="var(--lesstof)"><path fill-rule="evenodd" d="M3.429 0A3.43 3.43 0 0 0 0 3.429V20.57A3.43 3.43 0 0 0 3.429 24H20.57A3.43 3.43 0 0 0 24 20.571V3.43A3.43 3.43 0 0 0 20.571 0zm1.714 6.857a1.714 1.714 0 1 1 3.428 0 1.714 1.714 0 0 1-3.428 0m5.571 0c0-.712.573-1.286 1.286-1.286h5.143c.712 0 1.286.574 1.286 1.286s-.574 1.286-1.286 1.286H12a1.283 1.283 0 0 1-1.286-1.286M12 10.714c-.713 0-1.286.573-1.286 1.286s.573 1.286 1.286 1.286h5.143c.712 0 1.286-.573 1.286-1.286s-.574-1.286-1.286-1.286zm-1.286 6.429c0-.713.573-1.286 1.286-1.286h5.143c.712 0 1.286.573 1.286 1.286 0 .712-.574 1.285-1.286 1.285H12a1.283 1.283 0 0 1-1.286-1.285m-5.069-3.93a1.714 1.714 0 1 0 2.425-2.425 1.714 1.714 0 0 0-2.425 2.424Zm-.502 3.93a1.714 1.714 0 1 1 3.429 0 1.714 1.714 0 0 1-3.43 0Z"></path></svg>`;
+    }*/
+    const gradeDiv = document.createElement("div");
+    gradeDiv.classList.add("les");
+    gradeDiv.classList.add("hwDiv");
+    if (item.isVoldoende === false) {
+      gradeDiv.classList.add("onvoldoende");
+    }
+    const itemHTML = `${huiswerkType}<strong>${vak}</strong><strong class="grade"><small>${weighting}</small> ${grade}</strong><br><p class="omschrijving">${omschrijving}</p>`;
+    gradeDiv.innerHTML = itemHTML;
+    container.appendChild(gradeDiv);
+  });
+  const lessen = document.querySelectorAll(".hwDiv");
+  for (const el of lessen) {
+    let scrollBarWidth =
+      (document.querySelector("body").offsetWidth -
+        document.querySelector("body").clientWidth) *
+        0.75 +
+      27;
+    if (window.innerWidth > 500) {
+      scrollBarWidth =
+        (document.querySelector("body").offsetWidth -
+          document.querySelector("body").clientWidth) *
+          0.75 +
+        105;
+    }
+    el.style.width = `calc(100vw - ${scrollBarWidth}px)`;
+  }
+}
 let isLoading = false;
 
 async function fetchHomework(year, week) {
@@ -1204,7 +1307,11 @@ async function onScroll() {
   const viewportHeight = window.innerHeight;
   const fullHeight = document.body.offsetHeight;
 
-  if (scrollY + viewportHeight >= fullHeight - 10 && !isLoading) {
+  if (
+    scrollY + viewportHeight >= fullHeight - 10 &&
+    !isLoading &&
+    document.querySelector(".hwDiv details")
+  ) {
     week++;
     await fetchHomework(window.year, window.week);
   }
@@ -1523,6 +1630,9 @@ document.getElementById("scheduleBtn").addEventListener("click", () => {
 document.getElementById("homeworkBtn").addEventListener("click", () => {
   const date = new Date();
   fetchHomework(date.getFullYear(), date.getWeek());
+});
+document.getElementById("gradesBtn").addEventListener("click", () => {
+  fetchGrades();
 });
 let startX;
 let startY;

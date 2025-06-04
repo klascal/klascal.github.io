@@ -586,6 +586,8 @@ details[open]::details-content {
   position: initial;
   margin-bottom: 5px;
   width: calc(100vw - 27px);
+  font-size: 14px;
+  line-height: 1.4;
 }
 .hwDiv svg {
   margin-right: 5.5px;
@@ -638,10 +640,9 @@ details[open]::details-content {
   opacity: 0.6;
   color: var(--primary-light);
 }
-.hwDiv p,
-.hwDiv span {
-  font-size: initial;
-  margin-top: 5px;
+.hwDiv input[type="checkbox"]:checked ~ svg {
+  fill: var(--primary-light);
+  opacity: 0.6;
 }
 .hwDiv summary {
   overflow: hidden;
@@ -650,6 +651,25 @@ details[open]::details-content {
   display: block;
   cursor: pointer;
   max-width: calc(100% - 50px);
+}
+.grade {
+  float: right;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  margin-right: 10px;
+}
+small {
+  font-size: 12px;
+  opacity: 0.6;
+  color: initial;
+  position: absolute;
+  right: 60px;
+}
+.onvoldoende .grade {
+  color: #d32f0d;
 }
 li {
   margin-bottom: 5px;
@@ -663,6 +683,9 @@ li {
 @media (prefers-color-scheme: dark) {
   #warningIcon {
     fill: #e89822;
+  }
+  .onvoldoende .grade {
+    color: #f78d78;
   }
   #authorizationCode:invalid {
     background-color: #ff2f2f73;
