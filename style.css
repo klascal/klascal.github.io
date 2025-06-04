@@ -328,6 +328,10 @@ strong {
   font-weight: 600;
 }
 
+details strong {
+  font-size: inherit;
+}
+
 h3 {
   margin: 0px;
   width: 200px;
