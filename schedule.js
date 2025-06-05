@@ -1170,9 +1170,8 @@ function renderGrades(homeworkItems) {
   });
   document.getElementById("gradesBtn").classList.add("navSelected");
   container.style = "display: block; height: initial;";
-  if (document.querySelector(".les") && !document.querySelector(".hwDiv")) {
-    container.innerHTML = "";
-  }
+  window.scrollTo(0, 0);
+  container.innerHTML = "";
 
   homeworkItems.forEach((item) => {
     const date = new Date(item.datumInvoerEerstePoging);
@@ -1238,7 +1237,7 @@ function renderGrades(homeworkItems) {
 }
 let isLoading = false;
 
-async function fetchHomework(year, week) {
+async function fetchHomework(year, week, scroll) {
   window.week = week;
   window.year = year;
   setTimeout(() => {
@@ -1299,7 +1298,7 @@ async function fetchHomework(year, week) {
     );
 
     const allHomeworkItems = data.flatMap((d) => d.items || []);
-    renderHomework(allHomeworkItems);
+    renderHomework(allHomeworkItems, scroll);
   } catch (error) {
     console.error("Fout bij het ophalen van huiswerk:", error);
   } finally {
@@ -1318,13 +1317,13 @@ async function onScroll() {
     document.querySelector(".hwDiv details")
   ) {
     week++;
-    await fetchHomework(window.year, window.week);
+    await fetchHomework(window.year, window.week, "scroll");
   }
 }
 
 window.addEventListener("scroll", onScroll);
 
-function renderHomework(homeworkItems) {
+function renderHomework(homeworkItems, scroll) {
   document.querySelector(".gif-container").style = "";
   localStorage.setItem("huiswerk", "true");
   const container = document.getElementById("schedule");
@@ -1334,7 +1333,8 @@ function renderHomework(homeworkItems) {
   });
   document.getElementById("homeworkBtn").classList.add("navSelected");
   container.style = "display: block; height: initial;";
-  if (document.querySelector(".les") && !document.querySelector(".hwDiv")) {
+  if (!scroll) {
+    window.scrollTo(0, 0);
     container.innerHTML = "";
   }
 
