@@ -1079,7 +1079,7 @@ if (window.location.hash) {
   );
 }
 
-async function somAuth(year, week) {
+async function somAuth(year, week, grades) {
   try {
     const response = await fetch("https://som-server-bljr.onrender.com/", {
       method: "POST",
@@ -1096,7 +1096,11 @@ async function somAuth(year, week) {
     const result = await response.json();
     localStorage.setItem("som_access_token", result.access_token);
     if (year && week) {
-      fetchHomework(year, week);
+      if (!grades) {
+        fetchHomework(year, week);
+      } else {
+        fetchGrades();
+      }
     }
     if (!localStorage.getItem("somUserID")) {
       somUserInfo();
@@ -1143,7 +1147,8 @@ async function fetchGrades() {
     );
 
     if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
+      somAuth("a", "b", "c");
+      throw new Error("Authenticatie mislukt. Opnieuw proberen...");
     }
 
     const data = await response.json();
@@ -1287,7 +1292,7 @@ async function fetchHomework(year, week) {
       responses.map((res) => {
         if (!res.ok) {
           somAuth(year, week);
-          throw new Error(`Authenticatie mislukt. Opnieuw proberen...`);
+          throw new Error("Authenticatie mislukt. Opnieuw proberen...");
         }
         return res.json();
       })
