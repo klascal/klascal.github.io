@@ -1170,6 +1170,9 @@ function renderGrades(homeworkItems) {
   });
   document.getElementById("gradesBtn").classList.add("navSelected");
   container.style = "display: block; height: initial;";
+  if (window.innerWidth < 500) {
+    container.style = "display: block; height: initial; margin-bottom: 56px;";
+  }
   window.scrollTo(0, 0);
   container.innerHTML = "";
 
@@ -1333,6 +1336,9 @@ function renderHomework(homeworkItems, scroll) {
   });
   document.getElementById("homeworkBtn").classList.add("navSelected");
   container.style = "display: block; height: initial;";
+  if (window.innerWidth < 500) {
+    container.style = "display: block; height: initial; margin-bottom: 56px;";
+  }
   if (!scroll) {
     window.scrollTo(0, 0);
     container.innerHTML = "";
