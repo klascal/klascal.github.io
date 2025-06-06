@@ -1312,7 +1312,7 @@ async function onScroll() {
   const fullHeight = document.body.offsetHeight;
 
   if (
-    scrollY + viewportHeight >= fullHeight - 10 &&
+    scrollY + viewportHeight >= fullHeight - 300 &&
     !isLoading &&
     document.querySelector(".hwDiv details")
   ) {
@@ -1418,6 +1418,22 @@ function renderHomework(homeworkItems, scroll) {
       day.charAt(0).toUpperCase() + day.slice(1)
     }</h3>${items.join("")}`;
     container.appendChild(dayDiv);
+  }
+  if (!scroll) {
+    const formattedDate = new Date().toLocaleDateString("nl-NL", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    const h3Elements = document.querySelectorAll("h3");
+    for (const h3 of h3Elements) {
+      if (h3.textContent.trim().toLowerCase() === formattedDate.toLowerCase()) {
+        const yOffset = -56; // 56 pixels boven de top
+        const y = h3.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+        break;
+      }
+    }
   }
   const lessen = document.querySelectorAll(".hwDiv");
   for (const el of lessen) {
