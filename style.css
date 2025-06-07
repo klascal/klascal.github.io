@@ -627,6 +627,8 @@ details[open]::details-content {
 }
 .navSelected svg {
   fill: var(--primary-light) !important;
+  transform: perspective(1cm) rotateY(360deg);
+  transition: transform 0.2s ease-in-out;
 }
 .hwDiv #icon {
   fill: var(--primary-light) !important;
