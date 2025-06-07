@@ -587,7 +587,7 @@ details[open]::details-content {
   opacity: 1;
 }
 .hwDiv {
-  position: initial;
+  position: relative;
   margin-bottom: 5px;
   width: calc(100vw - 27px);
   font-size: 14px;
@@ -595,6 +595,7 @@ details[open]::details-content {
 }
 .hwDiv svg {
   margin-right: 5.5px;
+  vertical-align: sub;
 }
 .pill {
   width: 46px;
@@ -634,9 +635,10 @@ details[open]::details-content {
 .hwDiv input[type="checkbox"] {
   scale: 1.5;
   cursor: pointer;
-  float: right;
-  margin-top: 12.5px;
-  margin-right: 12.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  right: 20px;
 }
 .hwDiv input[type="checkbox"]:checked ~ details summary,
 .hwDiv input[type="checkbox"]:checked ~ strong {
@@ -654,7 +656,7 @@ details[open]::details-content {
   text-overflow: ellipsis;
   display: block;
   cursor: pointer;
-  max-width: calc(100% - 50px);
+  max-width: calc(100% - 40px);
 }
 .grade {
   float: right;
@@ -663,14 +665,15 @@ details[open]::details-content {
   align-items: center;
   justify-content: center;
   height: 42px;
-  margin-right: 10px;
+  margin-right: 5px;
+  width: 40px;
 }
 small {
   font-size: 12px;
   opacity: 0.6;
   color: initial;
   position: absolute;
-  right: 60px;
+  right: 55px;
 }
 .onvoldoende .grade {
   color: #d32f0d;
