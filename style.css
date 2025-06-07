@@ -94,7 +94,7 @@ button:focus {
 dialog {
   border: 0;
   border-radius: 2rem;
-  background-color: #fff;
+  background-color: #ffffffd5;
   padding: 24px;
   max-width: 253px;
   max-height: calc(100vh - 80px);
@@ -103,6 +103,8 @@ dialog {
   user-select: none;
   outline: none;
   view-transition-name: dialog;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 @keyframes popIn {
@@ -716,7 +718,7 @@ li {
     color: #f1f1f1;
   }
   dialog {
-    background-color: #222;
+    background-color: #222222d5;
     color: #fff;
   }
   .dayTitle {

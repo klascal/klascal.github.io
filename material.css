@@ -225,7 +225,7 @@ body[data-theme="pink"] {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  background-color: white;
+  background-color: #fdfdfd;
   color: gray;
   padding: 0 0.3rem;
   margin: 0 0.5rem;
@@ -243,6 +243,7 @@ body[data-theme="pink"] {
   max-width: calc(100% - 24px);
   font-family: inherit;
   font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
+  background-color: #ffffff80;
 }
 p {
   margin: 0;
@@ -261,11 +262,11 @@ p {
 @media (prefers-color-scheme: dark) {
   .material-textfield label {
     color: rgba(255, 255, 255, 0.6);
-    background-color: #222;
+    background-color: #202020;
   }
   .material-textfield input {
     border-color: rgba(255, 255, 255, 0.38);
-    background: transparent;
+    background: #22222280;
     color: #fff;
   }
 }
