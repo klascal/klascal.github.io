@@ -555,11 +555,15 @@ function displaySchedule(scheduleData) {
             ltr = " ltr";
           }
           positie = `margin-top:${left}px;height:${width}px`;
-          if (width < 55) {
+          let bottom = "";
+          if (width < 32) {
             positie += ";line-height:1.1";
+            bottom = "bottom: 5px";
+          }
+          if (width < 24) {
+            positie += ";line-height:0.9";
           }
           let styling = "";
-          let bottom = "";
           if (localStorage.getItem("dag") === "true") {
             left =
               (Number.parseInt(startTime.split(":")[1]) +
@@ -575,12 +579,15 @@ function displaySchedule(scheduleData) {
                 1.3 -
               left -
               24;
-            if (width < 37) {
-              positie += ";line-height:1.1";
-              bottom = "bottom: 0px";
-            }
             styling = "display: inline;margin-right: 5.55px";
             positie = `width: calc(100vw - 27px);margin-top:${left}px;height:${width}px`;
+            if (width < 32) {
+              positie += ";line-height:1.1";
+              bottom = "bottom: 5px";
+            }
+            if (width < 24) {
+              positie += ";line-height:0.9";
+            }
           } else if (
             localStorage.getItem("ltr") === "true" &&
             window.innerWidth > 676

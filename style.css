@@ -312,13 +312,16 @@ h2 {
 .les span {
   margin: 0;
   font-size: 14px;
-}
-.les p,
-.les span {
-  margin: 0;
-  font-size: 14px;
   position: relative;
+}
+
+.les {
   line-height: 1.4;
+}
+
+.warning[style="bottom: 5px"] svg {
+  width: 22px;
+  margin-right: 1px;
 }
 
 p.lestijden {
