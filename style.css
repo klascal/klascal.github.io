@@ -664,6 +664,9 @@ details[open]::details-content {
   cursor: pointer;
   max-width: calc(100% - 40px);
 }
+.hwDiv details {
+  max-width: calc(100% - 40px);
+}
 .grade {
   float: right;
   font-size: 20px;
