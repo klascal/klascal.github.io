@@ -13,6 +13,13 @@
     <link rel="icon" type="image/x-icon" href="logo.svg" />
     <meta name="theme-color" content="#447DED" />
     <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="catpuccin.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/fira-code.css" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      hljs.highlightAll();
+    </script>
     <title>Klascal</title>
     <script>
       !(function (t, e) {
@@ -766,6 +773,71 @@
               />
               <label for="authorizationCode">Koppelcode</label>
             </div>
+          </div>
+          <div id="somtoday" class="submenu">
+            <details>
+              <summary>Hoe koppel je Somtoday?</summary>
+              <ol>
+                <b>Methodes:</b>
+                <li>
+                  <ul>
+                    <li>
+                      Sleep de link hieronder naar je bladwijzerbalk:<br /><a
+                        href="javascript:(function()%7Bconst%20refreshToken%3DJSON.parse(localStorage%5B%22CapacitorStorage.%22%2BJSON.parse(localStorage%5B%22CapacitorStorage.SL_AUTH_CONFIG_RECORDS%22%5D).currentSessionIdentifier.UUID%5D).refresh_token%3Bconst%20targetOrigin%3D%22https%3A%2F%2Fklascal.github.io%23%22%2BrefreshToken%3Bconst%20newWindow%3Dwindow.open(targetOrigin)%7D)()%3B"
+                        >Somtoday koppelen</a
+                      >
+                    </li>
+                    <li>Open Somtoday</li>
+                    <li>Klik op de bladwijzer</li>
+                  </ul>
+                </li>
+                <li>
+                  <ul>
+                    <li>
+                      Kopieer deze code:<br />
+                      <pre>
+                      <code class="language-javascript">
+const refreshToken = JSON.parse(
+  localStorage[
+    "CapacitorStorage." +
+      JSON.parse(localStorage["CapacitorStorage.SL_AUTH_CONFIG_RECORDS"])
+        .currentSessionIdentifier.UUID
+  ]
+).refresh_token;
+const targetOrigin = "https://klascal.github.io#" + refreshToken;
+const newWindow = window.open(targetOrigin);</code>
+                  </pre>
+                    </li>
+                    <li>Ga naar Somtoday</li>
+                    <li>
+                      Open de console:<br />
+                      <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>J</kbd> (<kbd
+                        >Cmd</kbd
+                      >
+                      <kbd>Option</kbd> <kbd>J</kbd> op Mac)<br />
+                      of Rechtermuisknop → Inspecteren →
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        id="icon"
+                      >
+                        <path
+                          d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H160v400Zm140-40-56-56 103-104-104-104 57-56 160 160-160 160Zm180 0v-80h240v80H480Z"
+                        /></svg
+                      >Console
+                    </li>
+                    <li>Plak de code in de console</li>
+                    <li>
+                      Mogelijk moet je <code>'plakken toestaan'</code> typen om
+                      de code te plakken
+                    </li>
+                    <li>Klik op <kbd>Enter</kbd></li>
+                  </ul>
+                </li>
+              </ol>
+            </details>
           </div>
           <div id="theme" class="submenu">
             <p style="margin-bottom: 1em">Accentkleur</p>

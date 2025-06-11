@@ -49,7 +49,7 @@
   display: none;
 }
 #field {
-  background: #eee;
+  background: #f6f8fa;
   position: fixed;
   width: calc(100vw - 16px);
   top: 0;
@@ -220,6 +220,7 @@ kbd {
   border: 1px solid #d0d6dc;
   border-radius: 5px;
   padding: 4px 8px;
+  line-height: 2;
 }
 table {
   width: 100%;
@@ -360,7 +361,7 @@ h3 {
   height: calc(100vh - 56px);
   width: 78px;
   position: fixed;
-  background: #eee;
+  background: #f6f8fa;
   z-index: 1;
   top: 56px;
   display: none;
@@ -594,6 +595,11 @@ details[open]::details-content {
   width: calc(100vw - 27px);
   font-size: 14px;
   line-height: 1.4;
+  margin-bottom: 8px;
+}
+ol,
+ul {
+  padding-left: 20px;
 }
 .hwDiv svg {
   margin-right: 5.5px;
@@ -713,7 +719,7 @@ li {
   }
   #field,
   #side {
-    background: #2a2a2f;
+    background: #202125;
   }
   body,
   html {
@@ -758,7 +764,7 @@ li {
   border-left: 8px solid #268e26;
 }
 .cancelled {
-  background-color: #f7baba73;
+  background-color: #ff868673;
   border: 1px solid #ff2f2f60;
 }
 .notEnrolled {
