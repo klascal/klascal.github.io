@@ -281,12 +281,9 @@ async function fetchSchedule(
 ) {
   try {
     const response = await fetch(
-      `https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}`,
-      {
-        headers: {
-          Authorization: `Bearer ${authorizationCode}`,
-        },
-      }
+      `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(
+        `${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}&access_token=${authorizationCode}`
+      )}`
     );
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
