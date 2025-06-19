@@ -203,13 +203,9 @@ function viewTrans(func) {
 }
 async function userInfo() {
   const authorizationCode = localStorage.getItem("access_token");
+  const schoolName = localStorage.getItem("schoolName");
   const response = await fetch(
-    "https://csvincentvangogh.zportal.nl/api/v3/users/~me?fields=code,isEmployee",
-    {
-      headers: {
-        Authorization: `Bearer ${authorizationCode}`,
-      },
-    }
+    `https://${schoolName}.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=${authorizationCode}`
   );
   const data = await response.json();
   let userType = "student";
@@ -281,9 +277,7 @@ async function fetchSchedule(
 ) {
   try {
     const response = await fetch(
-      `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(
-        `${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}&access_token=${authorizationCode}`
-      )}`
+      `https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}&access_token=${authorizationCode}`
     );
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
