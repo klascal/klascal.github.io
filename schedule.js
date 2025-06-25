@@ -205,7 +205,12 @@ async function userInfo() {
   const authorizationCode = localStorage.getItem("access_token");
   const schoolName = localStorage.getItem("schoolName");
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/v3/users/~me?fields=code,isEmployee&access_token=${authorizationCode}`
+    `https://${schoolName}.zportal.nl/api/v3/users/~me?fields=code,isEmployee`,
+    {
+      headers: {
+        Authorization: `Bearer ${authorizationCode}`,
+      },
+    }
   );
   const data = await response.json();
   let userType = "student";
@@ -234,10 +239,12 @@ async function saveCheckboxState2() {
 async function retrieveSubjectFullNames() {
   let url = `https://${localStorage.getItem(
     "schoolName"
-  )}.zportal.nl/api/v3/subjectselectionsubjects?access_token=${localStorage.getItem(
-    "access_token"
-  )}&fields=code,name`;
-  return fetch(url)
+  )}.zportal.nl/api/v3/subjectselectionsubjects?fields=code,name`;
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  })
     .then((r) => r.json())
     .then((result) => {
       let subjectTranslations = {};
@@ -277,7 +284,12 @@ async function fetchSchedule(
 ) {
   try {
     const response = await fetch(
-      `https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}&access_token=${authorizationCode}`
+      `https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authorizationCode}`,
+        },
+      }
     );
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
