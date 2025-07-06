@@ -258,10 +258,36 @@ async function retrieveSubjectFullNames() {
         if (commaIndex != -1) {
           subjectName = subjectName.substring(0, commaIndex);
         }
-        let fullName = subjectName;
-        subjectTranslations[subject.code] = fullName;
+        subjectTranslations[subject.code] = subjectName;
       });
       localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
+    });
+}
+async function retrieveLocations() {
+  let url = `https://${localStorage.getItem(
+    "schoolName"
+  )}.zportal.nl/api/v3/locationofbranches?fields=id,name`;
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  })
+    .then((r) => r.json())
+    .then((result) => {
+      let locationTranslations = {};
+      let locations = result.response.data;
+      locations.forEach((location) => {
+        let locationName = location.name;
+        if (!locationName) {
+          return;
+        }
+        let commaIndex = locationName.indexOf(",");
+        if (commaIndex != -1) {
+          locationName = locationName.substring(0, commaIndex);
+        }
+        locationTranslations[locationName] = location.id;
+      });
+      localStorage.setItem("locations", JSON.stringify(locationTranslations));
     });
 }
 // Function to restore checkbox state from localStorage
