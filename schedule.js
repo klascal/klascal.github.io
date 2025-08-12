@@ -267,6 +267,23 @@ async function retrieveLocations() {
   let url = `https://${localStorage.getItem(
     "schoolName"
   )}.zportal.nl/api/v3/locationofbranches?fields=id,name`;
+  if (
+    localStorage.getItem("locations") &&
+    localStorage.getItem("locationsDatalistHTML")
+  ) {
+    const locations = JSON.parse(localStorage.getItem("locations"));
+    if (document.getElementById("locationsDatalist")) {
+      document.getElementById("locationsDatalist").innerHTML =
+        localStorage.getItem("locationsDatalistHTML");
+    }
+    let name = document.getElementById("locationInput").value;
+    const match = locations.find((item) => item.name === name);
+    if (match) {
+      name = match.id;
+      console.log(name);
+    }
+    return;
+  }
   return fetch(url, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -274,20 +291,20 @@ async function retrieveLocations() {
   })
     .then((r) => r.json())
     .then((result) => {
-      let locationTranslations = {};
       let locations = result.response.data;
-      locations.forEach((location) => {
-        let locationName = location.name;
-        if (!locationName) {
-          return;
-        }
-        let commaIndex = locationName.indexOf(",");
-        if (commaIndex != -1) {
-          locationName = locationName.substring(0, commaIndex);
-        }
-        locationTranslations[locationName] = location.id;
-      });
-      localStorage.setItem("locations", JSON.stringify(locationTranslations));
+      localStorage.setItem("locations", JSON.stringify(locations));
+      if (document.getElementById("locationsDatalist")) {
+        locations.forEach((location) => {
+          const option = document.createElement("option");
+          option.value = location.name;
+          option.text = location.name;
+          document.getElementById("locationsDatalist").appendChild(option);
+          localStorage.setItem(
+            "locationsDatalistHTML",
+            document.getElementById("locationsDatalist").innerHTML
+          );
+        });
+      }
     });
 }
 // Function to restore checkbox state from localStorage
