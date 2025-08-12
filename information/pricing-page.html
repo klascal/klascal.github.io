@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pricing - Klascal</title>
+<style>
+  body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f0fe;
+    margin: 0;
+    color: #222;
+  }
+
+  header {
+    background-color: #0d47a1;
+    padding: 1.5rem;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    font-size: 1.8rem;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+  }
+
+  main {
+    max-width: 960px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+
+  main h2 {
+    text-align: center;
+    font-weight: 600;
+    color: #0d47a1;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgb(13 71 161 / 0.15);
+    padding: 2rem 1.5rem;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgb(13 71 161 / 0.3);
+  }
+
+  .card h3 {
+    color: #0d47a1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .price {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #0d47a1;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  ul li {
+    padding-left: 1.3rem;
+    margin-bottom: 0.9rem;
+    position: relative;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #0d47a1;
+    font-weight: bold;
+  }
+
+  .btn-buy {
+    background-color: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    user-select: none;
+  }
+
+  .btn-buy:hover {
+    background-color: #094078;
+  }
+
+  footer {
+    background-color: #0d47a1;
+    padding: 1rem;
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: 0 -2px 6px rgb(0 0 0 / 0.15);
+  }
+
+  footer a {
+    color: #c1d5fa;
+    margin: 0 0.6rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 720px) {
+    .pricing-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  Klascal - Pricing
+</header>
+
+<main>
+  <h2>Kies het abonnement dat bij jou past</h2>
+
+  <div class="pricing-cards">
+    <div class="card">
+      <h3>Gratis</h3>
+      <div class="price">€0 / maand</div>
+      <ul>
+        <li>Beperkt oefenen</li>
+        <li>Toegang tot je rooster, cijfers en huiswerk</li>
+      </ul>
+      <a href="#" class="btn-buy">Aanmelden</a>
+    </div>
+
+    <div class="card">
+      <h3>Pro</h3>
+      <div class="price">€9,99 / maand</div>
+      <ul>
+        <li>Oefenen met hulpprogramma’s</li>
+        <li>Bevat alles van Gratis</li>
+      </ul>
+      <a href="#" class="btn-buy">Pro proberen</a>
+    </div>
+
+    <div class="card">
+      <h3>Schoolpakket</h3>
+      <div class="price">Neem contact op</div>
+      <ul>
+        <li>Teamaccounts</li>
+        <li>Toetsbeheer voor docenten</li>
+        <li>Op maat gemaakte functies</li>
+      </ul>
+      <a href="mailto:info@klascal.github.io" class="btn-buy">Contact</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="https://klascal.github.io/terms-and-conditions">Terms of Service</a> |
+  <a href="https://klascal.github.io/privacy-policy">Privacy Policy</a> |
+  <a href="https://klascal.github.io/information/refund-policy">Refund Policy</a>
+</footer>
+
+</body>
+</html>
