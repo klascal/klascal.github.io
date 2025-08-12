@@ -720,9 +720,9 @@ function displaySchedule(scheduleData) {
               );
             }
           }
-          let teachers = `${appointment.teachers
+          let teachers = appointment.teachers
             .filter((e) => e !== user)
-            .join(", ")}`;
+            .join(", ");
           if (localStorage.getItem("hoofdletter") === "true") {
             teachers = teachers.toUpperCase();
           }
@@ -737,17 +737,17 @@ function displaySchedule(scheduleData) {
                 appointment.actions[1].appointment.locations.join(", "),
             ];
             if (appointment.actions[0].appointment.teachers.join(", ") !== "") {
-              teachers = [
+              teachers =
                 appointment.actions[0].appointment.teachers.join(", ") +
-                  ", " +
-                  appointment.actions[1].appointment.teachers.join(", "),
-              ];
+                ", " +
+                appointment.actions[1].appointment.teachers.join(", ");
             }
             if (localStorage.getItem("hoofdletter") === "true") {
               subjects = subjects.map((subject) => subject.toUpperCase());
               teachers = teachers.toUpperCase();
             }
           }
+          console.log(teachers);
           let teachers1 = teachers.split(", ");
           window.teachers = teachers1;
           if (teachers1.length > 2) {
