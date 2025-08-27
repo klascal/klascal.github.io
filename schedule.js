@@ -830,7 +830,7 @@ function displaySchedule(scheduleData) {
                     ? appointment.schedulerRemark.split(":")[1]
                     : top
                 }</strong>
-                <strong class="lesuur">${appointment.startTimeSlotName}</strong>
+                <strong class="lesuur">${parseInt(appointment.startTimeSlotName)}</strong>
               </p>
               <p class="lestijden" style="${styling}">${startTime}${endTime}</p>
               <span>
