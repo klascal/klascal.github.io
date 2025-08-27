@@ -807,7 +807,7 @@ function displaySchedule(scheduleData) {
               : "";
           }
           const top =
-            localStorage.getItem("userType") === "teacher"
+            localStorage.getItem("userType") === "teacher" && appointment.groups.length > 0
               ? appointment.groups.join(", ")
               : subjects.join(", ");
           // Generate HTML for each
