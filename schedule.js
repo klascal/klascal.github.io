@@ -812,6 +812,12 @@ function displaySchedule(scheduleData) {
 			  groups[index] = group.slice(localStorage.getItem("prefix-group").length); //groups[index] instead of group is necessary to actually change the value of group
 			}
 		  });
+		  const locations = appointment.locations;
+		  locations.forEach((loc, index) => {
+			if (loc.startsWith(localStorage.getItem("prefix-location"))) {
+			  locations[index] = loc.slice(localStorage.getItem("prefix-location").length);
+			}
+		  });
           const top =
             localStorage.getItem("userType") === "teacher" && groups.length > 0
               ? groups.join(", ")
@@ -834,7 +840,7 @@ function displaySchedule(scheduleData) {
               </p>
               <p class="lestijden" style="${styling}">${startTime}${endTime}</p>
               <span>
-                ${appointment.locations.join(", ")} ${
+                ${locations.join(", ")} ${
             teachers === "()" ? "" : teachers
           }
                 <div class="warning" style="${bottom}">
@@ -1868,6 +1874,11 @@ const prefix_group = document.getElementById("prefix-group");
 prefix_group.value = localStorage.getItem("prefix-group");
 prefix_group.oninput = () => {
   localStorage.setItem("prefix-group", prefix_group.value);
+};
+const prefix_location = document.getElementById("prefix-location");
+prefix_location.value = localStorage.getItem("prefix-location");
+prefix_location.oninput = () => {
+  localStorage.setItem("prefix-location", prefix_location.value);
 };
 document.getElementById("weekBtn").addEventListener("click", () => {
   localStorage.setItem("dag", "false");
