@@ -3,7 +3,25 @@ let authorizationCode = localStorage.getItem("authorizationCode");
 let accessToken = localStorage.getItem("access_token");
 let userType = localStorage.getItem("userType");
 let lastLessonEndMin;
-document.querySelector("body").scrollTo(0, 0);
+let day = 0;
+if (localStorage.getItem("dag") == "false") {
+  document.querySelector("body").scrollTo(0, 0);
+}
+if (!schoolName && !accessToken) {
+  show("welcomeScreen", "Zermelo koppelen", "hideBack");
+  document
+    .querySelector("#dialog #closeBtn")
+    .setAttribute("onclick", "resetAfterWelcomeScreen()");
+  document.querySelector("#dialog #closeBtn").innerHTML = "Volgende";
+  showDialog();
+}
+function resetAfterWelcomeScreen() {
+  show("zermelo", "Zermelo koppelen");
+  document
+    .querySelector("#dialog #closeBtn")
+    .setAttribute("onclick", "closeDialog()");
+  document.querySelector("#dialog #closeBtn").innerHTML = "Sluiten";
+}
 async function fetchToken() {
   try {
     const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
@@ -75,7 +93,6 @@ function save() {
         schoolName = localStorage.getItem("schoolName");
         authorizationCode = localStorage.getItem("authorizationCode");
       } else if (input.type == "checkbox") {
-        console.log(input.id, input.checked);
         localStorage.setItem(input.id, input.checked);
       }
     }
@@ -89,6 +106,7 @@ function closeDialog(el) {
   let dialog = document.getElementById(el) || document.getElementById("dialog");
   save();
   dialog.close();
+  show("submenus", "Instellingen");
   fetchSchedule();
 }
 function viewTrans(func) {
@@ -100,7 +118,7 @@ function viewTrans(func) {
     func();
   });
 }
-function show(id, title) {
+function show(id, title, hideBack) {
   const content = document.querySelector(".container");
   const children = content.querySelectorAll("div");
   viewTrans(() => {
@@ -111,10 +129,12 @@ function show(id, title) {
         div.removeAttribute("style");
       }
     });
-    if (id !== "submenus") {
+    if (id !== "submenus" && !hideBack) {
       document.querySelector("#dialog h2").innerHTML =
         '<button style="all: unset" onclick="show(`submenus`, `Instellingen`)"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>' +
         title;
+    } else {
+      document.querySelector("#dialog h2").innerHTML = title;
     }
   });
 }
@@ -133,8 +153,8 @@ Date.prototype.getWeek = function () {
     )
   );
 };
-fetchSchedule();
-async function fetchSchedule(year, week) {
+fetchSchedule(undefined, undefined, "firstLoad");
+async function fetchSchedule(year, week, isFirstLoad) {
   if (!year) year = new Date().getFullYear();
   if (!week) week = new Date().getWeek();
   window.week = week;
@@ -166,10 +186,10 @@ async function fetchSchedule(year, week) {
     (grouped[date] ||= []).push(a);
   });
 
-  const fmt = (ts) =>
+  const fmt = (ts, regex) =>
     new Date(ts * 1000)
       .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-      .replace(/^0+/, "");
+      .replace(regex || /^0+/, "");
 
   const hoursToMinutes = (time) =>
     Number.parseInt(time.split(":")[0]) * 60 +
@@ -188,7 +208,7 @@ async function fetchSchedule(year, week) {
       <path d="M175.147 33.1508C181.983 22.2831 198.017 22.2831 204.853 33.1508L221.238 59.2009C225.731 66.3458 234.797 69.2506 242.692 66.0751L271.475 54.4972C283.482 49.6671 296.455 58.9613 295.507 71.7154L293.235 102.288C292.612 110.673 298.215 118.278 306.494 120.284L336.681 127.601C349.275 130.653 354.23 145.692 345.861 155.461L325.8 178.877C320.298 185.3 320.298 194.7 325.8 201.123L345.861 224.539C354.23 234.308 349.275 249.347 336.681 252.399L306.494 259.716C298.215 261.722 292.612 269.327 293.235 277.712L295.507 308.285C296.455 321.039 283.482 330.333 271.475 325.503L242.692 313.925C234.797 310.749 225.731 313.654 221.238 320.799L204.853 346.849C198.017 357.717 181.983 357.717 175.147 346.849L158.762 320.799C154.269 313.654 145.203 310.749 137.308 313.925L108.525 325.503C96.5177 330.333 83.5454 321.039 84.4931 308.285L86.7649 277.712C87.388 269.327 81.785 261.722 73.5056 259.716L43.3186 252.399C30.7252 249.347 25.7702 234.308 34.1391 224.539L54.1997 201.123C59.7018 194.7 59.7018 185.3 54.1997 178.877L34.1391 155.461C25.7702 145.692 30.7252 130.653 43.3186 127.601L73.5056 120.284C81.785 118.278 87.388 110.673 86.7649 102.288L84.4931 71.7154C83.5454 58.9613 96.5177 49.6671 108.525 54.4972L137.308 66.0751C145.203 69.2506 154.269 66.3458 158.762 59.201L175.147 33.1508Z"></path>
     </svg> `;
     }
-    div.innerHTML = `<strong class="date">${svg}<span>Week ${week}, ${date}</span?</strong>`;
+    div.innerHTML = `<strong class="date">${svg}<span>Week ${week}, ${date}</span></strong>`;
 
     items.sort((a, b) => a.start - b.start);
     let section = [],
@@ -209,14 +229,24 @@ async function fetchSchedule(year, week) {
             end = fmt(a.end);
           const startMin = hoursToMinutes(start);
           const endMin = hoursToMinutes(end);
-          const height = ((endMin - startMin) * 0.8) / 16;
+          let startTime = hoursToMinutes(
+            localStorage.getItem("startTime") || "08:10"
+          );
+          const height = ((endMin - startMin) * 1.1) / 16;
           if (firstLesson) {
             if (!lastLessonEndMin || startMin - lastLessonEndMin < 0) {
-              lastLessonEndMin = hoursToMinutes(
-                localStorage.getItem("startTime") || "08:15"
+              if (startMin < startTime) {
+                localStorage.setItem("startTime", fmt(a.start, "noRegex"));
+              }
+              startTime = hoursToMinutes(
+                localStorage.getItem("startTime") || "08:10"
               );
+              lastLessonEndMin = startTime;
             }
-            marginTop = ((startMin - lastLessonEndMin) * 1.3) / 16;
+            marginTop = ((startMin - lastLessonEndMin) * 1.135) / 16;
+            if (startTime > 490) {
+              marginTop = ((startMin - lastLessonEndMin) * 1.235) / 16;
+            }
             let lessonPadding = 1;
             if (marginTop == 0) lessonPadding = 0;
             sectionBeginning = `<section style="margin-top: calc(${marginTop}rem + ${lessonPadding}px)">`;
@@ -262,7 +292,7 @@ async function fetchSchedule(year, week) {
           if (height < 1) styles = "line-height: 1; padding: 4px 10px;";
           return `${sectionBeginning}<div class="les ${cancelled} ${
             a.appointmentType
-          }" style="min-height: ${height}rem;${styles}"><strong>${
+          }" style="min-height: ${height}rem;${styles}"><hr><strong>${
             a.subjects
           }</strong><strong class="lesuur">${
             a.startTimeSlot
@@ -284,6 +314,13 @@ async function fetchSchedule(year, week) {
     div.classList.add("day");
     schedule.appendChild(div);
   }
+  if (isFirstLoad == "firstLoad") {
+    day = new Date().getDay() - 1;
+    document.querySelector("body").scrollTo({
+      left: window.innerWidth * day,
+      behavior: "instant",
+    });
+  }
   document.getElementById("schedule").style.opacity = "";
   const tip = document.getElementById("tooltip");
 
@@ -291,8 +328,8 @@ async function fetchSchedule(year, week) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
-    let top = rect.bottom + 8; // bottom by default
-    let left = rect.left + (rect.width - tipRect.width) / 2;
+    let top = rect.bottom + 9;
+    let left = rect.right - tipRect.width + 7; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
     if (left < 0) left = 8;
@@ -317,7 +354,6 @@ async function fetchSchedule(year, week) {
     }
   });
 }
-let day = 0;
 function switchDay(dir) {
   let behavior = "smooth";
   const days = document.querySelectorAll(".day");
@@ -400,10 +436,12 @@ document.addEventListener("touchend", (event) => {
 });
 
 function handleGesture() {
-  if (touchendX < touchstartX) {
+  if (touchendX - touchstartX < -50) {
+    console.log(touchendX - touchstartX);
     switchDay("next");
   }
-  if (touchendX > touchstartX) {
+  if (touchendX - touchstartX > 50) {
+    console.log(touchendX - touchstartX);
     switchDay("prev");
   }
 }

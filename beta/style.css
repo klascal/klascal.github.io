@@ -50,13 +50,13 @@
   display: none;
 }
 #soft_burst {
-  translate: -2px;
+  translate: -10px;
   fill: var(--primary-light);
   vertical-align: middle;
   position: absolute;
 }
 #soft_burst ~ span {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 #field {
   background: var(--primary-background);
@@ -109,7 +109,7 @@ dialog {
   padding: 24px;
   max-width: calc(100vw - 80px);
   max-height: calc(100vh - 80px);
-  animation: popIn 0.2s;
+  animation: popIn 0.3s;
   overflow: hidden;
   user-select: none;
   outline: none;
@@ -185,6 +185,9 @@ section div {
   margin-bottom: 0.125rem;
   border-radius: 0.25rem;
 }
+.day section div {
+  padding: 0px 10px;
+}
 
 .tooltip {
   position: fixed;
@@ -245,8 +248,8 @@ section div:last-of-type {
   cursor: pointer;
 }
 .switches .switch:first-of-type {
-  padding: 8px;
-  width: 262px;
+  padding: 13px;
+  width: 250px;
 }
 th {
   font-size: 14px;
@@ -271,19 +274,30 @@ table {
   max-width: 356px;
 }
 #submenu {
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 16px;
-  padding: 12px 8px;
-  display: block;
-  width: 100%;
-  text-align: left;
+  padding: 16px;
+  cursor: pointer;
+  font-weight: 450;
+  letter-spacing: 0.1px;
 }
 hr {
-  height: 1px;
+  height: 0.375rem;
   border-width: 0;
-  background-color: gray;
+  background-color: transparent;
+  margin: 0px;
+}
+#link {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 4px;
+}
+#link #icon:nth-child(2) {
+  margin-top: 2px;
+  fill: var(--thumb-background) !important;
+}
+#linkText {
+  font-weight: 450;
+  letter-spacing: 0.1px;
 }
 .warning .warningMessage,
 .plusTeachers .warningMessage {
@@ -406,11 +420,11 @@ h3 {
 .weekEnabled,
 .dayEnabled {
   display: flex;
-  gap: 16px;
+  gap: 12px;
 }
 .dayEnabled div {
   width: calc(100vw - 36px);
-  margin-right: 20px;
+  margin-right: 24px;
 }
 #ltr {
   view-transition-name: ltr;
@@ -573,7 +587,10 @@ h3 {
 .subjectName {
   display: none;
 }
-
+b {
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
 .btn {
   background-color: #f1f1f1;
   border: 0;
@@ -631,7 +648,7 @@ dialog details summary {
   cursor: pointer;
 }
 dialog details {
-  margin-bottom: 24px;
+  margin-bottom: 4px;
 }
 details {
   overflow: hidden;
@@ -743,10 +760,9 @@ ul {
 }
 small {
   font-size: 12px;
-  opacity: 0.6;
-  color: initial;
-  position: absolute;
-  right: 55px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  opacity: 0.8;
 }
 .onvoldoende .grade {
   color: #d32f0d;
