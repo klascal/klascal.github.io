@@ -1144,36 +1144,44 @@ if (window.location.hash) {
     window.location.pathname + window.location.search
   );
 }
+async function fetchNewTokens(refreshToken) {
+  const params = new URLSearchParams();
+  params.append("grant_type", "refresh_token");
+  params.append("refresh_token", refreshToken);
+  params.append("client_id", "somtoday-leerling-web");
+  params.append("scope", "openid");
 
-async function somAuth(year, week, grades) {
-  try {
-    const response = await fetch("https://som-server-bljr.onrender.com/", {
+  const response = await fetch(
+    "https://corsproxy.io/?url=https://inloggen.somtoday.nl/oauth2/token",
+    {
       method: "POST",
       headers: {
-        Accept: "application/json",
-        Authorization: localStorage.getItem("som_refresh_token"),
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-    });
+      body: params.toString(),
+    }
+  );
 
-    if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
-    }
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
 
-    const result = await response.json();
-    localStorage.setItem("som_access_token", result.access_token);
-    if (year && week) {
-      if (!grades) {
-        fetchHomework(year, week);
-      } else {
-        fetchGrades();
-      }
+  return response.json();
+}
+async function somAuth(year, week, grades) {
+  const refreshToken = localStorage.getItem("som_refresh_token");
+  const result = fetchNewTokens(refreshToken);
+  localStorage.setItem("som_access_token", result.access_token);
+  localStorage.setItem("som_refresh_token", result.refresh_token);
+  if (year && week && result.access_token) {
+    if (!grades) {
+      fetchHomework(year, week);
+    } else {
+      fetchGrades();
     }
-    if (!localStorage.getItem("somUserID")) {
-      somUserInfo();
-    }
-  } catch (error) {
-    console.error("Error posting to server:", error);
-    throw error;
+  }
+  if (!localStorage.getItem("somUserID")) {
+    somUserInfo();
   }
 }
 

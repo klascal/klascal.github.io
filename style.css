@@ -353,6 +353,7 @@ h3 {
   margin-right: -5px;
   height: 27px;
   font-weight: 600;
+  font-size: 18px;
 }
 .schedule {
   margin-top: 56px;
@@ -600,11 +601,10 @@ details[open]::details-content {
 }
 .hwDiv {
   position: relative;
-  margin-bottom: 5px;
   width: calc(100vw - 27px);
   font-size: 14px;
   line-height: 1.4;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 ol,
 ul {
@@ -679,6 +679,8 @@ ul {
 }
 .hwDiv details {
   max-width: calc(100% - 40px);
+  font-weight: 450;
+  letter-spacing: 0.1px;
 }
 .grade {
   float: right;
