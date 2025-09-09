@@ -4,9 +4,6 @@ let accessToken = localStorage.getItem("access_token");
 let userType = localStorage.getItem("userType");
 let lastLessonEndMin;
 let day = 0;
-if (localStorage.getItem("dag") == "false") {
-  document.querySelector("body").scrollTo(0, 0);
-}
 if (!schoolName && !accessToken) {
   show("welcomeScreen", "Zermelo koppelen", "hideBack");
   document
@@ -88,7 +85,11 @@ for (const radio of document.querySelectorAll("input[name='color']")) {
 function save() {
   inputs.forEach((input) => {
     if (input.id && input.value) {
-      if (input.value != "on") {
+      if (input.type == "radio") {
+        if (input.checked) {
+          localStorage.setItem("dayView", input.value);
+        }
+      } else if (input.value != "on") {
         localStorage.setItem(input.id, input.value);
         schoolName = localStorage.getItem("schoolName");
         authorizationCode = localStorage.getItem("authorizationCode");
@@ -107,6 +108,9 @@ function closeDialog(el) {
   save();
   dialog.close();
   show("submenus", "Instellingen");
+  if (localStorage.getItem("volVaknaam") == "true") {
+    fetchFullSubjectNames();
+  }
   fetchSchedule();
 }
 function viewTrans(func) {
@@ -178,11 +182,18 @@ async function fetchSchedule(year, week, isFirstLoad) {
   const grouped = {};
 
   appointments.forEach((a) => {
-    const date = new Date(a.start * 1000).toLocaleDateString([], {
+    let date = new Date(a.start * 1000).toLocaleDateString([], {
       weekday: "long",
       month: "long",
       day: "numeric",
     });
+    const [weekday, day, month] = date.split(" ");
+    date = `${weekday.slice(0, 2)}<span class="long">${weekday.slice(
+      2
+    )}</span> ${day}<span class="longExtraExtraExtra"> ${month.slice(
+      0,
+      3
+    )}</span><span class="long">${month.slice(3)}</span>`;
     (grouped[date] ||= []).push(a);
   });
 
@@ -208,7 +219,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
       <path d="M175.147 33.1508C181.983 22.2831 198.017 22.2831 204.853 33.1508L221.238 59.2009C225.731 66.3458 234.797 69.2506 242.692 66.0751L271.475 54.4972C283.482 49.6671 296.455 58.9613 295.507 71.7154L293.235 102.288C292.612 110.673 298.215 118.278 306.494 120.284L336.681 127.601C349.275 130.653 354.23 145.692 345.861 155.461L325.8 178.877C320.298 185.3 320.298 194.7 325.8 201.123L345.861 224.539C354.23 234.308 349.275 249.347 336.681 252.399L306.494 259.716C298.215 261.722 292.612 269.327 293.235 277.712L295.507 308.285C296.455 321.039 283.482 330.333 271.475 325.503L242.692 313.925C234.797 310.749 225.731 313.654 221.238 320.799L204.853 346.849C198.017 357.717 181.983 357.717 175.147 346.849L158.762 320.799C154.269 313.654 145.203 310.749 137.308 313.925L108.525 325.503C96.5177 330.333 83.5454 321.039 84.4931 308.285L86.7649 277.712C87.388 269.327 81.785 261.722 73.5056 259.716L43.3186 252.399C30.7252 249.347 25.7702 234.308 34.1391 224.539L54.1997 201.123C59.7018 194.7 59.7018 185.3 54.1997 178.877L34.1391 155.461C25.7702 145.692 30.7252 130.653 43.3186 127.601L73.5056 120.284C81.785 118.278 87.388 110.673 86.7649 102.288L84.4931 71.7154C83.5454 58.9613 96.5177 49.6671 108.525 54.4972L137.308 66.0751C145.203 69.2506 154.269 66.3458 158.762 59.201L175.147 33.1508Z"></path>
     </svg> `;
     }
-    div.innerHTML = `<strong class="date">${svg}<span>Week ${week}, ${date}</span></strong>`;
+    div.innerHTML = `<strong class="date">${svg}<span><span class="weekText">W<span class="longExtra">ee</span>k ${week}, </span>${date}</span></strong>`;
 
     items.sort((a, b) => a.start - b.start);
     let section = [],
@@ -287,6 +298,18 @@ async function fetchSchedule(year, week, isFirstLoad) {
               (action) => action.appointment.teachers
             );
           }
+          if (localStorage.getItem("volVaknaam") == "true") {
+            const fullSubjectNames = JSON.parse(
+              localStorage.getItem("subjects")
+            );
+            const match = fullSubjectNames.find((item) =>
+              a.subjects.includes(item.code)
+            );
+            if (match) a.subjects = match.name;
+          } else if (localStorage.getItem("afkortingHl") === "true") {
+            a.subjects = a.subjects.map((subject) => subject.toUpperCase());
+            a.teachers = a.teachers.map((teacher) => teacher.toUpperCase());
+          }
           let styles = "";
           if (height < 2) styles = "line-height: 1; padding: 6px 10px;";
           if (height < 1) styles = "line-height: 1; padding: 4px 10px;";
@@ -296,11 +319,13 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.subjects
           }</strong><strong class="lesuur">${
             a.startTimeSlot
-          }</strong><br><p class="lestijden" style="display: inline; margin-right: 8px">${start}-${end}</p><p>${
+          }</strong><br><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
             a.locations
-          }${
+          }<span class="teachersAndGroups">${
             a.teachers.length != 0 ? ` (${a.teachers})` : ""
-          }</p><span class="warning">${warningSymbol}</span></div>`;
+          }${
+            localStorage.getItem("klas") == "true" ? ` ${a.groups}` : ""
+          }</span></p><span class="warning">${warningSymbol}</span></div>`;
         })
         .join("")}</section>`;
       section = [];
@@ -354,6 +379,36 @@ async function fetchSchedule(year, week, isFirstLoad) {
     }
   });
 }
+async function fetchFullSubjectNames() {
+  let url = `https://${localStorage.getItem(
+    "schoolName"
+  )}.zportal.nl/api/v3/subjectselectionsubjects?fields=code,name`;
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  })
+    .then((r) => r.json())
+    .then((result) => {
+      let subjectTranslations = result.response.data;
+      subjectTranslations = subjectTranslations.map((subject) => {
+        let name = subject.name;
+        const capitalCount = (name.match(/[A-Z]/g) || []).length;
+        // Kijkt of het eindigt met "s". Bijv. Frans, Duits, Spaans. Of het eindigt met taal en literatuur (tl)
+        if (
+          !/[bdfghjklmnpqrtvwxyz]s$/i.test(name) &&
+          !name.endsWith("taal en l") &&
+          !(capitalCount > 1)
+        ) {
+          name = name.toLowerCase();
+        } else {
+          console.log(name);
+        }
+        return { ...subject, name };
+      });
+      localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
+    });
+}
 function switchDay(dir) {
   let behavior = "smooth";
   const days = document.querySelectorAll(".day");
@@ -402,6 +457,9 @@ window.addEventListener("resize", () => {
     left: window.innerWidth * day,
     behavior: "instant",
   });
+  if (window.innerWidth < 330) {
+    document.getElementById("dayBtn").click();
+  }
 });
 document.getElementById("nextDay").addEventListener("click", () => {
   switchDay("next");
@@ -450,6 +508,10 @@ document.getElementById("dayBtn").addEventListener("click", () => {
   document.getElementById("schedule").classList.add("dayEnabled");
   document.getElementById("weekBtn").classList.remove("selected");
   document.getElementById("dayBtn").classList.add("selected");
+  document.querySelector("body").scrollTo({
+    left: window.innerWidth * day,
+    behavior: "instant",
+  });
 });
 
 document.getElementById("weekBtn").addEventListener("click", () => {
@@ -458,3 +520,14 @@ document.getElementById("weekBtn").addEventListener("click", () => {
   document.getElementById("dayBtn").classList.remove("selected");
   document.getElementById("weekBtn").classList.add("selected");
 });
+if (
+  localStorage.getItem("dag") == "false" ||
+  (!localStorage.getItem("dag") && window.innerWidth > 1000)
+) {
+  document.getElementById("weekBtn").click();
+} else {
+  document.getElementById("dayBtn").click();
+}
+if (window.innerWidth < 330) {
+  document.getElementById("dayBtn").click();
+}

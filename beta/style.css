@@ -14,7 +14,6 @@
 }
 ::view-transition-group(root) {
   animation-duration: 200ms;
-  animation-timing-function: ease-out;
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(root),
@@ -151,10 +150,6 @@ dialog {
   max-width: 400px;
   margin: 0 auto;
   border-radius: 8px;
-}
-
-label {
-  vertical-align: middle;
 }
 
 input[type="text"] {
@@ -430,6 +425,7 @@ h3 {
   view-transition-name: ltr;
   position: absolute;
   left: 200px;
+  display: none;
 }
 #side {
   height: calc(100vh - 56px);
@@ -452,122 +448,6 @@ h3 {
 .sidebarPresent {
   margin-left: 78px;
 }
-@media (max-width: 1000px) {
-  .les.ltr {
-    width: 107px;
-  }
-  h3 {
-    width: 135px;
-  }
-  p.lestijden {
-    display: block;
-  }
-  .les p,
-  .les span {
-    line-height: normal;
-  }
-}
-@media (max-width: 675px) {
-  .les.ltr {
-    width: 95px;
-  }
-  .les.ltr h3 {
-    width: 80px;
-  }
-  #ltr {
-    transform: translateY(-48px);
-  }
-  h3 {
-    width: 120px;
-  }
-}
-@media (max-height: 555px) {
-  #ltr {
-    transform: translateY(-48px);
-  }
-}
-@media (max-width: 600px) {
-  .les.ltr {
-    width: 80px;
-    padding: 5px;
-  }
-  h3 {
-    width: 100px;
-    text-align: center;
-    margin: 0;
-  }
-}
-@media (max-width: 500px) {
-  h3 {
-    width: 95px;
-  }
-  #side {
-    width: 100vw;
-    height: 56px;
-    bottom: 0;
-    top: auto;
-    flex-direction: row;
-    place-items: center;
-    justify-content: space-around;
-  }
-  .pillContainer,
-  .pillContainer:first-of-type {
-    margin: 0;
-  }
-}
-@media (max-width: 475px) {
-  h3 {
-    width: 87px;
-  }
-  .les.ltr {
-    width: 70px;
-  }
-}
-@media (max-width: 435px) {
-  h3 {
-    width: 77px;
-  }
-  .les.ltr {
-    width: initial;
-  }
-}
-@media (max-width: 391px) {
-  #week {
-    display: block;
-    position: fixed;
-    top: 56px;
-    left: 0;
-    width: calc(100vw - 10px);
-    margin: 0;
-    font-size: 14px;
-    background-color: #f6f8fa;
-    padding: 5px;
-    color: initial;
-  }
-  @media (prefers-color-scheme: dark) {
-    #week {
-      background-color: #f6f8fa;
-      background-color: #202125 !important;
-      color: white;
-    }
-  }
-}
-@media (max-width: 385px) {
-  h3 {
-    width: 73px;
-  }
-}
-@media (max-width: 365px) {
-  h3 {
-    width: 65px;
-  }
-}
-@media (max-width: 325px) {
-  #dayBtn,
-  #weekBtn {
-    display: none;
-  }
-}
 @font-face {
   font-family: "Pluto";
   src: url("https://blissradio.github.io/PlutoBold.woff2") format("woff2");
@@ -581,7 +461,7 @@ h3 {
   fill: black;
 }
 
-.className {
+.les span.className {
   display: none;
 }
 .subjectName {
@@ -625,9 +505,6 @@ button:not(:disabled) {
 
 #error {
   background-color: #eeb;
-}
-.cancelled span {
-  font-size: 0 !important;
 }
 .cancelled .warningMessage {
   font-size: 14px !important;
@@ -774,9 +651,43 @@ li {
   font-weight: bold;
   color: var(--primary-light);
 }
-
+#dayBtn,
+#weekBtn {
+  background-color: var(--primary-accent);
+}
+#viewSelect {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 32px;
+}
+#viewSelect div {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#viewSelect div span {
+  translate: -6px;
+}
+dialog strong.date {
+  margin-left: 12px;
+  margin-top: 0;
+}
+input[type="radio"] {
+  scale: 1.4;
+  cursor: pointer;
+}
+input[type="radio"] ~ label {
+  padding-left: 6px;
+  cursor: pointer;
+}
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
+  #dayBtn,
+  #weekBtn {
+    background-color: var(--primary-foreground);
+  }
   #warningIcon {
     fill: #e89822;
   }
@@ -898,4 +809,85 @@ dialog #icon {
 }
 #content .submenu {
   display: none;
+}
+@media (max-width: 1300px) {
+  .weekEnabled span .long:not(:first-of-type) {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  .weekEnabled span .long:first-of-type {
+    display: none;
+  }
+}
+@media (max-width: 1050px) {
+  .weekEnabled .les span.teachersAndGroups {
+    display: none;
+  }
+}
+@media (max-width: 850px) {
+  .weekEnabled .les p:not(:last-of-type),
+  .weekEnabled .les span,
+  .weekEnabled strong.date {
+    display: block;
+  }
+  .weekEnabled .les span.teachersAndGroups {
+    display: none;
+  }
+  .weekEnabled .warning {
+    bottom: 4px;
+  }
+}
+@media (max-width: 810px) {
+  .weekEnabled .longExtra {
+    display: none;
+  }
+}
+@media (max-width: 730px) {
+  .weekEnabled .weekText {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .weekEnabled {
+    gap: 5px;
+  }
+}
+@media (max-width: 572px) {
+  .weekEnabled {
+    gap: 2px;
+  }
+}
+@media (max-width: 560px) {
+  .weekEnabled .day section div {
+    padding: 0px 8px;
+  }
+}
+@media (max-width: 540px) {
+  .weekEnabled .day section div {
+    padding: 0px 6px;
+  }
+  .weekEnabled section div:first-of-type {
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+  }
+  .weekEnabled section div:last-of-type {
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+  }
+}
+@media (max-width: 520px) {
+  .weekEnabled .longExtraExtra {
+    display: none !important;
+  }
+}
+@media (max-width: 445px) {
+  .weekEnabled .longExtraExtraExtra {
+    display: none !important;
+  }
+}
+@media (max-width: 330px) {
+  #weekBtn {
+    display: none;
+  }
 }

@@ -35,6 +35,8 @@ body {
   --toets: #ef8636;
   --grote-toets: #d32f0d;
   --lesstof: #3f8541;
+  --thumb-background: #7a757f;
+  --background: #e6e0e9;
 }
 body[data-theme="red"] {
   --primary-light: #801d0f;
@@ -77,7 +79,7 @@ body[data-theme="yellow monochrome"] {
   --primary-background: #f8ecde;
 }
 body[data-theme="green"] {
-  --primary-light: #007212;
+  --primary-light: #2e6707;
   --primary-dark: #dbfed1;
   --primary-accent: #a9f798;
   --primary-accent-faded: #d5e9d1b0;
@@ -115,11 +117,11 @@ body[data-theme="cyan monochrome"] {
 body[data-theme="blue"] {
   --primary-light: #275586;
   --primary-dark: #d1edfe;
-  --primary-accent: #d1dbff;
+  --primary-accent: #bce6ff;
   --primary-accent-faded: #dfe0fdb0;
   --primary-foreground: #f8f9fe;
-  --primary-background: #e1ecff;
-  --background: #9bc6fd;
+  --primary-background: #d1eeff;
+  --background: #9bd8fd;
   --thumb-background: #495c8a;
 }
 body[data-theme="blue monochrome"] {
@@ -133,10 +135,10 @@ body[data-theme="blue monochrome"] {
 body[data-theme="purple"] {
   --primary-light: #6a2897;
   --primary-dark: #f0d1fe;
-  --primary-accent: #fcc8ff;
+  --primary-accent: #fdbcff;
   --primary-accent-faded: #e8e1f3b0;
   --primary-foreground: #fff2fc;
-  --primary-background: #fbe0ff;
+  --primary-background: #fbd1ff;
   --background: #dbbcff;
   --thumb-background: #6a498a;
 }
@@ -149,14 +151,14 @@ body[data-theme="purple monochrome"] {
   --primary-background: #f5ebf3;
 }
 body[data-theme="pink"] {
-  --primary-light: #a41c55;
-  --primary-dark: #fed1e6;
+  --primary-light: #bd0f58;
+  --primary-dark: #ffd9ee;
   --primary-accent: #ffbed2;
   --primary-accent-faded: #ffd9e5b0;
   --primary-foreground: #fef8f8;
   --primary-background: #ffd9e5;
-  --background: #ffb6dc;
-  --thumb-background: #914661;
+  --background: #ffb3de;
+  --thumb-background: #9d3e66;
 }
 body[data-theme="pink monochrome"] {
   --primary-light: #834d6f;
@@ -171,21 +173,23 @@ body[data-theme="pink monochrome"] {
     --toets: #f49247;
     --grote-toets: #f47157;
     --lesstof: #8aeb9f;
+    --thumb-background: #948f99;
+    --background: #312f35;
   }
   body[data-theme="red"] {
     --primary-light: #ff8181;
     --primary-dark: #610f11;
     --primary-accent: #571a14;
     --primary-accent-faded: #5e423fb0;
-    --primary-foreground: #5e0000;
+    --primary-foreground: #571212;
     --primary-background: #400;
     --background: #310002;
     --thumb-background: #95464a;
   }
   body[data-theme="orange"] {
-    --primary-light: #ff9c54;
+    --primary-light: #ffaa6c;
     --primary-dark: #613e12;
-    --primary-accent: #683a12;
+    --primary-accent: #462400;
     --primary-accent-faded: #5c4531b0;
     --primary-foreground: #462400;
     --primary-background: #321801;
@@ -193,11 +197,11 @@ body[data-theme="pink monochrome"] {
     --thumb-background: #8a5e49;
   }
   body[data-theme="yellow"] {
-    --primary-light: #ffd165;
+    --primary-light: #ffd574;
     --primary-dark: #614d12;
     --primary-accent: #463213;
     --primary-accent-faded: #544630b0;
-    --primary-foreground: #553800;
+    --primary-foreground: #4a3100;
     --primary-background: #322101;
     --background: #312000;
     --thumb-background: #8a7a49;
@@ -234,20 +238,20 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="purple"] {
     --primary-light: #cb93ec;
-    --primary-dark: #451261;
+    --primary-dark: #4c1261;
     --primary-accent: #4a1c51;
     --primary-accent-faded: #4d455ab0;
-    --primary-foreground: #4b1053;
+    --primary-foreground: #410d48;
     --primary-background: #2e0132;
     --background: #2d0031;
     --thumb-background: #79498a;
   }
   body[data-theme="pink"] {
-    --primary-light: #ff76a4;
+    --primary-light: #ff83a6;
     --primary-dark: #63002b;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
-    --primary-foreground: #640230;
+    --primary-foreground: #59002a;
     --primary-background: #40001e;
     --background: #310015;
     --thumb-background: #a84762;
@@ -295,7 +299,7 @@ body[data-theme="pink monochrome"] {
   transition: 0.1s;
   border: 2px solid var(--thumb-background);
   float: right;
-  bottom: 4px;
+  bottom: 5px;
 }
 .switch__design::before {
   content: "";
@@ -400,16 +404,20 @@ p {
 }
 .material-textfield input:focus + label {
   color: var(--primary-light);
-  top: 12px;
+  top: 14px;
   transform: translateY(-50%) scale(0.9);
   font-weight: 450;
   letter-spacing: 0.1px;
 }
 .material-textfield input:not(:placeholder-shown) + label {
-  top: 12px;
+  top: 14px;
   transform: translateY(-50%) scale(0.9);
   font-weight: 450;
   letter-spacing: 0.1px;
+}
+::selection {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
 }
 #content {
   max-height: calc(100vh - 180px);
