@@ -79,6 +79,20 @@ if (localStorage.getItem("mono") == "true") {
 document
   .querySelector("body")
   .setAttribute("data-theme", localStorage.getItem("theme") + mono || "blue");
+const u = () =>
+  document
+    .querySelector("meta[name=theme-color]")
+    .setAttribute(
+      "content",
+      getComputedStyle(document.body)
+        .getPropertyValue("--primary-background")
+        .trim()
+    );
+u();
+new MutationObserver(u).observe(document.body, {
+  attributes: 1,
+  attributeFilter: ["data-theme"],
+});
 // Save theme when changed
 for (const radio of document.querySelectorAll("input[name='color']")) {
   radio.checked = radio.value === localStorage.getItem("theme");
