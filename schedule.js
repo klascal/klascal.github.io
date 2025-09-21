@@ -73,12 +73,15 @@ inputs.forEach((input) => {
   }
 });
 let mono = "";
+if (!localStorage.getItem("theme")) {
+  localStorage.setItem("theme", "blue");
+}
 if (localStorage.getItem("mono") == "true") {
   mono = " monochrome";
 }
 document
   .querySelector("body")
-  .setAttribute("data-theme", localStorage.getItem("theme") + mono || "blue");
+  .setAttribute("data-theme", localStorage.getItem("theme") + mono);
 const u = () =>
   document
     .querySelector("meta[name=theme-color]")
