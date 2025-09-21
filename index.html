@@ -11,7 +11,6 @@
     <link rel="manifest" href="app.webmanifest" />
     <script src="dialog-polyfill.min.js"></script>
     <link rel="icon" type="image/x-icon" href="logo.svg" />
-    <meta name="theme-color" content="#447DED" />
     <meta name="color-scheme" content="light dark" />
     <link rel="stylesheet" href="catpuccin.css" defer />
     <script
@@ -348,7 +347,10 @@
           </div>
           <div id="koppelingen" class="submenu">
             <section>
-              <div id="submenu" onclick="show('zermelo', 'Zermelo koppelen')">
+              <button
+                id="submenu"
+                onclick="show('zermelo', 'Zermelo koppelen')"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xml:space="preserve"
@@ -370,8 +372,11 @@
                   />
                 </svg>
                 Zermelo
-              </div>
-              <div id="submenu" onclick="show('somtoday', 'Somtoday koppelen')">
+              </button>
+              <button
+                id="submenu"
+                onclick="show('somtoday', 'Somtoday koppelen')"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 35 35"
@@ -383,7 +388,7 @@
                   />
                 </svg>
                 Somtoday
-              </div>
+              </button>
             </section>
           </div>
           <div id="zermelo" class="submenu">
