@@ -49,13 +49,13 @@
   display: none;
 }
 #soft_burst {
-  translate: -14px;
+  translate: -9px 1.5px;
   fill: var(--primary-light);
   vertical-align: middle;
   position: absolute;
 }
 #soft_burst ~ span {
-  margin-left: 6px;
+  margin-left: 6.9px;
 }
 #field {
   background: var(--primary-background);
