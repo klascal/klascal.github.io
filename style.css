@@ -427,7 +427,6 @@ h3 {
   margin-top: 3rem;
   transition: transform ease-in-out 0.1s;
   will-change: transform;
-  height: calc(100vh - 3rem);
 }
 #schedule div {
   flex: 1;
