@@ -4,6 +4,12 @@ let accessToken = localStorage.getItem("access_token");
 let userType = localStorage.getItem("userType");
 let lastLessonEndMin;
 let day = 0;
+let topY = 125;
+const timeline = document.createElement("div");
+timeline.classList.add("timeline");
+timeline.style = `height: 2px;`;
+const circle = document.createElement("div");
+circle.classList.add("circle-marker");
 if (!schoolName && !accessToken) {
   show("welcomeScreen", "Zermelo koppelen", "hideBack");
   document
@@ -24,7 +30,7 @@ function resetAfterWelcomeScreen() {
 }
 async function fetchToken() {
   try {
-    const url = `https://${schoolName}.zportal.nl/api/v3/oauth/token?grant_type=authorization_code&code=${authorizationCode}`;
+    const url = `https://${schoolName}.zportal.nl/api/oauth/token?grant_type=authorization_code&code=${authorizationCode}&fields`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -45,7 +51,7 @@ async function fetchToken() {
 }
 async function userInfo() {
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/v3/users/~me?fields=code,isEmployee`,
+    `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -249,7 +255,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     return;
   }
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/v3/liveschedule?${userType}=~me&week=${year}${week}`,
+    `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -289,7 +295,6 @@ async function fetchSchedule(year, week, isFirstLoad) {
 
   for (const [dateFull, { date, items }] of Object.entries(grouped)) {
     const div = document.createElement("div");
-    const div1 = document.createElement("div");
     const div2 = document.createElement("div");
     const currentDate = new Date().toLocaleDateString([], {
       weekday: "long",
@@ -337,8 +342,10 @@ async function fetchSchedule(year, week, isFirstLoad) {
               );
               lastLessonEndMin = startTime;
             }
-            marginTop = ((startMin - lastLessonEndMin) * 1.135) / 16;
-            if (startTime > 490) {
+            marginTop = ((startMin - lastLessonEndMin) * 1.1457) / 16;
+            if (startTime < 490) {
+              marginTop = ((startMin - lastLessonEndMin) * 1.135) / 16;
+            } else if (startTime > 490) {
               marginTop = ((startMin - lastLessonEndMin) * 1.235) / 16;
             }
             let lessonPadding = 1;
@@ -453,6 +460,18 @@ async function fetchSchedule(year, week, isFirstLoad) {
       behavior: "instant",
     });
   }
+  const startMin = hoursToMinutes(new Date().toLocaleTimeString());
+  const startTime = hoursToMinutes(
+    localStorage.getItem("startTime") || "08:10"
+  );
+  let marginTop = ((startMin - startTime) * 1.14) / 16 + 1.5;
+  if (startTime > 490) {
+    marginTop = ((startMin - startTime) * 1.235) / 16 + 1.5;
+  }
+  console.log(timeline.style, marginTop);
+  timeline.style.top = `${marginTop}rem`;
+  timeline.appendChild(circle);
+  document.getElementById("schedule").appendChild(timeline);
   document.getElementById("schedule").style.opacity = "";
   const tip = document.getElementById("tooltip");
 
@@ -478,7 +497,18 @@ async function fetchSchedule(year, week, isFirstLoad) {
     });
     btn.addEventListener("mouseleave", () => tip.removeAttribute("data-show"));
   });
-
+  let maxMinutes = -Infinity;
+  document.querySelectorAll(".lestijden .longExtraExtra").forEach((lestijd) => {
+    const endMin = hoursToMinutes(lestijd.innerHTML.slice(1));
+    if (endMin > maxMinutes) {
+      maxMinutes = endMin;
+    }
+  });
+  if (startMin > maxMinutes) {
+    timeline.style.display = "none";
+  } else {
+    timeline.style.display = "";
+  }
   window.addEventListener("resize", () => {
     if (tip.hasAttribute("data-show")) {
       const active = document.querySelector("[data-tooltip]:hover");
@@ -489,7 +519,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
 async function fetchFullSubjectNames() {
   let url = `https://${localStorage.getItem(
     "schoolName"
-  )}.zportal.nl/api/v3/subjectselectionsubjects?fields=code,name`;
+  )}.zportal.nl/api/subjectselectionsubjects?fields=code,name`;
   return fetch(url, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -504,10 +534,50 @@ async function fetchFullSubjectNames() {
         // Kijkt of het eindigt met "s". Bijv. Frans, Duits, Spaans. Of het eindigt met taal en literatuur (tl)
         if (
           !/[bdfghjklmnpqrtvwxyz]s$/i.test(name) &&
-          !name.endsWith("taal en l") &&
+          !name.includes("taal en ") &&
+          subject.code != "la" &&
+          subject.code != "eng" &&
           !(capitalCount > 1)
         ) {
           name = name.toLowerCase();
+        }
+        switch (subject.code) {
+          case "ontw":
+            name = "ontwerpen";
+            break;
+          case "men":
+            name = "mentorles";
+            break;
+          case "nask":
+            name = "NaSk";
+            break;
+          case "inv":
+            name = "invalles";
+            break;
+          case "cko":
+            name = "Culturele en Kunstzinnige Oriëntatie";
+            break;
+          case "pko":
+            name = "Profiel Keuze Oriëntatie";
+            break;
+          case "ch":
+            name = "chemistry";
+            break;
+          case "kvdbw":
+            name = "Voeding en Beweging";
+            break;
+          case "eio":
+            name = "Europese en internationale oriëntatie";
+            break;
+          case "bp":
+            name = "begeleidingsprogramma";
+            break;
+          case "cra":
+            name = "creatieve activiteiten";
+            break;
+          case "ph":
+            name = "physics";
+            break;
         }
         return { ...subject, name };
       });

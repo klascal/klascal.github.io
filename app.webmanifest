@@ -12,13 +12,13 @@
       "src": "logo2.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any monochrome"
     },
     {
       "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any"
+      "purpose": "any monochrome"
     },
     {
       "src": "maskable_icon_x192.png",
@@ -31,6 +31,18 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
+    },
+    {
+      "src": "logo_maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any monochrome"
     }
   ],
   "screenshots": [
@@ -55,19 +67,19 @@
     {
       "src": "phone1.jpg",
       "type": "image/png",
-      "sizes": "512x1080",
+      "sizes": "1080x2340",
       "form_factor": "narrow"
     },
     {
       "src": "phone2.jpg",
       "type": "image/png",
-      "sizes": "512x1080",
+      "sizes": "1080x2340",
       "form_factor": "narrow"
     },
     {
       "src": "phone3.jpg",
       "type": "image/png",
-      "sizes": "512x1080",
+      "sizes": "1080x2340",
       "form_factor": "narrow"
     }
   ],

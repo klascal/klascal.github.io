@@ -40,6 +40,7 @@ body {
   --accent-text: gray;
   --accent-text-faded: gray;
   --primary-border: gray;
+  --primary-foreground-faded: var(--primary-foreground);
 }
 @supports (color: color-mix(in srgb, red, blue)) {
   body {
@@ -50,6 +51,11 @@ body {
       transparent
     );
     --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
+    --primary-foreground-faded: color-mix(
+      in srgb,
+      var(--primary-foreground) 90%,
+      #fffefe17
+    );
   }
 }
 body[data-theme="red"] {

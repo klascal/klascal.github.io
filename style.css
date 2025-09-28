@@ -64,6 +64,7 @@
   top: 0;
   left: 0;
   padding: 8px;
+  padding-bottom: 4px;
   z-index: 1;
 }
 .cancelled .className {
@@ -97,6 +98,9 @@ html {
   accent-color: var(--primary-light);
   background-color: var(--primary-background);
   color: #231918;
+}
+body {
+  margin: 0;
 }
 button {
   font-family: inherit;
@@ -179,10 +183,12 @@ span#schedule {
 }
 section div,
 section #submenu {
-  background-color: var(--primary-foreground);
+  background-color: var(--primary-foreground-faded);
   padding: 8px 10px;
   margin-bottom: 0.125rem;
   border-radius: 0.25rem;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 }
 .day section div {
   padding: 0px 10px;
@@ -417,9 +423,11 @@ h3 {
   font-weight: 600;
 }
 #schedule {
-  margin-top: 2.8125rem;
+  margin: 0 8px;
+  margin-top: 3rem;
   transition: transform ease-in-out 0.1s;
   will-change: transform;
+  height: calc(100vh - 3rem);
 }
 #schedule div {
   flex: 1;
@@ -850,14 +858,20 @@ input[type="radio"] ~ label {
 .timeline {
   position: absolute;
   background-color: var(--primary-light);
-  transition: 75ms top ease-in;
+  transition: all 0.1s cubic-bezier(1, 0, 0, 1);
   z-index: -1;
+  width: 100%;
+}
+.dayEnabled .timeline {
+  visibility: hidden;
+  opacity: 0;
 }
 .circle-marker {
   position: absolute;
   top: 50%;
+  left: -12px;
   transform: translateY(-50%);
-  width: 12px;
+  width: 12px !important;
   height: 12px;
   border-radius: 50%;
   background-color: var(--primary-light);
