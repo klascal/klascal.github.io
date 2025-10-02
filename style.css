@@ -251,7 +251,7 @@ section #submenu:last-of-type {
 }
 .warning {
   float: right;
-  margin-right: -2.5px;
+  margin-right: -4px;
   position: relative;
   bottom: 2.5px;
   cursor: pointer;
@@ -341,10 +341,9 @@ hr {
 }
 
 strong.lesuur {
-  float: right;
-  margin-right: 0.25rem;
-  translate: 0 -1px;
   font-family: Google Sans Flex;
+  position: absolute;
+  right: 13px;
 }
 .dayTitle {
   width: calc(100vw - 10px);
