@@ -479,7 +479,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
-    let top = rect.bottom + 9;
+    let top = rect.bottom + 10;
     let left = rect.right - tipRect.width + 7; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;

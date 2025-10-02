@@ -1,8 +1,7 @@
 :root {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv03" 1, "cv04" 1,
-    "cv02" 1;
+  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv03" 1, "cv04" 1;
   interpolate-size: allow-keywords;
 }
 @supports (font-variation-settings: normal) {
@@ -205,6 +204,8 @@ section #submenu {
   pointer-events: none;
   transition: opacity 0.15s;
   font-size: 0.875rem;
+  font-family: Google Sans Flex;
+  font-weight: 450;
 }
 .tooltip[data-show] {
   opacity: 1;
@@ -342,6 +343,7 @@ hr {
 strong.lesuur {
   float: right;
   margin-right: 0.25rem;
+  font-family: Google Sans Flex;
 }
 .dayTitle {
   width: calc(100vw - 10px);
@@ -355,6 +357,7 @@ h2 {
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 10px;
+  font-family: Google Sans Flex;
 }
 
 .gif-mask {
@@ -388,6 +391,7 @@ strong.date {
   font-weight: 500;
   letter-spacing: 0.00625rem;
   display: inline;
+  font-family: Google Sans Flex;
 }
 strong.date {
   margin: 8px;
@@ -553,6 +557,7 @@ section div br:not(:first-of-type) {
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
+  font-family: Google Sans Flex;
 }
 .btn {
   background-color: #f1f1f1;
@@ -727,10 +732,11 @@ ul {
   width: 40px;
 }
 small {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.1px;
   opacity: 0.8;
+  font-family: Google Sans Flex;
 }
 .onvoldoende .grade {
   color: #d32f0d;
@@ -776,6 +782,11 @@ input[type="radio"] ~ label {
   cursor: pointer;
   font-weight: 450;
   letter-spacing: 0.1px;
+  font-family: Google Sans Flex;
+  transition: opacity 0.15s ease-in-out;
+}
+input[type="radio"]:not(:checked) ~ label {
+  opacity: 0.8;
 }
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {

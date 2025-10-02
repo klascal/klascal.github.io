@@ -512,12 +512,17 @@ p {
   transform: translateY(-50%) scale(0.9);
   font-weight: 450;
   letter-spacing: 0.1px;
+  font-family: Google Sans Flex;
 }
 .material-textfield input:not(:placeholder-shown) + label {
   top: 14px;
   transform: translateY(-50%) scale(0.9);
   font-weight: 450;
   letter-spacing: 0.1px;
+  font-family: Google Sans Flex;
+}
+input[type="time"] {
+  font-family: Google Sans Flex;
 }
 ::selection {
   background-color: var(--primary-light);
