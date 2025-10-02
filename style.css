@@ -343,6 +343,7 @@ hr {
 strong.lesuur {
   float: right;
   margin-right: 0.25rem;
+  translate: 0 -1px;
   font-family: Google Sans Flex;
 }
 .dayTitle {
