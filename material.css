@@ -41,6 +41,7 @@ body {
   --accent-text-faded: gray;
   --primary-border: gray;
   --primary-foreground-faded: var(--primary-foreground);
+  --timeline: var(--primary-light);
 }
 @supports (color: color-mix(in srgb, red, blue)) {
   body {
@@ -55,6 +56,11 @@ body {
       in srgb,
       var(--primary-foreground) 90%,
       #fffefe17
+    );
+    --timeline: color-mix(
+      in srgb,
+      var(--primary-light) 50%,
+      var(--primary-accent)
     );
   }
 }

@@ -8,8 +8,6 @@ let topY = 125;
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
 timeline.style = `height: 2px;`;
-const circle = document.createElement("div");
-circle.classList.add("circle-marker");
 if (!schoolName && !accessToken) {
   show("welcomeScreen", "Zermelo koppelen", "hideBack");
   document
@@ -468,9 +466,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   if (startTime > 490) {
     marginTop = ((startMin - startTime) * 1.235) / 16 + 1.5;
   }
-  console.log(timeline.style, marginTop);
   timeline.style.top = `${marginTop}rem`;
-  timeline.appendChild(circle);
   document.getElementById("schedule").appendChild(timeline);
   document.getElementById("schedule").style.opacity = "";
   const tip = document.getElementById("tooltip");
