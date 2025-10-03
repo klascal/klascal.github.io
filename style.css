@@ -341,7 +341,6 @@ hr {
 }
 
 strong.lesuur {
-  font-family: Google Sans Flex;
   position: absolute;
   right: 13px;
 }
@@ -411,6 +410,7 @@ p.lestijden {
 strong {
   font-weight: 600;
   letter-spacing: 0.00625rem;
+  font-family: Google Sans Flex;
 }
 
 details strong {
