@@ -476,7 +476,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
     let top = rect.bottom + 8;
-    let left = rect.right - tipRect.width + 7; // rect.left + (rect.width - tipRect.width) / 2 for center
+    let left = rect.right - tipRect.width + 6; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
     if (left < 0) left = 8;
