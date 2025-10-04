@@ -892,8 +892,9 @@ input[type="radio"]:not(:checked) ~ label {
 }
 .ltrEnabled .timeline {
   width: 2px;
-  height: calc(100vh - 4.2rem);
-  left: calc(var(--top) * 2.48);
+  height: calc(100vh - 1.5rem);
+  left: calc((var(--top) - 1.5rem) * 2.8 + 1px);
+  top: -2.75rem;
 }
 .dayEnabled .timeline {
   visibility: hidden;
