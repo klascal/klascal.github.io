@@ -417,6 +417,18 @@ details strong {
   font-size: inherit;
 }
 
+dialog.right {
+  margin: 0;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: stretch;
+  margin-left: auto;
+  max-height: none;
+  border-radius: 2rem 0 0 2rem;
+  position: fixed;
+  top: 0;
+}
+
 h3 {
   margin: 0px;
   width: 200px;
@@ -446,7 +458,7 @@ h3 {
 #schedule.ltrEnabled {
   flex-direction: column;
   gap: 0;
-  margin-top: 2.55rem;
+  margin-top: 2.75rem;
 }
 .ltrEnabled strong.date {
   margin: 12px 8px;
@@ -870,6 +882,19 @@ input[type="radio"]:not(:checked) ~ label {
   transition: all 0.1s cubic-bezier(1, 0, 0, 1);
   z-index: -1;
   width: 100%;
+}
+.weekEnabled .timeline {
+  height: 2px;
+  top: var(--top);
+}
+.weekEnabled .timeline {
+  height: 2px;
+  top: var(--top);
+}
+.ltrEnabled .timeline {
+  width: 2px;
+  height: calc(100vh - 4.2rem);
+  left: calc(var(--top) * 2.48);
 }
 .dayEnabled .timeline {
   visibility: hidden;

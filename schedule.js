@@ -7,7 +7,6 @@ let day = 0;
 let topY = 125;
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
-timeline.style = `height: 2px;`;
 if (!schoolName && !accessToken) {
   show("welcomeScreen", "Zermelo koppelen", "hideBack");
   document
@@ -466,7 +465,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   if (startTime > 490) {
     marginTop = ((startMin - startTime) * 1.235) / 16 + 1.5;
   }
-  timeline.style.top = `${marginTop}rem`;
+  timeline.style = `--top: ${marginTop}rem`;
   document.getElementById("schedule").appendChild(timeline);
   document.getElementById("schedule").style.opacity = "";
   const tip = document.getElementById("tooltip");
@@ -720,3 +719,16 @@ if (
 if (window.innerWidth < 330) {
   document.getElementById("dayBtn").click();
 }
+document.querySelectorAll("dialog").forEach((dialog) => {
+  dialog.addEventListener("click", (event) => {
+    const rect = dialog.getBoundingClientRect();
+    const isInDialog =
+      rect.top <= event.clientY &&
+      event.clientY <= rect.bottom &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.right;
+    if (!isInDialog) {
+      closeDialog();
+    }
+  });
+});
