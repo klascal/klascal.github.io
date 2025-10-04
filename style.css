@@ -879,7 +879,6 @@ input[type="radio"]:not(:checked) ~ label {
 .timeline {
   position: absolute;
   background-color: var(--timeline);
-  transition: all 0.1s cubic-bezier(1, 0, 0, 1);
   z-index: -1;
   width: 100%;
 }
