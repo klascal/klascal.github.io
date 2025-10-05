@@ -417,18 +417,6 @@ details strong {
   font-size: inherit;
 }
 
-dialog.right {
-  margin: 0;
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: stretch;
-  margin-left: auto;
-  max-height: none;
-  border-radius: 2rem 0 0 2rem;
-  position: fixed;
-  top: 0;
-}
-
 h3 {
   margin: 0px;
   width: 200px;
@@ -468,6 +456,29 @@ h3 {
 }
 .les {
   min-height: var(--height);
+  transition: filter 0.1s cubic-bezier(1, 0, 0, 1);
+  cursor: pointer;
+}
+#schedule .les.clicked {
+  filter: brightness(1.15);
+}
+#info .les {
+  padding: 0px 10px;
+  min-height: var(--height);
+}
+#info .groups {
+  display: none;
+}
+.moreInfo {
+  display: flex;
+  gap: 0.25rem;
+}
+.dates p {
+  display: block;
+}
+#info .dates {
+  cursor: default;
+  padding: 8px 10px;
 }
 #schedule section {
   margin-top: var(--margin);
@@ -667,18 +678,28 @@ ul {
   vertical-align: sub;
 }
 .pill {
-  width: 46px;
-  height: 32px;
   border-radius: 16px;
-  border: none;
   transition: all 0.1s ease-in-out;
-  margin: auto;
+  background-color: var(--background);
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 0.25rem;
+  width: fit-content;
+  color: var(--accent-text);
+  font-weight: 450;
+  font-family: Google Sans Flex;
+  letter-spacing: 0.1px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+b.pill {
+  display: inline;
+  height: 0.75rem;
 }
 .day-group h3 {
   width: fit-content;
-}
-.pill:not(:hover) {
-  background: none;
 }
 .pillContainer label {
   font-size: 12px;
@@ -948,7 +969,7 @@ input[type="radio"]:not(:checked) ~ label {
     content: "";
   }
 }
-dialog #icon {
+#dialog #icon {
   fill: var(--primary-light) !important;
   transform: translateY(-2px);
   margin-right: 5.55px;
@@ -1029,6 +1050,23 @@ dialog #icon {
 @media (max-width: 520px) {
   .weekEnabled .longExtraExtra {
     display: none !important;
+  }
+}
+@media (min-width: 500px) {
+  dialog.right {
+    margin: 0;
+    height: -moz-available;
+    height: -webkit-fill-available;
+    height: stretch;
+    margin-left: auto;
+    max-height: none;
+    border-radius: 2rem 0 0 2rem;
+    position: fixed;
+    top: 0;
+    width: 320px;
+  }
+  dialog.right #content {
+    width: 320px;
   }
 }
 @media (max-width: 445px) {

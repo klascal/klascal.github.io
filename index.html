@@ -286,7 +286,14 @@
             </tr>
           </table>
         </div>
-        <button class="btn" id="closeBtn" onclick="hideDialog('shortcuts')">
+        <button class="btn" id="closeBtn" onclick="closeDialog('shortcuts')">
+          Sluiten
+        </button>
+      </dialog>
+      <dialog id="info" class="right" role="dialog" aria-label="Lesinformatie">
+        <h2>Lesinformatie</h2>
+        <section id="content"></section>
+        <button class="btn" id="closeBtn" onclick="closeDialog('info')">
           Sluiten
         </button>
       </dialog>
