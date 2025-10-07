@@ -284,7 +284,9 @@ async function fetchSchedule(year, week, isFirstLoad) {
       0,
       3
     )}</span><span class="long">${month.slice(3)}</span>`;
-    (grouped[dateFull] ||= { date, items: [] }).items.push(a);
+    (grouped[dateFull] = grouped[dateFull] || { date, items: [] }).items.push(
+      a
+    );
   });
 
   const fmt = (ts, regex) =>
