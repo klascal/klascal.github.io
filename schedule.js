@@ -1,3 +1,9 @@
+const dialogs = document.querySelectorAll("dialog");
+for (const dialog of dialogs) {
+  if (typeof dialog.showModal !== "function") {
+    dialogPolyfill.registerDialog(dialog);
+  }
+}
 let schoolName = localStorage.getItem("schoolName");
 let authorizationCode = localStorage.getItem("authorizationCode");
 let accessToken = localStorage.getItem("access_token");

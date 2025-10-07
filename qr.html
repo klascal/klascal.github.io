@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>jsQR Demo</title>
+    <script src="./jsQR.js"></script>
+    <style>
+      body {
+        font-family: "Ropa Sans", sans-serif;
+        color: #333;
+        max-width: 640px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      #githubLink {
+        position: absolute;
+        right: 0;
+        top: 12px;
+        color: #2d99ff;
+      }
+
+      h1 {
+        margin: 10px 0;
+        font-size: 40px;
+      }
+
+      #loadingMessage {
+        text-align: center;
+        padding: 40px;
+        background-color: #eee;
+      }
+
+      #canvas {
+        width: 100%;
+      }
+
+      #output {
+        margin-top: 20px;
+        background: #eee;
+        padding: 10px;
+        padding-bottom: 0;
+      }
+
+      #output div {
+        padding-bottom: 10px;
+        word-wrap: break-word;
+      }
+
+      #noQRFound {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loadingMessage">Laden...</div>
+    <canvas id="canvas" hidden></canvas>
+    <script>
+      var video = document.createElement("video");
+      var canvasElement = document.getElementById("canvas");
+      var canvas = canvasElement.getContext("2d");
+      var loadingMessage = document.getElementById("loadingMessage");
+
+      function drawLine(begin, end, color) {
+        canvas.beginPath();
+        canvas.moveTo(begin.x, begin.y);
+        canvas.lineTo(end.x, end.y);
+        canvas.lineWidth = 4;
+        canvas.strokeStyle = color;
+        canvas.stroke();
+      }
+
+      let scanning = true;
+      let streamRef = null;
+
+      navigator.mediaDevices
+        .getUserMedia({ video: { facingMode: "environment" } })
+        .then(function (stream) {
+          streamRef = stream;
+          video.srcObject = stream;
+          video.setAttribute("playsinline", true);
+          video.play();
+          requestAnimationFrame(tick);
+        })
+        .catch((err) => {
+          loadingMessage.innerText =
+            "⚠️ Geen toegang tot camera: " + err.message;
+        });
+
+      function tick() {
+        if (!scanning) return;
+
+        loadingMessage.innerText = "Video laden...";
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          loadingMessage.hidden = true;
+          canvasElement.hidden = false;
+
+          canvasElement.height = video.videoHeight;
+          canvasElement.width = video.videoWidth;
+          canvas.drawImage(
+            video,
+            0,
+            0,
+            canvasElement.width,
+            canvasElement.height
+          );
+
+          var imageData = canvas.getImageData(
+            0,
+            0,
+            canvasElement.width,
+            canvasElement.height
+          );
+          var code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert",
+          });
+
+          if (code) {
+            let validJSON = false;
+            try {
+              JSON.parse(code.data);
+              validJSON = true;
+            } catch (e) {
+              validJSON = false;
+            }
+            if (validJSON) {
+              console.log(JSON.parse(code.data));
+              scanning = false;
+              canvasElement.hidden = true;
+              if (streamRef) {
+                streamRef.getTracks().forEach((track) => track.stop());
+              }
+
+              return;
+            }
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+    </script>
+  </body>
+</html>
