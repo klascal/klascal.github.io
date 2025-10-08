@@ -180,8 +180,9 @@ function closeDialog() {
 
   // Methode opties voor verschillende vakken
   const methods = {
+    aardrijkskunde: ['De Geo'],
     duits: ['Neue Kontakte', 'Deutsch Aktuell'],
-    nederlands: ['Nieuw Nederlands', 'Taal Actief']
+    nederlands: ['Nieuw Nederlands', 'Taal Actief'],
   };
 
   // Hoofdstuk opties voor verschillende methoden
@@ -189,7 +190,8 @@ function closeDialog() {
     'Neue Kontakte': ['sein und haben', 'Kapitel 5'],
     'Deutsch Aktuell': [],
     'Nieuw Nederlands': [],
-    'Taal Actief': []
+    'Taal Actief': [],
+    'De Geo': ['hoofdstuk 2']
   };
 
   // Vullen van method dropdown afhankelijk van geselecteerd vak
