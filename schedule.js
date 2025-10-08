@@ -589,7 +589,7 @@ async function fetchFullSubjectNames() {
             name = "physics";
             break;
         }
-        return { ...subject, name };
+        return Object.assign({}, subject, { name: name });
       });
       localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
     });
