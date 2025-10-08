@@ -274,7 +274,7 @@ body[data-theme="pink monochrome"] {
     --primary-foreground: #462700;
     --primary-background: #321a01;
     --background: #312000;
-    --thumb-background: #8a7a49;
+    --thumb-background: #8a6e49;
   }
   body[data-theme="yellow monochrome"] {
     --primary-light: #edbe76;
@@ -357,13 +357,13 @@ body[data-theme="pink monochrome"] {
     --primary-background: #231e24;
   }
   body[data-theme="pink"] {
-    --primary-light: #ff83a6;
+    --primary-light: #ff769d;
     --primary-dark: #63002b;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
-    --primary-foreground: #59002a;
-    --primary-background: #40001e;
-    --background: #310015;
+    --primary-foreground: #66002b;
+    --primary-background: #4f0021;
+    --background: #440006;
     --thumb-background: #a84762;
   }
   body[data-theme="pink monochrome"] {
