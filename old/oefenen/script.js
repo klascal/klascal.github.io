@@ -180,12 +180,14 @@ function closeDialog() {
 
   // Methode opties voor verschillende vakken
   const methods = {
+    aardrijkskunde: ['De Geo'],
     duits: ['Neue Kontakte', 'Deutsch Aktuell'],
-    nederlands: ['Nieuw Nederlands', 'Taal Actief']
+    nederlands: ['Nieuw Nederlands', 'Taal Actief'],
   };
 
   // Hoofdstuk opties voor verschillende methoden
   const chapters = {
+    'De Geo': ['hoofdstuk 2'],
     'Neue Kontakte': ['sein und haben', 'Kapitel 5'],
     'Deutsch Aktuell': [],
     'Nieuw Nederlands': [],
