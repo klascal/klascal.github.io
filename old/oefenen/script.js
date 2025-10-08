@@ -187,11 +187,11 @@ function closeDialog() {
 
   // Hoofdstuk opties voor verschillende methoden
   const chapters = {
+    'De Geo': ['hoofdstuk 2'],
     'Neue Kontakte': ['sein und haben', 'Kapitel 5'],
     'Deutsch Aktuell': [],
     'Nieuw Nederlands': [],
-    'Taal Actief': [],
-    'De Geo': ['hoofdstuk 2']
+    'Taal Actief': []
   };
 
   // Vullen van method dropdown afhankelijk van geselecteerd vak
