@@ -345,8 +345,8 @@ body[data-theme="pink monochrome"] {
     --primary-accent-faded: #4d455ab0;
     --primary-foreground: #341d51;
     --primary-background: #25013e;
-    --background: #240031;
-    --thumb-background: #79498a;
+    --background: #160031;
+    --thumb-background: #66498a;
   }
   body[data-theme="purple monochrome"] {
     --primary-light: #dfb8f7;
