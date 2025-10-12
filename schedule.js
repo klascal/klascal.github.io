@@ -431,7 +431,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           if (height < 3) {
             styles = "line-height: 1;";
             topHeight = "height: 0.3125rem;";
-            warningStyles = "bottom: 20px";
+            warningStyles = "bottom: 2px";
           }
           return `${sectionBeginning}<div id="${
             a.appointmentInstance + "div"

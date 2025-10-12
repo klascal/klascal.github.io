@@ -250,11 +250,9 @@ section #submenu:last-of-type {
   height: 1.5rem;
 }
 .warning {
-  float: right;
-  margin-right: -4px;
-  position: relative;
-  bottom: 22px;
-  cursor: pointer;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
 }
 .switches .switch:first-of-type {
   padding: 13px;
@@ -454,6 +452,12 @@ h3 {
 }
 .ltrEnabled .day div {
   display: flex;
+}
+.ltrEnabled .les p {
+  display: block;
+}
+.ltrEnabled .warning {
+  bottom: 22px !important;
 }
 .les {
   min-height: var(--height);
@@ -921,7 +925,7 @@ input[type="radio"]:not(:checked) ~ label {
 }
 .ltrEnabled .timeline {
   width: 2px;
-  height: calc(100vh - 1.5rem);
+  height: calc(100vh - 2.75rem);
   left: calc((var(--top) - 1.5rem) * 2.8 + 1px);
   top: -2.75rem;
 }
