@@ -427,27 +427,29 @@ async function fetchSchedule(year, week, isFirstLoad) {
           });
           let styles = "";
           let topHeight = "";
+          let warningStyles = "";
           if (height < 3) {
             styles = "line-height: 1;";
-            topHeight = "height: 0.25rem;";
+            topHeight = "height: 0.3125rem;";
+            warningStyles = "bottom: 20px";
           }
-          return `${sectionBeginning}<div class="les ${cancelled} ${
+          return `${sectionBeginning}<div id="${
+            a.appointmentInstance + "div"
+          }" class="les ${cancelled} ${
             a.appointmentType
-          }" id="${
+          }" style="--height: ${height}rem;${styles}"><hr style="${topHeight}"><span id="${
             a.appointmentInstance
-          }" style="--height: ${height}rem;${styles}" onclick='showLessonInfo(this, ${JSON.stringify(
+          }" class="innerSpan" onclick='showLessonInfo(this, ${JSON.stringify(
             a
-          )})'><hr style="${topHeight}"><strong>${
-            a.subjects
-          }</strong><strong class="lesuur">${
+          )})'><strong>${a.subjects}</strong><strong class="lesuur">${
             a.startTimeSlot
-          }</strong><br><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><br><p>${
+          }</strong><hr style="height: 0.125rem;"><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
             a.locations
           }<span class="teachersAndGroups">${
             a.teachers.length != 0 ? ` (${a.teachers})` : ""
           }<span class="groups">${
             localStorage.getItem("klas") == "true" ? ` ${a.groups}` : ""
-          }</span></span></p><span class="warning">${warningSymbol}</span></div>`;
+          }</span></span></p></span><span class="warning" style="${warningStyles}">${warningSymbol}</span></div>`;
         })
         .join("")}</section>`;
       div.appendChild(div2);
@@ -751,7 +753,7 @@ async function showLessonInfo(lessonHTML, lesson) {
   const original = document.getElementById(lesson.appointmentInstance);
   original.classList.add("clicked");
   document.querySelector("#info #content").innerHTML = "";
-  const clone = lessonHTML.cloneNode(true);
+  const clone = document.getElementById(lessonHTML.id + "div").cloneNode(true);
   document.querySelector("#info #content").appendChild(clone);
   if (!lesson.expectedStudentCount) {
     lesson.expectedStudentCount = "";

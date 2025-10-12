@@ -253,7 +253,7 @@ section #submenu:last-of-type {
   float: right;
   margin-right: -4px;
   position: relative;
-  bottom: 2.5px;
+  bottom: 22px;
   cursor: pointer;
 }
 .switches .switch:first-of-type {
@@ -294,7 +294,7 @@ section #submenu {
   border: 0;
 }
 hr {
-  height: 0.375rem;
+  height: 0.4375rem;
   border-width: 0;
   background-color: transparent;
   margin: 0px;
@@ -343,6 +343,7 @@ hr {
 strong.lesuur {
   position: absolute;
   right: 13px;
+  translate: 0 -1px;
 }
 .dayTitle {
   width: calc(100vw - 10px);
@@ -662,6 +663,12 @@ details[open]::details-content {
   block-size: auto;
   opacity: 1;
 }
+.les span strong {
+  font-size: 1rem;
+}
+.innerSpan {
+  display: block !important;
+}
 .hwDiv {
   position: relative;
   margin-bottom: 5px;
@@ -792,10 +799,10 @@ li {
   gap: 32px;
 }
 #viewSelect div {
-  display: block;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background: none;
 }
 #viewSelect div span {
   translate: -6px;
