@@ -25,6 +25,13 @@
 }
 #authorizationCode:invalid {
   background-color: #f7baba73;
+  border: 1px solid #a65050;
+}
+#authorizationCode:invalid:focus {
+  border: 3px solid #a65050;
+}
+#authorizationCode:invalid ~ label {
+  color: #660d00;
 }
 #previousDay {
   border: none;
@@ -850,6 +857,12 @@ input[type="radio"]:not(:checked) ~ label {
   }
   #authorizationCode:invalid {
     background-color: #ff2f2f73;
+  }
+  #authorizationCode:invalid ~ label {
+    color: #fdd6d6;
+  }
+  #authorizationCode:invalid:focus {
+    border: 3px solid #f48787;
   }
   .warning .warningMessage,
   .plusTeachers .warningMessage {
