@@ -118,7 +118,7 @@ dialog {
   border: 0;
   border-radius: 2rem;
   background-color: var(--primary-background);
-  padding: 24px;
+  padding: 22px;
   max-width: calc(100vw - 80px);
   max-height: calc(100vh - 80px);
   animation: popIn 0.3s;
@@ -127,6 +127,7 @@ dialog {
   outline: none;
   view-transition-name: dialog;
   width: 276px;
+  padding-top: 18px;
 }
 
 @keyframes popIn {
@@ -134,12 +135,6 @@ dialog {
     max-height: 0px;
     padding: 0;
     opacity: 0;
-    overflow: hidden;
-  }
-  to {
-    max-height: calc(100vh - 80px);
-    padding: 24px;
-    opacity: 1;
     overflow: hidden;
   }
 }
@@ -648,9 +643,7 @@ button:not(:disabled) {
   border-radius: 4rem !important;
 }
 .themes {
-  background-color: var(--background);
-  padding: 10px;
-  border-radius: 10px;
+  padding: 8px 14px;
 }
 dialog details summary {
   cursor: pointer;
