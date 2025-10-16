@@ -132,12 +132,13 @@
             d="M487-104 219-371q-6-6-9-13t-3-15q0-16 11-28.5t29-12.5q8 0 15.5 3t13.5 9l268 268 200-200h-64q-17 0-28.5-11.5T640-400q0-17 11.5-28.5T680-440h160q17 0 28.5 11.5T880-400v160q0 17-11.5 28.5T840-200q-17 0-28.5-11.5T800-240v-64L600-104q-11 11-25.5 17T544-81q-15 0-30-6t-27-17ZM120-520q-17 0-28.5-11.5T80-560v-160q0-17 11.5-28.5T120-760q17 0 28.5 11.5T160-720v64l200-200q12-12 27-17.5t30-5.5q16 0 30.5 5.5T473-856l268 267q6 6 9 13t3 15q0 16-11 28.5T713-520q-8 0-15.5-3t-13.5-9L416-800 216-600h64q17 0 28.5 11.5T320-560q0 17-11.5 28.5T280-520H120Z"
           />
         </svg>
-        <span>Draaien</span>
+        <span data-translate="turn">Draaien</span>
       </button>
       <div style="float: right">
         <button
           class="btn"
           id="dayBtn"
+          data-translate="dayBtn"
           style="
             font-size: 0.875rem;
             font-family: inherit;
@@ -155,6 +156,7 @@
         ><button
           class="btn"
           id="weekBtn"
+          data-translate="weekBtn"
           style="
             font-size: 0.875rem;
             font-family: inherit;
@@ -201,7 +203,7 @@
               d="M360-300q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
             />
           </svg></button
-        ><label for="scheduleBtn">Rooster</label>
+        ><label for="scheduleBtn" data-translate="scheduleBtn">Rooster</label>
       </div>
       <div class="pillContainer">
         <button class="pill" id="homeworkBtn">
@@ -214,7 +216,7 @@
               d="M120-120v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm584-528 56-56-56-56-56 56 56 56Z"
             />
           </svg></button
-        ><label for="homeworkBtn">Huiswerk</label>
+        ><label for="homeworkBtn" data-translate="homeworkBtn">Huiswerk</label>
       </div>
       <div class="pillContainer">
         <button class="pill" id="gradesBtn">
@@ -227,7 +229,7 @@
               d="M286.78-261.941h132.642L529.325-609.02c7.58-24.615 3.79-46.769-11.37-66.461-15.158-19.692-35.37-29.539-60.636-29.539H192.035v110.77h200.858zm346.671-108.525h54.298v-81.58h81.445v-54.387H687.75v-81.58H633.45v81.58h-81.445v54.386h81.445zM200-120c-22 0-40.833-7.833-56.5-23.5C127.833-159.167 120-178 120-200v-560c0-22 7.833-40.833 23.5-56.5C159.167-832.167 178-840 200-840h560c22 0 40.833 7.833 56.5 23.5C832.167-800.833 840-782 840-760v560c0 22-7.833 40.833-23.5 56.5C800.833-127.833 782-120 760-120z"
             />
           </svg></button
-        ><label for="gradesBtn">Cijfers</label>
+        ><label for="gradesBtn" data-translate="gradesBtn">Cijfers</label>
       </div>
     </nav>
     <main>
@@ -239,51 +241,51 @@
         <div id="content">
           <table>
             <tr>
-              <th>Vorige dag/week</th>
+              <th data-translate="previousDayWeek">Vorige dag/week</th>
               <th><kbd>←</kbd></th>
             </tr>
             <tr>
-              <th>Volgende dag/week</th>
+              <th data-translate="nextDayWeek">Volgende dag/week</th>
               <th><kbd>→</kbd></th>
             </tr>
             <tr>
-              <th>Open instellingen</th>
+              <th data-translate="openSettings">Open instellingen</th>
               <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
             </tr>
             <tr>
-              <th>Dagweergave</th>
+              <th data-translate="dayView">Dagweergave</th>
               <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
             </tr>
             <tr>
-              <th>Weekweergave</th>
+              <th data-translate="weekView">Weekweergave</th>
               <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
             </tr>
             <tr>
-              <th>Oriëntatie wijzigen</th>
+              <th data-translate="orientationChange">Oriëntatie wijzigen</th>
               <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
             </tr>
             <tr>
-              <th>Stel dag in (Bij dagweergave)</th>
+              <th data-translate="changeDay">Stel dag in (Bij dagweergave)</th>
               <th><kbd>D</kbd> (Hoofdletter)</th>
             </tr>
             <tr>
-              <th>Stel week in</th>
+              <th data-translate="changeWeek">Stel week in</th>
               <th><kbd>W</kbd> (Hoofdletter)</th>
             </tr>
             <tr>
-              <th>Stel jaar in</th>
+              <th data-translate="changeYear">Stel jaar in</th>
               <th><kbd>J</kbd> (Hoofdletter)</th>
             </tr>
           </table>
         </div>
-        <button class="btn" id="closeBtn" onclick="closeDialog('shortcuts')">
+        <button class="btn" id="closeBtn" onclick="closeDialog('shortcuts')" data-translate="closeBtn">
           Sluiten
         </button>
       </dialog>
       <dialog id="info" class="right" role="dialog" aria-label="Lesinformatie">
-        <h2>Lesinformatie</h2>
+        <h2 data-translate="lessonInformation">Lesinformatie</h2>
         <section id="content"></section>
-        <button class="btn" id="closeBtn" onclick="closeDialog('info')">
+        <button class="btn" id="closeBtn" onclick="closeDialog('info')" data-translate="closeBtn">
           Sluiten
         </button>
       </dialog>
@@ -293,11 +295,11 @@
         aria-label="Voer je schoolnaam en koppelcode in."
         tabindex="-1"
       >
-        <h2>Instellingen</h2>
+        <h2 data-translate="settings">Instellingen</h2>
         <div id="content" class="container">
           <div id="submenus" style="display: block" class="submenu">
             <section>
-              <button id="submenu" onclick="show('rooster', 'Rooster')">
+              <button id="submenu" onclick="show('rooster', 'Rooster')" data-translate="scheduleBtn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -309,7 +311,7 @@
                 </svg>
                 Rooster
               </button>
-              <button id="submenu" onclick="show('theme', 'Thema')">
+              <button id="submenu" onclick="show('theme', 'Thema')" data-translate="themeBtn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -321,7 +323,7 @@
                 </svg>
                 Thema
               </button>
-              <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
+              <button id="submenu" onclick="show('koppelingen', 'Koppelingen')" data-translate="linksBtn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -333,7 +335,7 @@
                 </svg>
                 Koppelingen
               </button>
-              <button id="submenu" onclick="show('advanced', 'Geavanceerd')">
+              <button id="submenu" onclick="show('advanced', 'Geavanceerd')" data-translate="advanced">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -352,6 +354,7 @@
               <button
                 id="submenu"
                 onclick="show('zermelo', 'Zermelo koppelen')"
+                data-translate="zermeloBtn"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -379,6 +382,7 @@
                 id="submenu"
                 disabled
                 onclick="show('somtoday', 'Somtoday koppelen')"
+                data-translate="somtodayBtn"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -390,7 +394,7 @@
                     d="M32.0533 12.4129H31.0726C29.9394 12.4129 29.025 11.5226 29.025 10.4194V8.50323C29.025 7.4 28.1105 6.50968 26.9774 6.50968H23.3991C22.2659 6.50968 21.3515 5.61935 21.3515 4.51613V1.99355C21.3515 0.890322 20.437 0 19.3039 0H15.8912C14.7581 0 13.8436 0.890322 13.8436 1.99355V4.51613C13.8436 5.61935 12.9292 6.50968 11.796 6.50968H8.21773C7.0846 6.50968 6.17014 7.4 6.17014 8.50323V10.4194C6.17014 11.5226 5.25568 12.4129 4.12255 12.4129H3.14183C2.0087 12.4129 1.09424 13.3032 1.09424 14.4065V20.3613C1.09424 21.4645 2.0087 22.3548 3.14183 22.3548H4.1093C5.24243 22.3548 6.15689 23.2452 6.15689 24.3484V26.5548C6.15689 27.6581 7.07135 28.5484 8.20448 28.5484C9.33761 28.5484 10.2521 29.4387 10.2521 30.5419V33.0065C10.2521 34.1097 11.1665 35 12.2997 35H14.4997C15.6328 35 16.5472 34.1097 16.5472 33.0065V29.5742C16.5472 29.0065 17.0177 28.5548 17.5942 28.5548C18.1707 28.5548 18.6412 29.0129 18.6412 29.5742V33.0065C18.6412 34.1097 19.5557 35 20.6888 35H22.8888C24.0219 35 24.9364 34.1097 24.9364 33.0065V30.5419C24.9364 29.4387 25.8509 28.5484 26.984 28.5484C28.1171 28.5484 29.0316 27.6581 29.0316 26.5548V24.3484C29.0316 23.2452 29.946 22.3548 31.0792 22.3548H32.0466C33.1798 22.3548 34.0942 21.4645 34.0942 20.3613V14.4065C34.0942 13.3032 33.1798 12.4129 32.0466 12.4129H32.0533ZM27.1894 18.8903C26.5466 20.9548 25.1153 22.6516 23.1605 23.671C21.9412 24.3032 20.6093 24.6258 19.2575 24.6258C18.4491 24.6258 17.634 24.5097 16.8388 24.271C16.3551 24.129 16.0834 23.6323 16.2292 23.1677C16.375 22.6968 16.8852 22.4323 17.3689 22.5742C19.0256 23.0645 20.775 22.8968 22.3057 22.1032C23.8298 21.3097 24.9497 19.9871 25.4533 18.3742C25.5991 17.9032 26.1093 17.6452 26.593 17.7806C27.0768 17.9226 27.3485 18.4194 27.2027 18.8903H27.1894Z"
                   />
                 </svg>
-                Somtoday<br /><small>Hopelijk weer binnenkort</small>
+                Somtoday<br /><small data-translate="somtodayMessage">Hopelijk weer binnenkort</small>
               </button>
             </section>
           </div>
@@ -398,11 +402,11 @@
             <section>
               <div>
                 <details>
-                  <summary>Hoe vind je de koppelcode in Zermelo?</summary>
+                  <summary data-translate="zermeloQuestion1">Hoe vind je de koppelcode in Zermelo?</summary>
                   <ol>
-                    <li>
+                    <li data-translate="zermeloQuestion1Open">
                       Open het
-                      <b
+                      <b data-translate="zermeloQuestion1Menu"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 -960 960 960"
@@ -414,9 +418,9 @@
                         >Menu</b
                       >
                     </li>
-                    <li>
+                    <li data-translate="zermeloQuestion1Click">
                       Klik op
-                      <b
+                      <b data-translate="zermeloQuestion1Settings"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -428,9 +432,9 @@
                         >Instellingen</b
                       >
                     </li>
-                    <li>
+                    <li data-translate="zermeloQuestion1Click">
                       Klik op
-                      <b
+                      <b data-translate="zermeloQuestion1LinkExtern"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="25"
@@ -463,11 +467,11 @@
                         >Koppel externe applicatie</b
                       >
                     </li>
-                    <li>
+                    <li data-translate="zermeloQuestion1Explain1">
                       De bovenste regel is je <b>Schoolnaam</b> (het deel voor
                       .zportal.nl) en de regel daaronder je <b>Koppelcode</b>
                     </li>
-                    <li>Typ het over in Klascal of scan de QR-code</li>
+                    <li data-translate="zermeloQuestion1Explain2">Typ het over in Klascal of scan de QR-code</li>
                   </ol>
                 </details>
               </div>
@@ -478,7 +482,7 @@
                   placeholder=" "
                   autocomplete="off"
                 />
-                <label for="schoolName">Schoolnaam</label>
+                <label for="schoolName" data-translate="schoolName">Schoolnaam</label>
                 <p
                   style="
                     float: right;
@@ -762,30 +766,30 @@
                   inputmode="numeric"
                   pattern="^\d+$"
                 />
-                <label for="authorizationCode">Koppelcode</label>
+                <label for="authorizationCode" data-translate="authorizationCode">Koppelcode</label>
               </div>
             </section>
           </div>
           <div id="somtoday" class="submenu">
             <details>
-              <summary>Hoe koppel je Somtoday?</summary>
+              <summary data-translate="somtodayQuestion1">Hoe koppel je Somtoday?</summary>
               <ol>
-                <b>Methodes:</b>
+                <b data-translate="somtodayQuestion1Methods">Methodes:</b>
                 <li>
                   <ul>
-                    <li>
-                      Sleep de link hieronder naar je bladwijzerbalk:<br /><a
+                    <li data-translate="somtodayQuestion1Method1">
+                      Sleep de link hieronder naar je bladwijzerbalk:<br /><a data-translate="somtodayQuestionSomtodayLink"
                         href="javascript:(function()%7Bconst%20refreshToken%3DJSON.parse(localStorage%5B%22CapacitorStorage.%22%2BJSON.parse(localStorage%5B%22CapacitorStorage.SL_AUTH_CONFIG_RECORDS%22%5D).currentSessionIdentifier.UUID%5D).refresh_token%3Bconst%20targetOrigin%3D%22https%3A%2F%2Fklascal.github.io%23%22%2BrefreshToken%3Bconst%20newWindow%3Dwindow.open(targetOrigin)%7D)()%3B"
                         >Somtoday koppelen</a
                       >
                     </li>
-                    <li>Open Somtoday</li>
-                    <li>Klik op de bladwijzer</li>
+                    <li data-translate="somtodayQuestion1OpenSomtoday">Open Somtoday</li>
+                    <li data-translate="somtodayQuestion1ClickBladwijzer">Klik op de bladwijzer</li>
                   </ul>
                 </li>
                 <li>
                   <ul>
-                    <li>
+                    <li data-translate="somtodayQuestion1CopyCode">
                       Kopieer deze code:<br />
                       <pre>
                       <code class="language-javascript">
@@ -800,8 +804,8 @@ const targetOrigin = "https://klascal.github.io#" + refreshToken;
 const newWindow = window.open(targetOrigin);</code>
                   </pre>
                     </li>
-                    <li>Ga naar Somtoday</li>
-                    <li>
+                    <li data-translate="somtodayQuestion1ToSomtoday">Ga naar Somtoday</li>
+                    <li data-translate="somtodayQuestion1OpenConsole">
                       Open de console:<br />
                       <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>J</kbd> (<kbd
                         >Cmd</kbd
@@ -818,12 +822,12 @@ const newWindow = window.open(targetOrigin);</code>
                         /></svg
                       >Console
                     </li>
-                    <li>Plak de code in de console</li>
-                    <li>
+                    <li data-translate="somtodayQuestion1PasteCodeInConsole">Plak de code in de console</li>
+                    <li data-translate="somtodayQuestion1Explain1">
                       Mogelijk moet je <code>'plakken toestaan'</code> typen om
                       de code te plakken
                     </li>
-                    <li>Klik op <kbd>Enter</kbd></li>
+                    <li data-translate="somtodayQuestion1ClickOnEnter">Klik op <kbd>Enter</kbd></li>
                   </ul>
                 </li>
               </ol>
@@ -831,7 +835,7 @@ const newWindow = window.open(targetOrigin);</code>
           </div>
           <div id="theme" class="submenu">
             <section>
-              <strong class="date">Accentkleur</strong>
+              <strong class="date" data-translate="accentColor">Accentkleur</strong>
               <div>
                 <label class="theme__color">
                   <input
@@ -908,17 +912,17 @@ const newWindow = window.open(targetOrigin);</code>
                 </label>
               </div>
               <div class="switch switch--2">
-                <label for="mono">Fletse kleuren</label>
+                <label for="mono" data-translate="mono">Fletse kleuren</label>
                 <label class="switch__label">
                   <input type="checkbox" id="mono" class="switch__input" />
                   <span class="switch__design"></span> </label
                 ><br />
-                <small>Kleuren met lager contrast</small>
+                <small data-translate="monoExplain">Kleuren met lager contrast</small>
               </div>
             </section>
           </div>
           <div id="rooster" class="submenu">
-            <strong class="date">Voorkeuren</strong>
+            <strong class="date" data-translate="preferences">Voorkeuren</strong>
             <section class="switches">
               <div class="material-textfield">
                 <input
@@ -927,10 +931,10 @@ const newWindow = window.open(targetOrigin);</code>
                   autocomplete="off"
                   type="time"
                 />
-                <label for="startTime" style="padding: 2.5px">Begintijd</label>
+                <label for="startTime" style="padding: 2.5px" data-translate="startTime">Begintijd</label>
               </div>
               <div class="switch switch--2">
-                <label for="volVaknaam">Gebruik vol. vaknaam</label>
+                <label for="volVaknaam" data-translate="volSubjectName">Gebruik vol. vaknaam</label>
                 <label class="switch__label">
                   <input
                     type="checkbox"
@@ -941,7 +945,7 @@ const newWindow = window.open(targetOrigin);</code>
                 </label>
               </div>
               <div class="switch switch--2">
-                <label for="afkortingHl">Hoofdletters afkortingen</label>
+                <label for="afkortingHl" >Hoofdletters afkortingen</label>
                 <label class="switch__label">
                   <input
                     type="checkbox"
