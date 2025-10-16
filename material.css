@@ -418,6 +418,7 @@ body[data-theme="pink monochrome"] {
   border: 2px solid var(--thumb-background);
   float: right;
   bottom: 5px;
+  font-family: Inter;
 }
 .switch__design::before {
   content: "";
