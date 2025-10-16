@@ -63,8 +63,10 @@ async function userInfo() {
   );
   const data = await response.json();
   let userType1 = "student";
-  if (data.response.data[0].isEmployee === true) {
+  if (data.response.data[0] && data.response.data[0].isEmployee === true) {
     userType1 = "teacher";
+  } else {
+    console.error(data);
   }
   localStorage.setItem("userType", userType1);
   userType = localStorage.getItem("userType");
