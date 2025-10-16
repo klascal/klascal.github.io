@@ -30,6 +30,7 @@
   transition: 0.2s;
   vertical-align: middle;
   margin: 5px;
+  font-family: Inter;
 }
 body {
   --toets: #ef8636;
