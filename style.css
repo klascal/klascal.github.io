@@ -190,6 +190,7 @@ section #submenu {
   border-radius: 0.25rem;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
+  font-family: Google Sans Rounded, Google Sans Flex;
 }
 .day section div {
   padding: 0px 10px;
@@ -206,7 +207,7 @@ section #submenu {
   pointer-events: none;
   transition: opacity 0.15s;
   font-size: 0.875rem;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
   font-weight: 450;
 }
 .tooltip[data-show] {
@@ -357,7 +358,7 @@ h2 {
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 10px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
 }
 
 .gif-mask {
@@ -411,7 +412,7 @@ p.lestijden {
 strong {
   font-weight: 450;
   letter-spacing: 0.00625rem;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
 }
 
 details strong {
@@ -587,7 +588,7 @@ section div br:not(:first-of-type) {
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
 }
 .btn {
   background-color: #f1f1f1;
@@ -701,7 +702,7 @@ ul {
   width: fit-content;
   color: var(--accent-text);
   font-weight: 450;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
@@ -780,7 +781,7 @@ small {
   font-weight: 500;
   letter-spacing: 0.1px;
   opacity: 0.8;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
 }
 .onvoldoende .grade {
   color: #d32f0d;
@@ -826,7 +827,7 @@ input[type="radio"] ~ label {
   cursor: pointer;
   font-weight: 450;
   letter-spacing: 0.1px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded, Google Sans Flex;
   transition: opacity 0.15s ease-in-out;
 }
 input[type="radio"]:not(:checked) ~ label {
