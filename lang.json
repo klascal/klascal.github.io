@@ -1,0 +1,20 @@
+{
+  "nl": {
+    "welcome": "Welkom bij Klascal",
+    "schedule": "Rooster",
+    "settings": "Instellingen",
+    "logout": "Afmelden"
+  },
+  "en": {
+    "welcome": "Welcome to Klascal",
+    "schedule": "Schedule",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "de": {
+    "welcome": "Willkommen bei Klascal",
+    "schedule": "Stundenplan",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  }
+}
