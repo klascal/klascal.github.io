@@ -138,7 +138,6 @@
         <button
           class="btn"
           id="dayBtn"
-          data-translate="dayBtn"
           style="
             font-size: 0.875rem;
             font-family: inherit;
@@ -152,11 +151,11 @@
           "
           onclick="localStorage.setItem('dag', 'true')"
         >
-          <span class="check">✓ </span>Dag</button
+          <span class="check">✓ </span
+          ><span data-translate="dayBtn">Dag</span></button
         ><button
           class="btn"
           id="weekBtn"
-          data-translate="weekBtn"
           style="
             font-size: 0.875rem;
             font-family: inherit;
@@ -170,7 +169,8 @@
           "
           onclick="localStorage.setItem('dag', 'false')"
         >
-          <span class="check">✓ </span>Week
+          <span class="check">✓ </span
+          ><span data-translate="weekBtn">Week</span>
         </button>
         <button
           onclick="showDialog()"
@@ -309,11 +309,7 @@
         <div id="content" class="container">
           <div id="submenus" style="display: block" class="submenu">
             <section>
-              <button
-                id="submenu"
-                onclick="show('rooster', 'Rooster')"
-                data-translate="scheduleBtn"
-              >
+              <button id="submenu" onclick="show('rooster', 'Rooster')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -323,13 +319,9 @@
                     d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
                   />
                 </svg>
-                Rooster
+                <span data-translate="scheduleBtn">Rooster</span>
               </button>
-              <button
-                id="submenu"
-                onclick="show('theme', 'Thema')"
-                data-translate="themeBtn"
-              >
+              <button id="submenu" onclick="show('theme', 'Thema')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -339,13 +331,9 @@
                     d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80ZM260-440q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z"
                   />
                 </svg>
-                Thema
+                <span data-translate="themeBtn">Thema</span>
               </button>
-              <button
-                id="submenu"
-                onclick="show('koppelingen', 'Koppelingen')"
-                data-translate="linksBtn"
-              >
+              <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -355,13 +343,9 @@
                     d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h120q17 0 28.5 11.5T440-640q0 17-11.5 28.5T400-600H280q-50 0-85 35t-35 85q0 50 35 85t85 35h120q17 0 28.5 11.5T440-320q0 17-11.5 28.5T400-280H280Zm80-160q-17 0-28.5-11.5T320-480q0-17 11.5-28.5T360-520h240q17 0 28.5 11.5T640-480q0 17-11.5 28.5T600-440H360Zm200 160q-17 0-28.5-11.5T520-320q0-17 11.5-28.5T560-360h120q50 0 85-35t35-85q0-50-35-85t-85-35H560q-17 0-28.5-11.5T520-640q0-17 11.5-28.5T560-680h120q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H560Z"
                   />
                 </svg>
-                Koppelingen
+                <span data-translate="linksBtn">Koppelingen</span>
               </button>
-              <button
-                id="submenu"
-                onclick="show('advanced', 'Geavanceerd')"
-                data-translate="advanced"
-              >
+              <button id="submenu" onclick="show('advanced', 'Geavanceerd')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -371,7 +355,7 @@
                     d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
                   />
                 </svg>
-                Geavanceerd
+                <span data-translate="advanced">Geavanceerd</span>
               </button>
             </section>
           </div>
@@ -802,9 +786,7 @@
                   inputmode="numeric"
                   pattern="^\d+$"
                 />
-                <label
-                  for="authorizationCode"
-                  data-translate="authorizationCode"
+                <label for="authorizationCode" data-translate="linkingCode"
                   >Koppelcode</label
                 >
               </div>
