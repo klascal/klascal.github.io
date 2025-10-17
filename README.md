@@ -10,3 +10,4 @@ Een rooster app voor Zermelo
 - Laat klassennamen zien
 - Thema's
 - Richting wijzigen (Zoals bij Portal)
+- Meerdere talen mogelijk
