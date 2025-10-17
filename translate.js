@@ -16,11 +16,9 @@ async function loadLanguage() {
   document.querySelectorAll("[data-translate]").forEach((el) => {
     const key = el.getAttribute("data-translate");
     if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
+      el.innerHTML = translations[lang][key];
     }
   });
-
-  console.log(`Taal ingesteld op: ${lang}`);
 }
 
 loadLanguage();

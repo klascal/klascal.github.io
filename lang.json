@@ -34,7 +34,7 @@
     "zermeloQuestion1Explain2": "Typ het over in Klascal of scan de QR-code",
     "schoolName": "Schoolnaam",
     "linkingCode": "Koppelcode",
-    "weekText": "W<span class="longExtra">ee</span>k"
+    "weekText": "W<span class='longExtra'>ee</span>k"
   },
   "en": {
     "turn": "Rotate",
@@ -71,7 +71,7 @@
     "zermeloQuestion1Explain2": "Type it into Klascal or scan the QR code",
     "schoolName": "School name",
     "linkingCode": "Linking code",
-    "weekText": "W<span class="longExtra">ee</span>k"
+    "weekText": "W<span class='longExtra'>ee</span>k"
   },
   "de": {
     "turn": "Drehen",
@@ -108,7 +108,7 @@
     "zermeloQuestion1Explain2": "Gib ihn in Klascal ein oder scanne den QR-Code",
     "schoolName": "Schulname",
     "linkingCode": "Kopplungscode",
-    "weekText": "W<span class="longExtra">oche</span>."
+    "weekText": "Wo<span class='longExtra'>che</span>"
   },
   "fr": {
     "turn": "Tourner",
@@ -138,7 +138,7 @@
     "zermeloQuestion1": "Comment trouver le code de liaison dans Zermelo?",
     "schoolName": "Nom de l'école",
     "linkingCode": "Code de liaison",
-    "weekText": "S<span class="longExtra">emaine</span>"
+    "weekText": "Sem<span class='longExtra'>aine</span>"
   },
   "es": {
     "turn": "Girar",
@@ -175,6 +175,6 @@
     "zermeloQuestion1Explain2": "Escríbelo en Klascal o escanea el código QR",
     "schoolName": "Nombre de la escuela",
     "linkingCode": "Código de enlace",
-    "weekText": "S<span class="longExtra">emana</span>"
+    "weekText": "Sem<span class='longExtra'>ana</span>"
   }
 }

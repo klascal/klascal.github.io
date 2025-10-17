@@ -4,6 +4,29 @@ for (const dialog of dialogs) {
     dialogPolyfill.registerDialog(dialog);
   }
 }
+async function loadLanguage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const forcedLang = urlParams.get("lang");
+
+  const userLang = navigator.language.slice(0, 2);
+  const supported = ["nl", "en", "de", "fr", "es"];
+  const lang = supported.includes(forcedLang)
+    ? forcedLang
+    : supported.includes(userLang)
+    ? userLang
+    : "nl";
+
+  const res = await fetch("lang.json");
+  const translations = await res.json();
+
+  document.querySelectorAll("[data-translate]").forEach((el) => {
+    const key = el.getAttribute("data-translate");
+    if (translations[lang] && translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+}
+
 let schoolName = localStorage.getItem("schoolName");
 let authorizationCode = localStorage.getItem("authorizationCode");
 let accessToken = localStorage.getItem("access_token");
@@ -466,6 +489,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     div.classList.add("day");
     schedule.appendChild(div);
   }
+  loadLanguage();
   if (isFirstLoad == "firstLoad") {
     day = new Date().getDay() - 1;
     if (day == 5 || day == -1) {
