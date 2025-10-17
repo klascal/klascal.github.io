@@ -3,7 +3,7 @@ async function loadLanguage() {
   const forcedLang = urlParams.get("lang");
 
   const userLang = navigator.language.slice(0, 2);
-  const supported = ["nl", "en", "de"];
+  const supported = ["nl", "en", "de", "fr", "es"];
   const lang = supported.includes(forcedLang)
     ? forcedLang
     : supported.includes(userLang)
