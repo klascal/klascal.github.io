@@ -35,7 +35,7 @@
     "schoolName": "Schoolnaam"
   },
   "en": {
-    "turn": "Turn",
+    "turn": "Rotate",
     "dayBtn": "Day",
     "weekBtn": "Week",
     "scheduleBtn": "Schedule",
@@ -54,7 +54,7 @@
     "lessonInformation": "Lesson information",
     "settings": "Settings",
     "themeBtn": "Theme",
-    "linksBtn": "Links",
+    "linksBtn": "Linking",
     "advanced": "Advanced",
     "zermeloBtn": "Zermelo",
     "somtodayBtn": "Somtoday",
