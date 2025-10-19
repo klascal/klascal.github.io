@@ -1,30 +1,42 @@
 const dialogs = document.querySelectorAll("dialog");
 for (const dialog of dialogs) {
-  if (typeof dialog.showModal !== "function") {
+  if (typeof dialog.showModal !== "function" && window.dialogPolyfill) {
     dialogPolyfill.registerDialog(dialog);
   }
 }
+
 async function loadLanguage() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forcedLang = urlParams.get("lang");
+  try {
+    const supported = ["nl", "en", "de", "fr", "es"];
+    const urlParams = new URLSearchParams(window.location.search);
+    const forcedLang = urlParams.get("lang");
+    const injectedLang = window.KLASCAL_LANG || window.KLASCAL?.lang || null;
+    const storedLang = localStorage.getItem("klascal-lang");
+    const navigatorLangs = (navigator.languages || [])
+      .map((l) => l.slice(0, 2))
+      .filter(Boolean);
+    const intlLang =
+      typeof Intl === "object"
+        ? Intl.DateTimeFormat().resolvedOptions().locale.slice(0, 2)
+        : null;
+    const navLang = (navigator.language || navigator.userLanguage || "").slice(0, 2);
+    const candidates = [forcedLang, injectedLang, storedLang, ...navigatorLangs, intlLang, navLang].filter(Boolean);
+    const lang = candidates.find((c) => supported.includes(c)) || "nl";
 
-  const userLang = navigator.language.slice(0, 2);
-  const supported = ["nl", "en", "de", "fr", "es"];
-  const lang = supported.includes(forcedLang)
-    ? forcedLang
-    : supported.includes(userLang)
-    ? userLang
-    : "nl";
+    if (!forcedLang) localStorage.setItem("klascal-lang", lang);
+    document.documentElement.lang = lang;
 
-  const res = await fetch("lang.json");
-  const translations = await res.json();
+    const res = await fetch("lang.json");
+    if (!res.ok) throw new Error("Kan lang.json niet laden");
+    const translations = await res.json();
 
-  document.querySelectorAll("[data-translate]").forEach((el) => {
-    const key = el.getAttribute("data-translate");
-    if (translations[lang] && translations[lang][key]) {
-      el.innerHTML = translations[lang][key];
-    }
-  });
+    document.querySelectorAll("[data-translate]").forEach((el) => {
+      const key = el.getAttribute("data-translate");
+      if (translations[lang]?.[key]) el.innerHTML = translations[lang][key];
+    });
+  } catch (err) {
+    console.error("Fout bij laden van taal:", err);
+  }
 }
 
 let schoolName = localStorage.getItem("schoolName");
