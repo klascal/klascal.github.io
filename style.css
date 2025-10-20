@@ -410,9 +410,9 @@ p.lestijden {
 }
 
 strong {
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.00625rem;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Rounded;
 }
 
 details strong {
