@@ -36,7 +36,6 @@
 #previousDay {
   border: none;
   border-radius: 4rem 0 0 4rem;
-  padding: 0.5rem;
   background-color: transparent;
   view-transition-name: prev;
   z-index: 2;
@@ -44,7 +43,6 @@
 }
 #nextDay {
   border: none;
-  padding: 0.5rem;
   border-radius: 0 4rem 4rem 0;
   background-color: transparent;
   view-transition-name: next;
@@ -203,11 +201,11 @@ section #submenu {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.15s;
   font-size: 0.875rem;
   font-family: Google Sans Flex;
   font-weight: 450;
+  font-variation-settings: "opsz" 20;
 }
 .tooltip[data-show] {
   opacity: 1;
@@ -778,6 +776,7 @@ small {
   letter-spacing: 0.1px;
   opacity: 0.8;
   font-family: Google Sans Flex;
+  font-variation-settings: "opsz" 20;
 }
 .onvoldoende .grade {
   color: #d32f0d;
