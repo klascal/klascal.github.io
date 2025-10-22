@@ -70,6 +70,8 @@
   padding: 8px;
   padding-bottom: 4px;
   z-index: 1;
+  display: flex;
+  align-items: center;
 }
 .cancelled .className {
   display: none !important;
@@ -213,6 +215,12 @@ section #submenu {
 .check {
   display: none;
 }
+h2.date {
+  margin: 8px auto;
+  color: var(--accent-text);
+  fill: var(--primary-light);
+  text-align: center;
+}
 .selected .check {
   display: inline;
 }
@@ -300,7 +308,7 @@ hr {
 #link {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   gap: 4px;
 }
 #link #icon:nth-child(2) {
@@ -695,7 +703,7 @@ ul {
   padding: 0.25rem 0.5rem;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   gap: 0.25rem;
   width: fit-content;
   color: var(--accent-text);
@@ -796,7 +804,7 @@ li {
 #viewSelect {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   gap: 32px;
 }
 #viewSelect div {

@@ -160,7 +160,7 @@ body[data-theme="blue"] {
   --primary-dark: #d1edfe;
   --primary-accent: #bce6ff;
   --primary-accent-faded: #dfe0fdb0;
-  --primary-foreground: #f8f9fe;
+  --primary-foreground: #eef9ff;
   --primary-background: #d1eeff;
   --background: #9bd8fd;
   --thumb-background: #495c8a;
@@ -232,12 +232,12 @@ body[data-theme="pink monochrome"] {
     }
   }
   body[data-theme="red"] {
-    --primary-light: #ff8989;
+    --primary-light: #ff7e7e;
     --primary-dark: #610f11;
     --primary-accent: #571a14;
     --primary-accent-faded: #5e423fb0;
-    --primary-foreground: #591a1a;
-    --primary-background: #400;
+    --primary-foreground: #4f1111;
+    --primary-background: #3c0909;
     --background: #310002;
     --thumb-background: #95464a;
   }

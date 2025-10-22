@@ -314,6 +314,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   );
   const data = await response.json();
   const appointments = data.response.data[0].appointments;
+  const isHoliday = !appointments[0];
   const schedule = document.getElementById("schedule");
   schedule.innerHTML = "";
   const grouped = {};
@@ -510,6 +511,27 @@ async function fetchSchedule(year, week, isFirstLoad) {
     flush();
     div.classList.add("day");
     schedule.appendChild(div);
+  }
+  if (isHoliday) {
+    const d = new Date(year, 0, 1 + (week - 1) * 7);
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    const holidayMonth = d.toLocaleString("default", { month: "numeric" });
+    if (holidayMonth == 10) {
+      schedule.innerHTML =
+        '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M460-690q-8 0-14-6t-6-14v-80q0-42 29-71t71-29h80q8 0 14 6t6 14v80q0 42-29 71t-71 29h-80ZM220-450q-58 0-99-41t-41-99v-100q0-17 11.5-28.5T120-730h100q58 0 99 41t41 99v100q0 17-11.5 28.5T320-450H220ZM640-90q-39 0-74.5-12T501-135l-33 33q-11 11-28 11t-28-11q-11-11-11-28t11-28l33-33q-21-29-33-64.5T400-330q0-100 70-170.5T640-571h161q33 0 56.5 23.5T881-491v161q0 100-70.5 170T640-90Zm0-80q67 0 113-47t46-113v-160H640q-66 0-113 46.5T480-330q0 23 5.5 43.5T502-248l110-110q11-11 28-11t28 11q11 11 11 28t-11 28L558-192q18 11 38.5 16.5T640-170Zm1-161Z"/></svg><br>Herfstvakantie!</h2>';
+    } else if (holidayMonth == 12) {
+      schedule.innerHTML =
+        '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M440-246 337-145q-11 11-27.5 11T282-146q-12-11-12-27.5t12-28.5l158-158v-80h-80L201-281q-11 11-27.5 11T145-282q-11-11-11-27.5t11-27.5l101-103H119q-17 0-28-11.5T80-480q0-17 11.5-28.5T120-520h126L145-622q-11-11-11-27.5t12-28.5q11-11 27.5-11t28.5 11l158 158h80v-80L281-758q-11-11-11-27.5t12-28.5q11-11 27.5-11t27.5 11l103 100v-126q0-17 11.5-28.5T480-880q17 0 28.5 11.5T520-840v126l102-100q11-11 27.5-11t28.5 11q11 12 11 28.5T678-758L520-600v80h80l158-158q11-11 27.5-11t28.5 12q11 11 11 27.5T814-622L714-520h126q17 0 28.5 11.5T880-480q0 17-11.5 28.5T840-440H714l100 103q11 11 11 27.5T814-282q-12 12-28.5 12T758-282L600-440h-80v80l158 159q11 11 11 27.5T677-145q-11 11-27.5 11T622-145L520-246v127q0 17-11.5 28T480-80q-17 0-28.5-11.5T440-120v-126Z"/></svg><br>Kerstvakantie!</h2>';
+    } else if (holidayMonth == 2) {
+      schedule.innerHTML =
+        '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M380-80q-75 0-127.5-52.5T200-260q0-35 17-64.5t63-75.5q6-6 11.5-12.5T306-430q-51-78-78.5-163.5T200-760q0-58 21-89t59-31q57 0 102 55t68 101q9 20 16.5 40.5T480-641q6-22 13.5-42.5T511-724q22-46 67-101t102-55q38 0 59 31t21 89q0 81-27.5 166.5T654-430q9 11 14.5 17.5T680-400q46 46 63 75.5t17 64.5q0 75-52.5 127.5T580-80q-45 0-72.5-10L480-100l-27.5 10Q425-80 380-80Zm0-80q23 0 46-5.5t43-16.5q-11-5-20-17t-9-21q0-8 11.5-14t28.5-6q17 0 28.5 6t11.5 14q0 9-9 21t-20 17q20 11 43 16.5t46 5.5q42 0 71-29t29-71q0-18-10-35t-30-34q-14-12-23-21t-29-34q-29-35-48-45.5T480-440q-41 0-60.5 10.5T372-384q-20 25-29 34t-23 21q-20 17-30 34t-10 35q0 42 29 71t71 29Zm40-130q-8 0-14-9t-6-21q0-12 6-21t14-9q8 0 14 9t6 21q0 12-6 21t-14 9Zm120 0q-8 0-14-9t-6-21q0-12 6-21t14-9q8 0 14 9t6 21q0 12-6 21t-14 9ZM363-489q11-8 25-14t31-11q-2-48-14.5-95.5T373-696q-19-40-42-67.5T285-799q-2 6-3.5 15.5T280-760q0 68 21.5 138T363-489Zm234 0q40-63 61.5-133T680-760q0-14-1.5-23.5T675-799q-23 8-46 35.5T587-696q-18 39-30.5 86.5T541-514q15 4 29 10.5t27 14.5Z"/></svg><br>Voorjaarsvakantie!</h2>';
+    } else if (holidayMonth == 4) {
+      schedule.innerHTML =
+        '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M426-160q-9-26-23-48t-33-41q-19-19-41-33.5T281-306q2 29 14 54t32 45q20 20 45 32.5t54 14.5Zm108 0q29-3 54-15t45-32q20-20 32-45t15-54q-26 9-48.5 23T590-250q-19 19-33 41.5T534-160Zm-54-360q66 0 113-47t47-113v-48l-70 59-90-109-90 109-70-59v48q0 66 47 113t113 47ZM440-80q-100 0-170-70t-70-170v-80q71-1 134 29t106 81v-153q-86-14-143-80.5T240-680v-136q0-26 23-36.5t43 6.5l74 64 69-84q12-14 31-14t31 14l69 84 74-64q20-17 43-6.5t23 36.5v136q0 90-57 156.5T520-443v153q43-51 106-81t134-29v80q0 100-70 170T520-80h-80Zm40-569Zm127 416Zm-253 0Z"/></svg><br>Meivakantie!</h2>';
+    } else if (holidayMonth == 7 || holidayMonth == 8) {
+      schedule.innerHTML =
+        '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M756-148 558-346q-11-11-11-28t11-28q11-11 28-11t28 11l198 198q11 11 11 28t-11 28q-11 11-28 11t-28-11Zm-575-72q-31-50-46-104.5T120-436q0-78 29-152t89-134q60-60 134.5-89.5T525-841q57 0 111.5 15.5T740-779q31 20 33 57t-26 65L303-213q-28 28-65.5 26T181-220Zm65-50 54-54q-16-21-30.5-43T243-411q-12-22-21-44t-16-43q-11 59-1.5 118T246-270Zm112-110 222-224q-43-33-86.5-53.5t-81.5-28q-38-7.5-68.5-2.5T296-666q-17 18-22 48.5t2.5 69q7.5 38.5 28 81.5t53.5 87Zm334-334q-53-32-112-42t-118 2q22 7 44 16t44 20.5q22 11.5 43.5 26T636-660l56-54Z"/></svg><br>Zomervakantie!</h2>';
+    }
   }
   loadLanguage();
   if (isFirstLoad == "firstLoad") {
