@@ -66,12 +66,12 @@ body {
   }
 }
 body[data-theme="red"] {
-  --primary-light: #880013;
+  --primary-light: #842a2a;
   --primary-dark: #fff;
-  --primary-accent: #ffbebe;
+  --primary-accent: #ffc9c9;
   --primary-accent-faded: #ffd7d6b0;
   --primary-foreground: #fff8f6;
-  --primary-background: #fcc;
+  --primary-background: #ffd9d9;
   --background: #ffbaba;
   --thumb-background: #8a494f;
 }
@@ -232,7 +232,7 @@ body[data-theme="pink monochrome"] {
     }
   }
   body[data-theme="red"] {
-    --primary-light: #ff7e7e;
+    --primary-light: #ff8a8a;
     --primary-dark: #610f11;
     --primary-accent: #571a14;
     --primary-accent-faded: #5e423fb0;
