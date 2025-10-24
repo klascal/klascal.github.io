@@ -864,11 +864,9 @@ async function showLessonInfo(lessonHTML, lesson) {
   const a = data.response.data[0];
   const createdDate = new Date(a.created * 1000).toLocaleString([], {
     dateStyle: "medium",
-    timeStyle: "medium",
   });
   const modifiedDate = new Date(a.lastModified * 1000).toLocaleString([], {
     dateStyle: "medium",
-    timeStyle: "medium",
   });
   if (a.students) {
     a.students = `<div class="les dates"><p>Alle leerlingnummers: ${a.students}</p></div>`;

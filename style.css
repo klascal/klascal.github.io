@@ -682,6 +682,7 @@ details[open]::details-content {
 }
 .innerSpan {
   display: block !important;
+  width: 100%;
 }
 .hwDiv {
   position: relative;
@@ -707,6 +708,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  word-break: break-word;
   gap: 0.25rem;
   width: fit-content;
   color: var(--accent-text);
@@ -1105,20 +1107,12 @@ button:disabled {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem;
+  justify-content: center;
 }
 .dates .pill {
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
-}
-@media (max-width: 500px) {
-  .dates p {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .dates .pill {
-    margin-top: 0.25rem;
-  }
 }
 @media (min-width: 500px) {
   dialog.right {
@@ -1131,10 +1125,10 @@ button:disabled {
     border-radius: 2rem 0 0 2rem;
     position: fixed;
     top: 0;
-    width: 330px;
+    width: 300px;
   }
   dialog.right #content {
-    width: 330px;
+    width: 300px;
   }
 }
 @media (max-width: 445px) {
