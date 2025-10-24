@@ -474,24 +474,22 @@ async function fetchSchedule(year, week, isFirstLoad) {
             }
           });
           let styles = "";
-          let topHeight = "";
           let warningStyles = "";
           if (height < 3) {
-            styles = "line-height: 1;";
-            topHeight = "height: 0.3125rem;";
+            styles = "line-height: 1.1;";
             warningStyles = "bottom: 2px";
           }
           return `${sectionBeginning}<div id="${
             a.appointmentInstance + "div"
           }" class="les ${cancelled} ${
             a.appointmentType
-          }" style="--height: ${height}rem;${styles}"><hr style="${topHeight}"><span id="${
+          }" style="--height: ${height}rem;${styles}"><span id="${
             a.appointmentInstance
           }" class="innerSpan" onclick='showLessonInfo(this, ${JSON.stringify(
             a
           )})'><strong>${a.subjects}</strong><strong class="lesuur">${
             a.startTimeSlot
-          }</strong><hr style="height: 0.125rem;"><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
+          }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
             a.locations
           }<span class="teachersAndGroups">${
             a.teachers.length != 0 ? ` (${a.teachers})` : ""

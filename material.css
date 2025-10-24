@@ -236,8 +236,8 @@ body[data-theme="pink monochrome"] {
     --primary-dark: #610f11;
     --primary-accent: #571a14;
     --primary-accent-faded: #5e423fb0;
-    --primary-foreground: #4f1111;
-    --primary-background: #3c0909;
+    --primary-foreground: #601818;
+    --primary-background: #460c0c;
     --background: #310002;
     --thumb-background: #95464a;
   }
@@ -250,14 +250,14 @@ body[data-theme="pink monochrome"] {
     --primary-background: #271d1c;
   }
   body[data-theme="orange"] {
-    --primary-light: #ffaa6c;
+    --primary-light: #ff9c75;
     --primary-dark: #613e12;
     --primary-accent: #462400;
     --primary-accent-faded: #5c4531b0;
-    --primary-foreground: #462400;
-    --primary-background: #321801;
+    --primary-foreground: #552115;
+    --primary-background: #3f180c;
     --background: #311500;
-    --thumb-background: #8a5e49;
+    --thumb-background: #884e40;
   }
   body[data-theme="orange monochrome"] {
     --primary-light: #f0b58b;
@@ -272,8 +272,8 @@ body[data-theme="pink monochrome"] {
     --primary-dark: #614d12;
     --primary-accent: #462b13;
     --primary-accent-faded: #544630b0;
-    --primary-foreground: #462700;
-    --primary-background: #321a01;
+    --primary-foreground: #483214;
+    --primary-background: #332305;
     --background: #312000;
     --thumb-background: #8a6e49;
   }
@@ -342,7 +342,7 @@ body[data-theme="pink monochrome"] {
   body[data-theme="purple"] {
     --primary-light: #b793ec;
     --primary-dark: #4c1261;
-    --primary-accent: #371c51;
+    --primary-accent: #341d51;
     --primary-accent-faded: #4d455ab0;
     --primary-foreground: #341d51;
     --primary-background: #25013e;
@@ -362,8 +362,8 @@ body[data-theme="pink monochrome"] {
     --primary-dark: #63002b;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
-    --primary-foreground: #66002b;
-    --primary-background: #4f0021;
+    --primary-foreground: #6c1934;
+    --primary-background: #4a0f22;
     --background: #440006;
     --thumb-background: #a84762;
   }
@@ -521,7 +521,8 @@ p {
   font-weight: 450;
   letter-spacing: 0.1px;
 }
-.material-textfield input:not(:placeholder-shown) + label {
+.material-textfield input:not(:placeholder-shown) + label,
+.material-textfield select:not(:placeholder-shown) + label {
   top: 14px;
   transform: translateY(-50%) scale(0.9);
   font-weight: 450;

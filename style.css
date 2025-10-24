@@ -473,6 +473,9 @@ h3 {
   transition: filter 0.1s cubic-bezier(1, 0, 0, 1);
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
 }
 #schedule .les.clicked {
   filter: brightness(1.15);
@@ -818,6 +821,27 @@ li {
 }
 dialog strong.date {
   margin-left: 12px;
+}
+#fontBtn {
+  font-family: inherit;
+  font-size: 0.875rem;
+  margin-top: 16px;
+  color: var(--primary-dark);
+  border-radius: 0.75rem;
+  background-color: var(--primary-light);
+  display: none;
+}
+select {
+  font-family: inherit;
+  font-variation-settings: "opsz" 20;
+  font-size: inherit;
+  font-weight: 450;
+  outline: none;
+  border: 1px solid var(--primary-border);
+  border-radius: 0.5rem;
+  padding: 1rem 0.4rem;
+  max-width: 100%;
+  background-color: var(--primary-foreground);
 }
 dialog .submenu strong.date:first-of-type {
   margin-top: 0;

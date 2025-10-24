@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="material.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,100&display=swap"
+    />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body data-theme="green">
+    <div id="fontSelector">
+      <button class="btn" id="fontBtn">Systeemlettertypes laden</button>
+    </div>
+    <script>
+      if ("queryLocalFonts" in window) {
+        document.getElementById("fontBtn").style = "display: block";
+      }
+      document.getElementById("fontBtn").addEventListener("click", () => {
+        getFonts();
+      });
+      async function getFonts() {
+        try {
+          const availableFonts = await window.queryLocalFonts();
+          document.getElementById("fontSelector").innerHTML =
+            '<strong class="date">Systeemlettertypes</strong><section><div class="material-textfield"></div></section>';
+          const fontDiv = document.querySelector("#fontSelector div");
+          const select = document.createElement("select");
+          select.name = "fontSelect";
+          select.id = "fontSelect";
+          for (const fontData of availableFonts) {
+            const option = document.createElement("option");
+            option.innerText = fontData.fullName;
+            option.value = fontData.fullName;
+            console.log(fontData.fullName);
+            select.appendChild(option);
+          }
+          fontDiv.appendChild(select);
+          fontDiv.innerHTML += '<label for="fontSelect">Lettertypes</label>';
+        } catch (err) {
+          console.error(err.name, err.message);
+        }
+      }
+    </script>
+  </body>
+</html>
