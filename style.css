@@ -516,8 +516,7 @@ section div br:not(:first-of-type) {
   width: calc(var(--height) * 2.48);
   margin-bottom: 0;
   margin-right: 0.125rem;
-  display: block !important;
-  padding-bottom: 6px;
+  padding: 6px 10px;
   line-height: normal !important;
 }
 .dayEnabled div {
