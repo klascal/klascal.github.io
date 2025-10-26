@@ -432,6 +432,7 @@ body[data-theme="pink monochrome"] {
   border-radius: 100rem;
   background: var(--thumb-background);
   transition: inherit;
+  font-weight: 500;
 }
 .switch__input:checked + .switch__design {
   border-color: transparent;
