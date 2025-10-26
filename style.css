@@ -605,7 +605,7 @@ b {
   line-height: 1.5;
   border-radius: 4rem;
   transition: all 0.1s cubic-bezier(1, 0, 0, 1);
-  font-weight: 450;
+  font-weight: 500;
   letter-spacing: 0.1px;
 }
 .btn:hover {
@@ -962,7 +962,7 @@ button:disabled {
 }
 .ltrEnabled .timeline {
   width: 2px;
-  height: calc(100vh - 2.75rem);
+  height: calc(100vh - 3.75rem);
   left: calc((var(--top) - 1.5rem) * 2.8 + 1px);
   top: -2.75rem;
 }

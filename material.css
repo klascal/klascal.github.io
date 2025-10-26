@@ -250,8 +250,8 @@ body[data-theme="pink monochrome"] {
     --primary-background: #271d1c;
   }
   body[data-theme="orange"] {
-    --primary-light: #ff9c75;
-    --primary-dark: #613e12;
+    --primary-light: #ffa886;
+    --primary-dark: #612512;
     --primary-accent: #462400;
     --primary-accent-faded: #5c4531b0;
     --primary-foreground: #552115;
@@ -358,7 +358,7 @@ body[data-theme="pink monochrome"] {
     --primary-background: #231e24;
   }
   body[data-theme="pink"] {
-    --primary-light: #ff769d;
+    --primary-light: #ff94b3;
     --primary-dark: #63002b;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
@@ -443,26 +443,16 @@ body[data-theme="pink monochrome"] {
 .switch__input:checked + .switch__design::before {
   left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
   background: var(--checked-thumb-background);
-}
-
-.switch__input:checked + .switch__design::after {
-  left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
-  position: absolute;
   content: "✓";
-  line-height: calc(var(--thumb-size) + var(--thumb-out));
+  text-align: center;
+  line-height: 1.4;
   color: var(--checked-background);
-  width: var(--thumb-size);
-  text-align: center;
 }
-
-.switch__input:not(:checked) + .switch__design::after {
-  left: calc(var(--thumb-out) - 1px);
-  content: "✗";
-  position: absolute;
-  top: calc(var(--thumb-out) - 0.5px);
-  width: var(--thumb-size);
-  text-align: center;
+.switch__input:not(:checked) + .switch__design::before {
   color: var(--background);
+  content: "✗";
+  text-align: center;
+  letter-spacing: 2px;
 }
 
 .material-textfield {
