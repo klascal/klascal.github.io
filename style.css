@@ -970,6 +970,9 @@ button:disabled {
   visibility: hidden;
   opacity: 0;
 }
+.subjAbbrev {
+  display: none;
+}
 .circle-marker {
   position: absolute;
   top: 50%;
@@ -1051,9 +1054,6 @@ button:disabled {
   .weekEnabled strong.date {
     display: block;
   }
-  .weekEnabled .les span.teachersAndGroups {
-    display: none;
-  }
   .weekEnabled .warning {
     bottom: 4px;
   }
@@ -1061,6 +1061,12 @@ button:disabled {
 @media (max-width: 810px) {
   .weekEnabled .longExtra {
     display: none;
+  }
+  .weekEnabled .subject {
+    display: none;
+  }
+  .weekEnabled .subjAbbrev {
+    display: inline;
   }
 }
 @media (max-width: 730px) {

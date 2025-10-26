@@ -445,6 +445,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
             );
             a.groups = a.actions.flatMap((action) => action.appointment.groups);
           }
+          const subjAbbrev = a.subjects;
           if (localStorage.getItem("volVaknaam") === "true") {
             const fullSubjectNames = JSON.parse(
               localStorage.getItem("subjects")
@@ -487,7 +488,9 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.appointmentInstance
           }" class="innerSpan" onclick='showLessonInfo(this, ${JSON.stringify(
             a
-          )})'><strong>${a.subjects}</strong><strong class="lesuur">${
+          )})'><strong class="subject">${
+            a.subjects
+          }</strong><strong class="subjAbbrev">${subjAbbrev}</strong><strong class="lesuur">${
             a.startTimeSlot
           }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
             a.locations
@@ -559,7 +562,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
-    let top = rect.bottom + 8;
+    let top = rect.bottom + 10;
     let left = rect.right - tipRect.width + 6; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
