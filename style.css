@@ -496,7 +496,8 @@ h3 {
 }
 #info .dates {
   cursor: default;
-  padding: 8px 10px;
+  padding: 0;
+  background: none;
 }
 #schedule section {
   margin-top: var(--margin);
@@ -810,12 +811,14 @@ li {
   justify-content: center;
   align-items: center;
   gap: 32px;
+  background-color: var(--primary-foreground);
 }
 #viewSelect div {
   display: flex;
   flex-direction: column;
   gap: 8px;
   background: none;
+  background-color: var(--primary-foreground);
 }
 #viewSelect div span {
   translate: -6px;
@@ -1113,6 +1116,15 @@ button:disabled {
   align-items: center;
   gap: 0.25rem;
   justify-content: center;
+  background-color: var(--primary-foreground-faded);
+  padding: 8px 0;
+}
+.createdDate {
+  border-right: 2px solid var(--primary-background);
+  border-bottom-left-radius: 1rem;
+}
+.modifiedDate {
+  border-bottom-right-radius: 1rem;
 }
 .dates .pill {
   display: inline-flex;
