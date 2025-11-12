@@ -233,6 +233,7 @@ section div:last-of-type,
 section #submenu:last-of-type {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  margin-bottom: 0;
 }
 
 #week {
@@ -392,7 +393,8 @@ h2 {
 
 .les p,
 .les span,
-strong.date {
+strong.date,
+.change {
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.00625rem;
@@ -496,6 +498,7 @@ h3 {
 }
 #info .dates {
   cursor: default;
+  padding: 0;
 }
 #schedule section {
   margin-top: var(--margin);
