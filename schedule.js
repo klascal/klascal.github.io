@@ -848,35 +848,6 @@ async function showLessonInfo(lessonHTML, lesson) {
     const onlineIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)"><path d="M720-183v49q0 17-11.5 28.5T680-94q-17 0-28.5-11.5T640-134v-126q0-25 17.5-42.5T700-320h126q17 0 28.5 11.5T866-280q0 17-11.5 28.5T826-240h-50l90 90q11 11 11 27.5T866-94q-12 12-28.5 12T809-94l-89-89ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 10-.5 22t-1.5 22q-2 17-14 26.5t-30 9.5q-16 0-27-14t-9-30q2-10 2-18v-18q0-20-2.5-40t-7.5-40H654q3 20 4.5 40t1.5 40v21.5q0 11.5-1 21.5-2 17-14 27t-29 10q-16 0-27.5-13t-9.5-29q1-10 1-19v-19q0-20-1.5-40t-4.5-40H386q-3 20-4.5 40t-1.5 40q0 20 1.5 40t4.5 40h94q17 0 28.5 11.5T520-360q0 17-11.5 28.5T480-320h-76q12 43 31 82.5t45 75.5q10 0 20 .5t20-.5q17-2 28 8.5t11 27.5q0 18-9 30t-26 14q-10 1-22 1.5t-22 .5ZM170-400h136q-3-20-4.5-40t-1.5-40q0-20 1.5-40t4.5-40H170q-5 20-7.5 40t-2.5 40q0 20 2.5 40t7.5 40Zm206 222q-18-34-31.5-69.5T322-320H204q29 51 73 87.5t99 54.5ZM204-640h118q9-37 22.5-72.5T376-782q-55 18-99 54.5T204-640Zm200 0h152q-12-43-31-82.5T480-798q-26 36-45 75.5T404-640Zm234 0h118q-29-51-73-87.5T584-782q18 34 31.5 69.5T638-640Z"/></svg>`;
     onlinePill = `<span class="pill">${onlineIcon}${lesson.expectedStudentCountOnline}${lesson.onlineLocationUrl}</span>`;
   }
-  const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
-    lesson.appointmentInstance
-  }&user=~me&valid=true&start=${lesson.start}&end=${
-    lesson.end
-  }&fields=created,modified,lastModified${
-    localStorage.getItem("userType") == "teacher" ? `,students` : ""
-  }`;
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const data = await response.json();
-  if (!data.response.data[0]) {
-    closeDialog();
-    return;
-  }
-  const a = data.response.data[0];
-  const createdDate = new Date(a.created * 1000).toLocaleString([], {
-    dateStyle: "medium",
-  });
-  const modifiedDate = new Date(a.lastModified * 1000).toLocaleString([], {
-    dateStyle: "medium",
-  });
-  if (a.students) {
-    a.students = `<div class="les dates"><p>Alle leerlingnummers: ${a.students}</p></div>`;
-  } else {
-    a.students = "";
-  }
   if (!lesson.content) {
     lesson.content = "";
   }
@@ -892,12 +863,41 @@ async function showLessonInfo(lessonHTML, lesson) {
     lesson.creator = "";
   }
   let warningSymbol = warning
-    ? `<div class="les dates ${lesson.appointmentType}"><p>${warning}</p></div>`
+    ? `<div class="les dates"><p>${warning}</p></div>`
     : "";
   const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
   const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
   document.querySelector(
     "#info #content"
-  ).innerHTML += `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div><div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+  ).innerHTML += `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
   showDialog("info");
+  const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
+    lesson.appointmentInstance
+  }&user=~me&valid=true&start=${lesson.start}&end=${
+    lesson.end
+  }&fields=created,modified,lastModified${
+    localStorage.getItem("userType") == "teacher" ? `,students` : ""
+  }`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const data = await response.json();
+  if (!data.response.data[0]) return;
+  const a = data.response.data[0];
+  const createdDate = new Date(a.created * 1000).toLocaleString([], {
+    dateStyle: "medium",
+  });
+  const modifiedDate = new Date(a.lastModified * 1000).toLocaleString([], {
+    dateStyle: "medium",
+  });
+  if (a.students) {
+    a.students = `<div class="les dates"><p>Alle leerlingnummers: ${a.students}</p></div>`;
+  } else {
+    a.students = "";
+  }
+  document.querySelector(
+    "#info #content"
+  ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
 }

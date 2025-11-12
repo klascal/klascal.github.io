@@ -496,8 +496,6 @@ h3 {
 }
 #info .dates {
   cursor: default;
-  padding: 0;
-  background: none;
 }
 #schedule section {
   margin-top: var(--margin);
@@ -1118,6 +1116,7 @@ button:disabled {
   justify-content: center;
   background-color: var(--primary-foreground-faded);
   padding: 8px 0;
+  word-break: break-all;
 }
 .createdDate {
   border-right: 2px solid var(--primary-background);
