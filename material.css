@@ -192,7 +192,7 @@ body[data-theme="purple monochrome"] {
   --primary-background: #f5ebf3;
 }
 body[data-theme="pink"] {
-  --primary-light: #ae0d49;
+  --primary-light: #9b2e57;
   --primary-dark: #ffd9ee;
   --primary-accent: #ffc8d9;
   --primary-accent-faded: #ffd9e5b0;

@@ -67,8 +67,7 @@
   width: calc(100vw - 16px);
   top: 0;
   left: 0;
-  padding: 8px;
-  padding-bottom: 4px;
+  padding: 4px 8px;
   z-index: 1;
   display: flex;
   align-items: center;
@@ -437,7 +436,7 @@ h3 {
   font-weight: 600;
 }
 #schedule {
-  margin-top: 3rem;
+  margin-top: 2.75rem;
   transition: transform ease-in-out 0.1s;
   will-change: transform;
 }
@@ -456,7 +455,7 @@ h3 {
 #schedule.ltrEnabled {
   flex-direction: column;
   gap: 0;
-  margin-top: 2.75rem;
+  margin-top: 2.5rem;
 }
 .ltrEnabled strong.date {
   margin: 12px 8px;
@@ -509,13 +508,13 @@ section div br:not(:first-of-type) {
 .ltrEnabled section {
   display: flex;
   margin-top: 0 !important;
-  margin-left: calc(var(--margin) * 2.8);
+  margin-left: calc(var(--margin) * 2.78);
 }
 .ltrEnabled section div br:not(:first-of-type) {
   display: block;
 }
 .ltrEnabled section div {
-  width: calc(var(--height) * 2.48);
+  width: calc(var(--height) * 2.5);
   margin-bottom: 0;
   margin-right: 0.125rem;
   padding: 6px 10px;
@@ -556,25 +555,26 @@ section div br:not(:first-of-type) {
   transition: rotate 0.2s;
 }
 #side {
-  height: calc(100vh - 56px);
-  width: 78px;
+  height: calc(100vh - 52px);
   position: fixed;
-  background: #f6f8fa;
+  background: var(--primary-background);
   z-index: 1;
-  top: 56px;
+  top: 52px;
+  left: 0;
   display: none;
   flex-direction: column;
+  gap: 1rem;
+  padding: 1.6rem 0.5rem;
 }
 .pillContainer {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-}
-.pillContainer:first-of-type {
-  margin-top: 20px;
+  gap: 2px;
 }
 .sidebarPresent {
-  margin-left: 78px;
+  margin-left: 4.125rem;
 }
 @font-face {
   font-family: "Pluto";
@@ -704,8 +704,8 @@ ul {
 .pill {
   border-radius: 16px;
   transition: all 0.1s ease-in-out;
-  background-color: var(--background);
-  padding: 0.25rem 0.5rem;
+  background-color: var(--primary-foreground);
+  padding: 0.4rem 0.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -718,6 +718,7 @@ ul {
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
+  border: none;
 }
 .day-group h3 {
   width: fit-content;
@@ -726,9 +727,10 @@ ul {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1px;
-  text-align: center;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+  font-family: Google Sans Flex;
+  color: var(--accent-text);
 }
 .navSelected {
   background-color: var(--primary-accent) !important;
