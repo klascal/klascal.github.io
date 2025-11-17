@@ -1349,11 +1349,52 @@ const newWindow = window.open(targetOrigin);</code>
       }
     </script>
     <script>
-      christmasOverlaySnow.enable({
-  snowflakeCount: 100,
-  snowflakeColor: 'white',
-  zIndex: 9999
-});
+      let overlayType = "christmas"; // "none", "christmas" of "newyears"
+
+      let clickCount = 0;
+      const clickThreshold = 5;
+      const overlayDuration = 10000;
+
+      const logo = document.getElementById('icon');
+      let fireworks = null;
+
+      logo.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount === clickThreshold) {
+          if (overlayType === "christmas") {
+            christmasOverlaySnow.enable({
+              snowflakeCount: 100,
+              snowflakeColor: 'white',
+              zIndex: 99999
+            });
+
+            setTimeout(() => {
+              christmasOverlaySnow.disable();
+              clickCount = 0;
+            }, overlayDuration);
+            
+          } else if (overlayType == "newyears") {
+            fireworks = new FireworksOverlay({
+              colors: ['#FF0000', '#00FF00', '#0000FF'],
+              particleCount: 100,
+              gravity: 0.05,
+              speed: { min: 3, max: 8 },
+              radius: { min: 2, max: 5 },
+              interval: 500,
+              zIndex: 10000
+            });
+            fireworks.startAnimation();
+
+            setTimeout(() => {
+              firworks.stopAnimation();
+              clickCount = 0;
+            }, overlayDuration);
+          } else {
+            clickCount = 0;
+          }
+        }
+      }
     </script>
   </body>
 </html>
