@@ -21,6 +21,8 @@
       hljs.highlightAll();
     </script>
     <title>Klascal</title>
+    <script src="ChristmasOverlay.js"></script>
+    <script src="NewYearsOverlay.js"></script>
     <script>
       !(function (t, e) {
         var o, n, p, r;
@@ -1345,6 +1347,13 @@ const newWindow = window.open(targetOrigin);</code>
       if (typeof navigator.serviceWorker !== "undefined") {
         navigator.serviceWorker.register("sw.js");
       }
+    </script>
+    <script>
+      christmasOverlaySnow.enable({
+  snowflakeCount: 100,
+  snowflakeColor: 'white',
+  zIndex: 9999
+});
     </script>
   </body>
 </html>
