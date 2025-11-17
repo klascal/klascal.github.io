@@ -1349,77 +1349,52 @@ const newWindow = window.open(targetOrigin);</code>
       }
     </script>
 <script>
-let overlayType = "christmas"; // "none", "christmas", "newyears"
-let clickCount = 0;
-const clickThreshold = 5;
-const overlayDuration = 10000; // 10 sec
-const logo = document.getElementById('icon');
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.getElementById('icon');
+  if (!logo) return;
 
-let fireworks = null;
-let snowOverlay = null;
+  let overlayType = "christmas";
+  let clickCount = 0;
+  const clickThreshold = 5;
+  const overlayDuration = 10000;
 
-logo.addEventListener('click', () => {
-  clickCount++;
+  let fireworks = null;
+  let snowOverlay = null;
 
-  if (clickCount === clickThreshold) {
-    if (overlayType === "christmas") {
-      // Start de sneeuw overlay
-      christmasOverlaySnow.enable({
-        snowflakeCount: 100,
-        snowflakeColor: 'white',
-        zIndex: 99999
-      });
-
-      // Vind de overlay DOM
-      snowOverlay = document.getElementById('christmas-overlay');
-
-      // Na x seconden: stop nieuwe sneeuw maar laat huidige vallen
-      setTimeout(() => {
-        if (snowOverlay) {
-          // Stop het toevoegen van nieuwe sneeuwvlokken
-          // We laten de huidige CSS animaties gewoon doorlopen
-          snowOverlay.dataset.stop = "true";
-          // Eventueel: fade out bestaande sneeuw na verloop
-          setTimeout(() => {
-            snowOverlay.remove();
-          }, 5000); // laat de bestaande sneeuw nog 5 sec vallen
-        }
+  logo.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount === clickThreshold) {
+      if (overlayType === "christmas") {
+        christmasOverlaySnow.enable({ snowflakeCount: 100, snowflakeColor: 'white', zIndex: 99999 });
+        snowOverlay = document.getElementById('christmas-overlay');
+        setTimeout(() => {
+          if (snowOverlay) {
+            christmasOverlaySnow.disable();
+          }
+          clickCount = 0;
+        }, overlayDuration);
+      } else if (overlayType === "newyears") {
+        fireworks = new FireworksOverlay({ colors: ['#FF0000','#00FF00','#0000FF'], particleCount:100, gravity:0.05, speed:{min:3,max:8}, radius:{min:2,max:5}, interval:500, zIndex:10000 });
+        fireworks.startAnimation();
+        setTimeout(() => {
+          if (fireworks) {
+            clearInterval(fireworks.fireworksInterval);
+            fireworks.fireworksInterval = null;
+            const checkEmpty = setInterval(() => {
+              if (fireworks.fireworks.length === 0) {
+                fireworks.stopAnimation();
+                fireworks.canvas.remove();
+                clearInterval(checkEmpty);
+              }
+            }, 100);
+          }
+          clickCount = 0;
+        }, overlayDuration);
+      } else {
         clickCount = 0;
-      }, overlayDuration);
-
-    } else if (overlayType === "newyears") {
-      fireworks = new FireworksOverlay({
-        colors: ['#FF0000', '#00FF00', '#0000FF'],
-        particleCount: 100,
-        gravity: 0.05,
-        speed: { min: 3, max: 8 },
-        radius: { min: 2, max: 5 },
-        interval: 500,
-        zIndex: 10000
-      });
-      fireworks.startAnimation();
-
-      // Stop nieuwe fireworks na overlayDuration
-      setTimeout(() => {
-        if (fireworks) {
-          clearInterval(fireworks.fireworksInterval); // stop nieuwe aanmaak
-          fireworks.fireworksInterval = null;
-          // Bestaande particles blijven animatie afmaken
-          const checkEmpty = setInterval(() => {
-            if (fireworks.fireworks.length === 0) {
-              fireworks.stopAnimation();
-              fireworks.canvas.remove();
-              clearInterval(checkEmpty);
-            }
-          }, 100);
-        }
-        clickCount = 0;
-      }, overlayDuration);
-
-    } else {
-      clickCount = 0; // geen overlay
+      }
     }
-  }
+  });
 });
 </script>
   </body>
