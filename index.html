@@ -1348,54 +1348,66 @@ const newWindow = window.open(targetOrigin);</code>
         navigator.serviceWorker.register("sw.js");
       }
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const logo = document.getElementById('icon');
-  if (!logo) return;
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const logo = document.getElementById("icon");
+        if (!logo) return;
 
-  let overlayType = "newyears";
-  let clickCount = 0;
-  const clickThreshold = 5;
-  const overlayDuration = 10000;
+        let overlayType = "newyears";
+        let clickCount = 0;
+        const clickThreshold = 5;
+        const overlayDuration = 10000;
 
-  let fireworks = null;
-  let snowOverlay = null;
+        let fireworks = null;
+        let snowOverlay = null;
 
-  logo.addEventListener('click', () => {
-    clickCount++;
-    if (clickCount === clickThreshold) {
-      if (overlayType === "christmas") {
-        christmasOverlaySnow.enable({ snowflakeCount: 100, snowflakeColor: 'white', zIndex: 99999 });
-        snowOverlay = document.getElementById('christmas-overlay');
-        setTimeout(() => {
-          if (snowOverlay) {
-            christmasOverlaySnow.disable();
+        logo.addEventListener("click", () => {
+          clickCount++;
+          if (clickCount === clickThreshold) {
+            if (overlayType === "christmas") {
+              christmasOverlaySnow.enable({
+                snowflakeCount: 100,
+                snowflakeColor: "white",
+                zIndex: 99999,
+              });
+              snowOverlay = document.getElementById("christmas-overlay");
+              setTimeout(() => {
+                if (snowOverlay) {
+                  christmasOverlaySnow.disable();
+                }
+                clickCount = 0;
+              }, overlayDuration);
+            } else if (overlayType === "newyears") {
+              fireworks = new FireworksOverlay({
+                colors: ["#FF0000", "#00FF00", "#0000FF"],
+                particleCount: 100,
+                gravity: 0.05,
+                speed: { min: 3, max: 8 },
+                radius: { min: 2, max: 5 },
+                interval: 500,
+                zIndex: 10000,
+              });
+              fireworks.startAnimation();
+              setTimeout(() => {
+                if (fireworks) {
+                  clearInterval(fireworks.fireworksInterval);
+                  fireworks.fireworksInterval = null;
+                  const checkEmpty = setInterval(() => {
+                    if (fireworks.fireworks.length === 0) {
+                      fireworks.stopAnimation();
+                      fireworks.canvas.remove();
+                      clearInterval(checkEmpty);
+                    }
+                  }, 100);
+                }
+                clickCount = 0;
+              }, overlayDuration);
+            } else {
+              clickCount = 0;
+            }
           }
-          clickCount = 0;
-        }, overlayDuration);
-      } else if (overlayType === "newyears") {
-        fireworks = new FireworksOverlay({ colors: ['#FF0000','#00FF00','#0000FF'], particleCount:100, gravity:0.05, speed:{min:3,max:8}, radius:{min:2,max:5}, interval:500, zIndex:10000 });
-        fireworks.startAnimation();
-        setTimeout(() => {
-          if (fireworks) {
-            clearInterval(fireworks.fireworksInterval);
-            fireworks.fireworksInterval = null;
-            const checkEmpty = setInterval(() => {
-              if (fireworks.fireworks.length === 0) {
-                fireworks.stopAnimation();
-                fireworks.canvas.remove();
-                clearInterval(checkEmpty);
-              }
-            }, 100);
-          }
-          clickCount = 0;
-        }, overlayDuration);
-      } else {
-        clickCount = 0;
-      }
-    }
-  });
-});
-</script>
+        });
+      });
+    </script>
   </body>
 </html>
