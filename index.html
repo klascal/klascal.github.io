@@ -1424,14 +1424,14 @@ const newWindow = window.open(targetOrigin);</code>
               scare.style.transition = "opacity 0.5s ease";
 
               const img = document.createElement("img");
-              img.src = "jumpscare2.png";
+              img.src = "jumpscare.jpeg";
               img.style.maxWidth = "100%";
               img.style.maxHeight = "100%";
 
               scare.appendChild(img);
               document.body.appendChild(scare);
 
-              const audio = new Audio("scream2.mp3");
+              const audio = new Audio("scream.mp3");
               audio.volume = 1.0;
               audio.play().catch(() => {});
 
