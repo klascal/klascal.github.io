@@ -1353,16 +1353,18 @@ const newWindow = window.open(targetOrigin);</code>
         const logo = document.getElementById("icon");
         if (!logo) return;
 
-        let overlayType = "newyears";
+        let overlayType = "aprilfools";
         let clickCount = 0;
         const clickThreshold = 5;
         const overlayDuration = 10000;
 
         let fireworks = null;
         let snowOverlay = null;
+        let birthday = null;
 
         logo.addEventListener("click", () => {
           clickCount++;
+
           if (clickCount === clickThreshold) {
             if (overlayType === "christmas") {
               christmasOverlaySnow.enable({
@@ -1370,14 +1372,16 @@ const newWindow = window.open(targetOrigin);</code>
                 snowflakeColor: "white",
                 zIndex: 99999,
               });
+
               snowOverlay = document.getElementById("christmas-overlay");
+
               setTimeout(() => {
-                if (snowOverlay) {
-                  christmasOverlaySnow.disable();
-                }
+                if (snowOverlay) christmasOverlaySnow.disable();
                 clickCount = 0;
               }, overlayDuration);
-            } else if (overlayType === "newyears") {
+            }
+
+            else if (overlayType === "newyears") {
               fireworks = new FireworksOverlay({
                 colors: ["#FF0000", "#00FF00", "#0000FF"],
                 particleCount: 100,
@@ -1387,11 +1391,13 @@ const newWindow = window.open(targetOrigin);</code>
                 interval: 500,
                 zIndex: 10000,
               });
+
               fireworks.startAnimation();
+
               setTimeout(() => {
                 if (fireworks) {
                   clearInterval(fireworks.fireworksInterval);
-                  fireworks.fireworksInterval = null;
+
                   const checkEmpty = setInterval(() => {
                     if (fireworks.fireworks.length === 0) {
                       fireworks.stopAnimation();
@@ -1402,7 +1408,58 @@ const newWindow = window.open(targetOrigin);</code>
                 }
                 clickCount = 0;
               }, overlayDuration);
-            } else {
+            } else if (overlayType === "aprilfools") {
+              const scare = document.createElement("div");
+              scare.id = "aprilfools-overlay";
+              scare.style.position = "fixed";
+              scare.style.top = "0";
+              scare.style.left = "0";
+              scare.style.width = "100vw";
+              scare.style.height = "100vh";
+              scare.style.background = "black";
+              scare.style.display = "flex";
+              scare.style.justifyContent = "center";
+              scare.style.alignItems = "center";
+              scare.style.zIndex = "200000";
+              scare.style.transition = "opacity 0.5s ease";
+
+              const img = document.createElement("img");
+              img.src = "jumpscare.jpeg";
+              img.style.maxWidth = "100%";
+              img.style.maxHeight = "100%";
+
+              scare.appendChild(img);
+              document.body.appendChild(scare);
+
+              const audio = new Audio("scream.mp3");
+              audio.volume = 1.0;
+              audio.play().catch(() => {});
+
+              setTimeout(() => {
+                scare.style.opacity = "0";
+                setTimeout(() => {
+                  scare.remove();
+                }, 500);
+                clickCount = 0;
+              }, 4000);
+            }
+
+            else if (overlayType === "birthday") {
+              birthday = new BirthdayOverlay({
+                colors: ["#FF69B4", "#FFD700", "#87CEEB", "#FF4500", "#32CD32"],
+                particleCount: 90,
+                zIndex: 999999,
+              });
+
+              birthday.start();
+
+              setTimeout(() => {
+                if (birthday) birthday.gracefulStop();
+                clickCount = 0;
+              }, overlayDuration);
+            }
+
+            else {
               clickCount = 0;
             }
           }
