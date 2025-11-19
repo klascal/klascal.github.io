@@ -482,7 +482,7 @@ body[data-theme="pink monochrome"] {
   border: 1px solid var(--primary-border);
   border-radius: 0.5rem;
   padding: 1rem 0.7rem;
-  max-width: calc(100% - 24px);
+  width: calc(100% - 25px);
   font-family: inherit;
   font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
   background-color: transparent;
