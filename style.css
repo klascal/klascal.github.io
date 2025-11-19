@@ -950,7 +950,7 @@ input[type="radio"]:not(:checked) ~ label {
 }
 .cancelled {
   background-color: #fdb1b1;
-  color: #660d00;
+  color: #4d0a00;
 }
 .notEnrolled,
 button:disabled {
