@@ -893,7 +893,7 @@ async function showLessonInfo(lessonHTML, lesson) {
     dateStyle: "medium",
   });
   if (a.students) {
-    a.students = `<div class="les dates"><p>Alle leerlingnummers: ${a.students}</p></div>`;
+    a.students = `<div class="les dates"><p>Leerlingen: ${a.students}</p></div>`;
   } else {
     a.students = "";
   }

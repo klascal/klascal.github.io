@@ -706,7 +706,7 @@ ul {
   vertical-align: sub;
 }
 .pill {
-  border-radius: 16px;
+  border-radius: 0.5rem;
   transition: all 0.1s ease-in-out;
   background-color: var(--primary-background);
   padding: 0.4rem 0.75rem;
@@ -1130,6 +1130,7 @@ button:disabled {
   background-color: var(--primary-foreground-faded);
   padding: 8px 0;
   word-break: break-all;
+  flex: 1;
 }
 .createdDate {
   border-right: 2px solid var(--primary-background);
@@ -1154,10 +1155,10 @@ button:disabled {
     border-radius: 2rem 0 0 2rem;
     position: fixed;
     top: 0;
-    width: 300px;
+    width: 290px;
   }
   dialog.right #content {
-    width: 300px;
+    width: 290px;
   }
 }
 @media (max-width: 445px) {
