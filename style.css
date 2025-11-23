@@ -619,7 +619,13 @@ b {
 }
 dialog .btn {
   color: var(--primary-dark);
-  background-color: var(--primary-light);
+  background: var(--primary-light)
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.5) -100%,
+      transparent 80%,
+      rgba(255, 255, 255, 0.2) 100%
+    );
 }
 #ltr.btn:active,
 dialog .btn:active {
