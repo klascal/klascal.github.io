@@ -664,6 +664,16 @@ button:not(:disabled) {
 }
 .themes {
   padding: 8px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+@font-face {
+  font-family: "FontWithASyntaxHighlighter";
+  src: url("/FontWithASyntaxHighlighter-Regular.woff2") format("woff2");
+}
+code {
+  font-family: "FontWithASyntaxHighlighter", monospace;
 }
 dialog details summary {
   cursor: pointer;
