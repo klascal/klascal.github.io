@@ -574,7 +574,6 @@ section div br:not(:first-of-type) {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
 }
 .sidebarPresent {
   margin-left: 4.25rem;
@@ -753,6 +752,10 @@ ul {
   font-family: Google Sans Flex;
   color: var(--accent-text);
   font-variation-settings: "ROND" 100;
+  padding-top: 2px;
+}
+.pillContainer .pill {
+  border-radius: 0.75rem;
 }
 .navSelected {
   background-color: var(--primary-accent) !important;
