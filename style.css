@@ -117,16 +117,15 @@ dialog {
   border: 0;
   border-radius: 2rem;
   background-color: var(--primary-background);
-  padding: 22px;
-  max-width: calc(100vw - 80px);
-  max-height: calc(100vh - 80px);
+  padding: 16px 18px;
+  max-width: calc(100vw - 60px);
+  max-height: calc(100vh - 60px);
   animation: popIn 0.3s;
   overflow-x: hidden;
   user-select: none;
   outline: none;
   view-transition-name: dialog;
-  width: 276px;
-  padding-top: 18px;
+  width: 280px;
 }
 
 @keyframes popIn {
@@ -363,6 +362,7 @@ h2 {
   font-size: 1.25rem;
   font-weight: 500;
   margin-top: 0;
+  margin-left: 4px;
   margin-bottom: 10px;
   font-family: Google Sans Flex;
   font-variation-settings: "ROND" 100;
@@ -1163,6 +1163,13 @@ button:disabled {
   align-items: center;
   white-space: nowrap;
 }
+dialog.right {
+  padding: 16px;
+}
+dialog.right,
+dialog.right #content {
+  width: 295px;
+}
 @media (min-width: 500px) {
   dialog.right {
     margin: 0;
@@ -1174,10 +1181,6 @@ button:disabled {
     border-radius: 2rem 0 0 2rem;
     position: fixed;
     top: 0;
-    width: 290px;
-  }
-  dialog.right #content {
-    width: 290px;
   }
 }
 @media (max-width: 445px) {

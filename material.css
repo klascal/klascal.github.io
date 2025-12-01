@@ -440,8 +440,8 @@ body[data-theme="pink monochrome"] {
   --checked-thumb-background: var(--primary-dark);
   --thumb-space-between-edges: 0.2rem;
   --thumb-out: var(--thumb-space-between-edges);
-  max-width: calc(100vw - 80px);
-  width: 244px;
+  max-width: calc(100vw - 92px);
+  width: 248px;
   padding: 18px 16px;
 }
 .switch__design {
@@ -530,7 +530,7 @@ p {
   font-family: inherit;
   font-size: inherit;
   float: right;
-  margin-top: 16px;
+  margin-top: 12px;
   view-transition-name: close;
 }
 
@@ -560,12 +560,11 @@ p {
   color: var(--primary-dark);
 }
 #content {
-  max-height: calc(100vh - 180px);
-  max-width: calc(100vw - 80px);
+  max-height: calc(100vh - 160px);
+  max-width: calc(100vw - 60px);
   overflow-y: auto;
   padding-top: 7px;
-  width: 100vw;
-  width: 276px;
+  width: 280px;
   padding-right: 24px;
   overflow-x: hidden;
 }
