@@ -684,7 +684,7 @@ details {
   overflow: hidden;
 }
 summary::marker {
-  font-size: 0.75em;
+  font-family: inherit;
 }
 details::details-content {
   block-size: 0;
