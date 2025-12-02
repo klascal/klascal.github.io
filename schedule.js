@@ -897,7 +897,16 @@ async function showLessonInfo(lessonHTML, lesson) {
   } else {
     a.students = "";
   }
-  document.querySelector(
-    "#info #content"
-  ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+  if (!document.startViewTransition || window.innerWidth > 500) {
+    document.querySelector(
+      "#info #content"
+    ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+  } else {
+    document.startViewTransition(
+      () =>
+        (document.querySelector(
+          "#info #content"
+        ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+    );
+  }
 }

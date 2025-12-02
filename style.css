@@ -1165,6 +1165,7 @@ button:disabled {
 }
 dialog.right {
   padding: 16px;
+  animation: popIn 0.1s;
 }
 dialog.right,
 dialog.right #content {
@@ -1181,6 +1182,7 @@ dialog.right #content {
     border-radius: 2rem 0 0 2rem;
     position: fixed;
     top: 0;
+    animation: popIn 0.3s;
   }
 }
 @media (max-width: 445px) {
