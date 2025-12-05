@@ -363,7 +363,7 @@ h2 {
   font-weight: 500;
   margin-top: 0;
   margin-left: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-family: Google Sans Flex;
   font-variation-settings: "ROND" 100;
 }
@@ -618,13 +618,7 @@ b {
 }
 dialog .btn {
   color: var(--primary-dark);
-  background: var(--primary-light)
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.5) -100%,
-      transparent 80%,
-      rgba(255, 255, 255, 0.2) 100%
-    );
+  background: var(--primary-light);
 }
 #ltr.btn:active,
 dialog .btn:active {
@@ -1179,7 +1173,7 @@ dialog.right #content {
     height: stretch;
     margin-left: auto;
     max-height: none;
-    border-radius: 2rem 0 0 2rem;
+    border-radius: 1.5rem 0 0 1.5rem;
     position: fixed;
     top: 0;
     animation: popIn 0.3s;

@@ -73,8 +73,7 @@ function resetAfterWelcomeScreen() {
   show("zermelo", "Zermelo koppelen");
   document
     .querySelector("#dialog #closeBtn")
-    .setAttribute("onclick", "closeDialog()");
-  document.querySelector("#dialog #closeBtn").innerHTML = "Sluiten";
+    .setAttribute("onclick", "show('submenus', 'Instellingen')");
 }
 async function fetchToken() {
   try {
@@ -266,6 +265,12 @@ function show(id, title, hideBack) {
         title;
     } else {
       document.querySelector("#dialog h2").innerHTML = title;
+      if (!hideBack) {
+        document
+          .querySelector("#dialog #closeBtn")
+          .setAttribute("onclick", "closeDialog()");
+        document.querySelector("#dialog #closeBtn").innerHTML = "Sluiten";
+      }
     }
   });
 }

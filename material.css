@@ -214,7 +214,7 @@ body[data-theme="purple"] {
   --primary-dark: #f0d1fe;
   --primary-accent: #f0bcff;
   --primary-accent-faded: #e8e1f3b0;
-  --primary-foreground: #fff2fc;
+  --primary-foreground: #fcf2ff;
   --primary-background: #fbd1ff;
   --background: #dbbcff;
   --thumb-background: #6a498a;
@@ -563,7 +563,6 @@ p {
   max-height: calc(100vh - 160px);
   max-width: calc(100vw - 60px);
   overflow-y: auto;
-  padding-top: 7px;
   width: 280px;
   padding-right: 24px;
   overflow-x: hidden;
