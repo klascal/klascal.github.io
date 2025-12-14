@@ -498,7 +498,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.subjects
           }</strong><strong class="subjAbbrev">${subjAbbrev}</strong><strong class="lesuur">${
             a.startTimeSlot
-          }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 8px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
+          }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 6px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
             a.locations
           }<span class="teachersAndGroups">${
             a.teachers.length != 0 ? ` (${a.teachers})` : ""
@@ -568,8 +568,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
-    let top = rect.bottom + 10;
-    let left = rect.right - tipRect.width + 6; // rect.left + (rect.width - tipRect.width) / 2 for center
+    let top = rect.bottom + 12;
+    let left = rect.right - tipRect.width + 4; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
     if (left < 0) left = 8;
@@ -892,10 +892,16 @@ async function showLessonInfo(lessonHTML, lesson) {
   if (!data.response.data[0]) return;
   const a = data.response.data[0];
   const createdDate = new Date(a.created * 1000).toLocaleString([], {
-    dateStyle: "medium",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
   });
   const modifiedDate = new Date(a.lastModified * 1000).toLocaleString([], {
-    dateStyle: "medium",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
   });
   if (a.students) {
     a.students = `<div class="les dates"><p>Leerlingen: ${a.students}</p></div>`;

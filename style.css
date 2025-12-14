@@ -197,16 +197,19 @@ section #submenu {
 .tooltip {
   position: fixed;
   background: var(--primary-accent);
-  color: var(--primary-light);
+  color: var(--accent-text);
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  transition: opacity 0.15s;
+  transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
   font-family: Google Sans Flex;
-  font-weight: 450;
+  font-weight: 500;
   font-variation-settings: "opsz" 20, "ROND" 100;
+  width: max-content;
+  max-width: calc(100% - 40px);
+  pointer-events: none;
 }
 .tooltip[data-show] {
   opacity: 1;
@@ -492,7 +495,7 @@ h3 {
 }
 .moreInfo {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.4rem;
 }
 .dates p {
   display: block;
@@ -1138,10 +1141,9 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   justify-content: center;
-  background-color: var(--primary-foreground-faded);
-  padding: 8px 0;
+  padding: 10px;
   word-break: break-all;
   flex: 1;
 }
@@ -1163,7 +1165,7 @@ dialog.right {
 }
 dialog.right,
 dialog.right #content {
-  width: 295px;
+  width: 308px;
 }
 @media (min-width: 500px) {
   dialog.right {
