@@ -48,12 +48,13 @@
   view-transition-name: next;
   z-index: 2;
   position: relative;
+  padding: 0;
 }
 .check_box {
   display: none;
 }
 #soft_burst {
-  translate: -9px 1.5px;
+  translate: -9px 2px;
   fill: var(--primary-light);
   vertical-align: middle;
   position: absolute;
@@ -71,6 +72,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 .cancelled .className {
   display: none !important;
@@ -239,20 +241,19 @@ section #submenu:last-of-type {
 }
 
 #week {
-  font-size: initial;
-  vertical-align: middle;
-  width: 67.5px;
-  display: inline-block;
+  font-family: Google Sans Flex;
+  font-weight: 500;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  font-size: 0.875rem;
 }
 .geweest {
   border: 1px solid #5ebb60;
   background-color: #e2eedf;
-}
-
-@media (prefers-color-scheme: dark) {
-  #week {
-    color: #fff;
-  }
 }
 #warningIcon {
   vertical-align: sub;
@@ -407,9 +408,10 @@ strong.date,
   font-variation-settings: "opsz" 20, "ROND" 100;
 }
 strong.date {
-  margin: 8px;
+  margin: 8px 12px;
   color: var(--primary-light);
   display: block;
+  font-weight: 600;
 }
 
 .warning[style="bottom: 5px"] svg {
@@ -1061,20 +1063,22 @@ button:disabled {
   display: none;
 }
 @media (max-width: 1300px) {
-  .weekEnabled span .long:not(:first-of-type) {
-    display: none;
-  }
   #ltr {
-    display: none;
-  }
-}
-@media (max-width: 1200px) {
-  .weekEnabled span .long:first-of-type {
     display: none;
   }
 }
 @media (max-width: 1050px) {
   .weekEnabled .les span.teachersAndGroups {
+    display: none;
+  }
+}
+@media (max-width: 1007px) {
+  .weekEnabled span .long:not(:first-of-type) {
+    display: none;
+  }
+}
+@media (max-width: 785px) {
+  .weekEnabled span .long:first-of-type {
     display: none;
   }
 }
@@ -1181,7 +1185,7 @@ dialog.right #content {
     animation: popIn 0.3s;
   }
 }
-@media (max-width: 445px) {
+@media (max-width: 512px) {
   .weekEnabled .longExtraExtraExtra {
     display: none !important;
   }
