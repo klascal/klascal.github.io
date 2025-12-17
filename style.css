@@ -39,7 +39,7 @@
   background-color: var(--primary-accent);
   z-index: 2;
   position: relative;
-  padding: 0.4rem;
+  padding: 0.45rem 0.5rem;
 }
 #nextDay {
   border: none;
@@ -47,7 +47,7 @@
   background-color: var(--primary-accent);
   z-index: 2;
   position: relative;
-  padding: 0.4rem;
+  padding: 0.45rem 0.5rem;
 }
 .check_box {
   display: none;
