@@ -292,7 +292,7 @@ table {
   max-width: 356px;
 }
 section #submenu {
-  padding: 12px 14px;
+  padding: 10px 12px;
   font-weight: 450;
   letter-spacing: 0.1px;
   font-size: 1rem;
@@ -1079,7 +1079,7 @@ button:disabled {
   margin-right: 5.55px;
   cursor: pointer;
   background-color: var(--primary-background-faded);
-  padding: 0.37rem;
+  padding: 0.5rem;
   border-radius: 0.75rem;
 }
 #content .submenu {
