@@ -35,26 +35,25 @@
 }
 #previousDay {
   border: none;
-  border-radius: 4rem 0 0 4rem;
-  background-color: transparent;
-  view-transition-name: prev;
+  border-radius: 4rem 0.5rem 0.5rem 4rem;
+  background-color: var(--primary-accent);
   z-index: 2;
   position: relative;
+  padding: 0.4rem;
 }
 #nextDay {
   border: none;
-  border-radius: 0 4rem 4rem 0;
-  background-color: transparent;
-  view-transition-name: next;
+  border-radius: 0.5rem 4rem 4rem 0.5rem;
+  background-color: var(--primary-accent);
   z-index: 2;
   position: relative;
-  padding: 0;
+  padding: 0.4rem;
 }
 .check_box {
   display: none;
 }
 #soft_burst {
-  translate: -9px 2px;
+  transform: translateX(-9px);
   fill: var(--primary-light);
   vertical-align: middle;
   position: absolute;
@@ -189,7 +188,7 @@ section #submenu {
   border-radius: 0.25rem;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "ROND" 100;
 }
 .day section div {
@@ -206,7 +205,7 @@ section #submenu {
   opacity: 0;
   transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-weight: 500;
   font-variation-settings: "opsz" 20, "ROND" 100;
   width: max-content;
@@ -241,7 +240,7 @@ section #submenu:last-of-type {
 }
 
 #week {
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-weight: 500;
   line-height: 1;
   display: flex;
@@ -293,7 +292,7 @@ table {
   max-width: 356px;
 }
 section #submenu {
-  padding: 16px;
+  padding: 12px 14px;
   font-weight: 450;
   letter-spacing: 0.1px;
   font-size: 1rem;
@@ -368,7 +367,7 @@ h2 {
   margin-top: 0;
   margin-left: 4px;
   margin-bottom: 12px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "ROND" 100;
 }
 
@@ -404,13 +403,14 @@ strong.date,
   font-weight: 500;
   letter-spacing: 0.00625rem;
   display: inline;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "opsz" 20, "ROND" 100;
 }
 strong.date {
   margin: 8px 12px;
   color: var(--primary-light);
-  display: block;
+  display: flex;
+  align-items: center;
   font-weight: 600;
 }
 
@@ -465,7 +465,7 @@ h3 {
   margin-top: 2.5rem;
 }
 .ltrEnabled strong.date {
-  margin: 12px 8px;
+  margin: 12px;
 }
 .ltrEnabled .day div {
   display: flex;
@@ -555,7 +555,8 @@ section div br:not(:first-of-type) {
   border-radius: 0.75rem;
 }
 #ltr span {
-  vertical-align: middle;
+  vertical-align: text-top;
+  font-family: Google Sans Flex, Inter, system-ui;
 }
 #ltr svg {
   fill: var(--accent-text);
@@ -605,7 +606,7 @@ section div br:not(:first-of-type) {
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "ROND" 100;
 }
 .btn {
@@ -618,7 +619,10 @@ b {
   font-weight: 500;
   letter-spacing: 0.1px;
 }
-.btn:hover {
+.btn:hover,
+#previousDay:hover,
+#nextDay:hover,
+#settingsButton:hover {
   filter: brightness(0.9);
 }
 dialog .btn {
@@ -658,7 +662,7 @@ button:not(:disabled) {
   padding: 9px;
   background-color: var(--primary-light) !important;
   color: var(--primary-dark) !important;
-  border-radius: 4rem !important;
+  border-radius: 2rem !important;
 }
 .themes {
   padding: 8px 14px;
@@ -732,7 +736,7 @@ ul {
   width: fit-content;
   color: var(--accent-text);
   font-weight: 450;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
@@ -748,7 +752,7 @@ ul {
   letter-spacing: 0.1px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   color: var(--accent-text);
   font-variation-settings: "ROND" 100;
   padding-top: 2px;
@@ -815,8 +819,11 @@ small {
   font-weight: 500;
   letter-spacing: 0.1px;
   opacity: 0.8;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "opsz" 20, "ROND" 100;
+}
+#settingsButton {
+  background-color: var(--primary-accent);
 }
 .onvoldoende .grade {
   color: #d32f0d;
@@ -832,6 +839,11 @@ li {
 #dayBtn,
 #weekBtn {
   background-color: var(--primary-accent);
+}
+#dayBtn span,
+#weekBtn span {
+  font-family: Google Sans Flex, Inter, system-ui;
+  line-height: 1;
 }
 #viewSelect {
   display: flex;
@@ -886,7 +898,7 @@ input[type="radio"] ~ label {
   cursor: pointer;
   font-weight: 450;
   letter-spacing: 0.1px;
-  font-family: Google Sans Flex;
+  font-family: Google Sans Flex, Inter, system-ui;
   transition: opacity 0.15s ease-in-out;
   font-variation-settings: "ROND" 100;
 }
@@ -895,14 +907,22 @@ input[type="radio"]:not(:checked) ~ label {
 }
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
-  .btn:hover {
+  .btn:hover,
+  #previousDay:hover,
+  #nextDay:hover,
+  #settingsButton:hover {
     filter: brightness(1.1);
   }
   #dayBtn,
   #weekBtn,
   #ltr,
-  #side {
+  #side,
+  #previousDay,
+  #nextDay {
     background-color: var(--primary-foreground);
+  }
+  #settingsButton {
+    background-color: var(--primary-dark);
   }
   #warningIcon {
     fill: #e89822;
@@ -1058,6 +1078,9 @@ button:disabled {
   transform: translateY(-2px);
   margin-right: 5.55px;
   cursor: pointer;
+  background-color: var(--primary-background-faded);
+  padding: 0.37rem;
+  border-radius: 0.75rem;
 }
 #content .submenu {
   display: none;
@@ -1190,7 +1213,13 @@ dialog.right #content {
     display: none !important;
   }
 }
-@media (max-width: 330px) {
+@media (max-width: 345px) {
+  #field {
+    width: calc(100vw - 8px);
+    padding: 4px;
+  }
+}
+@media (max-width: 337px) {
   #weekBtn {
     display: none;
   }

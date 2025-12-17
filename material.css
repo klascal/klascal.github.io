@@ -77,6 +77,7 @@ body {
   --accent-text: gray;
   --accent-text-faded: gray;
   --primary-border: gray;
+  --primary-background-faded: var(--primary-background);
   --primary-foreground-faded: var(--primary-foreground);
   --timeline: var(--primary-light);
 }
@@ -89,6 +90,11 @@ body {
       transparent
     );
     --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
+    --primary-background-faded: color-mix(
+      in srgb,
+      var(--primary-background) 75%,
+      transparent
+    );
     --primary-foreground-faded: color-mix(
       in srgb,
       var(--primary-foreground) 90%,
@@ -323,7 +329,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="green"] {
     --primary-light: #a1e184;
-    --primary-dark: #275b0f;
+    --primary-dark: #2b4f1f;
     --primary-accent: #28462b;
     --primary-accent-faded: #3a4a40b0;
     --primary-foreground: #2a3c27;
@@ -333,7 +339,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="green monochrome"] {
     --primary-light: #a9d195;
-    --primary-dark: #275b0f;
+    --primary-dark: #2b4f1f;
     --primary-accent: #28462b;
     --primary-accent-faded: #3a4a40b0;
     --primary-foreground: #373a33;
@@ -377,7 +383,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="purple"] {
     --primary-light: #b793ec;
-    --primary-dark: #4c1261;
+    --primary-dark: #3d1261;
     --primary-accent: #341d51;
     --primary-accent-faded: #4d455ab0;
     --primary-foreground: #341d51;
@@ -387,7 +393,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="purple monochrome"] {
     --primary-light: #dfb8f7;
-    --primary-dark: #4c1261;
+    --primary-dark: #3d1261;
     --primary-accent: #4a1c51;
     --primary-accent-faded: #4d455ab0;
     --primary-foreground: #3d383e;
