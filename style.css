@@ -53,13 +53,13 @@
   display: none;
 }
 #soft_burst {
-  transform: translateX(-9px);
+  transform: translateX(-13px);
   fill: var(--primary-light);
   vertical-align: middle;
   position: absolute;
 }
 #soft_burst ~ span {
-  margin-left: 6.9px;
+  margin-left: 4px;
 }
 #field {
   background: var(--primary-background);
@@ -293,14 +293,15 @@ table {
 }
 section #submenu {
   padding: 10px 12px;
-  font-weight: 450;
+  font-weight: 500;
   letter-spacing: 0.1px;
   font-size: 1rem;
-  width: -moz-available;
-  width: -webkit-fill-available;
-  width: stretch;
-  text-align: left;
+  width: 100%;
   border: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--accent-text-light);
 }
 hr {
   height: 0.4375rem;
@@ -1075,8 +1076,6 @@ button:disabled {
 }
 #dialog #icon {
   fill: var(--primary-light) !important;
-  transform: translateY(-2px);
-  margin-right: 5.55px;
   cursor: pointer;
   background-color: var(--primary-background-faded);
   padding: 0.5rem;
@@ -1095,12 +1094,12 @@ button:disabled {
     display: none;
   }
 }
-@media (max-width: 1007px) {
+@media (max-width: 1027px) {
   .weekEnabled span .long:not(:first-of-type) {
     display: none;
   }
 }
-@media (max-width: 785px) {
+@media (max-width: 805px) {
   .weekEnabled span .long:first-of-type {
     display: none;
   }
@@ -1213,14 +1212,21 @@ dialog.right #content {
     display: none !important;
   }
 }
-@media (max-width: 345px) {
+@media (max-width: 355px) {
   #field {
     width: calc(100vw - 8px);
     padding: 4px;
   }
 }
-@media (max-width: 337px) {
+@media (max-width: 346px) {
+  #dayBtn,
   #weekBtn {
+    display: none;
+  }
+}
+@media (max-width: 186px) {
+  #previousDay,
+  #nextDay {
     display: none;
   }
 }
