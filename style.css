@@ -126,7 +126,7 @@ dialog {
   user-select: none;
   outline: none;
   view-transition-name: dialog;
-  width: 280px;
+  width: 290px;
 }
 
 @keyframes popIn {
@@ -816,12 +816,13 @@ ul {
   width: 40px;
 }
 small {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 450;
   letter-spacing: 0.1px;
-  opacity: 0.8;
+  opacity: 0.78;
   font-family: Google Sans Flex, Inter, system-ui;
   font-variation-settings: "opsz" 20, "ROND" 100;
+  color: var(--accent-text-light);
 }
 #settingsButton {
   background-color: var(--primary-accent);
@@ -904,7 +905,7 @@ input[type="radio"] ~ label {
   font-variation-settings: "ROND" 100;
 }
 input[type="radio"]:not(:checked) ~ label {
-  opacity: 0.8;
+  color: var(--accent-text-faded);
 }
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
@@ -1035,6 +1036,10 @@ button:disabled {
   height: 12px;
   border-radius: 50%;
   background-color: var(--primary-light);
+}
+label {
+  font-weight: 500;
+  color: var(--accent-text-light);
 }
 .btnGroup {
   gap: 0 !important;
