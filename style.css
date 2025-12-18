@@ -1192,7 +1192,7 @@ dialog.right {
 }
 dialog.right,
 dialog.right #content {
-  width: 308px;
+  width: 312px;
 }
 @media (min-width: 500px) {
   dialog.right {
