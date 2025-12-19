@@ -980,13 +980,18 @@ input[type="radio"]:not(:checked) ~ label {
   }
 }
 .exam {
-  border-left: 6px solid #e8cb22;
-  padding-left: 4px !important;
+  border-left: 5px solid #e8cb22;
+  padding-left: 5px !important;
 }
 
 .activity {
-  border-left: 6px solid #268e26;
-  padding-left: 4px !important;
+  border-left: 5px solid #268e26;
+  padding-left: 5px !important;
+}
+
+.meeting {
+  border-left: 5px solid #22abe8;
+  padding-left: 5px !important;
 }
 .cancelled {
   background-color: #fdb1b1;
