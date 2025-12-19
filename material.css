@@ -367,7 +367,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="blue"] {
     --primary-light: #56bbff;
-    --primary-dark: #122861;
+    --primary-dark: #163b74;
     --primary-accent: #002746;
     --primary-accent-faded: #3e455cb0;
     --primary-foreground: #002746;
@@ -403,7 +403,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="pink"] {
     --primary-light: #ff94b3;
-    --primary-dark: #63002b;
+    --primary-dark: #730132;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
     --primary-foreground: #6c1934;
