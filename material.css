@@ -367,7 +367,7 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="blue"] {
     --primary-light: #56bbff;
-    --primary-dark: #164974;
+    --primary-dark: #0b3b62;
     --primary-accent: #002746;
     --primary-accent-faded: #3e455cb0;
     --primary-foreground: #002746;
