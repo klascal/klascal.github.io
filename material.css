@@ -384,12 +384,12 @@ body[data-theme="pink monochrome"] {
     --primary-background: #1d2025;
   }
   body[data-theme="purple"] {
-    --primary-light: #b793ec;
+    --primary-light: #dba6f9;
     --primary-dark: #3d1261;
     --primary-accent: #341d51;
     --primary-accent-faded: #4d455ab0;
-    --primary-foreground: #341d51;
-    --primary-background: #25013e;
+    --primary-foreground: #391557;
+    --primary-background: #28013e;
     --background: #160031;
     --thumb-background: #66498a;
   }
