@@ -403,11 +403,11 @@ body[data-theme="pink monochrome"] {
   }
   body[data-theme="pink"] {
     --primary-light: #ff94b3;
-    --primary-dark: #71203e;
+    --primary-dark: #751c3d;
     --primary-accent: #730438;
     --primary-accent-faded: #5e3e45b0;
-    --primary-foreground: #6c1934;
-    --primary-background: #4a0f22;
+    --primary-foreground: #68132f;
+    --primary-background: #4d0c21;
     --background: #440006;
     --thumb-background: #a84762;
   }
