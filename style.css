@@ -249,7 +249,6 @@ section #submenu:last-of-type {
   justify-content: center;
   width: 1.25rem;
   font-size: 0.875rem;
-  color: var(--accent-text-light);
 }
 .geweest {
   border: 1px solid #5ebb60;
