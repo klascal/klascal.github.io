@@ -558,6 +558,7 @@ section div br:not(:first-of-type) {
 #ltr span {
   vertical-align: text-top;
   font-family: Google Sans Flex, Inter, system-ui;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 #ltr svg {
   fill: var(--accent-text);
@@ -843,9 +844,11 @@ li {
   background-color: var(--primary-accent);
 }
 #dayBtn span,
-#weekBtn span {
+#weekBtn span,
+#closeBtn span {
   font-family: Google Sans Flex, Inter, system-ui;
   line-height: 1;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 #viewSelect {
   display: flex;

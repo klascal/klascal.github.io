@@ -63,7 +63,7 @@ if (!schoolName && !accessToken) {
   document
     .querySelector("#dialog #closeBtn")
     .setAttribute("onclick", "resetAfterWelcomeScreen()");
-  document.querySelector("#dialog #closeBtn").innerHTML = "Volgende";
+  document.querySelector("#dialog #closeBtn span").innerHTML = "Volgende";
   showDialog();
 }
 setInterval(() => {
@@ -269,7 +269,7 @@ function show(id, title, hideBack) {
         document
           .querySelector("#dialog #closeBtn")
           .setAttribute("onclick", "closeDialog()");
-        document.querySelector("#dialog #closeBtn").innerHTML = "Sluiten";
+        document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
       }
     }
   });
