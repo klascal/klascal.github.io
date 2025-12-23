@@ -3,6 +3,7 @@
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv03" 1, "cv04" 1;
   interpolate-size: allow-keywords;
+  font-variation-settings: "ROND" 100;
 }
 @supports (font-variation-settings: normal) {
   :root {
@@ -49,9 +50,6 @@
   position: relative;
   padding: 0.45rem 0.5rem;
 }
-.check_box {
-  display: none;
-}
 #soft_burst {
   transform: translateX(-13px);
   fill: var(--primary-light);
@@ -72,29 +70,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-.cancelled .className {
-  display: none !important;
-}
-
-.check_box + label {
-  background: url("transpose.png");
-  height: 24px;
-  width: 24px;
-  padding: 0;
-  margin: 0;
-  display: inline-block;
-  background-size: cover;
-  vertical-align: bottom;
-  cursor: pointer;
-}
-.dag.zaterdag,
-.dag.Zaterdag,
-.dag.Za,
-.dag.zondag,
-.dag.Zondag,
-.dag.Zo {
-  display: none;
 }
 body,
 html {
@@ -126,7 +101,7 @@ dialog {
   user-select: none;
   outline: none;
   view-transition-name: dialog;
-  width: 290px;
+  width: 292px;
 }
 
 @keyframes popIn {
@@ -137,49 +112,6 @@ dialog {
     overflow: hidden;
   }
 }
-
-@keyframes popOut {
-  from {
-    max-height: calc(100vh - 80px);
-    padding: 24px;
-    opacity: 1;
-    overflow: hidden;
-  }
-  to {
-    max-height: 0px;
-    padding: 0;
-    opacity: 0;
-    overflow: hidden;
-  }
-}
-
-#inputForm {
-  max-width: 400px;
-  margin: 0 auto;
-  border-radius: 8px;
-}
-
-input[type="text"] {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-span#schedule {
-  display: block;
-}
 section div,
 section #submenu {
   background-color: var(--primary-foreground-faded);
@@ -189,7 +121,6 @@ section #submenu {
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
   font-family: Google Sans Flex, Inter, system-ui;
-  font-variation-settings: "ROND" 100;
 }
 .day section div {
   padding: 0px 10px;
@@ -250,37 +181,32 @@ section #submenu:last-of-type {
   width: 1.25rem;
   font-size: 0.875rem;
 }
-.geweest {
-  border: 1px solid #5ebb60;
-  background-color: #e2eedf;
-}
 #warningIcon {
   vertical-align: sub;
   fill: #ff9800;
-  width: 1.5rem;
-  height: 1.5rem;
 }
 .warning {
   position: absolute;
   bottom: 6px;
   right: 6px;
 }
-.switches .switch:first-of-type {
-  padding: 13px;
-  width: 250px;
-}
 th {
-  font-size: 14px;
-  font-weight: normal;
+  font-size: 16px;
+  font-weight: 450;
   text-align: left;
   padding: 8px;
+  font-family: Google Sans Flex;
+  background-color: var(--primary-foreground);
+  border-radius: 0.4rem;
+  border: 2px solid var(--primary-background);
 }
 kbd {
   font-family: inherit;
-  border: 1px solid #d0d6dc;
-  border-radius: 5px;
+  border-radius: 0.4rem;
   padding: 4px 8px;
   line-height: 2;
+  background-color: var(--primary-background);
+  color: var(--accent-text);
 }
 table {
   width: 100%;
@@ -289,7 +215,7 @@ table {
 }
 #shortcuts,
 #shortcuts #content {
-  max-width: 356px;
+  width: 400px;
 }
 section #submenu {
   padding: 10px 12px;
@@ -313,54 +239,20 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 #link #icon:nth-child(2) {
-  margin-top: 2px;
   fill: var(--thumb-background) !important;
 }
 #linkText {
   font-weight: 450;
   letter-spacing: 0.1px;
 }
-.warning .warningMessage,
-.plusTeachers .warningMessage {
-  display: none;
-  z-index: 1;
-  color: #8f501b;
-  background-color: #ffeacc;
-  border-radius: 7.5px;
-  padding: 5px;
-  position: absolute;
-  right: 5px;
-  width: max-content;
-  max-width: calc(100vw - 31px);
-  box-shadow: 0px 3px 10px 0px rgba(31, 31, 31, 0.08);
-  border: 1px solid #8f501b20;
-}
-.plusTeachers {
-  cursor: pointer;
-  display: inherit;
-}
-.plusTeachers .warningMessage {
-  display: none;
-}
-.warning:hover .warningMessage,
-.plusTeachers:hover .warningMessage {
-  display: block;
-}
 
 strong.lesuur {
   position: absolute;
   right: 13px;
   translate: 0 -1px;
-}
-.dayTitle {
-  width: calc(100vw - 10px);
-  margin: 0;
-  font-size: 14px;
-  background-color: #f6f8fa;
-  padding: 5px;
 }
 h2 {
   font-size: 1.25rem;
@@ -369,31 +261,6 @@ h2 {
   margin-left: 4px;
   margin-bottom: 12px;
   font-family: Google Sans Flex, Inter, system-ui;
-  font-variation-settings: "ROND" 100;
-}
-
-.gif-mask {
-  width: 32px;
-  height: 32px;
-  background-color: var(--primary-light);
-  -webkit-mask-image: url("loading.gif");
-  -webkit-mask-size: contain;
-  mask-image: url("loading.gif");
-  mask-size: contain;
-}
-.gif-container {
-  width: 32px;
-  padding: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-accent);
-  margin-top: 10px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-inline: auto;
-  z-index: 1;
-  box-shadow: 0px 3px 10px 0px rgba(31, 31, 31, 0.08);
-  display: none;
 }
 
 .les p,
@@ -434,15 +301,6 @@ details strong {
   font-size: inherit;
 }
 
-h3 {
-  margin: 0px;
-  width: 200px;
-  text-align: left;
-  margin-left: 5px;
-  margin-right: -5px;
-  height: 27px;
-  font-weight: 600;
-}
 #schedule {
   margin-top: 2.75rem;
   transition: transform ease-in-out 0.1s;
@@ -586,30 +444,10 @@ section div br:not(:first-of-type) {
 .sidebarPresent {
   margin-left: 4.25rem;
 }
-@font-face {
-  font-family: "Pluto";
-  src: url("https://blissradio.github.io/PlutoBold.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-#settingsButton {
-  cursor: pointer;
-  fill: black;
-}
-
-.les span.className {
-  display: none;
-}
-.subjectName {
-  display: none;
-}
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
   font-family: Google Sans Flex, Inter, system-ui;
-  font-variation-settings: "ROND" 100;
 }
 .btn {
   background-color: #f1f1f1;
@@ -654,12 +492,6 @@ button:not(:disabled) {
   height: 1.5rem;
 }
 
-#error {
-  background-color: #eeb;
-}
-.cancelled .warningMessage {
-  font-size: 14px !important;
-}
 .selected {
   padding: 9px;
   background-color: var(--primary-light) !important;
@@ -709,21 +541,9 @@ details[open]::details-content {
   display: block !important;
   width: 100%;
 }
-.hwDiv {
-  position: relative;
-  margin-bottom: 5px;
-  width: calc(100vw - 27px);
-  font-size: 14px;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
 ol,
 ul {
   padding-left: 20px;
-}
-.hwDiv svg {
-  margin-right: 5.5px;
-  vertical-align: sub;
 }
 .pill {
   border-radius: 0.5rem;
@@ -743,10 +563,6 @@ ul {
   flex-wrap: wrap;
   font-size: 14px;
   border: none;
-  font-variation-settings: "ROND" 100;
-}
-.day-group h3 {
-  width: fit-content;
 }
 .pillContainer label {
   font-size: 12px;
@@ -756,7 +572,6 @@ ul {
   transition: all 0.1s ease-in-out;
   font-family: Google Sans Flex, Inter, system-ui;
   color: var(--accent-text);
-  font-variation-settings: "ROND" 100;
   padding-top: 2px;
 }
 .pillContainer .pill {
@@ -773,49 +588,6 @@ ul {
   transform: perspective(1cm) rotateY(360deg);
   transition: transform 0.2s ease-in-out;
 }
-.hwDiv #icon {
-  fill: var(--primary-light) !important;
-  transform: translateY(-2px);
-}
-.hwDiv input[type="checkbox"] {
-  scale: 1.5;
-  cursor: pointer;
-  top: 50%;
-  transform: translateY(-50%);
-  position: absolute;
-  right: 20px;
-}
-.hwDiv input[type="checkbox"]:checked ~ details summary,
-.hwDiv input[type="checkbox"]:checked ~ strong {
-  text-decoration: line-through;
-  opacity: 0.6;
-  color: var(--primary-light);
-}
-.hwDiv input[type="checkbox"]:checked ~ svg {
-  fill: var(--primary-light);
-  opacity: 0.6;
-}
-.hwDiv summary {
-  overflow: hidden;
-  text-wrap: nowrap;
-  text-overflow: ellipsis;
-  display: block;
-  cursor: pointer;
-  max-width: calc(100% - 40px);
-}
-.hwDiv details {
-  max-width: calc(100% - 40px);
-}
-.grade {
-  float: right;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 42px;
-  margin-right: 5px;
-  width: 40px;
-}
 small {
   font-size: 14px;
   font-weight: 450;
@@ -827,9 +599,6 @@ small {
 }
 #settingsButton {
   background-color: var(--primary-accent);
-}
-.onvoldoende .grade {
-  color: #d32f0d;
 }
 li {
   margin-bottom: 5px;
@@ -905,7 +674,6 @@ input[type="radio"] ~ label {
   letter-spacing: 0.1px;
   font-family: Google Sans Flex, Inter, system-ui;
   transition: opacity 0.15s ease-in-out;
-  font-variation-settings: "ROND" 100;
 }
 input[type="radio"]:not(:checked) ~ label {
   color: var(--accent-text-faded);
@@ -932,9 +700,6 @@ input[type="radio"]:not(:checked) ~ label {
   #warningIcon {
     fill: #e89822;
   }
-  .onvoldoende .grade {
-    color: #f78d78;
-  }
   #authorizationCode:invalid {
     background-color: #ff2f2f73;
   }
@@ -944,42 +709,15 @@ input[type="radio"]:not(:checked) ~ label {
   #authorizationCode:invalid:focus {
     border: 3px solid #f48787;
   }
-  .warning .warningMessage,
-  .plusTeachers .warningMessage {
-    background-color: #5c4531;
-    color: #ffbb73;
-  }
-  kbd {
-    border: 1px solid #374048;
-  }
   body,
   html {
     color: #e1e4db;
-  }
-  .dayTitle {
-    background-color: #202125;
   }
 
   #icon,
   .icon {
     fill: white;
     vertical-align: middle;
-  }
-
-  #inputForm {
-    color: #ffffff;
-  }
-
-  button[type="submit"] {
-    background-color: #004080;
-  }
-
-  #settingsButton {
-    fill: white;
-  }
-  .geweest {
-    border: 1px solid #007503;
-    background-color: #242d21;
   }
 }
 .exam {
@@ -1048,9 +786,6 @@ button:disabled {
 label {
   font-weight: 500;
   color: var(--accent-text-light);
-}
-.btnGroup {
-  gap: 0 !important;
 }
 @media (prefers-color-scheme: dark) {
   .cancelled {

@@ -251,44 +251,60 @@
       <dialog id="shortcuts" role="dialog" aria-label="Sneltoetsen">
         <h2>Sneltoetsen</h2>
         <div id="content">
-          <table>
-            <tr>
-              <th data-translate="previousDayWeek">Vorige dag/week</th>
-              <th><kbd>←</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="nextDayWeek">Volgende dag/week</th>
-              <th><kbd>→</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="openSettings">Open instellingen</th>
-              <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="dayView">Dagweergave</th>
-              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="weekView">Weekweergave</th>
-              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="orientationChange">Oriëntatie wijzigen</th>
-              <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
-            </tr>
-            <tr>
-              <th data-translate="changeDay">Stel dag in (Bij dagweergave)</th>
-              <th><kbd>D</kbd> (Hoofdletter)</th>
-            </tr>
-            <tr>
-              <th data-translate="changeWeek">Stel week in</th>
-              <th><kbd>W</kbd> (Hoofdletter)</th>
-            </tr>
-            <tr>
-              <th data-translate="changeYear">Stel jaar in</th>
-              <th><kbd>J</kbd> (Hoofdletter)</th>
-            </tr>
-          </table>
+          <section>
+            <table>
+              <tr>
+                <th
+                  data-translate="previousDayWeek"
+                  style="border-top-left-radius: 1rem"
+                >
+                  Vorige dag/week
+                </th>
+                <th style="border-top-right-radius: 1rem">
+                  <kbd style="font-family: Inter">←</kbd>
+                </th>
+              </tr>
+              <tr>
+                <th data-translate="nextDayWeek">Volgende dag/week</th>
+                <th><kbd style="font-family: Inter">→</kbd></th>
+              </tr>
+              <tr>
+                <th data-translate="openSettings">Open instellingen</th>
+                <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
+              </tr>
+              <tr>
+                <th data-translate="dayView">Dagweergave</th>
+                <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
+              </tr>
+              <tr>
+                <th data-translate="weekView">Weekweergave</th>
+                <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
+              </tr>
+              <tr>
+                <th data-translate="orientationChange">Draaien</th>
+                <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
+              </tr>
+              <tr>
+                <th data-translate="changeDay">Stel dag in</th>
+                <th><kbd>D</kbd> (Hoofdletter)</th>
+              </tr>
+              <tr>
+                <th data-translate="changeWeek">Stel week in</th>
+                <th><kbd>W</kbd> (Hoofdletter)</th>
+              </tr>
+              <tr>
+                <th
+                  data-translate="changeYear"
+                  style="border-bottom-left-radius: 1rem"
+                >
+                  Stel jaar in
+                </th>
+                <th style="border-bottom-right-radius: 1rem">
+                  <kbd>J</kbd> (Hoofdletter)
+                </th>
+              </tr>
+            </table>
+          </section>
         </div>
         <button
           class="btn"
@@ -1269,7 +1285,6 @@ const newWindow = window.open(targetOrigin);</code>
                     width: 2rem !important;
                     height: 2rem !important;
                     fill: var(--primary-light) !important;
-                    margin-right: 5px;
                   "
                   viewBox="0 0 410 374"
                   id="icon"
