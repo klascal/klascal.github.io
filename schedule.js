@@ -63,8 +63,10 @@ if (!schoolName && !accessToken) {
   document
     .querySelector("#dialog #closeBtn")
     .setAttribute("onclick", "resetAfterWelcomeScreen()");
+  document.querySelector("#dialog #closeBtn").removeAttribute("command");
+  document.querySelector("#dialog #closeBtn").removeAttribute("commandfor");
   document.querySelector("#dialog #closeBtn span").innerHTML = "Volgende";
-  showDialog();
+  document.getElementById("dialog").showModal();
 }
 setInterval(() => {
   fetchSchedule(window.year, window.week);
@@ -187,14 +189,8 @@ function save() {
     }
   });
 }
-function showDialog(el) {
-  let dialog = document.getElementById(el) || document.getElementById("dialog");
-  dialog.showModal();
-}
-function closeDialog(el) {
-  let dialog = document.getElementById(el) || document.getElementById("dialog");
+function closeDialog() {
   save();
-  dialog.close();
   show("submenus", "Instellingen");
   if (localStorage.getItem("mono") == "true") {
     if (
@@ -238,6 +234,12 @@ function closeDialog(el) {
   }
   fetchSchedule(window.year, window.week);
 }
+// Nodig voor correct sluiten dialoog
+dialogs.forEach((dialog) => {
+  dialog.addEventListener("close", () => {
+    closeDialog();
+  });
+});
 function viewTrans(func) {
   if (!document.startViewTransition) {
     func();
@@ -266,10 +268,13 @@ function show(id, title, hideBack) {
     } else {
       document.querySelector("#dialog h2").innerHTML = title;
       if (!hideBack) {
+        document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
         document
           .querySelector("#dialog #closeBtn")
-          .setAttribute("onclick", "closeDialog()");
-        document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
+          .setAttribute("command", "close");
+        document
+          .querySelector("#dialog #closeBtn")
+          .setAttribute("commandfor", "dialog");
       }
     }
   });
@@ -302,18 +307,20 @@ if (currentDay == 6 || currentDay == 0) {
 }
 if (window.week == 53) {
   window.week = 1;
+}
+if (window.week == 1 && new Date().getMonth() == 11) {
   window.year++;
 }
 fetchSchedule(window.year, window.week, "firstLoad");
 async function fetchSchedule(year, week, isFirstLoad) {
   if (!year) year = new Date().getFullYear();
   if (!week) week = new Date().getWeek();
+  console.log(new Date().getDate(), new Date().getMonth());
   window.week = week;
   window.year = year;
+  document.getElementById("week").innerHTML =
+    `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
-  document.getElementById(
-    "week"
-  ).innerHTML = `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
   if (!schoolName || !authorizationCode) return;
   if (!accessToken) {
     fetchToken();
@@ -431,6 +438,11 @@ async function fetchSchedule(year, week, isFirstLoad) {
           let warningSymbol = warning
             ? `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="warningIcon" data-tooltip="${warning}"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z"></path></svg>`
             : "";
+          if (!a.cancelled && (a.schedulerRemark || a.content)) {
+            warningSymbol = warning
+              ? `<svg width="24" height="24" fill="none" viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" id="icon" data-tooltip="${warning}"><path d="M480-280q17 0 28.5-11.5T520-320v-160q0-17-11.5-28.5T480-520q-17 0-28.5 11.5T440-480v160q0 17 11.5 28.5T480-280Zm0-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>`
+              : "";
+          }
           if (
             !a.appointmentInstance &&
             a.actions[0] &&
@@ -499,9 +511,10 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.appointmentInstance + "div"
           }" class="les ${cancelled} ${
             a.appointmentType
-          }" style="--height: ${height}rem;${styles}"><span id="${
+          }" style="--height: ${height}rem;${styles}"><button id="${
             a.appointmentInstance
-          }" class="innerSpan" onclick='showLessonInfo(this, ${JSON.stringify(
+          }" class="innerSpan"
+          commandfor="info" onclick='showLessonInfo(this, ${JSON.stringify(
             a
           )})'><strong class="subject">${
             a.subjects
@@ -513,7 +526,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.teachers.length != 0 ? ` (${a.teachers})` : ""
           }<span class="groups">${
             localStorage.getItem("klas") == "true" ? ` ${a.groups}` : ""
-          }</span></span></p></span><span class="warning" style="${warningStyles}">${warningSymbol}</span></div>`;
+          }</span></span></p></button><span class="warning" style="${warningStyles}">${warningSymbol}</span></div>`;
         })
         .join("")}</section>`;
       div.appendChild(div2);
@@ -829,25 +842,13 @@ if (
 if (window.innerWidth < 330) {
   document.getElementById("dayBtn").click();
 }
-document.querySelectorAll("dialog").forEach((dialog) => {
-  dialog.addEventListener("pointerdown", (event) => {
-    const rect = dialog.getBoundingClientRect();
-    const isInDialog =
-      rect.top <= event.clientY &&
-      event.clientY <= rect.bottom &&
-      rect.left <= event.clientX &&
-      event.clientX <= rect.right;
-    if (!isInDialog) {
-      closeDialog(dialog.id);
-    }
-  });
-});
 async function showLessonInfo(lessonHTML, lesson) {
   const original = document.getElementById(lesson.appointmentInstance);
   original.classList.add("clicked");
   document.querySelector("#info #content").innerHTML = "";
   const clone = document.getElementById(lessonHTML.id + "div").cloneNode(true);
   document.querySelector("#info #content").appendChild(clone);
+  document.querySelector("#info .innerSpan").setAttribute("tabindex", "-1");
   if (!lesson.expectedStudentCount) {
     lesson.expectedStudentCount = "";
   } else {
@@ -888,10 +889,8 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
   const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
-  document.querySelector(
-    "#info #content"
-  ).innerHTML += `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
-  showDialog("info");
+  document.querySelector("#info #content").innerHTML +=
+    `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
   const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
     lesson.appointmentInstance
   }&user=~me&valid=true&start=${lesson.start}&end=${
@@ -925,15 +924,13 @@ async function showLessonInfo(lessonHTML, lesson) {
     a.students = "";
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
-    document.querySelector(
-      "#info #content"
-    ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+    document.querySelector("#info #content").innerHTML +=
+      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
   } else {
     document.startViewTransition(
       () =>
-        (document.querySelector(
-          "#info #content"
-        ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+        (document.querySelector("#info #content").innerHTML +=
+          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
     );
   }
 }

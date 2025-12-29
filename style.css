@@ -541,8 +541,10 @@ details[open]::details-content {
   font-variation-settings: initial;
 }
 .innerSpan {
+  all: unset;
   display: block !important;
   width: 100%;
+  min-height: var(--height);
 }
 ol,
 ul {
@@ -719,7 +721,7 @@ input[type="radio"]:not(:checked) ~ label {
 
   #icon,
   .icon {
-    fill: white;
+    fill: #e1e4db;
     vertical-align: middle;
   }
 }
@@ -954,7 +956,7 @@ dialog.right {
 }
 dialog.right,
 dialog.right #content {
-  width: 303px;
+  width: 311px;
 }
 @media (min-width: 500px) {
   dialog.right {
