@@ -303,6 +303,7 @@ fetchSchedule(undefined, window.week, "firstLoad");
 async function fetchSchedule(year, week, isFirstLoad) {
   if (!year) year = new Date().getFullYear();
   if (!week) week = new Date().getWeek();
+  if (week === 1 && new Date().getMonth() === 11) year++; // Week 1 can start in december
   window.week = week;
   window.year = year;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
