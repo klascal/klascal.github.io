@@ -93,7 +93,7 @@ dialog {
   border: 0;
   border-radius: 2rem;
   background-color: var(--primary-background);
-  padding: 16px 18px;
+  padding: 16px;
   max-width: calc(100vw - 60px);
   max-height: calc(100vh - 60px);
   animation: popIn 0.3s;
@@ -302,7 +302,7 @@ details strong {
 }
 
 #schedule {
-  margin-top: 2.75rem;
+  margin-top: 2.5rem;
   transition: transform ease-in-out 0.1s;
   will-change: transform;
 }
@@ -313,15 +313,18 @@ details strong {
 .dayEnabled,
 .ltrEnabled {
   display: flex;
+  gap: 10px;
+}
+.dayEnabled {
   gap: 12px;
 }
 #schedule.listEnabled {
-  margin-top: 3.3125rem;
+  margin-top: 3rem;
 }
 #schedule.ltrEnabled {
   flex-direction: column;
   gap: 0;
-  margin-top: 2.5rem;
+  margin-top: 2.25rem;
 }
 .ltrEnabled strong.date {
   margin: 12px;
@@ -832,6 +835,19 @@ label {
 #content .submenu {
   display: none;
 }
+#dialog #icon.back {
+  padding: 0.4rem;
+  transform: translateY(-1.8px);
+  margin-right: 0.75rem;
+  fill: var(--accent-text) !important;
+  background-color: var(--primary-accent);
+  border-radius: 2rem;
+}
+@media (prefers-color-scheme: dark) {
+  #dialog #icon.back {
+    background-color: var(--primary-foreground);
+  }
+}
 @media (max-width: 1300px) {
   #ltr {
     display: none;
@@ -934,12 +950,11 @@ label {
   white-space: nowrap;
 }
 dialog.right {
-  padding: 16px;
   animation: popIn 0.1s;
 }
 dialog.right,
 dialog.right #content {
-  width: 312px;
+  width: 303px;
 }
 @media (min-width: 500px) {
   dialog.right {
@@ -949,10 +964,11 @@ dialog.right #content {
     height: stretch;
     margin-left: auto;
     max-height: none;
-    border-radius: 1.5rem 0 0 1.5rem;
+    border-radius: 0.8rem 0 0 0.8rem;
     position: fixed;
     top: 0;
     animation: popIn 0.3s;
+    padding: 12px 16px;
   }
 }
 @media (max-width: 512px) {
