@@ -308,14 +308,11 @@ if (currentDay == 6 || currentDay == 0) {
 if (window.week == 53) {
   window.week = 1;
 }
-if (window.week == 1 && new Date().getMonth() == 11) {
-  window.year++;
-}
+if (week === 1 && new Date().getMonth() === 11) year++; // Week 1 can start in december
 fetchSchedule(window.year, window.week, "firstLoad");
 async function fetchSchedule(year, week, isFirstLoad) {
   if (!year) year = new Date().getFullYear();
   if (!week) week = new Date().getWeek();
-  console.log(new Date().getDate(), new Date().getMonth());
   window.week = week;
   window.year = year;
   document.getElementById("week").innerHTML =
@@ -694,6 +691,10 @@ async function fetchFullSubjectNames() {
       });
       localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
     });
+}
+function clearUserData() {
+  localStorage.clear();
+  location.reload();
 }
 function switchDay(dir) {
   let behavior = "smooth";
