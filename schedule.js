@@ -514,7 +514,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           }" style="--height: ${height}rem;${styles}"><button id="${
             a.appointmentInstance
           }" class="innerSpan"
-          commandfor="info" onclick='showLessonInfo(this, ${JSON.stringify(
+          commandfor="info" command="show-modal" onclick='showLessonInfo(this, ${JSON.stringify(
             a
           )})'><strong class="subject">${
             a.subjects
