@@ -98,6 +98,22 @@ async function fetchToken() {
     userInfo();
   }
 }
+
+async function announcements() {
+  const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  localStorage.setItem("announcements", JSON.stringify(data));
+
+  renderAnnouncements();
+}
+
+announcements();
+
 async function userInfo() {
   const response = await fetch(
     `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee`,
@@ -279,6 +295,42 @@ function show(id, title, hideBack) {
     }
   });
 }
+
+function renderAnnouncements() {
+  const content = document.getElementById("allAnnouncements");
+  content.innerHTML = "";
+
+  const stored = localStorage.getItem("announcements");
+  if (!stored) {
+    content.textContent = "Geen mededelingen gevonden.";
+    return;
+  }
+
+  const data = JSON.parse(stored);
+
+  const announcements = data.response?.data;
+
+  if (!Array.isArray(announcements) || announcements.length === 0) {
+    content.textContent = "Geen actuele mededelingen.";
+    return;
+  }
+
+  announcements.forEach((item) => {
+    const article = document.createElement("article");
+    article.classList.add("announcement");
+
+    article.innerHTML = `
+      <h3>${item.title || "Mededeling"}</h3>
+      <p>${item.text || ""}</p>
+      <small>${
+        item.start ? new Date(item.start * 1000).toLocaleDateString() : ""
+      }</small>
+      `;
+
+    content.appendChild(article);
+  });
+}
+
 Date.prototype.getWeek = function () {
   const date = new Date(this.getTime());
   date.setHours(0, 0, 0, 0);
@@ -315,8 +367,9 @@ async function fetchSchedule(year, week, isFirstLoad) {
   if (!week) week = new Date().getWeek();
   window.week = week;
   window.year = year;
-  document.getElementById("week").innerHTML =
-    `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
+  document.getElementById(
+    "week"
+  ).innerHTML = `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
   if (!schoolName || !authorizationCode) return;
   if (!accessToken) {
@@ -890,8 +943,9 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
   const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
-  document.querySelector("#info #content").innerHTML +=
-    `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
+  document.querySelector(
+    "#info #content"
+  ).innerHTML += `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
   const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
     lesson.appointmentInstance
   }&user=~me&valid=true&start=${lesson.start}&end=${
@@ -925,13 +979,15 @@ async function showLessonInfo(lessonHTML, lesson) {
     a.students = "";
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
-    document.querySelector("#info #content").innerHTML +=
-      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+    document.querySelector(
+      "#info #content"
+    ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
   } else {
     document.startViewTransition(
       () =>
-        (document.querySelector("#info #content").innerHTML +=
-          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+        (document.querySelector(
+          "#info #content"
+        ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
     );
   }
 }
