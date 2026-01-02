@@ -537,6 +537,9 @@ dialog .btn:active {
 #announcementsButton {
   transition: all 0.1s ease-in-out;
 }
+#announcementsButton {
+  transition: all 0.1s ease-in-out;
+}
 
 button:not(:disabled) {
   cursor: pointer;
@@ -761,6 +764,7 @@ input[type="radio"]:not(:checked) ~ label {
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   .btn:hover,
+  #announcementsButton:hover,
   #previousDay:hover,
   #nextDay:hover,
   #settingsButton:hover,

@@ -118,6 +118,21 @@ async function announcements() {
 
 announcements();
 
+async function announcements() {
+  const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  localStorage.setItem("announcements", JSON.stringify(data));
+
+  renderAnnouncements();
+}
+
+announcements();
+
 async function userInfo() {
   const response = await fetch(
     `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee`,
