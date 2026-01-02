@@ -5,6 +5,10 @@ for (const dialog of dialogs) {
   }
 }
 
+function toUnix(date, time) {
+  return Math.floor(new Date(`${date}T${time}`).getTime() / 1000);
+}
+
 async function loadLanguage() {
   try {
     const supported = ["nl", "en", "de", "fr", "es"];
@@ -98,6 +102,22 @@ async function fetchToken() {
     userInfo();
   }
 }
+
+async function announcements() {
+  const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  localStorage.setItem("announcements", JSON.stringify(data));
+
+  renderAnnouncements();
+}
+
+announcements();
+
 async function userInfo() {
   const response = await fetch(
     `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee`,
@@ -279,6 +299,64 @@ function show(id, title, hideBack) {
     }
   });
 }
+
+function renderAnnouncements() {
+  const content = document.getElementById("allAnnouncements");
+  content.innerHTML = "";
+
+  const stored = localStorage.getItem("announcements");
+  if (!stored) {
+    content.textContent = "Geen mededelingen gevonden.";
+    return;
+  }
+
+  const data = JSON.parse(stored);
+
+  const announcements = data.response?.data;
+
+  if (!Array.isArray(announcements) || announcements.length === 0) {
+    content.textContent = "Geen actuele mededelingen.";
+    return;
+  }
+
+  announcements.forEach((item) => {
+    const article = document.createElement("article");
+    article.classList.add("announcement");
+
+    article.innerHTML = `
+      <h3>${item.title || "Mededeling"}</h3>
+      <p>${item.text || ""}</p>
+      <small>${
+        item.start ? new Date(item.start * 1000).toLocaleDateString() : ""
+      }</small>
+      `;
+
+    content.appendChild(article);
+  });
+}
+
+function showAnnouncements() {
+  const button = document.getElementById("announcementsButton");
+  const checkbox = document.getElementById("mededelingenAan");
+
+  if (!button || !checkbox) return;
+
+  const update = () => {
+    const enabled = localStorage.getItem("mededelingenAan") === "true";
+    button.style.display = enabled ? "inline" : "none";
+  };
+
+  checkbox.checked = localStorage.getItem("mededelingenAan") === "true";
+  update();
+
+  checkbox.addEventListener("change", () => {
+    localStorage.setItem("mededelingenAan", checkbox.checked);
+    update();
+  });
+}
+
+showAnnouncements();
+
 Date.prototype.getWeek = function () {
   const date = new Date(this.getTime());
   date.setHours(0, 0, 0, 0);
@@ -337,6 +415,29 @@ async function fetchSchedule(year, week, isFirstLoad) {
   const schedule = document.getElementById("schedule");
   schedule.innerHTML = "";
   const grouped = {};
+
+  const customData = JSON.parse(
+    localStorage.getItem("customAppointments") || "[]"
+  );
+  customData.forEach((item) => {
+    appointments.push({
+      appointmentInstance: item.id,
+      start: toUnix(item.date, item.start),
+      end: toUnix(item.date, item.end),
+      subjects: [item.title],
+      appointmentType: "custom",
+      locations: ["Handmatig"],
+      teachers: [],
+      groups: [],
+      cancelled: false,
+      actions: [],
+      status: "",
+      type: "appointment",
+      content: "Zelf toegevoegd",
+    });
+  });
+
+  appointments.sort((a, b) => a.start - b.start);
 
   appointments.forEach((a) => {
     let dateFull = new Date(a.start * 1000).toLocaleDateString([], {
@@ -935,3 +1036,18 @@ async function showLessonInfo(lessonHTML, lesson) {
     );
   }
 }
+document.querySelector(".addBtn").addEventListener("click", () => {
+  const newApp = {
+    id: "custom-" + Date.now(),
+    title: document.getElementById("custTitle").value,
+    date: document.getElementById("custDate").value,
+    start: document.getElementById("custStart").value,
+    end: document.getElementById("custEnd").value,
+  };
+
+  const existing = JSON.parse(
+    localStorage.getItem("customAppointments") || "[]"
+  );
+  existing.push(newApp);
+  localStorage.setItem("customAppointments", JSON.stringify(existing));
+});

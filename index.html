@@ -148,6 +148,24 @@
         </svg>
         <span data-translate="turn">Draaien</span>
       </button>
+      <button
+        command="show-modal"
+        commandfor="announcements"
+        id="announcementsButton"
+        title="Mededelingen"
+        style="border: none; padding: 0.4rem; border-radius: 2rem"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          id="icon"
+          style="fill: var(--accent-text)"
+        >
+          <path
+            d="M200-200q-17 0-28.5-11.5T160-240q0-17 11.5-28.5T200-280h40v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h40q17 0 28.5 11.5T800-240q0 17-11.5 28.5T760-200H200Zm280-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"
+          />
+        </svg>
+      </button>
       <div style="margin-left: auto">
         <button
           class="btn"
@@ -326,6 +344,96 @@
         </button>
       </dialog>
       <dialog
+        id="announcements"
+        role="dialog"
+        aria-label="Mededelingen"
+        closedby="any"
+      >
+        <h2>Mededelingen</h2>
+        <section id="content">
+          <div id="allAnnouncements"></div>
+        </section>
+        <button
+          class="btn"
+          id="closeBtn"
+          commandfor="announcements"
+          command="close"
+        >
+          <span data-translate="closeBtn">Sluiten</span>
+        </button>
+      </dialog>
+      <dialog
+        id="customAppointments"
+        role="dialog"
+        class="right"
+        aria-label="Afspraak toevoegen"
+        closedby="any"
+      >
+        <h2>Afspraak toevoegen</h2>
+        <section id="content">
+          <div class="material-textfield">
+            <input type="text" id="custTitle" placeholder=" " required />
+            <label for="custTitle">Titel</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="date" id="custDate" placeholder=" " required />
+            <label for="custTitle">Datum</label>
+          </div>
+
+          <div style="display: flex; padding: 0">
+            <div
+              class="material-textfield"
+              style="
+                flex: 1;
+                background: none;
+                border-right: 2px solid var(--primary-background);
+                border-radius: 0;
+              "
+            >
+              <input
+                type="time"
+                id="custStart"
+                style="text-align: center"
+                placeholder=" "
+                required
+              />
+              <label for="custTitle">Starttijd</label>
+            </div>
+            <div class="material-textfield" style="flex: 1; background: none">
+              <input
+                type="time"
+                id="custEnd"
+                style="text-align: center"
+                placeholder=" "
+                required
+              />
+              <label for="custTitle">Eindtijd</label>
+            </div>
+          </div>
+        </section>
+        <button
+          class="btn addBtn"
+          id="closeBtn"
+          commandfor="customAppointments"
+          command="close"
+        >
+          <span>Toevoegen</span>
+        </button>
+        <button
+          class="btn"
+          id="closeBtn"
+          style="
+            background: var(--primary-foreground);
+            color: var(--primary-light);
+          "
+          commandfor="customAppointments"
+          command="close"
+        >
+          <span>Annuleren</span>
+        </button>
+      </dialog>
+      <dialog
         id="info"
         class="right"
         role="dialog"
@@ -361,7 +469,7 @@
                 </svg>
                 <span data-translate="scheduleBtn">Rooster</span>
               </button>
-              <button id="submenu" onclick="show('theme', 'Thema')">
+              <button id="submenu" onclick="show('theme', 'Weergave & thema')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -371,7 +479,7 @@
                     d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80ZM260-440q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z"
                   />
                 </svg>
-                <span data-translate="themeBtn">Thema</span>
+                <span data-translate="themeBtn">Weergave & thema</span>
               </button>
               <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
                 <svg
@@ -908,10 +1016,10 @@ const newWindow = window.open(targetOrigin);</code>
             </details>
           </div>
           <div id="theme" class="submenu">
+            <strong class="date" data-translate="accentColor"
+              >Accentkleur</strong
+            >
             <section>
-              <strong class="date" data-translate="accentColor"
-                >Accentkleur</strong
-              >
               <div class="themes">
                 <label class="theme__color">
                   <input
@@ -996,6 +1104,24 @@ const newWindow = window.open(targetOrigin);</code>
                 <small data-translate="monoExplain"
                   >Kleuren met lager contrast</small
                 >
+              </div>
+            </section>
+            <strong class="date" data-translate="accentColor"
+              >Voorkeuren</strong
+            >
+            <section>
+              <div class="switch switch--2">
+                <label for="mededelingenAan" data-translate="announcementsOn"
+                  >Mededelingen tonen</label
+                >
+                <label class="switch__label">
+                  <input
+                    type="checkbox"
+                    id="mededelingenAan"
+                    class="switch__input"
+                  />
+                  <span class="switch__design"></span>
+                </label>
               </div>
             </section>
           </div>
@@ -1380,6 +1506,22 @@ const newWindow = window.open(targetOrigin);</code>
       <style id="styling"></style>
       <div id="schedule" class="dayEnabled"></div>
       <div id="tooltip" class="tooltip"></div>
+      <button
+        id="addCustomAppointment"
+        command="show-modal"
+        commandfor="customAppointments"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          id="icon"
+        >
+          <path
+            d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"
+          />
+        </svg>
+        <span>Toevoegen</span>
+      </button>
     </main>
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="schedule.js"></script>

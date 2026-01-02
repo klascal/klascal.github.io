@@ -49,12 +49,7 @@
 }
 .theme__icon::before {
   content: "";
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.85) -100%,
-    transparent 75%,
-    rgba(255, 255, 255, 0.3) 100%
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) -100%, transparent 75%, rgba(255, 255, 255, 0.3) 100%);
   width: 3.5rem;
   height: 2.9rem;
   display: block;
@@ -74,28 +69,12 @@ body {
 @supports (color: color-mix(in srgb, red, blue)) {
   body {
     --accent-text: color-mix(in srgb, var(--primary-light) 47.5%, black);
-    --accent-text-faded: color-mix(
-      in srgb,
-      var(--accent-text) 80%,
-      transparent
-    );
+    --accent-text-faded: color-mix(in srgb, var(--accent-text) 80%, transparent);
     --accent-text-light: color-mix(in srgb, var(--accent-text) 55%, black);
     --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
-    --primary-background-faded: color-mix(
-      in srgb,
-      var(--primary-background) 75%,
-      transparent
-    );
-    --primary-foreground-faded: color-mix(
-      in srgb,
-      var(--primary-foreground) 90%,
-      #fffefe17
-    );
-    --timeline: color-mix(
-      in srgb,
-      var(--primary-light) 50%,
-      var(--primary-accent)
-    );
+    --primary-background-faded: color-mix(in srgb, var(--primary-background) 75%, transparent);
+    --primary-foreground-faded: color-mix(in srgb, var(--primary-foreground) 90%, #fffefe17);
+    --timeline: color-mix(in srgb, var(--primary-light) 50%, var(--primary-accent));
   }
 }
 body[data-theme="red"] {
@@ -237,11 +216,7 @@ body[data-theme="pink monochrome"] {
   @supports (color: color-mix(in srgb, red, blue)) {
     body {
       --accent-text: color-mix(in srgb, var(--primary-light) 47.5%, white);
-      --accent-text-faded: color-mix(
-        in srgb,
-        var(--accent-text) 80%,
-        transparent
-      );
+      --accent-text-faded: color-mix(in srgb, var(--accent-text) 80%, transparent);
       --accent-text-light: color-mix(in srgb, var(--accent-text) 55%, white);
       --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
     }
@@ -392,7 +367,9 @@ body[data-theme="pink monochrome"] {
   transform: translate(-50%, -50%);
 }
 .switch__input:focus + .switch__design {
-  box-shadow: 0 0 0 0.1rem var(--global-background), 0 0 0 0.2rem var(--focus);
+  box-shadow:
+    0 0 0 0.1rem var(--global-background),
+    0 0 0 0.2rem var(--focus);
 }
 .switch {
   --width: 48px;
@@ -483,8 +460,13 @@ body[data-theme="pink monochrome"] {
   padding: 1rem 0.7rem;
   width: calc(100% - 25px);
   font-family: inherit;
-  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1,
+    "cv07" 1;
   background-color: transparent;
+  font-weight: 450;
+  letter-spacing: 0.1px;
 }
 p {
   margin: 0;
