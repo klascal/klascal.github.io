@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
@@ -30,12 +30,12 @@
           (e.init = function (i, s, a) {
             function g(t, e) {
               var o = e.split(".");
-              2 == o.length && ((t = t[o[0]]), (e = o[1])),
+              (2 == o.length && ((t = t[o[0]]), (e = o[1])),
                 (t[e] = function () {
                   t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
-                });
+                }));
             }
-            ((p = t.createElement("script")).type = "text/javascript"),
+            (((p = t.createElement("script")).type = "text/javascript"),
               (p.crossOrigin = "anonymous"),
               (p.async = !0),
               (p.src =
@@ -44,7 +44,7 @@
               (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
                 p,
                 r
-              );
+              ));
             var u = e;
             for (
               void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
@@ -52,7 +52,9 @@
                 u.toString = function (t) {
                   var e = "posthog";
                   return (
-                    "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e
+                    "posthog" !== a && (e += "." + a),
+                    t || (e += " (stub)"),
+                    e
                   );
                 },
                 u.people.toString = function () {
@@ -174,7 +176,8 @@
             border-top-right-radius: 1.5rem;
             border-bottom-right-radius: 1.5rem;
             vertical-align: middle;
-            transition: background-color 0.1s ease-in-out,
+            transition:
+              background-color 0.1s ease-in-out,
               border-radius 0.1s ease-in-out;
             width: 4.44375rem;
             color: var(--primary-light);
@@ -193,7 +196,8 @@
             border-bottom-left-radius: 1.5rem;
             margin-left: 2.5px;
             vertical-align: middle;
-            transition: background-color 0.1s ease-in-out,
+            transition:
+              background-color 0.1s ease-in-out,
               border-radius 0.1s ease-in-out;
             color: var(--primary-light);
           "
@@ -366,27 +370,31 @@
         aria-label="Gegevens Wissen"
         closedby="any"
       >
-        <h2>Mededelingen</h2>
-        <section id="content">
-          <div id="text">
-            <p>
-              Weet u zeker dat u uw gegevens van Klascal gaat wissen?<br />
-              Het is belangerijk om te weten dat we uw gegevens niet kunnen
-              krijgen, want alles wordt opgeslagen in uw lokale opslag.
-            </p>
-          </div>
-        </section>
-        <button class="btn" id="acceptBtn" onclick="clearUserData()">
-          <span data-translate="acceptBtn">Wissen</span>
-        </button>
-        <button
-          class="btn"
-          id="closeBtn"
-          commandfor="clearSettings"
-          command="close"
-        >
-          <span data-translate="closeBtn">Sluiten</span>
-        </button>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            id="icon"
+          >
+            <path
+              d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM400-280q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280ZM280-720v520-520Z"
+            />
+          </svg>
+          <h2>Weet je het zeker?</h2>
+          <section id="content">
+            <div id="text">
+              <p>Hierdoor zullen je gegevens verwijderd worden</p>
+            </div>
+          </section>
+          <section id="content">
+            <button id="submenu" onclick="clearUserData()">
+              <span data-translate="acceptBtn">Wissen</span>
+            </button>
+            <button id="submenu" commandfor="clearSettings" command="close">
+              <span>Annuleren</span>
+            </button>
+          </section>
+        </div>
       </dialog>
       <dialog
         id="customAppointments"
