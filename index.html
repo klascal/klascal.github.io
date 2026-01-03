@@ -361,19 +361,28 @@
       </dialog>
 
       <dialog
-        id="announcements"
+        id="clearSettings"
         role="dialog"
-        aria-label="Mededelingen"
+        aria-label="Gegevens Wissen"
         closedby="any"
       >
         <h2>Mededelingen</h2>
         <section id="content">
-          <div id="allAnnouncements"></div>
+          <div id="text">
+            <p>
+              Weet u zeker dat u uw gegevens van Klascal gaat wissen?<br />
+              Het is belangerijk om te weten dat we uw gegevens niet kunnen
+              krijgen, want alles wordt opgeslagen in uw lokale opslag.
+            </p>
+          </div>
         </section>
+        <button class="btn" id="acceptBtn" onclick="clearUserData()">
+          <span data-translate="acceptBtn">Wissen</span>
+        </button>
         <button
           class="btn"
           id="closeBtn"
-          commandfor="announcements"
+          commandfor="clearSettings"
           command="close"
         >
           <span data-translate="closeBtn">Sluiten</span>
@@ -1480,7 +1489,11 @@ const newWindow = window.open(targetOrigin);</code>
             </section>
             <strong class="date">Gegevens wissen uit Klascal</strong>
             <section>
-              <button id="submenu" onclick="clearUserData()">
+              <button
+                id="submenu"
+                command="show-modal"
+                commandfor="clearSettings"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
