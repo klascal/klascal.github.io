@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
@@ -30,12 +30,12 @@
           (e.init = function (i, s, a) {
             function g(t, e) {
               var o = e.split(".");
-              (2 == o.length && ((t = t[o[0]]), (e = o[1])),
+              2 == o.length && ((t = t[o[0]]), (e = o[1])),
                 (t[e] = function () {
                   t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
-                }));
+                });
             }
-            (((p = t.createElement("script")).type = "text/javascript"),
+            ((p = t.createElement("script")).type = "text/javascript"),
               (p.crossOrigin = "anonymous"),
               (p.async = !0),
               (p.src =
@@ -44,7 +44,7 @@
               (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
                 p,
                 r
-              ));
+              );
             var u = e;
             for (
               void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
@@ -52,9 +52,7 @@
                 u.toString = function (t) {
                   var e = "posthog";
                   return (
-                    "posthog" !== a && (e += "." + a),
-                    t || (e += " (stub)"),
-                    e
+                    "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e
                   );
                 },
                 u.people.toString = function () {
@@ -132,23 +130,6 @@
         </button>
       </div>
       <button
-        class="btn"
-        style="vertical-align: middle"
-        title="Oriëntatie"
-        id="ltr"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 -960 960 960"
-          id="icon"
-        >
-          <path
-            d="M487-104 219-371q-6-6-9-13t-3-15q0-16 11-28.5t29-12.5q8 0 15.5 3t13.5 9l268 268 200-200h-64q-17 0-28.5-11.5T640-400q0-17 11.5-28.5T680-440h160q17 0 28.5 11.5T880-400v160q0 17-11.5 28.5T840-200q-17 0-28.5-11.5T800-240v-64L600-104q-11 11-25.5 17T544-81q-15 0-30-6t-27-17ZM120-520q-17 0-28.5-11.5T80-560v-160q0-17 11.5-28.5T120-760q17 0 28.5 11.5T160-720v64l200-200q12-12 27-17.5t30-5.5q16 0 30.5 5.5T473-856l268 267q6 6 9 13t3 15q0 16-11 28.5T713-520q-8 0-15.5-3t-13.5-9L416-800 216-600h64q17 0 28.5 11.5T320-560q0 17-11.5 28.5T280-520H120Z"
-          />
-        </svg>
-        <span data-translate="turn">Draaien</span>
-      </button>
-      <button
         command="show-modal"
         commandfor="announcements"
         id="announcementsButton"
@@ -166,6 +147,23 @@
           />
         </svg>
       </button>
+      <button
+        class="btn"
+        style="vertical-align: middle"
+        title="Oriëntatie"
+        id="ltr"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          id="icon"
+        >
+          <path
+            d="M487-104 219-371q-6-6-9-13t-3-15q0-16 11-28.5t29-12.5q8 0 15.5 3t13.5 9l268 268 200-200h-64q-17 0-28.5-11.5T640-400q0-17 11.5-28.5T680-440h160q17 0 28.5 11.5T880-400v160q0 17-11.5 28.5T840-200q-17 0-28.5-11.5T800-240v-64L600-104q-11 11-25.5 17T544-81q-15 0-30-6t-27-17ZM120-520q-17 0-28.5-11.5T80-560v-160q0-17 11.5-28.5T120-760q17 0 28.5 11.5T160-720v64l200-200q12-12 27-17.5t30-5.5q16 0 30.5 5.5T473-856l268 267q6 6 9 13t3 15q0 16-11 28.5T713-520q-8 0-15.5-3t-13.5-9L416-800 216-600h64q17 0 28.5 11.5T320-560q0 17-11.5 28.5T280-520H120Z"
+          />
+        </svg>
+        <span data-translate="turn">Draaien</span>
+      </button>
       <div style="margin-left: auto">
         <button
           class="btn"
@@ -176,8 +174,7 @@
             border-top-right-radius: 1.5rem;
             border-bottom-right-radius: 1.5rem;
             vertical-align: middle;
-            transition:
-              background-color 0.1s ease-in-out,
+            transition: background-color 0.1s ease-in-out,
               border-radius 0.1s ease-in-out;
             width: 4.44375rem;
             color: var(--primary-light);
@@ -196,8 +193,7 @@
             border-bottom-left-radius: 1.5rem;
             margin-left: 2.5px;
             vertical-align: middle;
-            transition:
-              background-color 0.1s ease-in-out,
+            transition: background-color 0.1s ease-in-out,
               border-radius 0.1s ease-in-out;
             color: var(--primary-light);
           "
@@ -395,6 +391,42 @@
           <div class="material-textfield">
             <input type="text" id="custTitle" placeholder=" " required />
             <label for="custTitle">Titel</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custLocation" placeholder=" " required />
+            <label for="custLocation">Locatie</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custTeacher" placeholder=" " required />
+            <label for="custTeacher">Docent(en)</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custGroup" placeholder=" " required />
+            <label for="custGroup">Groep(en)</label>
+          </div>
+
+          <div class="switch switch--2">
+            <label for="custCancelled" data-translate="custCancelled"
+              >Afgezegd</label
+            >
+            <label class="switch__label">
+              <input type="checkbox" id="custCancelled" class="switch__input" />
+              <span class="switch__design"></span> </label
+            ><br />
+            <small data-translate="monoExplain"></small>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custStatus" placeholder=" " />
+            <label for="custStatus">Status</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custContent" placeholder=" " />
+            <label for="custContent">Content</label>
           </div>
 
           <div class="material-textfield">
@@ -1139,6 +1171,19 @@ const newWindow = window.open(targetOrigin);</code>
                   <input
                     type="checkbox"
                     id="mededelingenAan"
+                    class="switch__input"
+                  />
+                  <span class="switch__design"></span>
+                </label>
+              </div>
+              <div class="switch switch--2">
+                <label for="addAppointmentOn" data-translate="addAppointmentOn"
+                  >Toevoegknop tonen</label
+                >
+                <label class="switch__label">
+                  <input
+                    type="checkbox"
+                    id="addAppointmentOn"
                     class="switch__input"
                   />
                   <span class="switch__design"></span>

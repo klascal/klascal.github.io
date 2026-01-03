@@ -1,41 +1,15 @@
 :root {
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  font-feature-settings:
-    "liga" 1,
-    "calt" 1,
-    "cv07" 1,
-    "cv03" 1,
-    "cv04" 1;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1, "cv07" 1, "cv03" 1, "cv04" 1;
   interpolate-size: allow-keywords;
   font-variation-settings: "ROND" 100;
 }
 @supports (font-variation-settings: normal) {
   :root {
-    font-family:
-      InterVariable,
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      "Open Sans",
-      "Helvetica Neue",
-      sans-serif;
+    font-family: InterVariable, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
   }
 }
 ::view-transition-group(root) {
@@ -146,10 +120,7 @@ section #submenu {
   border-radius: 0.25rem;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
 }
 .day section div {
   padding: 0px 10px;
@@ -165,14 +136,9 @@ section #submenu {
   opacity: 0;
   transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-weight: 500;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-variation-settings: "opsz" 20, "ROND" 100;
   width: max-content;
   max-width: calc(100% - 40px);
   pointer-events: none;
@@ -205,10 +171,7 @@ section #submenu:last-of-type {
 }
 
 #week {
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   font-weight: 500;
   line-height: 1;
   display: flex;
@@ -297,10 +260,7 @@ h2 {
   margin-top: 0;
   margin-left: 4px;
   margin-bottom: 12px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
 }
 
 .les p,
@@ -311,13 +271,8 @@ strong.date,
   font-weight: 500;
   letter-spacing: 0.00625rem;
   display: inline;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-family: Google Sans Flex, Inter, system-ui;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 strong.date {
   margin: 8px 12px;
@@ -463,13 +418,8 @@ section div br:not(:first-of-type) {
 }
 #ltr span {
   vertical-align: text-top;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-family: Google Sans Flex, Inter, system-ui;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 #ltr svg {
   fill: var(--accent-text);
@@ -500,10 +450,7 @@ section div br:not(:first-of-type) {
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
 }
 .btn {
   background-color: #f1f1f1;
@@ -621,10 +568,7 @@ ul {
   width: fit-content;
   color: var(--accent-text);
   font-weight: 450;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
@@ -636,10 +580,7 @@ ul {
   letter-spacing: 0.1px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   color: var(--accent-text);
   padding-top: 2px;
 }
@@ -662,13 +603,8 @@ small {
   font-weight: 450;
   letter-spacing: 0.1px;
   opacity: 0.78;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-family: Google Sans Flex, Inter, system-ui;
+  font-variation-settings: "opsz" 20, "ROND" 100;
   color: var(--accent-text-light);
 }
 #settingsButton,
@@ -690,14 +626,9 @@ li {
 #dayBtn span,
 #weekBtn span,
 #closeBtn span {
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   line-height: 1;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 #viewSelect {
   display: flex;
@@ -752,10 +683,7 @@ input[type="radio"] ~ label {
   cursor: pointer;
   font-weight: 450;
   letter-spacing: 0.1px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  font-family: Google Sans Flex, Inter, system-ui;
   transition: opacity 0.15s ease-in-out;
 }
 input[type="radio"]:not(:checked) ~ label {
@@ -1060,13 +988,8 @@ dialog.right #content {
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
+  font-family: Google Sans Flex, Inter, system-ui;
+  font-variation-settings: "opsz" 20, "ROND" 100;
 }
 .addBtn {
   margin-left: 0.5rem;
