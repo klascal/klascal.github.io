@@ -385,8 +385,7 @@ details strong {
 
 #schedule {
   margin-top: 2.5rem;
-  transition: transform ease-in-out 0.1s;
-  will-change: transform;
+  height: calc(100vh - 2.5rem);
 }
 #schedule div {
   flex: 1;
@@ -406,10 +405,15 @@ details strong {
 #schedule.ltrEnabled {
   flex-direction: column;
   gap: 0;
-  margin-top: 2.25rem;
+  margin-top: 3.75rem;
+  height: calc(100vh - 3.75rem);
 }
 .ltrEnabled strong.date {
   margin: 12px;
+  transform: translateY(-1.5rem);
+}
+.ltrEnabled div {
+  height: 3rem;
 }
 .ltrEnabled .day div {
   display: flex;
@@ -421,13 +425,15 @@ details strong {
   bottom: 22px !important;
 }
 .les {
-  min-height: var(--height);
+  height: calc(var(--height) - 2px);
   transition: filter 0.1s cubic-bezier(1, 0, 0, 1);
   cursor: pointer;
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
-  line-height: 1.4;
+  line-height: 1.35;
+  inset: 0;
+  top: var(--margin);
 }
 #schedule .les.clicked {
   filter: brightness(1.15);
@@ -435,6 +441,8 @@ details strong {
 #info .les {
   padding: 0px 10px;
   min-height: var(--height);
+  position: relative;
+  top: 0;
 }
 #info .groups {
   display: none;
@@ -451,7 +459,7 @@ details strong {
   padding: 0;
 }
 #schedule section {
-  margin-top: var(--margin);
+  position: relative;
 }
 section div br:not(:first-of-type) {
   display: none;
@@ -459,17 +467,19 @@ section div br:not(:first-of-type) {
 .ltrEnabled section {
   display: flex;
   margin-top: 0 !important;
-  margin-left: calc(var(--margin) * 2.78);
 }
 .ltrEnabled section div br:not(:first-of-type) {
   display: block;
 }
 .ltrEnabled section div {
-  width: calc(var(--height) * 2.5);
+  width: calc(var(--height) * 3 - 22px);
   margin-bottom: 0;
   margin-right: 0.125rem;
   padding: 6px 10px;
   line-height: normal !important;
+  top: unset;
+  height: 4rem;
+  left: calc(var(--margin) * 3);
 }
 .dayEnabled div {
   width: calc(100vw - 36px);
@@ -638,8 +648,11 @@ details[open]::details-content {
 .innerSpan {
   all: unset;
   display: block !important;
-  width: 100%;
+  width: calc(100% - 1.2rem);
   min-height: var(--height);
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ol,
 ul {
@@ -864,7 +877,7 @@ input[type="radio"]:not(:checked) ~ label {
 }
 .notEnrolled,
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.75;
   color: var(--accent-text);
 }
 .notEnrolled #icon {
@@ -995,6 +1008,10 @@ label {
   .weekEnabled strong.date {
     display: block;
   }
+  .les {
+    height: calc(var(--height) * 1.2 - 2px);
+    top: calc(var(--margin) * 1.2);
+  }
   .weekEnabled .warning {
     bottom: 4px;
   }
@@ -1023,6 +1040,11 @@ label {
 @media (max-width: 572px) {
   .weekEnabled {
     gap: 2px;
+  }
+}
+@media (max-height: 565px) {
+  #ltr {
+    display: none;
   }
 }
 @media (max-width: 560px) {
@@ -1080,6 +1102,9 @@ dialog.right #content {
 #customAppointments,
 #customAppointments #content {
   width: 250px;
+}
+#customAppointments .switch {
+  width: 218px;
 }
 #addCustomAppointment {
   position: fixed;

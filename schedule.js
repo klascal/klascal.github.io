@@ -146,7 +146,7 @@ async function userInfo() {
   let userType1 = "student";
   if (data.response.data[0] && data.response.data[0].isEmployee === true) {
     userType1 = "teacher";
-  } else {
+  } else if (!data.response.data[0]) {
     console.error(data);
   }
   localStorage.setItem("userType", userType1);
@@ -409,11 +409,6 @@ Date.prototype.getWeek = function () {
     )
   );
 };
-if (localStorage.getItem("viewOption") == "list") {
-  document.getElementById("list").click();
-} else {
-  document.getElementById("day").click();
-}
 window.week = new Date().getWeek();
 window.year = new Date().getFullYear();
 const currentDay = new Date().getDay();
@@ -437,9 +432,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
   if (!week) week = new Date().getWeek();
   window.week = week;
   window.year = year;
-  document.getElementById(
-    "week"
-  ).innerHTML = `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
+  document.getElementById("week").innerHTML =
+    `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
   if (!schoolName || !authorizationCode) return;
   if (!accessToken) {
@@ -548,6 +542,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           const lastLesson = i == section.length - 1;
           let marginTop;
           let sectionBeginning = "";
+          let height;
           if (a.startTimeSlot != a.endTimeSlot)
             a.startTimeSlot += `-${a.endTimeSlot}`;
           if (!a.startTimeSlot) a.startTimeSlot = "";
@@ -556,28 +551,19 @@ async function fetchSchedule(year, week, isFirstLoad) {
           const startMin = hoursToMinutes(start);
           const endMin = hoursToMinutes(end);
           let startTime = hoursToMinutes(
-            localStorage.getItem("startTime") || "08:10"
+            localStorage.getItem("startTime") || "08:15"
           );
-          const height = ((endMin - startMin) * 1.1) / 16;
           if (firstLesson) {
             if (!lastLessonEndMin || startMin - lastLessonEndMin < 0) {
               if (startMin < startTime) {
                 localStorage.setItem("startTime", fmt(a.start, "noRegex"));
               }
               startTime = hoursToMinutes(
-                localStorage.getItem("startTime") || "08:10"
+                localStorage.getItem("startTime") || "08:15"
               );
               lastLessonEndMin = startTime;
             }
-            marginTop = ((startMin - lastLessonEndMin) * 1.1457) / 16;
-            if (startTime < 490) {
-              marginTop = ((startMin - lastLessonEndMin) * 1.135) / 16;
-            } else if (startTime > 490) {
-              marginTop = ((startMin - lastLessonEndMin) * 1.235) / 16;
-            }
-            let lessonPadding = 1;
-            if (marginTop == 0) lessonPadding = 0;
-            sectionBeginning = `<section style="--margin: calc(${marginTop}rem + ${lessonPadding}px)">`;
+            sectionBeginning = "<section>";
           }
           if (lastLesson) {
             lastLessonEndMin = endMin;
@@ -655,6 +641,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
           });
           let styles = "";
           let warningStyles = "";
+          marginTop = ((startMin - startTime) * 1.1) / 16;
+          height = ((endMin - startMin) * 1.1) / 16;
           if (height < 3) {
             styles = "line-height: 1.1;";
             warningStyles = "bottom: 2px";
@@ -663,7 +651,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.appointmentInstance + "div"
           }" class="les ${cancelled} ${
             a.appointmentType
-          }" style="--height: ${height}rem;${styles}"><button id="${
+          }" style="--height: ${height}rem; --margin: ${marginTop}rem;${styles}"><button id="${
             a.appointmentInstance
           }" class="innerSpan"
           commandfor="info" command="show-modal" onclick='showLessonInfo(this, ${JSON.stringify(
@@ -727,7 +715,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   }
   const startMin = hoursToMinutes(new Date().toLocaleTimeString());
   const startTime = hoursToMinutes(
-    localStorage.getItem("startTime") || "08:10"
+    localStorage.getItem("startTime") || "08:15"
   );
   let marginTop = ((startMin - startTime) * 1.14) / 16 + 1.5;
   if (startTime > 490) {
@@ -909,6 +897,12 @@ window.addEventListener("resize", () => {
   if (window.innerWidth < 346) {
     document.getElementById("dayBtn").click();
   }
+  if (
+    window.innerHeight < 565 &&
+    document.getElementById("schedule").classList == "ltrEnabled"
+  ) {
+    document.getElementById("ltr").click();
+  }
 });
 document.getElementById("nextDay").addEventListener("click", () => {
   switchDay("next");
@@ -1046,9 +1040,8 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
   const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
-  document.querySelector(
-    "#info #content"
-  ).innerHTML += `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
+  document.querySelector("#info #content").innerHTML +=
+    `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups}</span></span>${onlinePill}</div>`;
   const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
     lesson.appointmentInstance
   }&user=~me&valid=true&start=${lesson.start}&end=${
@@ -1082,15 +1075,13 @@ async function showLessonInfo(lessonHTML, lesson) {
     a.students = "";
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
-    document.querySelector(
-      "#info #content"
-    ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+    document.querySelector("#info #content").innerHTML +=
+      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
   } else {
     document.startViewTransition(
       () =>
-        (document.querySelector(
-          "#info #content"
-        ).innerHTML += `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+        (document.querySelector("#info #content").innerHTML +=
+          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
     );
   }
 }
@@ -1121,7 +1112,6 @@ document.querySelector(".addBtn").addEventListener("click", () => {
       .filter(Boolean),
 
     cancelled: document.getElementById("custCancelled").checked,
-    status: document.getElementById("custStatus").value || "",
     content: document.getElementById("custContent").value || "",
   };
 
