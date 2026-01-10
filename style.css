@@ -431,7 +431,7 @@ details strong {
   position: absolute;
   display: flex;
   align-items: center;
-  line-height: 1.35;
+  line-height: 1.4;
   inset: 0;
   top: var(--margin);
 }
