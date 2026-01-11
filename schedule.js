@@ -104,21 +104,12 @@ async function fetchToken() {
 }
 
 async function announcements() {
-  const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Error ${response.status}: ${response.statusText}`);
-  }
-
-  const data = await response.json();
-  localStorage.setItem("announcements", JSON.stringify(data));
-
-  renderAnnouncements();
-}
-
-announcements();
-
-async function announcements() {
+  if (
+    !schoolName ||
+    !authorizationCode ||
+    localStorage.getItem("mededelingenAan") != "true"
+  )
+    return;
   const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -555,7 +546,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           );
           if (firstLesson) {
             if (!lastLessonEndMin || startMin - lastLessonEndMin < 0) {
-              if (startMin < startTime) {
+              if (startMin < startTime || !localStorage.getItem("startTime")) {
                 localStorage.setItem("startTime", fmt(a.start, "noRegex"));
               }
               startTime = hoursToMinutes(
