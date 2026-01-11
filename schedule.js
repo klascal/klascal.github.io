@@ -717,10 +717,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   const startTime = hoursToMinutes(
     localStorage.getItem("startTime") || "08:15"
   );
-  let marginTop = ((startMin - startTime) * 1.14) / 16 + 1.5;
-  if (startTime > 490) {
-    marginTop = ((startMin - startTime) * 1.235) / 16 + 1.5;
-  }
+  let marginTop = ((startMin - startTime) * 1.1) / 16;
   timeline.style = `--top: ${marginTop}rem`;
   document.getElementById("schedule").appendChild(timeline);
   document.getElementById("schedule").style.opacity = "";

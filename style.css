@@ -885,23 +885,18 @@ button:disabled {
 }
 .timeline {
   position: absolute;
-  background-color: var(--timeline);
+  background-color: var(--primary-light);
   z-index: -1;
   width: 100%;
 }
 .weekEnabled .timeline {
   height: 2px;
-  top: var(--top);
-}
-.weekEnabled .timeline {
-  height: 2px;
-  top: var(--top);
+  top: calc(var(--top) + 4.5rem);
 }
 .ltrEnabled .timeline {
   width: 2px;
   height: calc(100vh - 3.75rem);
-  left: calc((var(--top) - 1.5rem) * 2.8 + 1px);
-  top: -2.75rem;
+  left: calc(var(--top) * 3 + 0.25rem);
 }
 .dayEnabled .timeline {
   visibility: hidden;
@@ -1011,6 +1006,11 @@ label {
   .les {
     height: calc(var(--height) * 1.2 - 2px);
     top: calc(var(--margin) * 1.2);
+  }
+  .weekEnabled .timeline {
+    height: 2px;
+    top: calc(var(--top) * 1.2 + 4.5rem);
+    left: 0;
   }
   .weekEnabled .warning {
     bottom: 4px;
