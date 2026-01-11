@@ -326,7 +326,6 @@ hr {
 strong.lesuur {
   position: absolute;
   right: 13px;
-  translate: 0 -1px;
 }
 h2 {
   font-size: 1.25rem;
@@ -1003,7 +1002,7 @@ label {
   .weekEnabled strong.date {
     display: block;
   }
-  .les {
+  .weekEnabled .les {
     height: calc(var(--height) * 1.2 - 2px);
     top: calc(var(--margin) * 1.2);
   }
