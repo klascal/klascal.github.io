@@ -77,13 +77,11 @@
   padding: 0.45rem 0.5rem;
 }
 #soft_burst {
-  transform: translateX(-13px);
   fill: var(--primary-light);
   vertical-align: middle;
-  position: absolute;
 }
 #soft_burst ~ span {
-  margin-left: 4px;
+  margin-left: 2px;
 }
 #field {
   background: var(--primary-background);
@@ -96,6 +94,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+#schedule strong.date {
+  text-wrap: nowrap;
+  text-align: center;
 }
 body,
 html {
