@@ -162,8 +162,8 @@ section #submenu {
   background: var(--primary-accent);
   color: var(--accent-text);
   padding: 8px 10px;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px var(--timeline);
   opacity: 0;
   transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
@@ -834,6 +834,9 @@ input[type="radio"]:not(:checked) ~ label {
   #announcementsButton,
   #clearSettings #submenu {
     background-color: var(--primary-dark);
+  }
+  .tooltip {
+    box-shadow: 0 1px 2px var(--primary-background);
   }
   #warningIcon {
     fill: #e89822;
