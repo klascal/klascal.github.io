@@ -358,7 +358,7 @@ strong.date,
     "ROND" 100;
 }
 strong.date {
-  margin: 8px 12px;
+  margin: 8px 10px;
   color: var(--primary-light);
   display: flex;
   align-items: center;
