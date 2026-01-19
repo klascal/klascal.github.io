@@ -109,7 +109,7 @@ html {
   color: #231918;
 }
 body {
-  margin: 0 8px;
+  margin: 0;
 }
 button {
   font-family: inherit;
@@ -385,6 +385,7 @@ details strong {
 }
 
 #schedule {
+  margin: 0 8px;
   margin-top: 2.5rem;
   height: calc(100vh - 2.5rem);
 }

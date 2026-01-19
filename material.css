@@ -49,7 +49,12 @@
 }
 .theme__icon::before {
   content: "";
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) -100%, transparent 75%, rgba(255, 255, 255, 0.3) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85) -100%,
+    transparent 75%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
   width: 3.5rem;
   height: 2.9rem;
   display: block;
@@ -69,12 +74,28 @@ body {
 @supports (color: color-mix(in srgb, red, blue)) {
   body {
     --accent-text: color-mix(in srgb, var(--primary-light) 47.5%, black);
-    --accent-text-faded: color-mix(in srgb, var(--accent-text) 80%, transparent);
+    --accent-text-faded: color-mix(
+      in srgb,
+      var(--accent-text) 80%,
+      transparent
+    );
     --accent-text-light: color-mix(in srgb, var(--accent-text) 55%, black);
     --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
-    --primary-background-faded: color-mix(in srgb, var(--primary-background) 75%, transparent);
-    --primary-foreground-faded: color-mix(in srgb, var(--primary-foreground) 90%, #fffefe17);
-    --timeline: color-mix(in srgb, var(--primary-light) 50%, var(--primary-accent));
+    --primary-background-faded: color-mix(
+      in srgb,
+      var(--primary-background) 75%,
+      transparent
+    );
+    --primary-foreground-faded: color-mix(
+      in srgb,
+      var(--primary-foreground) 90%,
+      #fffefe17
+    );
+    --timeline: color-mix(
+      in srgb,
+      var(--primary-light) 50%,
+      var(--primary-accent)
+    );
   }
 }
 body[data-theme="red"] {
@@ -216,7 +237,11 @@ body[data-theme="pink monochrome"] {
   @supports (color: color-mix(in srgb, red, blue)) {
     body {
       --accent-text: color-mix(in srgb, var(--primary-light) 47.5%, white);
-      --accent-text-faded: color-mix(in srgb, var(--accent-text) 80%, transparent);
+      --accent-text-faded: color-mix(
+        in srgb,
+        var(--accent-text) 80%,
+        transparent
+      );
       --accent-text-light: color-mix(in srgb, var(--accent-text) 55%, white);
       --primary-border: color-mix(in srgb, var(--accent-text) 40%, transparent);
     }
@@ -509,6 +534,6 @@ p {
   max-width: calc(100vw - 60px);
   overflow-y: auto;
   width: 292px;
-  padding-right: 24px;
+  padding-right: 16px;
   overflow-x: hidden;
 }
