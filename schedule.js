@@ -1012,8 +1012,10 @@ async function showLessonInfo(lessonHTML, lesson) {
   if (!lesson.content) {
     lesson.content = "";
   }
-  let warning =
-    lesson.changeDescription + lesson.schedulerRemark + lesson.content;
+  let warning = [lesson.changeDescription, lesson.schedulerRemark, lesson.content]
+  .map(x => String(x || "").replace(/NaN/g, ""))
+  .join("");
+
   if (lesson.cancelled == true) {
     lesson.appointmentType = "cancelled";
   }
