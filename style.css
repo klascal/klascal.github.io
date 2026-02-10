@@ -131,6 +131,58 @@ dialog {
   view-transition-name: dialog;
   width: 292px;
 }
+#scanQrCode {
+  width: 250px;
+}
+#video {
+  border-radius: 18px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-color: var(--primary-foreground);
+}
+.scan-frame {
+  position: absolute;
+  inset: 0;
+}
+.scan-container {
+  width: 100%;
+}
+.corner {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+  border-style: solid;
+  position: absolute;
+  border-color: var(--primary-border);
+}
+.tl {
+  top: 111px;
+  left: 15px;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 24px 0 0 0;
+}
+.tr {
+  top: 111px;
+  right: 15px;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0 24px 0 0;
+}
+.bl {
+  bottom: 10px;
+  left: 15px;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 0 0 0 24px;
+}
+.br {
+  bottom: 10px;
+  right: 15px;
+  border-left: 0;
+  border-top: 0;
+  border-radius: 0 0 24px 0;
+}
 
 @keyframes popIn {
   from {
@@ -195,12 +247,14 @@ h2.date {
   display: inline;
 }
 section div:first-of-type,
-section #submenu:first-of-type {
+section #submenu:first-of-type,
+#clearSettings section #submenu:first-of-type {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 section div:last-of-type,
-section #submenu:last-of-type {
+section #submenu:last-of-type,
+#clearSettings section #submenu:last-of-type {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   margin-bottom: 0;
@@ -263,7 +317,8 @@ table {
 #clearSettings #content {
   width: 282px;
 }
-#clearSettings div {
+#clearSettings div,
+#scanQrCode div {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -282,13 +337,16 @@ table {
 }
 #clearSettings #submenu {
   padding: 1rem;
+  border-radius: 0.4rem;
+  margin-bottom: 0.25rem;
   background-color: var(--primary-accent);
   color: var(--accent-text);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#clearSettings #icon {
+#clearSettings #icon,
+#scanQrCode #icon {
   fill: var(--accent-text);
   width: 2rem;
   height: 2rem;
@@ -410,7 +468,7 @@ details strong {
   height: calc(100vh - 3.75rem);
 }
 .ltrEnabled strong.date {
-  margin: 12px;
+  margin: 12px 10px;
   transform: translateY(-1.5rem);
 }
 .ltrEnabled div {
@@ -628,6 +686,7 @@ dialog details {
 }
 details {
   overflow: hidden;
+  font-weight: 450;
 }
 summary::marker {
   font-family: inherit;

@@ -969,6 +969,9 @@ document.getElementById("ltr").addEventListener("click", () => {
   }
   document.getElementById("weekBtn").click();
 });
+document.querySelector(".scanBtn").addEventListener("click", () => {
+  startScanner();
+});
 if (
   localStorage.getItem("dag") == "false" ||
   (!localStorage.getItem("dag") && window.innerWidth > 1000)
@@ -979,6 +982,56 @@ if (
 }
 if (window.innerWidth < 330) {
   document.getElementById("dayBtn").click();
+}
+
+const video = document.getElementById("video");
+
+async function startScanner() {
+  // Check support
+  if (!("BarcodeDetector" in window)) {
+    return;
+  }
+
+  // Create detector for QR codes only
+  const barcodeDetector = new BarcodeDetector({
+    formats: ["qr_code"],
+  });
+
+  // Start camera
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: "environment" },
+  });
+
+  video.srcObject = stream;
+
+  // Scan loop
+  async function scan() {
+    try {
+      const barcodes = await barcodeDetector.detect(video);
+
+      if (barcodes.length > 0) {
+        document.getElementById("schoolName").value = JSON.parse(
+          barcodes[0].rawValue
+        ).institution;
+        document.getElementById("authorizationCode").value = JSON.parse(
+          barcodes[0].rawValue
+        ).code;
+        // Stop scanning after success
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    requestAnimationFrame(scan);
+  }
+
+  requestAnimationFrame(scan);
+}
+
+if (!("BarcodeDetector" in window)) {
+  document.querySelector(".scanBtn").remove();
 }
 async function showLessonInfo(lessonHTML, lesson) {
   const original = document.getElementById(lesson.appointmentInstance);
@@ -1012,7 +1065,8 @@ async function showLessonInfo(lessonHTML, lesson) {
   if (!lesson.content) {
     lesson.content = "";
   }
-  let warning = lesson.changeDescription + lesson.schedulerRemark + lesson.content;
+  let warning =
+    lesson.changeDescription + lesson.schedulerRemark + lesson.content;
 
   if (lesson.cancelled == true) {
     lesson.appointmentType = "cancelled";
