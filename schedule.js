@@ -1018,6 +1018,7 @@ async function startScanner() {
         ).code;
         // Stop scanning after success
         stream.getTracks().forEach((track) => track.stop());
+        document.getElementById("scanQrCode").close();
         return;
       }
     } catch (err) {
