@@ -432,7 +432,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     return;
   }
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields`,
+    `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields=week,user,appointments,replacements,status`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
