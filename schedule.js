@@ -67,6 +67,7 @@ if (!schoolName && !accessToken) {
   document
     .querySelector("#dialog #closeBtn")
     .setAttribute("onclick", "resetAfterWelcomeScreen()");
+  document.querySelector("#dialog").setAttribute("closedby", "none");
   document.querySelector("#dialog #closeBtn").removeAttribute("command");
   document.querySelector("#dialog #closeBtn").removeAttribute("commandfor");
   document.querySelector("#dialog #closeBtn span").innerHTML = "Volgende";
@@ -126,7 +127,7 @@ announcements();
 
 async function userInfo() {
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee`,
+    `https://${schoolName}.zportal.nl/api/users/~me?fields=code,isEmployee,schoolInSchoolYears`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -139,10 +140,69 @@ async function userInfo() {
     userType1 = "teacher";
   } else if (!data.response.data[0]) {
     console.error(data);
+  } else {
+    schoolInSchoolYears(data.response.data[0].schoolInSchoolYears);
   }
   localStorage.setItem("userType", userType1);
   userType = localStorage.getItem("userType");
   fetchSchedule();
+}
+async function schoolInSchoolYears(years) {
+  const response = await fetch(
+    `https://${schoolName}.zportal.nl/api/schoolsinschoolyears?fields=id,year`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const data = await response.json();
+  const schoolYears = data.response.data;
+  const current = schoolYears.reduce(
+    (latest, item) =>
+      years.includes(item.id) && (!latest || item.year > latest.year)
+        ? item
+        : latest,
+    null
+  );
+  localStorage.setItem("schoolInSchoolYear", current.id);
+  fetchTeachers();
+}
+async function fetchTeachers() {
+  const schoolYear = Number(localStorage.getItem("schoolInSchoolYear"));
+  let teacherTranslations = {};
+  return fetch(
+    `https://${schoolName}.zportal.nl/api/users?archived=false&schoolInSchoolYear=${schoolYear}&fields=code%2ClastName%2Cprefix&isEmployee=true`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  )
+    .then((r) => r.json())
+    .then((result) => {
+      let teachers = result.response.data;
+      teachers.forEach((teacher) => {
+        let prefix = teacher.prefix;
+        let lastName = teacher.lastName;
+        // For my school the format {2 letters last name}{2 letters first name} is used which can be used to find the initial letter of the first name, possibly other schools??
+        if (schoolName == "csvincentvangogh" && teacher.code.length == 4)
+          prefix = `${teacher.code.split("")[2].toUpperCase()}.${prefix ? " " + prefix : ""}`;
+
+        if (!lastName) {
+          return;
+        }
+
+        let commaIndex = lastName.indexOf(",");
+        if (commaIndex != -1) {
+          lastName = lastName.substring(0, commaIndex);
+        }
+
+        let fullName = (prefix ? prefix + " " : "") + lastName;
+        teacherTranslations[teacher.code] = fullName;
+      });
+      localStorage.setItem("teachers", JSON.stringify(teacherTranslations));
+    });
 }
 const inputs = document.querySelectorAll("input");
 inputs.forEach((input) => {
@@ -294,6 +354,7 @@ function show(id, title, hideBack) {
     } else {
       document.querySelector("#dialog h2").innerHTML = title;
       if (!hideBack) {
+        document.querySelector("#dialog").setAttribute("closedby", "any");
         document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
         document
           .querySelector("#dialog #closeBtn")
@@ -432,7 +493,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
     return;
   }
   const response = await fetch(
-    `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields`,
+    `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields=week,user,appointments,replacements,status`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -756,9 +817,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   });
 }
 async function fetchFullSubjectNames() {
-  let url = `https://${localStorage.getItem(
-    "schoolName"
-  )}.zportal.nl/api/subjectselectionsubjects?fields=code,name`;
+  let url = `https://${schoolName}.zportal.nl/api/subjectselectionsubjects?fields=code,name`;
   return fetch(url, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -1083,14 +1142,26 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
   const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
+  const teacherIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M609-389q-29-29-29-71t29-71q29-29 71-29t71 29q29 29 29 71t-29 71q-29 29-71 29t-71-29Zm-89 229q-17 0-28.5-11.5T480-200v-16q0-24 12.5-44.5T528-290q36-15 74.5-22.5T680-320q39 0 77.5 7.5T832-290q23 9 35.5 29.5T880-216v16q0 17-11.5 28.5T840-160H520ZM287-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM80-272q0-34 17-62.5t47-43.5q60-30 124.5-46T400-440q35 0 70 6t70 14l-68 68q-25 25-48.5 51T400-240v39q0 12 4.5 22.5T419-160H160q-33 0-56.5-23.5T80-240v-32Z"/></svg>`;
+  let fullTeacherNames = JSON.parse(localStorage.getItem("teachers"));
+  if (JSON.parse(localStorage.getItem("teachers"))) {
+    fullTeacherNames = lesson.teachers.map(
+      (teacher) => `${fullTeacherNames[teacher]} (${teacher})`
+    );
+  } else if (userType == "student") {
+    userInfo();
+  }
+  const teacherDiv = fullTeacherNames
+    ? `<div><span class="pill">${teacherIcon}${fullTeacherNames.join(", ")}</span></div>`
+    : "";
   document.querySelector("#info #content").innerHTML +=
-    `${warningSymbol}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups.join(", ")}</span></span>${onlinePill}</div>`;
+    `${warningSymbol}${teacherDiv}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups.join(", ")}</span></span>${onlinePill}</div>`;
   const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
     lesson.appointmentInstance
   }&user=~me&valid=true&start=${lesson.start}&end=${
     lesson.end
   }&fields=created,modified,lastModified${
-    localStorage.getItem("userType") == "teacher" ? `,students` : ""
+    userType == "teacher" ? `,students` : ""
   }`;
   const response = await fetch(url, {
     headers: {

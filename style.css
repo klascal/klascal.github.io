@@ -468,8 +468,8 @@ details strong {
   height: calc(100vh - 3.75rem);
 }
 .ltrEnabled strong.date {
-  margin: 12px 10px;
-  transform: translateY(-1.5rem);
+  margin: 6px 10px;
+  transform: translateY(-1.15rem);
 }
 .ltrEnabled div {
   height: 3rem;
@@ -481,7 +481,7 @@ details strong {
   display: block;
 }
 .ltrEnabled .warning {
-  bottom: 22px !important;
+  bottom: 20px !important;
 }
 .les {
   height: calc(var(--height) - 2px);
@@ -537,7 +537,7 @@ section div br:not(:first-of-type) {
   padding: 6px 10px;
   line-height: normal !important;
   top: unset;
-  height: 4rem;
+  height: 3.5rem;
   left: calc(var(--margin) * 3);
 }
 .dayEnabled div {
@@ -670,6 +670,12 @@ button:not(:disabled) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.analytics-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0;
 }
 @font-face {
   font-family: "FontWithASyntaxHighlighter";
@@ -955,6 +961,7 @@ button:disabled {
 .weekEnabled .timeline {
   height: 2px;
   top: calc(var(--top) + 4.5rem);
+  left: 0;
 }
 .ltrEnabled .timeline {
   width: 2px;
@@ -1160,7 +1167,7 @@ dialog.right {
 }
 dialog.right,
 dialog.right #content {
-  width: 311px;
+  width: 303px;
 }
 #customAppointments,
 #customAppointments #content {

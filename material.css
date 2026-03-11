@@ -369,6 +369,7 @@ body[data-theme="pink monochrome"] {
 .switch__label {
   position: relative;
   cursor: pointer;
+  margin-left: auto;
 }
 .switch__input {
   opacity: 0;
