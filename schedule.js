@@ -91,10 +91,10 @@ async function fetchToken() {
         "Content-Type": "application/json",
       },
     });
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
     const data = await response.json();
+    if (!response.ok) {
+      errorMessage(data.response.message);
+    }
     localStorage.setItem("access_token", data.access_token);
     accessToken = localStorage.getItem("access_token");
   } catch (error) {
@@ -140,6 +140,7 @@ async function userInfo() {
     userType1 = "teacher";
   } else if (!data.response.data[0]) {
     console.error(data);
+    errorMessage(data.response.message);
   } else {
     schoolInSchoolYears(data.response.data[0].schoolInSchoolYears);
   }
@@ -366,7 +367,10 @@ function show(id, title, hideBack) {
     }
   });
 }
-
+function errorMessage(e) {
+  document.querySelector("#error p").innerText = e;
+  document.getElementById("error").showModal();
+}
 function renderAnnouncements() {
   const content = document.getElementById("allAnnouncements");
   content.innerHTML = "";
@@ -501,6 +505,9 @@ async function fetchSchedule(year, week, isFirstLoad) {
     }
   );
   const data = await response.json();
+  if (!response.ok) {
+    errorMessage(data.response.message);
+  }
   const appointments = data.response.data[0].appointments;
   const isHoliday = !appointments[0];
   const schedule = document.getElementById("schedule");

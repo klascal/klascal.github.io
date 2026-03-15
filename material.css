@@ -488,6 +488,7 @@ p {
   font-family: inherit;
   font-size: inherit;
   float: right;
+  margin-left: auto;
   margin-top: 12px;
   view-transition-name: close;
 }

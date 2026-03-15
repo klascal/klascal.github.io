@@ -317,8 +317,13 @@ table {
 #clearSettings #content {
   width: 282px;
 }
+#error,
+#error #content {
+  width: 310px;
+}
 #clearSettings div,
-#scanQrCode div {
+#scanQrCode div,
+#error div {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -331,7 +336,9 @@ table {
   letter-spacing: 0.1px;
 }
 #clearSettings h2,
-#clearSettings #content {
+#clearSettings #content,
+#error h2,
+#error #content {
   margin: 0;
   padding: 0;
 }
@@ -346,7 +353,8 @@ table {
   align-items: center;
 }
 #clearSettings #icon,
-#scanQrCode #icon {
+#scanQrCode #icon,
+#error #icon {
   fill: var(--accent-text);
   width: 2rem;
   height: 2rem;
