@@ -453,6 +453,7 @@ details strong {
 #schedule {
   margin-top: 2.5rem;
   height: calc(100vh - 2.5rem);
+  position: relative;
 }
 #schedule div {
   flex: 1;
@@ -968,13 +969,13 @@ button:disabled {
 }
 .weekEnabled .timeline {
   height: 2px;
-  top: calc(var(--top) + 4.5rem);
+  top: calc(var(--top) + 2rem);
   left: 0;
 }
 .ltrEnabled .timeline {
   width: 2px;
   height: calc(100vh - 3.75rem);
-  left: calc(var(--top) * 3 + 0.25rem);
+  left: calc(var(--top) * 3);
 }
 .dayEnabled .timeline {
   visibility: hidden;
@@ -1086,9 +1087,7 @@ label {
     top: calc(var(--margin) * 1.2);
   }
   .weekEnabled .timeline {
-    height: 2px;
-    top: calc(var(--top) * 1.2 + 4.5rem);
-    left: 0;
+    top: calc(var(--top) * 1.2 + 2rem);
   }
   .weekEnabled .warning {
     bottom: 4px;

@@ -559,6 +559,12 @@ async function fetchSchedule(year, week, isFirstLoad) {
       0,
       3
     )}</span><span class="long">${month.slice(3)}</span>`;
+    // maart is een uitzondering: mrt i.p.v. maa
+    if (month == "maart") {
+      date = `${weekday.slice(0, 2)}<span class="long">${weekday.slice(
+        2
+      )}</span> ${day}<span class="longExtraExtraExtra"> m<span class="long">aa</span>rt</span>`;
+    }
     (grouped[dateFull] = grouped[dateFull] || { date, items: [] }).items.push(
       a
     );
