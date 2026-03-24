@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.klascal.twa",
+      "sha256_cert_fingerprints": [
+        "72:9E:5C:0B:E3:7B:87:8D:C8:D6:75:11:A4:18:88:1C:F8:D6:0C:1D:8B:43:3B:D4:35:42:5D:60:E4:EB:7A:BB"
+      ]
+    }
+  }
+]
