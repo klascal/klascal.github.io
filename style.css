@@ -1,6 +1,6 @@
 :root {
   font-family:
-    Inter,
+    Google Sans Flex,
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
@@ -21,22 +21,12 @@
   interpolate-size: allow-keywords;
   font-variation-settings: "ROND" 100;
 }
-@supports (font-variation-settings: normal) {
-  :root {
-    font-family:
-      InterVariable,
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      "Open Sans",
-      "Helvetica Neue",
-      sans-serif;
-  }
+@font-face {
+  font-family: "Google Sans Rounded";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(flex-Regular.ttf) format("truetype");
 }
 ::view-transition-group(root) {
   animation-duration: 200ms;
@@ -60,21 +50,19 @@
 #authorizationCode:invalid ~ label {
   color: #660d00;
 }
-#previousDay {
+#previousDay,
+#nextDay {
   border: none;
   border-radius: 4rem 0.5rem 0.5rem 4rem;
   background-color: var(--primary-accent);
   z-index: 2;
   position: relative;
   padding: 0.45rem 0.5rem;
+  font-family: Material Symbols Rounded;
+  font-size: 20px;
 }
 #nextDay {
-  border: none;
   border-radius: 0.5rem 4rem 4rem 0.5rem;
-  background-color: var(--primary-accent);
-  z-index: 2;
-  position: relative;
-  padding: 0.45rem 0.5rem;
 }
 #soft_burst {
   fill: var(--primary-light);
@@ -112,7 +100,7 @@ body {
   margin: 0 8px;
 }
 button {
-  font-family: inherit;
+  font-family: initial;
 }
 button:focus {
   outline: revert !important;
@@ -200,10 +188,6 @@ section #submenu {
   border-radius: 0.25rem;
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
 }
 .day section div {
   padding: 0px 10px;
@@ -219,10 +203,6 @@ section #submenu {
   opacity: 0;
   transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   font-weight: 500;
   font-variation-settings:
     "opsz" 20,
@@ -236,6 +216,11 @@ section #submenu {
 }
 .check {
   display: none;
+  font-family: Material Symbols Rounded !important;
+  font-size: 18px;
+  line-height: 0px !important;
+  position: relative;
+  top: 4px;
 }
 h2.date {
   margin: 8px auto;
@@ -261,10 +246,6 @@ section #submenu:last-of-type,
 }
 
 #week {
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   font-weight: 500;
   line-height: 1;
   display: flex;
@@ -288,7 +269,6 @@ th {
   font-weight: 450;
   text-align: left;
   padding: 8px;
-  font-family: Google Sans Flex;
   background-color: var(--primary-foreground);
   border-radius: 0.4rem;
   border: 2px solid var(--primary-background);
@@ -308,7 +288,7 @@ table {
 }
 #shortcuts,
 #shortcuts #content {
-  width: 400px;
+  width: 320px;
 }
 #clearSettings {
   padding: 1.25rem;
@@ -355,12 +335,15 @@ table {
 #clearSettings #icon,
 #scanQrCode #icon,
 #error #icon {
-  fill: var(--accent-text);
-  width: 2rem;
-  height: 2rem;
+  color: var(--accent-text);
+  font-family: Material Symbols Rounded;
+  font-size: 2rem;
 }
 section #submenu {
   padding: 10px 12px;
+  font-family:
+    Google Sans Flex,
+    system-ui;
   font-weight: 500;
   letter-spacing: 0.1px;
   font-size: 1rem;
@@ -401,10 +384,9 @@ h2 {
   margin-top: 0;
   margin-left: 4px;
   margin-bottom: 12px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .les p,
@@ -417,7 +399,6 @@ strong.date,
   display: inline;
   font-family:
     Google Sans Flex,
-    Inter,
     system-ui;
   font-variation-settings:
     "opsz" 20,
@@ -572,6 +553,7 @@ section div br:not(:first-of-type) {
   fill: var(--primary-light);
   color: var(--primary-light);
   font-size: 14px;
+  font-family: initial;
 }
 #ltr:active {
   border-radius: 0.75rem;
@@ -580,7 +562,6 @@ section div br:not(:first-of-type) {
   vertical-align: text-top;
   font-family:
     Google Sans Flex,
-    Inter,
     system-ui;
   font-variation-settings:
     "opsz" 20,
@@ -589,6 +570,8 @@ section div br:not(:first-of-type) {
 #ltr svg {
   fill: var(--accent-text);
   transition: rotate 0.2s;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 #side {
   position: fixed;
@@ -615,10 +598,6 @@ section div br:not(:first-of-type) {
 b {
   font-weight: 600;
   letter-spacing: 0.1px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
 }
 .btn {
   background-color: #f1f1f1;
@@ -630,6 +609,7 @@ b {
   font-weight: 500;
   letter-spacing: 0.1px;
 }
+.back:hover,
 .btn:hover,
 #previousDay:hover,
 #nextDay:hover,
@@ -662,10 +642,8 @@ button:not(:disabled) {
 
 #icon,
 .icon {
-  fill: black;
   vertical-align: middle;
-  width: 1.5rem;
-  height: 1.5rem;
+  color: black;
 }
 
 .selected {
@@ -679,6 +657,7 @@ button:not(:disabled) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 8px;
 }
 .analytics-text {
   display: flex;
@@ -746,10 +725,6 @@ ul {
   width: fit-content;
   color: var(--accent-text);
   font-weight: 450;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
@@ -761,10 +736,6 @@ ul {
   letter-spacing: 0.1px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   color: var(--accent-text);
   padding-top: 2px;
 }
@@ -787,10 +758,6 @@ small {
   font-weight: 450;
   letter-spacing: 0.1px;
   opacity: 0.78;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   font-variation-settings:
     "opsz" 20,
     "ROND" 100;
@@ -800,13 +767,17 @@ small {
 #announcementsButton {
   background-color: var(--primary-accent);
 }
+.announcement h2 {
+  margin-left: 0;
+  margin-bottom: 2px;
+}
 li {
   margin-bottom: 5px;
 }
 ::marker {
   font-weight: bold;
   color: var(--primary-light);
-  font-family: Inter;
+  font-family: system-ui;
 }
 #dayBtn,
 #weekBtn {
@@ -817,7 +788,6 @@ li {
 #closeBtn span {
   font-family:
     Google Sans Flex,
-    Inter,
     system-ui;
   line-height: 1;
   font-variation-settings:
@@ -877,10 +847,6 @@ input[type="radio"] ~ label {
   cursor: pointer;
   font-weight: 450;
   letter-spacing: 0.1px;
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   transition: opacity 0.15s ease-in-out;
 }
 input[type="radio"]:not(:checked) ~ label {
@@ -888,6 +854,7 @@ input[type="radio"]:not(:checked) ~ label {
 }
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
+  .back:hover,
   .btn:hover,
   #announcementsButton:hover,
   #previousDay:hover,
@@ -931,8 +898,7 @@ input[type="radio"]:not(:checked) ~ label {
 
   #icon,
   .icon {
-    fill: #e1e4db;
-    vertical-align: middle;
+    color: #e1e4db;
   }
 }
 .exam {
@@ -1039,20 +1005,28 @@ label {
   background-color: var(--primary-background-faded);
   padding: 0.5rem;
   border-radius: 0.75rem;
+  color: var(--primary-light);
+  font-family: Material Symbols Rounded;
+  font-size: 24px;
+  line-height: 1;
+  font-variation-settings: "FILL" 1;
 }
 #content .submenu {
   display: none;
 }
-#dialog #icon.back {
+#dialog .back {
   padding: 0.4rem;
-  transform: translateY(-1.8px);
-  margin-right: 0.75rem;
-  fill: var(--accent-text) !important;
+  color: var(--accent-text) !important;
   background-color: var(--primary-accent);
   border-radius: 2rem;
+  font-family: Material Symbols Rounded;
+  font-size: 24px;
+  height: 24px;
+  line-height: 24px;
+  cursor: pointer;
 }
 @media (prefers-color-scheme: dark) {
-  #dialog #icon.back {
+  #dialog .back {
     background-color: var(--primary-foreground);
   }
 }
@@ -1200,10 +1174,6 @@ dialog.right #content {
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  font-family:
-    Google Sans Flex,
-    Inter,
-    system-ui;
   font-variation-settings:
     "opsz" 20,
     "ROND" 100;

@@ -9,57 +9,12 @@ function toUnix(date, time) {
   return Math.floor(new Date(`${date}T${time}`).getTime() / 1000);
 }
 
-async function loadLanguage() {
-  try {
-    const supported = ["nl", "en", "de", "fr", "es"];
-    const urlParams = new URLSearchParams(window.location.search);
-    const forcedLang = urlParams.get("lang");
-    const injectedLang = window.KLASCAL_LANG || window.KLASCAL?.lang || null;
-    const storedLang = localStorage.getItem("klascal-lang");
-    const navigatorLangs = (navigator.languages || [])
-      .map((l) => l.slice(0, 2))
-      .filter(Boolean);
-    const intlLang =
-      typeof Intl === "object"
-        ? Intl.DateTimeFormat().resolvedOptions().locale.slice(0, 2)
-        : null;
-    const navLang = (navigator.language || navigator.userLanguage || "").slice(
-      0,
-      2
-    );
-    const candidates = [
-      forcedLang,
-      injectedLang,
-      storedLang,
-      ...navigatorLangs,
-      intlLang,
-      navLang,
-    ].filter(Boolean);
-    const lang = candidates.find((c) => supported.includes(c)) || "nl";
-
-    if (!forcedLang) localStorage.setItem("klascal-lang", lang);
-    document.documentElement.lang = lang;
-
-    const res = await fetch("lang.json");
-    if (!res.ok) throw new Error("Kan lang.json niet laden");
-    const translations = await res.json();
-
-    document.querySelectorAll("[data-translate]").forEach((el) => {
-      const key = el.getAttribute("data-translate");
-      if (translations[lang]?.[key]) el.innerHTML = translations[lang][key];
-    });
-  } catch (err) {
-    console.error("Fout bij laden van taal:", err);
-  }
-}
-
 let schoolName = localStorage.getItem("schoolName");
 let authorizationCode = localStorage.getItem("authorizationCode");
 let accessToken = localStorage.getItem("access_token");
 let userType = localStorage.getItem("userType");
 let lastLessonEndMin;
 let day = 0;
-let topY = 125;
 const timeline = document.createElement("div");
 timeline.classList.add("timeline");
 if (!schoolName && !accessToken) {
@@ -350,7 +305,7 @@ function show(id, title, hideBack) {
     if (id !== "submenus" && !hideBack) {
       document.querySelector("#dialog h2").removeAttribute("data-translate");
       document.querySelector("#dialog h2").innerHTML =
-        '<button style="all: unset" onclick="show(`submenus`, `Instellingen`)"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" id="icon" class="back"><path d="m313-440 196 196q12 12 11.5 28T508-188q-12 11-28 11.5T452-188L188-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l264-264q11-11 27.5-11t28.5 11q12 12 12 28.5T508-715L313-520h447q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440H313Z"/></svg></button>' +
+        '<button style="all: unset" onclick="show(`submenus`, `Instellingen`)"><p height="24px" width="24px" class="back">arrow_back</p></button>' +
         title;
     } else {
       document.querySelector("#dialog h2").innerHTML = title;
@@ -372,7 +327,7 @@ function errorMessage(e) {
   document.getElementById("error").showModal();
 }
 function renderAnnouncements() {
-  const content = document.getElementById("allAnnouncements");
+  const content = document.querySelector("#announcements #content");
   content.innerHTML = "";
 
   const stored = localStorage.getItem("announcements");
@@ -391,11 +346,11 @@ function renderAnnouncements() {
   }
 
   announcements.forEach((item) => {
-    const article = document.createElement("article");
+    const article = document.createElement("div");
     article.classList.add("announcement");
 
     article.innerHTML = `
-      <h3>${item.title || "Mededeling"}</h3>
+      <h2>${item.title || "Mededeling"}</h2>
       <p>${item.text || ""}</p>
       <small>${
         item.start ? new Date(item.start * 1000).toLocaleDateString() : ""
@@ -618,6 +573,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           let startTime = hoursToMinutes(
             localStorage.getItem("startTime") || "08:15"
           );
+          a.teachers.sort();
           if (firstLesson) {
             if (!lastLessonEndMin || startMin - lastLessonEndMin < 0) {
               if (startMin < startTime || !localStorage.getItem("startTime")) {
@@ -767,7 +723,6 @@ async function fetchSchedule(year, week, isFirstLoad) {
         '<h2 class="date"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem"><path d="M756-148 558-346q-11-11-11-28t11-28q11-11 28-11t28 11l198 198q11 11 11 28t-11 28q-11 11-28 11t-28-11Zm-575-72q-31-50-46-104.5T120-436q0-78 29-152t89-134q60-60 134.5-89.5T525-841q57 0 111.5 15.5T740-779q31 20 33 57t-26 65L303-213q-28 28-65.5 26T181-220Zm65-50 54-54q-16-21-30.5-43T243-411q-12-22-21-44t-16-43q-11 59-1.5 118T246-270Zm112-110 222-224q-43-33-86.5-53.5t-81.5-28q-38-7.5-68.5-2.5T296-666q-17 18-22 48.5t2.5 69q7.5 38.5 28 81.5t53.5 87Zm334-334q-53-32-112-42t-118 2q22 7 44 16t44 20.5q22 11.5 43.5 26T636-660l56-54Z"/></svg><br>Zomervakantie!</h2>';
     }
   }
-  loadLanguage();
   if (isFirstLoad == "firstLoad") {
     day = new Date().getDay() - 1;
     if (day == 5 || day == -1) {
@@ -971,6 +926,9 @@ document.getElementById("previousDay").addEventListener("click", () => {
   switchDay("prev");
 });
 window.addEventListener("keydown", (event) => {
+  // Prevent switching when in dialog
+  const dialogOpen = [...dialogs].some((dialog) => dialog.open);
+  if (dialogOpen) return;
   switch (event.key) {
     case "ArrowLeft":
       switchDay("prev");
@@ -997,6 +955,9 @@ document.addEventListener("touchend", (event) => {
 });
 
 function handleGesture() {
+  // Prevent switching when in dialog
+  const dialogOpen = [...dialogs].some((dialog) => dialog.open);
+  if (dialogOpen) return;
   if (touchendX - touchstartX < -50) {
     switchDay("next");
   }

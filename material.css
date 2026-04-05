@@ -13,7 +13,7 @@
   border-radius: 1rem;
 }
 .theme__input:checked + .theme__icon::before {
-  content: "✓";
+  content: "check";
   font-size: 27px;
   color: var(--primary-dark);
   text-align: center;
@@ -21,6 +21,7 @@
   line-height: 2.9rem;
   display: inherit;
   border-radius: 1rem;
+  font-family: Material Symbols Rounded;
 }
 .theme__icon {
   display: inline-block;
@@ -30,8 +31,6 @@
   background: var(--color);
   transition: 0.2s;
   vertical-align: middle;
-  margin: 5px;
-  font-family: Inter;
   font-weight: 500;
 }
 .theme__icon::before {
@@ -408,7 +407,6 @@ body[data-theme="pink monochrome"] {
   border: 2px solid var(--thumb-background);
   float: right;
   bottom: 6.5px;
-  font-family: Inter;
 }
 .switch__design::before {
   content: "";
@@ -433,16 +431,22 @@ body[data-theme="pink monochrome"] {
 .switch__input:checked + .switch__design::before {
   left: calc(100% - (var(--thumb-size) + var(--thumb-out)));
   background: var(--checked-thumb-background);
-  content: "✓";
+  content: "check";
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.3;
   color: var(--checked-background);
+  font-family: Material Symbols Rounded;
+  font-size: 18px;
+  font-variation-settings: "wght" 500;
 }
 .switch__input:not(:checked) + .switch__design::before {
   color: var(--background);
-  content: "✗";
+  content: "close";
   text-align: center;
   letter-spacing: 2px;
+  line-height: 1.35;
+  font-family: Material Symbols Rounded;
+  font-variation-settings: "wght" 600;
 }
 
 .material-textfield {
@@ -483,9 +487,10 @@ body[data-theme="pink monochrome"] {
 }
 p {
   margin: 0;
+  font-weight: 450;
+  letter-spacing: 0.1px;
 }
 #closeBtn {
-  font-family: inherit;
   font-size: inherit;
   float: right;
   margin-left: auto;

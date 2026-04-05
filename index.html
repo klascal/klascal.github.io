@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="inter.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_back_ios_new,arrow_forward_ios,check,close,delete,error,event,link,more_horiz,notification_multiple,palette,qr_code_scanner,settings"
+    />
     <link rel="stylesheet" href="dialog-polyfill.min.css" />
     <link rel="stylesheet" href="material.css" />
     <link rel="stylesheet" href="style.css" />
@@ -95,9 +97,9 @@
         xmlns="http://www.w3.org/2000/svg"
         style="
           vertical-align: middle;
-          width: 2rem !important;
-          height: unset;
-          fill: var(--primary-light) !important;
+          width: 2rem;
+          height: 2rem;
+          fill: var(--primary-light);
         "
         viewBox="0 0 410 374"
         id="icon"
@@ -117,28 +119,10 @@
       </svg>
       <div id="week"></div>
       <div style="display: flex; gap: 2px">
-        <button id="previousDay" title="Vorige dag/week">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-            style="width: 1.25rem"
-          >
-            <path
-              d="m382-480 294 294q15 15 14.5 35T675-116q-15 15-35 15t-35-15L297-423q-12-12-18-27t-6-30q0-15 6-30t18-27l308-308q15-15 35.5-14.5T676-844q15 15 15 35t-15 35L382-480Z"
-            />
-          </svg></button
-        ><button id="nextDay" title="Volgende dag/week">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-            style="width: 1.25rem"
-          >
-            <path
-              d="M579-480 285-774q-15-15-14.5-35.5T286-845q15-15 35.5-15t35.5 15l307 308q12 12 18 27t6 30q0 15-6 30t-18 27L356-115q-15 15-35 14.5T286-116q-15-15-15-35.5t15-35.5l293-293Z"
-            />
-          </svg>
+        <button id="previousDay" class="icon" title="Vorige dag/week">
+          arrow_back_ios_new</button
+        ><button id="nextDay" class="icon" title="Volgende dag/week">
+          arrow_forward_ios
         </button>
       </div>
       <button
@@ -146,18 +130,19 @@
         commandfor="announcements"
         id="announcementsButton"
         title="Mededelingen"
-        style="border: none; padding: 0.4rem; border-radius: 2rem"
+        style="
+          border: none;
+          border-radius: 2rem;
+          font-family: Material Symbols Rounded;
+          font-size: 24px;
+          line-height: 24px;
+          color: var(--accent-text);
+          margin-left: 0.2rem;
+          height: 36px;
+          width: 36px;
+        "
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 -960 960 960"
-          id="icon"
-          style="fill: var(--accent-text)"
-        >
-          <path
-            d="M200-200q-17 0-28.5-11.5T160-240q0-17 11.5-28.5T200-280h40v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h40q17 0 28.5 11.5T800-240q0 17-11.5 28.5T760-200H200Zm280-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"
-          />
-        </svg>
+        notification_multiple
       </button>
       <button
         class="btn"
@@ -174,15 +159,14 @@
             d="M487-104 219-371q-6-6-9-13t-3-15q0-16 11-28.5t29-12.5q8 0 15.5 3t13.5 9l268 268 200-200h-64q-17 0-28.5-11.5T640-400q0-17 11.5-28.5T680-440h160q17 0 28.5 11.5T880-400v160q0 17-11.5 28.5T840-200q-17 0-28.5-11.5T800-240v-64L600-104q-11 11-25.5 17T544-81q-15 0-30-6t-27-17ZM120-520q-17 0-28.5-11.5T80-560v-160q0-17 11.5-28.5T120-760q17 0 28.5 11.5T160-720v64l200-200q12-12 27-17.5t30-5.5q16 0 30.5 5.5T473-856l268 267q6 6 9 13t3 15q0 16-11 28.5T713-520q-8 0-15.5-3t-13.5-9L416-800 216-600h64q17 0 28.5 11.5T320-560q0 17-11.5 28.5T280-520H120Z"
           />
         </svg>
-        <span data-translate="turn">Draaien</span>
+        <span>Draaien</span>
       </button>
-      <div style="margin-left: auto">
+      <div style="margin-left: auto; display: flex; align-items: center">
         <button
           class="btn"
           id="dayBtn"
           style="
             font-size: 0.875rem;
-            font-family: inherit;
             border-top-right-radius: 1.5rem;
             border-bottom-right-radius: 1.5rem;
             vertical-align: middle;
@@ -194,14 +178,12 @@
           "
           onclick="localStorage.setItem('dag', 'true')"
         >
-          <span class="check">✓ </span
-          ><span data-translate="dayBtn">Dag</span></button
+          <span class="check">check</span><span>Dag</span></button
         ><button
           class="btn"
           id="weekBtn"
           style="
             font-size: 0.875rem;
-            font-family: inherit;
             border-top-left-radius: 1.5rem;
             border-bottom-left-radius: 1.5rem;
             margin-left: 2.5px;
@@ -213,42 +195,34 @@
           "
           onclick="localStorage.setItem('dag', 'false')"
         >
-          <span class="check">✓ </span
-          ><span data-translate="weekBtn">Week</span>
+          <span class="check">check</span><span>Week</span>
         </button>
         <button
           command="show-modal"
           commandfor="dialog"
           id="settingsButton"
           title="Instellingen"
-          style="border: none; padding: 0.4rem; border-radius: 2rem"
+          style="
+            border: none;
+            border-radius: 2rem;
+            font-family: Material Symbols Rounded;
+            font-size: 24px;
+            line-height: 24px;
+            color: var(--accent-text);
+            margin-left: 0.2rem;
+            height: 36px;
+            width: 36px;
+          "
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            id="icon"
-            viewBox="0 -960 960 960"
-            style="fill: var(--accent-text)"
-          >
-            <path
-              d="M433-80q-27 0-46.5-18T363-142l-9-66q-13-5-24.5-12T307-235l-62 26q-25 11-50 2t-39-32l-47-82q-14-23-8-49t27-43l53-40q-1-7-1-13.5v-27q0-6.5 1-13.5l-53-40q-21-17-27-43t8-49l47-82q14-23 39-32t50 2l62 26q11-8 23-15t24-12l9-66q4-26 23.5-44t46.5-18h94q27 0 46.5 18t23.5 44l9 66q13 5 24.5 12t22.5 15l62-26q25-11 50-2t39 32l47 82q14 23 8 49t-27 43l-53 40q1 7 1 13.5v27q0 6.5-2 13.5l53 40q21 17 27 43t-8 49l-48 82q-14 23-39 32t-50-2l-60-26q-11 8-23 15t-24 12l-9 66q-4 26-23.5 44T527-80h-94Zm7-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"
-            />
-          </svg>
+          settings
         </button>
       </div>
     </nav>
     <nav id="side">
       <div class="pillContainer">
         <button class="pill" id="scheduleBtn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-          >
-            <path
-              d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
-            ></path>
-          </svg></button
-        ><label for="scheduleBtn" data-translate="scheduleBtn">Rooster</label>
+          <span id="icon">event</span></button
+        ><label for="scheduleBtn">Rooster</label>
       </div>
       <div class="pillContainer">
         <button class="pill" id="homeworkBtn">
@@ -261,7 +235,7 @@
               d="M120-120v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm584-528 56-56-56-56-56 56 56 56Z"
             />
           </svg></button
-        ><label for="homeworkBtn" data-translate="homeworkBtn">Huiswerk</label>
+        ><label for="homeworkBtn">Huiswerk</label>
       </div>
       <div class="pillContainer">
         <button class="pill" id="gradesBtn">
@@ -274,7 +248,7 @@
               d="M286.78-261.941h132.642L529.325-609.02c7.58-24.615 3.79-46.769-11.37-66.461-15.158-19.692-35.37-29.539-60.636-29.539H192.035v110.77h200.858zm346.671-108.525h54.298v-81.58h81.445v-54.387H687.75v-81.58H633.45v81.58h-81.445v54.386h81.445zM200-120c-22 0-40.833-7.833-56.5-23.5C127.833-159.167 120-178 120-200v-560c0-22 7.833-40.833 23.5-56.5C159.167-832.167 178-840 200-840h560c22 0 40.833 7.833 56.5 23.5C832.167-800.833 840-782 840-760v560c0 22-7.833 40.833-23.5 56.5C800.833-127.833 782-120 760-120z"
             />
           </svg></button
-        ><label for="gradesBtn" data-translate="gradesBtn">Cijfers</label>
+        ><label for="gradesBtn">Cijfers</label>
       </div>
     </nav>
     <main>
@@ -292,51 +266,41 @@
           <section>
             <table>
               <tr>
-                <th
-                  data-translate="previousDayWeek"
-                  style="border-top-left-radius: 1rem"
-                >
-                  Vorige dag/week
-                </th>
+                <th style="border-top-left-radius: 1rem">Vorige dag/week</th>
                 <th style="border-top-right-radius: 1rem">
-                  <kbd style="font-family: Inter">←</kbd>
+                  <kbd>←</kbd>
                 </th>
               </tr>
               <tr>
-                <th data-translate="nextDayWeek">Volgende dag/week</th>
-                <th><kbd style="font-family: Inter">→</kbd></th>
+                <th>Volgende dag/week</th>
+                <th><kbd>→</kbd></th>
               </tr>
               <tr>
-                <th data-translate="openSettings">Open instellingen</th>
+                <th>Open instellingen</th>
                 <th><kbd>Ctrl</kbd> <kbd>,</kbd></th>
               </tr>
               <tr>
-                <th data-translate="dayView">Dagweergave</th>
+                <th>Dagweergave</th>
                 <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>D</kbd></th>
               </tr>
               <tr>
-                <th data-translate="weekView">Weekweergave</th>
+                <th>Weekweergave</th>
                 <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>W</kbd></th>
               </tr>
               <tr>
-                <th data-translate="orientationChange">Draaien</th>
+                <th>Draaien</th>
                 <th><kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>O</kbd></th>
               </tr>
               <tr>
-                <th data-translate="changeDay">Stel dag in</th>
+                <th>Stel dag in</th>
                 <th><kbd>D</kbd> (Hoofdletter)</th>
               </tr>
               <tr>
-                <th data-translate="changeWeek">Stel week in</th>
+                <th>Stel week in</th>
                 <th><kbd>W</kbd> (Hoofdletter)</th>
               </tr>
               <tr>
-                <th
-                  data-translate="changeYear"
-                  style="border-bottom-left-radius: 1rem"
-                >
-                  Stel jaar in
-                </th>
+                <th style="border-bottom-left-radius: 1rem">Stel jaar in</th>
                 <th style="border-bottom-right-radius: 1rem">
                   <kbd>J</kbd> (Hoofdletter)
                 </th>
@@ -350,7 +314,7 @@
           commandfor="shortcuts"
           command="close"
         >
-          <span data-translate="closeBtn">Sluiten</span>
+          <span>Sluiten</span>
         </button>
       </dialog>
 
@@ -361,16 +325,14 @@
         closedby="any"
       >
         <h2>Mededelingen</h2>
-        <section id="content">
-          <div id="allAnnouncements"></div>
-        </section>
+        <section id="content"></section>
         <button
           class="btn"
           id="closeBtn"
           commandfor="announcements"
           command="close"
         >
-          <span data-translate="closeBtn">Sluiten</span>
+          <span>Sluiten</span>
         </button>
       </dialog>
 
@@ -381,15 +343,7 @@
         closedby="any"
       >
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-          >
-            <path
-              d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM400-280q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280ZM280-720v520-520Z"
-            />
-          </svg>
+          <span id="icon">delete</span>
           <h2>Weet je het zeker?</h2>
           <section id="content">
             <div id="text">
@@ -398,7 +352,7 @@
           </section>
           <section id="content">
             <button id="submenu" onclick="clearUserData()">
-              <span data-translate="acceptBtn">Wissen</span>
+              <span>Wissen</span>
             </button>
             <button id="submenu" commandfor="clearSettings" command="close">
               <span>Annuleren</span>
@@ -408,15 +362,7 @@
       </dialog>
       <dialog id="error" role="dialog" aria-label="Fout" closedby="any">
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-          >
-            <path
-              d="M508.5-291.5Q520-303 520-320t-11.5-28.5Q497-360 480-360t-28.5 11.5Q440-337 440-320t11.5 28.5Q463-280 480-280t28.5-11.5ZM440-440h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
-            />
-          </svg>
+          <span id="icon">error</span>
           <h2>Er is een fout opgetreden</h2>
           <section id="content">
             <div id="text">
@@ -430,7 +376,7 @@
             command="close"
             style="margin-top: 0"
           >
-            <span data-translate="closeBtn">Sluiten</span>
+            <span>Sluiten</span>
           </button>
         </div>
       </dialog>
@@ -441,15 +387,7 @@
         closedby="any"
       >
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            id="icon"
-          >
-            <path
-              d="M120-680q-17 0-28.5-11.5T80-720v-120q0-17 11.5-28.5T120-880h120q17 0 28.5 11.5T280-840q0 17-11.5 28.5T240-800h-80v80q0 17-11.5 28.5T120-680Zm0 600q-17 0-28.5-11.5T80-120v-120q0-17 11.5-28.5T120-280q17 0 28.5 11.5T160-240v80h80q17 0 28.5 11.5T280-120q0 17-11.5 28.5T240-80H120Zm600 0q-17 0-28.5-11.5T680-120q0-17 11.5-28.5T720-160h80v-80q0-17 11.5-28.5T840-280q17 0 28.5 11.5T880-240v120q0 17-11.5 28.5T840-80H720Zm91.5-611.5Q800-703 800-720v-80h-80q-17 0-28.5-11.5T680-840q0-17 11.5-28.5T720-880h120q17 0 28.5 11.5T880-840v120q0 17-11.5 28.5T840-680q-17 0-28.5-11.5ZM700-200v-60h60v60h-60Zm0-120v-60h60v60h-60Zm-60 60v-60h60v60h-60Zm-60 60v-60h60v60h-60Zm-60-60v-60h60v60h-60Zm120-120v-60h60v60h-60Zm-60 60v-60h60v60h-60Zm-60-60v-60h60v60h-60Zm40-140q-17 0-28.5-11.5T520-560v-160q0-17 11.5-28.5T560-760h160q17 0 28.5 11.5T760-720v160q0 17-11.5 28.5T720-520H560ZM240-200q-17 0-28.5-11.5T200-240v-160q0-17 11.5-28.5T240-440h160q17 0 28.5 11.5T440-400v160q0 17-11.5 28.5T400-200H240Zm0-320q-17 0-28.5-11.5T200-560v-160q0-17 11.5-28.5T240-760h160q17 0 28.5 11.5T440-720v160q0 17-11.5 28.5T400-520H240Zm20 260h120v-120H260v120Zm0-320h120v-120H260v120Zm320 0h120v-120H580v120Z"
-            />
-          </svg>
+          <span id="icon">qr_code_scanner</span>
           <h2>QR-code scannen</h2>
           <div class="scan-container">
             <video id="video" autoplay playsinline></video>
@@ -492,14 +430,12 @@
           </div>
 
           <div class="switch switch--2">
-            <label for="custCancelled" data-translate="custCancelled"
-              >Afgezegd</label
-            >
+            <label for="custCancelled">Afgezegd</label>
             <label class="switch__label">
               <input type="checkbox" id="custCancelled" class="switch__input" />
               <span class="switch__design"></span> </label
             ><br />
-            <small data-translate="monoExplain"></small>
+            <small></small>
           </div>
 
           <div class="material-textfield">
@@ -571,10 +507,10 @@
         aria-label="Lesinformatie"
         closedby="any"
       >
-        <h2 data-translate="lessonInformation">Lesinformatie</h2>
+        <h2>Lesinformatie</h2>
         <section id="content"></section>
         <button class="btn" id="closeBtn" commandfor="info" command="close">
-          <span data-translate="closeBtn">Sluiten</span>
+          <span>Sluiten</span>
         </button>
       </dialog>
       <dialog
@@ -584,57 +520,25 @@
         tabindex="-1"
         closedby="any"
       >
-        <h2 data-translate="settings">Instellingen</h2>
+        <h2>Instellingen</h2>
         <div id="content" class="container">
           <div id="submenus" style="display: block" class="submenu">
             <section>
               <button id="submenu" onclick="show('rooster', 'Rooster')">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  id="icon"
-                >
-                  <path
-                    d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z"
-                  />
-                </svg>
-                <span data-translate="scheduleBtn">Rooster</span>
+                <span id="icon">event</span>
+                <span>Rooster</span>
               </button>
               <button id="submenu" onclick="show('theme', 'Thema')">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  id="icon"
-                >
-                  <path
-                    d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80ZM260-440q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Z"
-                  />
-                </svg>
-                <span data-translate="themeBtn">Thema</span>
+                <span id="icon">palette</span>
+                <span>Thema</span>
               </button>
               <button id="submenu" onclick="show('koppelingen', 'Koppelingen')">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  id="icon"
-                >
-                  <path
-                    d="M280-280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h120q17 0 28.5 11.5T440-640q0 17-11.5 28.5T400-600H280q-50 0-85 35t-35 85q0 50 35 85t85 35h120q17 0 28.5 11.5T440-320q0 17-11.5 28.5T400-280H280Zm80-160q-17 0-28.5-11.5T320-480q0-17 11.5-28.5T360-520h240q17 0 28.5 11.5T640-480q0 17-11.5 28.5T600-440H360Zm200 160q-17 0-28.5-11.5T520-320q0-17 11.5-28.5T560-360h120q50 0 85-35t35-85q0-50-35-85t-85-35H560q-17 0-28.5-11.5T520-640q0-17 11.5-28.5T560-680h120q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H560Z"
-                  />
-                </svg>
-                <span data-translate="linksBtn">Koppelingen</span>
+                <span id="icon">link</span>
+                <span>Koppelingen</span>
               </button>
               <button id="submenu" onclick="show('advanced', 'Geavanceerd')">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  id="icon"
-                >
-                  <path
-                    d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
-                  />
-                </svg>
-                <span data-translate="advanced">Geavanceerd</span>
+                <span id="icon">more_horiz</span>
+                <span>Geavanceerd</span>
               </button>
             </section>
           </div>
@@ -649,7 +553,7 @@
                   xml:space="preserve"
                   viewBox="0 0 136.08612 136.08612"
                   id="icon"
-                  style="fill: #ef2f2c !important"
+                  style="fill: #ef2f2c !important; width: 1.5rem"
                 >
                   <path
                     d="M323.792 490.777c-8.962 9.065-21.415 14.688-35.175 14.688-13.76 0-26.206-5.623-35.174-14.688h70.349zM254.468 420.313c8.88-8.477 20.903-13.689 34.15-13.689 13.25 0 25.268 5.212 34.151 13.689h-68.3zM342.831 505.535h-3.62c0-31.814-16.247-52.841-49.642-64.266l1.366-3.906h43.536a49.352 49.352 0 0 1 3.63 18.616c0 5.719-.982 11.208-2.766 16.317 4.974 9.54 7.496 20.67 7.496 33.239"
@@ -675,17 +579,14 @@
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 35 35"
                   id="icon"
-                  style="fill: #005eb8 !important"
+                  style="fill: #005eb8 !important; width: 1.5rem"
                 >
                   <path
                     d="M32.0533 12.4129H31.0726C29.9394 12.4129 29.025 11.5226 29.025 10.4194V8.50323C29.025 7.4 28.1105 6.50968 26.9774 6.50968H23.3991C22.2659 6.50968 21.3515 5.61935 21.3515 4.51613V1.99355C21.3515 0.890322 20.437 0 19.3039 0H15.8912C14.7581 0 13.8436 0.890322 13.8436 1.99355V4.51613C13.8436 5.61935 12.9292 6.50968 11.796 6.50968H8.21773C7.0846 6.50968 6.17014 7.4 6.17014 8.50323V10.4194C6.17014 11.5226 5.25568 12.4129 4.12255 12.4129H3.14183C2.0087 12.4129 1.09424 13.3032 1.09424 14.4065V20.3613C1.09424 21.4645 2.0087 22.3548 3.14183 22.3548H4.1093C5.24243 22.3548 6.15689 23.2452 6.15689 24.3484V26.5548C6.15689 27.6581 7.07135 28.5484 8.20448 28.5484C9.33761 28.5484 10.2521 29.4387 10.2521 30.5419V33.0065C10.2521 34.1097 11.1665 35 12.2997 35H14.4997C15.6328 35 16.5472 34.1097 16.5472 33.0065V29.5742C16.5472 29.0065 17.0177 28.5548 17.5942 28.5548C18.1707 28.5548 18.6412 29.0129 18.6412 29.5742V33.0065C18.6412 34.1097 19.5557 35 20.6888 35H22.8888C24.0219 35 24.9364 34.1097 24.9364 33.0065V30.5419C24.9364 29.4387 25.8509 28.5484 26.984 28.5484C28.1171 28.5484 29.0316 27.6581 29.0316 26.5548V24.3484C29.0316 23.2452 29.946 22.3548 31.0792 22.3548H32.0466C33.1798 22.3548 34.0942 21.4645 34.0942 20.3613V14.4065C34.0942 13.3032 33.1798 12.4129 32.0466 12.4129H32.0533ZM27.1894 18.8903C26.5466 20.9548 25.1153 22.6516 23.1605 23.671C21.9412 24.3032 20.6093 24.6258 19.2575 24.6258C18.4491 24.6258 17.634 24.5097 16.8388 24.271C16.3551 24.129 16.0834 23.6323 16.2292 23.1677C16.375 22.6968 16.8852 22.4323 17.3689 22.5742C19.0256 23.0645 20.775 22.8968 22.3057 22.1032C23.8298 21.3097 24.9497 19.9871 25.4533 18.3742C25.5991 17.9032 26.1093 17.6452 26.593 17.7806C27.0768 17.9226 27.3485 18.4194 27.2027 18.8903H27.1894Z"
                   />
                 </svg>
                 <div class="analytics-text">
-                  <span>Somtoday</span
-                  ><small data-translate="somtodayMessage"
-                    >Hopelijk binnenkort weer</small
-                  >
+                  <span>Somtoday</span><small>Hopelijk weer binnenkort</small>
                 </div>
               </button>
             </section>
@@ -694,11 +595,9 @@
             <section>
               <div>
                 <details>
-                  <summary data-translate="zermeloQuestion1">
-                    Hoe vind je de koppelcode in Zermelo?
-                  </summary>
+                  <summary>Hoe vind je de koppelcode in Zermelo?</summary>
                   <ol>
-                    <li data-translate="zermeloQuestion1Open">
+                    <li>
                       Open het
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -708,12 +607,10 @@
                         <path
                           d="M160-240q-17 0-28.5-11.5T120-280q0-17 11.5-28.5T160-320h640q17 0 28.5 11.5T840-280q0 17-11.5 28.5T800-240H160Zm0-200q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h640q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H160Zm0-200q-17 0-28.5-11.5T120-680q0-17 11.5-28.5T160-720h640q17 0 28.5 11.5T840-680q0 17-11.5 28.5T800-640H160Z"
                         /></svg
-                      ><b data-translate="zermeloQuestion1Menu">Menu</b>
+                      ><b>Menu</b>
                     </li>
                     <li>
-                      <span data-translate="zermeloQuestion1Click"
-                        >Klik op</span
-                      >
+                      <span>Klik op</span>
                       <b
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -727,9 +624,7 @@
                       >
                     </li>
                     <li>
-                      <span data-translate="zermeloQuestion1Click"
-                        >Klik op</span
-                      >
+                      <span>Klik op</span>
                       <b
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -763,13 +658,11 @@
                         >Koppel externe applicatie</b
                       >
                     </li>
-                    <li data-translate="zermeloQuestion1Explain1">
+                    <li>
                       De bovenste regel is je <b>Schoolnaam</b> (het deel voor
                       .zportal.nl) en de regel daaronder je <b>Koppelcode</b>
                     </li>
-                    <li data-translate="zermeloQuestion1Explain2">
-                      Typ het over in Klascal of scan de QR-code
-                    </li>
+                    <li>Typ het over in Klascal of scan de QR-code</li>
                   </ol>
                 </details>
               </div>
@@ -780,9 +673,7 @@
                   placeholder=" "
                   autocomplete="off"
                 />
-                <label for="schoolName" data-translate="schoolName"
-                  >Schoolnaam</label
-                >
+                <label for="schoolName">Schoolnaam</label>
                 <p
                   style="
                     float: right;
@@ -1066,9 +957,7 @@
                   inputmode="numeric"
                   pattern="^\d+$"
                 />
-                <label for="authorizationCode" data-translate="linkingCode"
-                  >Koppelcode</label
-                >
+                <label for="authorizationCode">Koppelcode</label>
               </div>
               <div class="scanBtn">
                 <button
@@ -1096,31 +985,24 @@
           </div>
           <div id="somtoday" class="submenu">
             <details>
-              <summary data-translate="somtodayQuestion1">
-                Hoe koppel je Somtoday?
-              </summary>
+              <summary>Hoe koppel je Somtoday?</summary>
               <ol>
-                <b data-translate="somtodayQuestion1Methods">Methodes:</b>
+                <b>Methodes:</b>
                 <li>
                   <ul>
-                    <li data-translate="somtodayQuestion1Method1">
+                    <li>
                       Sleep de link hieronder naar je bladwijzerbalk:<br /><a
-                        data-translate="somtodayQuestionSomtodayLink"
                         href="javascript:(function()%7Bconst%20refreshToken%3DJSON.parse(localStorage%5B%22CapacitorStorage.%22%2BJSON.parse(localStorage%5B%22CapacitorStorage.SL_AUTH_CONFIG_RECORDS%22%5D).currentSessionIdentifier.UUID%5D).refresh_token%3Bconst%20targetOrigin%3D%22https%3A%2F%2Fklascal.github.io%23%22%2BrefreshToken%3Bconst%20newWindow%3Dwindow.open(targetOrigin)%7D)()%3B"
                         >Somtoday koppelen</a
                       >
                     </li>
-                    <li data-translate="somtodayQuestion1OpenSomtoday">
-                      Open Somtoday
-                    </li>
-                    <li data-translate="somtodayQuestion1ClickBladwijzer">
-                      Klik op de bladwijzer
-                    </li>
+                    <li>Open Somtoday</li>
+                    <li>Klik op de bladwijzer</li>
                   </ul>
                 </li>
                 <li>
                   <ul>
-                    <li data-translate="somtodayQuestion1CopyCode">
+                    <li>
                       Kopieer deze code:<br />
                       <pre>
                       <code class="language-javascript">
@@ -1135,10 +1017,8 @@ const targetOrigin = "https://klascal.github.io#" + refreshToken;
 const newWindow = window.open(targetOrigin);</code>
                   </pre>
                     </li>
-                    <li data-translate="somtodayQuestion1ToSomtoday">
-                      Ga naar Somtoday
-                    </li>
-                    <li data-translate="somtodayQuestion1OpenConsole">
+                    <li>Ga naar Somtoday</li>
+                    <li>
                       Open de console:<br />
                       <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>J</kbd> (<kbd
                         >Cmd</kbd
@@ -1155,25 +1035,19 @@ const newWindow = window.open(targetOrigin);</code>
                         /></svg
                       >Console
                     </li>
-                    <li data-translate="somtodayQuestion1PasteCodeInConsole">
-                      Plak de code in de console
-                    </li>
-                    <li data-translate="somtodayQuestion1Explain1">
+                    <li>Plak de code in de console</li>
+                    <li>
                       Mogelijk moet je <code>'plakken toestaan'</code> typen om
                       de code te plakken
                     </li>
-                    <li data-translate="somtodayQuestion1ClickOnEnter">
-                      Klik op <kbd>Enter</kbd>
-                    </li>
+                    <li>Klik op <kbd>Enter</kbd></li>
                   </ul>
                 </li>
               </ol>
             </details>
           </div>
           <div id="theme" class="submenu">
-            <strong class="date" data-translate="accentColor"
-              >Accentkleur</strong
-            >
+            <strong class="date">Accentkleur</strong>
             <section>
               <div class="themes">
                 <label class="theme__color">
@@ -1251,19 +1125,17 @@ const newWindow = window.open(targetOrigin);</code>
                 </label>
               </div>
               <div class="switch switch--2">
-                <label for="mono" data-translate="mono">Fletse kleuren</label>
+                <label for="mono">Fletse kleuren</label>
                 <label class="switch__label">
                   <input type="checkbox" id="mono" class="switch__input" />
                   <span class="switch__design"></span> </label
                 ><br />
-                <small data-translate="monoExplain"
-                  >Kleuren met lager contrast</small
-                >
+                <small>Kleuren met lager contrast</small>
               </div>
             </section>
           </div>
           <div id="rooster" class="submenu">
-            <strong class="date" data-translate="preferences">Weergave</strong>
+            <strong class="date">Weergave</strong>
             <section class="switches">
               <div class="material-textfield">
                 <input
@@ -1273,17 +1145,12 @@ const newWindow = window.open(targetOrigin);</code>
                   type="time"
                   style="width: fit-content"
                 />
-                <label
-                  for="startTime"
-                  style="padding: 2.5px; left: 0.66rem"
-                  data-translate="startTime"
+                <label for="startTime" style="padding: 2.5px; left: 0.66rem"
                   >Begintijd</label
                 >
               </div>
               <div class="switch switch--2">
-                <label for="volVaknaam" data-translate="volSubjectName"
-                  >Gebruik vol. vaknaam</label
-                >
+                <label for="volVaknaam">Gebruik vol. vaknaam</label>
                 <label class="switch__label">
                   <input
                     type="checkbox"
@@ -1312,14 +1179,10 @@ const newWindow = window.open(targetOrigin);</code>
                 </label>
               </div>
             </section>
-            <strong class="date" data-translate="preferences"
-              >Overige opties</strong
-            >
+            <strong class="date">Overige opties</strong>
             <section>
               <div class="switch switch--2">
-                <label for="mededelingenAan" data-translate="announcementsOn"
-                  >Mededelingen</label
-                >
+                <label for="mededelingenAan">Mededelingen</label>
                 <label class="switch__label">
                   <input
                     type="checkbox"
@@ -1330,9 +1193,7 @@ const newWindow = window.open(targetOrigin);</code>
                 </label>
               </div>
               <div class="switch switch--2">
-                <label for="addAppointmentOn" data-translate="addAppointmentOn"
-                  >Aangepaste afspraken</label
-                >
+                <label for="addAppointmentOn">Aangepaste afspraken</label>
                 <label class="switch__label">
                   <input
                     type="checkbox"
@@ -1374,15 +1235,7 @@ const newWindow = window.open(targetOrigin);</code>
                 command="show-modal"
                 commandfor="clearSettings"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  id="icon"
-                >
-                  <path
-                    d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm120-160q17 0 28.5-11.5T440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280Zm160 0q17 0 28.5-11.5T600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280Z"
-                  />
-                </svg>
+                <span id="icon">delete</span>
                 <span>Gegevens wissen</span>
               </button>
               <!--To do: JS hiervoor toevoegen
@@ -1479,7 +1332,7 @@ const newWindow = window.open(targetOrigin);</code>
           </div>
         </div>
         <button class="btn" id="closeBtn" commandfor="dialog" command="close">
-          <span data-translate="closeBtn">Sluiten</span>
+          <span>Sluiten</span>
         </button>
       </dialog>
       <style id="styling"></style>
