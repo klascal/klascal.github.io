@@ -261,7 +261,7 @@ section #submenu:last-of-type,
 }
 .warning {
   position: absolute;
-  bottom: 6px;
+  bottom: 0;
   right: 6px;
 }
 th {
@@ -644,6 +644,8 @@ button:not(:disabled) {
 .icon {
   vertical-align: middle;
   color: black;
+  font-family: Material Symbols Rounded;
+  font-size: 24px;
 }
 
 .selected {
@@ -878,6 +880,8 @@ input[type="radio"]:not(:checked) ~ label {
   }
   #warningIcon {
     fill: #e89822;
+    position: relative;
+    bottom: 4px;
   }
   #authorizationCode:invalid {
     background-color: #ff2f2f73;
@@ -922,7 +926,7 @@ button:disabled {
   color: var(--accent-text);
 }
 .notEnrolled #icon {
-  fill: var(--accent-text);
+  color: var(--accent-text);
 }
 .timeline {
   position: absolute;
@@ -1065,9 +1069,6 @@ label {
   }
   .weekEnabled .timeline {
     top: calc(var(--top) * 1.2 + 2rem);
-  }
-  .weekEnabled .warning {
-    bottom: 4px;
   }
 }
 @media (max-width: 810px) {
