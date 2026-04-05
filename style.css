@@ -675,9 +675,6 @@ code {
 dialog details summary {
   cursor: pointer;
 }
-dialog details {
-  margin-bottom: 4px;
-}
 details {
   overflow: hidden;
   font-weight: 450;
@@ -710,7 +707,8 @@ details[open]::details-content {
 }
 ol,
 ul {
-  padding-left: 20px;
+  padding-left: 21px;
+  margin: 0;
 }
 .pill {
   border-radius: 0.5rem;
@@ -771,13 +769,12 @@ small {
   margin-left: 0;
   margin-bottom: 2px;
 }
-li {
+li:not(:last-of-type) {
   margin-bottom: 5px;
 }
 ::marker {
   font-weight: bold;
   color: var(--primary-light);
-  font-family: system-ui;
 }
 #dayBtn,
 #weekBtn {
@@ -1010,6 +1007,12 @@ label {
   font-size: 24px;
   line-height: 1;
   font-variation-settings: "FILL" 1;
+}
+#dialog li #icon {
+  font-variation-settings: "FILL" 0;
+  padding: 0.4rem;
+  margin-right: 0.25rem;
+  display: inline-block;
 }
 #content .submenu {
   display: none;

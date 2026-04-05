@@ -433,7 +433,7 @@ body[data-theme="pink monochrome"] {
   background: var(--checked-thumb-background);
   content: "check";
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.35;
   color: var(--checked-background);
   font-family: Material Symbols Rounded;
   font-size: 18px;
