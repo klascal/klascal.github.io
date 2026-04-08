@@ -413,26 +413,41 @@
             <input type="text" id="custTitle" placeholder=" " required />
             <label for="custTitle">Titel</label>
           </div>
-          <div class="les dates">
-            <div class="material-textfield">
-              <input type="text" id="custLocation" placeholder=" " required />
-              <label for="custLocation">Locatie</label>
-            </div>
-
-            <div class="material-textfield">
-              <input type="text" id="custTeacher" placeholder=" " required />
-              <label for="custTeacher">Docent</label>
-            </div>
-          </div>
-
-          <div class="material-textfield">
-            <input type="text" id="custGroup" placeholder=" " required />
-            <label for="custGroup">Groep</label>
-          </div>
-
           <div class="material-textfield">
             <input type="text" id="custContent" placeholder=" " />
-            <label for="custContent">Inhoud</label>
+            <label for="custContent">Omschrijving</label>
+          </div>
+          <div style="display: flex; padding: 0">
+            <div
+              class="material-textfield"
+              style="
+                flex: 1;
+                background: none;
+                border-right: 2px solid var(--primary-background);
+                border-radius: 0;
+                margin-bottom: 0;
+              "
+            >
+              <input id="custLocation" placeholder=" " required />
+              <label for="custLocation">Lokaal</label>
+            </div>
+            <div
+              class="material-textfield"
+              style="
+                flex: 1;
+                background: none;
+                border-right: 2px solid var(--primary-background);
+                border-radius: 0;
+                margin-bottom: 0;
+              "
+            >
+              <input id="custTeacher" placeholder=" " required />
+              <label for="custTeacher">Docent</label>
+            </div>
+            <div class="material-textfield" style="flex: 1; background: none">
+              <input id="custGroup" placeholder=" " required />
+              <label for="custGroup">Klas</label>
+            </div>
           </div>
 
           <div class="switch switch--2">
@@ -444,11 +459,6 @@
             <small></small>
           </div>
 
-          <div class="material-textfield">
-            <input type="date" id="custDate" placeholder=" " required />
-            <label for="custTitle">Datum</label>
-          </div>
-
           <div style="display: flex; padding: 0">
             <div
               class="material-textfield"
@@ -457,6 +467,20 @@
                 background: none;
                 border-right: 2px solid var(--primary-background);
                 border-radius: 0;
+                margin-bottom: 0;
+              "
+            >
+              <input type="date" id="custDate" placeholder=" " required />
+              <label for="custDate">Datum</label>
+            </div>
+            <div
+              class="material-textfield"
+              style="
+                flex: 1;
+                background: none;
+                border-right: 2px solid var(--primary-background);
+                border-radius: 0;
+                margin-bottom: 0;
               "
             >
               <input
@@ -466,7 +490,7 @@
                 placeholder=" "
                 required
               />
-              <label for="custTitle">Starttijd</label>
+              <label for="custStart">Starttijd</label>
             </div>
             <div class="material-textfield" style="flex: 1; background: none">
               <input
@@ -476,7 +500,7 @@
                 placeholder=" "
                 required
               />
-              <label for="custTitle">Eindtijd</label>
+              <label for="custEnd">Eindtijd</label>
             </div>
           </div>
         </section>
@@ -494,6 +518,7 @@
           style="
             background: var(--primary-foreground);
             color: var(--primary-light);
+            margin-right: 8px;
           "
           commandfor="customAppointments"
           command="close"

@@ -487,8 +487,7 @@ details strong {
 #schedule .les.clicked {
   filter: brightness(1.15);
 }
-#info .les,
-#customAppointments .les {
+#info .les {
   padding: 0px 10px;
   min-height: var(--height);
   position: relative;
@@ -508,18 +507,8 @@ details strong {
   cursor: default;
   padding: 0;
 }
-.dates .material-textfield label {
-  left: 0;
-}
 dialog.right #content {
   max-height: calc(100vh - 113px);
-}
-#customAppointments .dates {
-  padding: 12px;
-  gap: 8px;
-}
-#customAppointments .dates .material-textfield {
-  padding: 0;
 }
 #schedule section {
   position: relative;
@@ -1170,10 +1159,10 @@ dialog.right #content {
 }
 #customAppointments,
 #customAppointments #content {
-  width: 250px;
+  width: 387px;
 }
 #customAppointments .switch {
-  width: 218px;
+  width: 355px;
 }
 #addCustomAppointment {
   position: fixed;
@@ -1221,6 +1210,11 @@ dialog.right #content {
 @media (max-width: 512px) {
   .weekEnabled .longExtraExtraExtra {
     display: none !important;
+  }
+}
+@media (max-width: 445px) {
+  #custDate {
+    width: 5rem !important;
   }
 }
 @media (max-width: 395px) {
