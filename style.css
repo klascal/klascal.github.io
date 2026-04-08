@@ -511,7 +511,7 @@ details strong {
 .dates .material-textfield label {
   left: 0;
 }
-#customAppointments #content {
+dialog.right #content {
   max-height: calc(100vh - 113px);
 }
 #customAppointments .dates {
