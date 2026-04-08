@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back,arrow_back_ios_new,arrow_forward_ios,bar_chart,block,check,close,delete,error,event,info,link,menu,more_horiz,notification_multiple,palette,qr_code_scanner,settings"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,arrow_back,arrow_back_ios_new,arrow_forward_ios,bar_chart,block,check,close,delete,error,event,info,link,menu,more_horiz,notification_multiple,palette,qr_code_scanner,settings"
     />
     <link rel="stylesheet" href="dialog-polyfill.min.css" />
     <link rel="stylesheet" href="material.css" />
@@ -413,34 +413,35 @@
             <input type="text" id="custTitle" placeholder=" " required />
             <label for="custTitle">Titel</label>
           </div>
+          <div class="les dates">
+            <div class="material-textfield">
+              <input type="text" id="custLocation" placeholder=" " required />
+              <label for="custLocation">Locatie</label>
+            </div>
 
-          <div class="material-textfield">
-            <input type="text" id="custLocation" placeholder=" " required />
-            <label for="custLocation">Locatie</label>
-          </div>
-
-          <div class="material-textfield">
-            <input type="text" id="custTeacher" placeholder=" " required />
-            <label for="custTeacher">Docent(en)</label>
+            <div class="material-textfield">
+              <input type="text" id="custTeacher" placeholder=" " required />
+              <label for="custTeacher">Docent</label>
+            </div>
           </div>
 
           <div class="material-textfield">
             <input type="text" id="custGroup" placeholder=" " required />
-            <label for="custGroup">Groep(en)</label>
+            <label for="custGroup">Groep</label>
+          </div>
+
+          <div class="material-textfield">
+            <input type="text" id="custContent" placeholder=" " />
+            <label for="custContent">Inhoud</label>
           </div>
 
           <div class="switch switch--2">
-            <label for="custCancelled">Afgezegd</label>
+            <label for="custCancelled">Uitval</label>
             <label class="switch__label">
               <input type="checkbox" id="custCancelled" class="switch__input" />
               <span class="switch__design"></span> </label
             ><br />
             <small></small>
-          </div>
-
-          <div class="material-textfield">
-            <input type="text" id="custContent" placeholder=" " />
-            <label for="custContent">Content</label>
           </div>
 
           <div class="material-textfield">
@@ -1279,15 +1280,7 @@ const newWindow = window.open(targetOrigin);</code>
         command="show-modal"
         commandfor="customAppointments"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 -960 960 960"
-          id="icon"
-        >
-          <path
-            d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"
-          />
-        </svg>
+        <span id="icon">add</span>
         <span>Toevoegen</span>
       </button>
     </main>

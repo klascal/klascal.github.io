@@ -391,7 +391,7 @@ function showAddAppointment() {
 
   const update = () => {
     const enabled = localStorage.getItem("addAppointmentOn") === "true";
-    button.style.display = enabled ? "inline" : "none";
+    button.style.display = enabled ? "flex" : "none";
   };
 
   checkbox.checked = localStorage.getItem("addAppointmentOn") === "true";

@@ -487,7 +487,8 @@ details strong {
 #schedule .les.clicked {
   filter: brightness(1.15);
 }
-#info .les {
+#info .les,
+#customAppointments .les {
   padding: 0px 10px;
   min-height: var(--height);
   position: relative;
@@ -505,6 +506,19 @@ details strong {
 }
 #info .dates {
   cursor: default;
+  padding: 0;
+}
+.dates .material-textfield label {
+  left: 0;
+}
+#customAppointments #content {
+  max-height: calc(100vh - 113px);
+}
+#customAppointments .dates {
+  padding: 12px;
+  gap: 8px;
+}
+#customAppointments .dates .material-textfield {
   padding: 0;
 }
 #schedule section {
@@ -1170,6 +1184,9 @@ dialog.right #content {
   border: none;
   background-color: var(--primary-accent);
   color: var(--accent-text);
+  font-family:
+    Google Sans Flex,
+    system-ui;
   font-weight: 500;
   font-size: 0.875rem;
   letter-spacing: 0.1px;
@@ -1181,6 +1198,7 @@ dialog.right #content {
   font-variation-settings:
     "opsz" 20,
     "ROND" 100;
+  line-height: 1;
 }
 .addBtn {
   margin-left: 0.5rem;
