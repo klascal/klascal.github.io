@@ -1192,6 +1192,17 @@ dialog.right #content {
 .addBtn {
   margin-left: 0.5rem;
 }
+#timeDiv {
+  max-width: 5rem;
+}
+@supports (-webkit-font-smoothing: antialiased) {
+  #dateDiv {
+    max-width: 8.5rem;
+  }
+  #timeDiv {
+    max-width: 5.5rem;
+  }
+}
 @media (min-width: 500px) {
   dialog.right {
     margin: 0;
