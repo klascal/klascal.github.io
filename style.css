@@ -195,17 +195,17 @@ section #submenu {
 
 .tooltip {
   position: fixed;
-  background: var(--primary-accent);
+  background: var(--primary-dark);
   color: var(--accent-text);
   padding: 8px 10px;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   box-shadow: 0 1px 2px var(--timeline);
   opacity: 0;
   transition: ease-in opacity 0.1s;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   font-variation-settings:
-    "opsz" 20,
+    "opsz" 100,
     "ROND" 100;
   width: max-content;
   max-width: calc(100% - 40px);
@@ -649,6 +649,15 @@ button:not(:disabled) {
   color: black;
   font-family: Material Symbols Rounded;
   font-size: 24px;
+}
+
+.pill #icon {
+  color: var(--accent-text);
+  font-size: 20px;
+  font-variation-settings:
+    "FILL" 1,
+    "opsz" 32;
+  line-height: 1;
 }
 
 .selected {
@@ -1185,9 +1194,10 @@ dialog.right #content {
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-variation-settings:
-    "opsz" 20,
+    "opsz" 100,
     "ROND" 100;
   line-height: 1;
+  gap: 5px;
 }
 .addBtn {
   margin-left: 0.5rem;

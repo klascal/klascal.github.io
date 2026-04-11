@@ -605,8 +605,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           if (
             !a.appointmentInstance &&
             a.actions[0] &&
-            !a.actions[0].appointment.plannedAttendance &&
-            a.actions[0].appointment.attendanceOverruled
+            !a.actions[0].appointment.plannedAttendance
           ) {
             // Check used by Zermelo to see if unenrolled from lesson
             // Lesson info in a.actions[0].appointment instead of a
@@ -747,8 +746,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
-    let top = rect.bottom + 8;
-    let left = rect.right - tipRect.width + 5; // rect.left + (rect.width - tipRect.width) / 2 for center
+    let top = rect.bottom + 2;
+    let left = rect.right - tipRect.width + 6; // rect.left + (rect.width - tipRect.width) / 2 for center
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
     if (left < 0) left = 8;
@@ -1080,7 +1079,6 @@ async function showLessonInfo(lessonHTML, lesson) {
   } else {
     lesson.expectedStudentCount = `<span style="translate: 0 1.5px">${lesson.expectedStudentCount}</span>`;
   }
-  const groupIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)"><path d="M40-272q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v32q0 33-23.5 56.5T600-160H120q-33 0-56.5-23.5T40-240v-32Zm698 112q11-18 16.5-38.5T760-240v-40q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v40q0 33-23.5 56.5T840-160H738ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113Z"/></svg>`;
   let onlinePill = "";
   if (lesson.online) {
     if (!lesson.expectedStudentCountOnline) {
@@ -1093,8 +1091,7 @@ async function showLessonInfo(lessonHTML, lesson) {
     } else {
       lesson.onlineLocationUrl = `<span style="translate: 0 1.5px">${lesson.onlineLocationUrl}</span>`;
     }
-    const onlineIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)"><path d="M720-183v49q0 17-11.5 28.5T680-94q-17 0-28.5-11.5T640-134v-126q0-25 17.5-42.5T700-320h126q17 0 28.5 11.5T866-280q0 17-11.5 28.5T826-240h-50l90 90q11 11 11 27.5T866-94q-12 12-28.5 12T809-94l-89-89ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 10-.5 22t-1.5 22q-2 17-14 26.5t-30 9.5q-16 0-27-14t-9-30q2-10 2-18v-18q0-20-2.5-40t-7.5-40H654q3 20 4.5 40t1.5 40v21.5q0 11.5-1 21.5-2 17-14 27t-29 10q-16 0-27.5-13t-9.5-29q1-10 1-19v-19q0-20-1.5-40t-4.5-40H386q-3 20-4.5 40t-1.5 40q0 20 1.5 40t4.5 40h94q17 0 28.5 11.5T520-360q0 17-11.5 28.5T480-320h-76q12 43 31 82.5t45 75.5q10 0 20 .5t20-.5q17-2 28 8.5t11 27.5q0 18-9 30t-26 14q-10 1-22 1.5t-22 .5ZM170-400h136q-3-20-4.5-40t-1.5-40q0-20 1.5-40t4.5-40H170q-5 20-7.5 40t-2.5 40q0 20 2.5 40t7.5 40Zm206 222q-18-34-31.5-69.5T322-320H204q29 51 73 87.5t99 54.5ZM204-640h118q9-37 22.5-72.5T376-782q-55 18-99 54.5T204-640Zm200 0h152q-12-43-31-82.5T480-798q-26 36-45 75.5T404-640Zm234 0h118q-29-51-73-87.5T584-782q18 34 31.5 69.5T638-640Z"/></svg>`;
-    onlinePill = `<span class="pill">${onlineIcon}${lesson.expectedStudentCountOnline}${lesson.onlineLocationUrl}</span>`;
+    onlinePill = `<span class="pill"><span id="icon">captive_portal</span> ${lesson.expectedStudentCountOnline}${lesson.onlineLocationUrl}</span>`;
   }
   if (!lesson.content) {
     lesson.content = "";
@@ -1105,18 +1102,14 @@ async function showLessonInfo(lessonHTML, lesson) {
   if (lesson.cancelled == true) {
     lesson.appointmentType = "cancelled";
   }
-  const personIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 1.5px;"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Z"/></svg>`;
   if (lesson.creator) {
-    lesson.creator = `<hr style="height: 0.75rem;"><p class="creator">Aangemaakt door: <b class="pill">${personIcon} ${lesson.creator}</b></p>`;
+    lesson.creator = `<hr style="height: 0.75rem;"><p class="creator">Aangemaakt door: <b class="pill"><span id="icon">person</span> ${lesson.creator}</b></p>`;
   } else {
     lesson.creator = "";
   }
   let warningSymbol = warning
     ? `<div><p class="change">${warning}</p></div>`
     : "";
-  const calendarClockIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub; translate: 0 -1px;"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-40q0-17 11.5-28.5T280-880q17 0 28.5 11.5T320-840v40h320v-40q0-17 11.5-28.5T680-880q17 0 28.5 11.5T720-840v40h40q33 0 56.5 23.5T840-720v187q0 17-11.5 28.5T800-493q-17 0-28.5-11.5T760-533v-27H200v400h232q17 0 28.5 11.5T472-120q0 17-11.5 28.5T432-80H200Zm520 40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm20-208v-92q0-8-6-14t-14-6q-8 0-14 6t-6 14v91q0 8 3 15.5t9 13.5l61 61q6 6 14 6t14-6q6-6 6-14t-6-14l-61-61Z"/></svg>`;
-  const updateIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M480-120q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q82 0 155.5 35T760-706v-54q0-17 11.5-28.5T800-800q17 0 28.5 11.5T840-760v160q0 17-11.5 28.5T800-560H640q-17 0-28.5-11.5T600-600q0-17 11.5-28.5T640-640h70q-41-56-101-88t-129-32q-117 0-198.5 81.5T200-480q0 117 81.5 198.5T480-200q95 0 170-57t99-147q5-16 18-24t29-6q17 2 27 14.5t6 27.5q-29 119-126 195.5T480-120Zm40-376 100 100q11 11 11 28t-11 28q-11 11-28 11t-28-11L452-452q-6-6-9-13.5t-3-15.5v-159q0-17 11.5-28.5T480-680q17 0 28.5 11.5T520-640v144Z"/></svg>`;
-  const teacherIcon = `<svg xmlns="http://www.w3.org/2000/svg" height="1.25rem" viewBox="0 -960 960 960" width="1.25rem" fill="var(--accent-text)" style="vertical-align: sub;"><path d="M609-389q-29-29-29-71t29-71q29-29 71-29t71 29q29 29 29 71t-29 71q-29 29-71 29t-71-29Zm-89 229q-17 0-28.5-11.5T480-200v-16q0-24 12.5-44.5T528-290q36-15 74.5-22.5T680-320q39 0 77.5 7.5T832-290q23 9 35.5 29.5T880-216v16q0 17-11.5 28.5T840-160H520ZM287-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM80-272q0-34 17-62.5t47-43.5q60-30 124.5-46T400-440q35 0 70 6t70 14l-68 68q-25 25-48.5 51T400-240v39q0 12 4.5 22.5T419-160H160q-33 0-56.5-23.5T80-240v-32Z"/></svg>`;
   let fullTeacherNames = JSON.parse(localStorage.getItem("teachers"));
   if (JSON.parse(localStorage.getItem("teachers"))) {
     fullTeacherNames = lesson.teachers.map(
@@ -1126,10 +1119,14 @@ async function showLessonInfo(lessonHTML, lesson) {
     userInfo();
   }
   const teacherDiv = fullTeacherNames
-    ? `<div><span class="pill">${teacherIcon}${fullTeacherNames.join(", ")}</span></div>`
+    ? `<div><span class="pill"><span id="icon">supervisor_account</span> ${fullTeacherNames.join(", ")}</span></div>`
     : "";
+  const groupsDiv =
+    lesson.groups.length != 0
+      ? `<div class="moreInfo"><span class="pill"><span id="icon">group</span> ${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups.join(", ")}</span></span></div>`
+      : "";
   document.querySelector("#info #content").innerHTML +=
-    `${warningSymbol}${teacherDiv}<div class="moreInfo"><span class="pill">${groupIcon}${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups.join(", ")}</span></span>${onlinePill}</div>`;
+    warningSymbol + teacherDiv + groupsDiv + onlinePill;
   const url = `https://${schoolName}.zportal.nl/api/appointments?appointmentInstance=${
     lesson.appointmentInstance
   }&user=~me&valid=true&start=${lesson.start}&end=${
@@ -1164,12 +1161,12 @@ async function showLessonInfo(lessonHTML, lesson) {
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
     document.querySelector("#info #content").innerHTML +=
-      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
   } else {
     document.startViewTransition(
       () =>
         (document.querySelector("#info #content").innerHTML +=
-          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill">${calendarClockIcon} ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill">${updateIcon} ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
     );
   }
 }
