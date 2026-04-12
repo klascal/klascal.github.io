@@ -471,7 +471,7 @@ details strong {
   display: block;
 }
 .ltrEnabled .warning {
-  bottom: 20px !important;
+  bottom: 16px;
 }
 .les {
   height: calc(var(--height) - 2px);
