@@ -66,8 +66,12 @@ async function announcements() {
     localStorage.getItem("mededelingenAan") != "true"
   )
     return;
-  const url = `https://${schoolName}.zportal.nl/api/v3/announcements?current=true&user=~me&access_token=${accessToken}`;
-  const response = await fetch(url);
+  const url = `https://${schoolName}.zportal.nl/api/announcements?current=true&user=~me&fields=start,end,title,text`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   if (!response.ok) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
@@ -265,7 +269,10 @@ function closeDialog() {
           .replace(" monochrome", "")
       );
   }
-  if (localStorage.getItem("volVaknaam") == "true") {
+  if (
+    localStorage.getItem("volVaknaam") == "true" &&
+    !localStorage.getItem("subjects")
+  ) {
     fetchFullSubjectNames();
   }
   if (
@@ -277,10 +284,8 @@ function closeDialog() {
   fetchSchedule(window.year, window.week);
 }
 // Nodig voor correct sluiten dialoog
-dialogs.forEach((dialog) => {
-  dialog.addEventListener("close", () => {
-    closeDialog();
-  });
+document.getElementById("dialog").addEventListener("close", () => {
+  closeDialog();
 });
 function viewTrans(func) {
   if (!document.startViewTransition) {
@@ -350,11 +355,19 @@ function renderAnnouncements() {
     article.classList.add("announcement");
 
     article.innerHTML = `
-      <h2>${item.title || "Mededeling"}</h2>
-      <p>${item.text || ""}</p>
+      <strong>${item.title || "Mededeling"}</strong>
       <small>${
-        item.start ? new Date(item.start * 1000).toLocaleDateString() : ""
+        item.start
+          ? new Date(item.start * 1000).toLocaleString([], {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : ""
       }</small>
+      <p class="change">${item.text || ""}</p>
       `;
 
     content.appendChild(article);
