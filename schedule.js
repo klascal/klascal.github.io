@@ -1125,8 +1125,10 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   let fullTeacherNames = JSON.parse(localStorage.getItem("teachers"));
   if (JSON.parse(localStorage.getItem("teachers"))) {
-    fullTeacherNames = lesson.teachers.map(
-      (teacher) => `${fullTeacherNames[teacher]} (${teacher})`
+    fullTeacherNames = lesson.teachers.map((teacher) =>
+      fullTeacherNames[teacher]
+        ? `${fullTeacherNames[teacher]} (${teacher})`
+        : teacher
     );
   } else if (userType == "student") {
     userInfo();
