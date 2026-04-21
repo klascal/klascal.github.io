@@ -223,10 +223,21 @@ section #submenu {
   top: 4px;
 }
 h2.date {
-  margin: 8px auto;
+  margin: auto;
   color: var(--accent-text);
   fill: var(--primary-light);
   text-align: center;
+  flex-direction: column;
+  font-size: 1.75rem;
+  font-weight: 600;
+  font-variation-settings:
+    "opsz" 100,
+    "ROND" 100;
+  padding-bottom: 2.5rem;
+}
+h2.date .icon {
+  font-size: 2.5rem;
+  color: var(--primary-light);
 }
 .selected .check {
   display: inline;
