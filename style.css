@@ -228,12 +228,13 @@ h2.date {
   fill: var(--primary-light);
   text-align: center;
   flex-direction: column;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   font-variation-settings:
     "opsz" 100,
     "ROND" 100;
   padding-bottom: 2.5rem;
+  gap: 0.25rem;
 }
 h2.date .icon {
   font-size: 2.5rem;
