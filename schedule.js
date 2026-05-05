@@ -22,6 +22,7 @@ if (!schoolName && !accessToken) {
   document
     .querySelector("#dialog #closeBtn")
     .setAttribute("onclick", "resetAfterWelcomeScreen()");
+  document.querySelector("#dialog").classList.add("welcome");
   document.querySelector("#dialog").setAttribute("closedby", "none");
   document.querySelector("#dialog #closeBtn").removeAttribute("command");
   document.querySelector("#dialog #closeBtn").removeAttribute("commandfor");
@@ -237,7 +238,10 @@ function save() {
 }
 function closeDialog() {
   save();
-  show("submenus", "Instellingen");
+  if (window.innerWidth < 570) {
+    document.getElementById("submenus").style.display = "block";
+    document.querySelector("#content.container").style.display = "none";
+  }
   if (localStorage.getItem("mono") == "true") {
     if (
       !document
@@ -288,7 +292,7 @@ document.getElementById("dialog").addEventListener("close", () => {
   closeDialog();
 });
 function viewTrans(func) {
-  if (!document.startViewTransition) {
+  if (!document.startViewTransition || window.innerWidth < 570) {
     func();
     return;
   }
@@ -296,7 +300,25 @@ function viewTrans(func) {
     func();
   });
 }
+let prevId = null;
+let prevTitle = null;
 function show(id, title, hideBack) {
+  if (id == "back") {
+    if (window.innerWidth < 570) {
+      document.getElementById("submenus").style.display = "block";
+      document.querySelector("#content.container").style.display = "none";
+    } else if (prevId) {
+      show(prevId, prevTitle);
+    }
+    return;
+  }
+  document.getElementById("submenus").style.display = "";
+  document.querySelector("#content.container").style.display = "";
+  if (document.querySelector(`.${id}`)) {
+    const current = document.querySelector(".selectedSubmenu");
+    if (current) current.classList.remove("selectedSubmenu");
+    document.querySelector(`.${id}`).classList.add("selectedSubmenu");
+  }
   const content = document.querySelector(".container");
   const children = content.querySelectorAll("div");
   viewTrans(() => {
@@ -308,13 +330,17 @@ function show(id, title, hideBack) {
       }
     });
     if (id !== "submenus" && !hideBack) {
-      document.querySelector("#dialog h2").removeAttribute("data-translate");
-      document.querySelector("#dialog h2").innerHTML =
-        '<button style="all: unset" onclick="show(`submenus`, `Instellingen`)"><p height="24px" width="24px" class="back">arrow_back</p></button>' +
+      document.querySelector("#dialog #content h2").innerHTML =
+        '<button style="all: unset" onclick="show(`back`)"><p height="24px" width="24px" class="back">arrow_back</p></button>' +
         title;
     } else {
-      document.querySelector("#dialog h2").innerHTML = title;
+      document.querySelector("#dialog #content h2").innerHTML = title;
       if (!hideBack) {
+        prevId = document.querySelector(".selectedSubmenu").classList[0];
+        prevTitle = document
+          .querySelector(".selectedSubmenu")
+          .getAttribute("data-title");
+        document.querySelector("#dialog").classList.remove("welcome");
         document.querySelector("#dialog").setAttribute("closedby", "any");
         document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
         document
@@ -382,7 +408,7 @@ function showAnnouncements() {
 
   const update = () => {
     const enabled = localStorage.getItem("mededelingenAan") === "true";
-    button.style.display = enabled ? "inline" : "none";
+    button.hidden = !enabled;
   };
 
   checkbox.checked = localStorage.getItem("mededelingenAan") === "true";
@@ -693,7 +719,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
             a.subjects
           }</strong><strong class="subjAbbrev">${subjAbbrev}</strong><strong class="lesuur">${
             a.startTimeSlot
-          }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 6px">${start}<span class="longExtraExtra" style="display: inline">-${end}</span></p><p>${
+          }</strong><hr style="height: 0;"><p class="lestijden" style="margin-right: 6px">${start}<span class="longExtraExtra">-${end}</span></p><p>${
             a.locations
           }<span class="teachersAndGroups">${
             a.teachers.length != 0 ? ` (${a.teachers.join(", ")})` : ""
@@ -937,6 +963,12 @@ document.getElementById("nextDay").addEventListener("click", () => {
 document.getElementById("previousDay").addEventListener("click", () => {
   switchDay("prev");
 });
+document.getElementById("dayBtn").addEventListener("click", () => {
+  localStorage.setItem("dag", "true");
+});
+document.getElementById("weekBtn").addEventListener("click", () => {
+  localStorage.setItem("dag", "false");
+});
 window.addEventListener("keydown", (event) => {
   // Prevent switching when in dialog
   const dialogOpen = [...dialogs].some((dialog) => dialog.open);
@@ -1028,7 +1060,10 @@ if (
 if (window.innerWidth < 330) {
   document.getElementById("dayBtn").click();
 }
-
+if (window.innerWidth < 570) {
+  document.getElementById("submenus").style.display = "block";
+  document.querySelector("#content.container").style.display = "none";
+}
 const video = document.getElementById("video");
 
 async function startScanner() {

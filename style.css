@@ -31,15 +31,6 @@
 ::view-transition-group(root) {
   animation-duration: 200ms;
 }
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(root),
-  dialog {
-    animation: none !important;
-  }
-  * {
-    transition: none !important;
-  }
-}
 #authorizationCode:invalid {
   background-color: #f7baba73;
   border: 1px solid #a65050;
@@ -63,6 +54,17 @@
 }
 #nextDay {
   border-radius: 0.5rem 4rem 4rem 0.5rem;
+}
+#dayBtn,
+#weekBtn {
+  padding: 0.6rem 0;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  width: 4.44375rem;
+}
+#weekBtn {
+  border-top-left-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
 }
 #soft_burst {
   fill: var(--primary-light);
@@ -100,14 +102,13 @@ body {
   margin: 0 8px;
 }
 button {
-  font-family: initial;
-}
-button:focus {
-  outline: revert !important;
+  font-family:
+    Google Sans Flex,
+    system-ui;
 }
 dialog {
   border: 0;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   background-color: var(--primary-background);
   padding: 16px;
   max-width: calc(100vw - 60px);
@@ -117,7 +118,7 @@ dialog {
   user-select: none;
   outline: none;
   view-transition-name: dialog;
-  width: 292px;
+  width: 525px;
 }
 #scanQrCode {
   width: 250px;
@@ -181,7 +182,7 @@ dialog {
   }
 }
 section div,
-section #submenu {
+#submenu {
   background-color: var(--primary-foreground-faded);
   padding: 8px 10px;
   margin-bottom: 0.125rem;
@@ -192,33 +193,11 @@ section #submenu {
 .day section div {
   padding: 0px 10px;
 }
-
-.tooltip {
-  position: fixed;
-  background: var(--primary-dark);
-  color: var(--accent-text);
-  padding: 8px 10px;
-  border-radius: 1rem;
-  box-shadow: 0 1px 2px var(--timeline);
-  opacity: 0;
-  transition: ease-in opacity 0.1s;
-  font-size: 0.875rem;
-  font-weight: 600;
-  font-variation-settings:
-    "opsz" 100,
-    "ROND" 100;
-  width: max-content;
-  max-width: calc(100% - 40px);
-  pointer-events: none;
-}
-.tooltip[data-show] {
-  opacity: 1;
-}
 .check {
   display: none;
-  font-family: Material Symbols Rounded !important;
+  font-family: Material Symbols Rounded;
   font-size: 18px;
-  line-height: 0px !important;
+  line-height: 0;
   position: relative;
   top: 4px;
 }
@@ -243,33 +222,71 @@ h2.date .icon {
 .selected .check {
   display: inline;
 }
+#submenu {
+  padding: 10px 12px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  font-size: 1rem;
+  width: 100%;
+  border: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--accent-text-light);
+}
+#submenu.clearButton {
+  padding: 1rem;
+  border-radius: 0.4rem;
+  margin-bottom: 0.25rem;
+  background-color: var(--primary-accent);
+  color: var(--accent-text);
+  display: flex;
+  justify-content: center;
+}
 section div:first-of-type,
-section #submenu:first-of-type,
-#clearSettings section #submenu:first-of-type {
+#submenu:first-of-type,
+.clearButton:first-of-type {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 section div:last-of-type,
-section #submenu:last-of-type,
-#clearSettings section #submenu:last-of-type {
+#submenu:last-of-type,
+.clearButton:last-of-type {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   margin-bottom: 0;
 }
-
+.horizDiv {
+  display: flex;
+  padding: 0;
+}
+section .horizDiv div {
+  flex: 1;
+  background: none;
+  border-right: 2px solid var(--primary-background);
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.horizDiv div:last-of-type {
+  border-right: 0;
+}
+#timeDiv input {
+  text-align: center;
+}
 #week {
   font-weight: 500;
   line-height: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 1.25rem;
   font-size: 0.875rem;
 }
 #warningIcon {
   vertical-align: sub;
   fill: #ff9800;
+  position: relative;
+  bottom: 4px;
 }
 .warning {
   position: absolute;
@@ -319,7 +336,6 @@ table {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  justify-content: center;
   align-items: center;
 }
 #text {
@@ -334,37 +350,12 @@ table {
   margin: 0;
   padding: 0;
 }
-#clearSettings #submenu {
-  padding: 1rem;
-  border-radius: 0.4rem;
-  margin-bottom: 0.25rem;
-  background-color: var(--primary-accent);
-  color: var(--accent-text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 #clearSettings #icon,
 #scanQrCode #icon,
 #error #icon {
   color: var(--accent-text);
   font-family: Material Symbols Rounded;
   font-size: 2rem;
-}
-section #submenu {
-  padding: 10px 12px;
-  font-family:
-    Google Sans Flex,
-    system-ui;
-  font-weight: 500;
-  letter-spacing: 0.1px;
-  font-size: 1rem;
-  width: 100%;
-  border: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--accent-text-light);
 }
 hr {
   height: 0.4375rem;
@@ -377,9 +368,6 @@ hr {
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
-}
-#link #icon:nth-child(2) {
-  fill: var(--thumb-background) !important;
 }
 #linkText {
   font-weight: 450;
@@ -487,7 +475,6 @@ details strong {
 }
 .les {
   height: calc(var(--height) - 2px);
-  transition: filter 0.1s cubic-bezier(1, 0, 0, 1);
   cursor: pointer;
   position: absolute;
   display: flex;
@@ -528,21 +515,12 @@ dialog.right #content {
 section div br:not(:first-of-type) {
   display: none;
 }
-.ltrEnabled section {
-  display: flex;
-  margin-top: 0 !important;
-}
-.ltrEnabled section div br:not(:first-of-type) {
-  display: block;
-}
 .ltrEnabled section div {
   width: calc(var(--height) * 3 - 22px);
   margin-bottom: 0;
-  margin-right: 0.125rem;
-  padding: 6px 10px;
-  line-height: normal !important;
+  padding: 10px;
+  line-height: normal;
   top: unset;
-  height: 3.5rem;
   left: calc(var(--margin) * 3);
 }
 .dayEnabled div {
@@ -562,25 +540,20 @@ section div br:not(:first-of-type) {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-#ltr {
-  cursor: pointer;
+#ltr,
+#dayBtn,
+#weekBtn,
+.btn.closeBtn {
   background: var(--primary-accent);
-  fill: var(--primary-light);
   color: var(--primary-light);
-  font-size: 14px;
-  font-family: initial;
+}
+#ltr {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 #ltr:active {
   border-radius: 0.75rem;
-}
-#ltr span {
-  vertical-align: text-top;
-  font-family:
-    Google Sans Flex,
-    system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
 }
 #ltr svg {
   fill: var(--accent-text);
@@ -605,7 +578,6 @@ section div br:not(:first-of-type) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 .sidebarPresent {
   margin-left: 4.25rem;
@@ -620,16 +592,15 @@ b {
   padding: 0.5rem 1rem;
   line-height: 1.5;
   border-radius: 4rem;
-  transition: all 0.1s cubic-bezier(1, 0, 0, 1);
   font-weight: 500;
   letter-spacing: 0.1px;
+  font-size: 0.875rem;
 }
 .back:hover,
 .btn:hover,
+.iconBtn:hover,
 #previousDay:hover,
-#nextDay:hover,
-#settingsButton:hover,
-#announcementsButton:hover {
+#nextDay:hover {
   filter: brightness(0.9);
 }
 dialog .btn {
@@ -643,11 +614,9 @@ dialog .btn:active {
 #previousDay,
 #nextDay,
 #loadSchedule,
-#settingsButton,
-#announcementsButton {
-  transition: all 0.1s ease-in-out;
-}
-#announcementsButton {
+.pill,
+.btn,
+.iconBtn {
   transition: all 0.1s ease-in-out;
 }
 .announcement {
@@ -661,12 +630,38 @@ button:not(:disabled) {
 
 #icon,
 .icon {
-  vertical-align: middle;
   color: black;
   font-family: Material Symbols Rounded;
   font-size: 24px;
 }
 
+.icon.iconBtn,
+.tooltip.iconBtn {
+  border: none;
+  border-radius: 2rem;
+  color: var(--accent-text);
+  height: 36px;
+  width: 36px;
+}
+.tooltip.iconBtn {
+  position: fixed;
+  padding: 8px 10px;
+  box-shadow: 0 1px 2px var(--timeline);
+  opacity: 0;
+  transition: ease-in opacity 0.1s;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-variation-settings:
+    "opsz" 100,
+    "ROND" 100;
+  width: max-content;
+  height: auto;
+  max-width: calc(100% - 40px);
+  pointer-events: none;
+}
+.tooltip[data-show] {
+  opacity: 1;
+}
 .pill #icon {
   color: var(--accent-text);
   font-size: 20px;
@@ -676,11 +671,11 @@ button:not(:disabled) {
   line-height: 1;
 }
 
-.selected {
-  padding: 9px;
-  background-color: var(--primary-light) !important;
-  color: var(--primary-dark) !important;
-  border-radius: 2rem !important;
+#dayBtn.selected,
+#weekBtn.selected {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border-radius: 2rem;
 }
 .themes {
   padding: 8px 14px;
@@ -728,7 +723,6 @@ details[open]::details-content {
 }
 .innerSpan {
   all: unset;
-  display: block !important;
   width: calc(100% - 1.2rem);
   min-height: var(--height);
   text-wrap: nowrap;
@@ -742,11 +736,9 @@ ul {
 }
 .pill {
   border-radius: 0.5rem;
-  transition: all 0.1s ease-in-out;
   background-color: var(--primary-background);
   padding: 0.4rem 0.75rem;
   display: flex;
-  justify-content: center;
   align-items: center;
   word-break: break-word;
   gap: 0.25rem;
@@ -756,30 +748,6 @@ ul {
   letter-spacing: 0.1px;
   flex-wrap: wrap;
   font-size: 14px;
-  border: none;
-}
-.pillContainer label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.1px;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-  color: var(--accent-text);
-  padding-top: 2px;
-}
-.pillContainer .pill {
-  border-radius: 0.75rem;
-}
-.navSelected {
-  background-color: var(--primary-accent) !important;
-}
-.navSelected + label {
-  color: var(--primary-light);
-}
-.navSelected svg {
-  fill: var(--primary-light) !important;
-  transform: perspective(1cm) rotateY(360deg);
-  transition: transform 0.2s ease-in-out;
 }
 small {
   font-size: 14px;
@@ -791,8 +759,7 @@ small {
     "ROND" 100;
   color: var(--accent-text-light);
 }
-#settingsButton,
-#announcementsButton {
+.iconBtn {
   background-color: var(--primary-accent);
 }
 .announcement h2 {
@@ -812,31 +779,11 @@ li:not(:last-of-type) {
 }
 #dayBtn span,
 #weekBtn span,
-#closeBtn span {
-  font-family:
-    Google Sans Flex,
-    system-ui;
-  line-height: 1;
+#closeBtn span,
+#ltr span {
   font-variation-settings:
     "opsz" 20,
     "ROND" 100;
-}
-#viewSelect {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
-  background-color: var(--primary-foreground);
-}
-#viewSelect div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: none;
-  background-color: var(--primary-foreground);
-}
-#viewSelect div span {
-  translate: -6px;
 }
 dialog strong.date {
   margin-left: 12px;
@@ -865,29 +812,13 @@ select {
 dialog .submenu strong.date:first-of-type {
   margin-top: 0;
 }
-input[type="radio"] {
-  scale: 1.4;
-  cursor: pointer;
-}
-input[type="radio"] ~ label {
-  padding-left: 6px;
-  cursor: pointer;
-  font-weight: 450;
-  letter-spacing: 0.1px;
-  transition: opacity 0.15s ease-in-out;
-}
-input[type="radio"]:not(:checked) ~ label {
-  color: var(--accent-text-faded);
-}
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   .back:hover,
   .btn:hover,
-  #announcementsButton:hover,
+  .iconBtn:hover,
   #previousDay:hover,
-  #nextDay:hover,
-  #settingsButton:hover,
-  #announcementsButton:hover {
+  #nextDay:hover {
     filter: brightness(1.1);
   }
   #dayBtn,
@@ -895,21 +826,19 @@ input[type="radio"]:not(:checked) ~ label {
   #ltr,
   #side,
   #previousDay,
-  #nextDay {
+  #nextDay,
+  .btn.closeBtn {
     background-color: var(--primary-foreground);
   }
-  #settingsButton,
-  #announcementsButton,
+  .iconBtn,
   #clearSettings #submenu {
     background-color: var(--primary-dark);
   }
-  .tooltip {
+  .tooltip.iconBtn {
     box-shadow: 0 1px 2px var(--primary-background);
   }
   #warningIcon {
     fill: #e89822;
-    position: relative;
-    bottom: 4px;
   }
   #authorizationCode:invalid {
     background-color: #ff2f2f73;
@@ -930,19 +859,22 @@ input[type="radio"]:not(:checked) ~ label {
     color: #e1e4db;
   }
 }
-.exam {
-  border-left: 5px solid #e8cb22;
-  padding-left: 5px !important;
+.day section .exam,
+.day section .activity,
+.day section .meeting {
+  padding-left: 5px;
+  border-left: 5px solid var(--type-color);
+}
+.day section .exam {
+  --type-color: #e8cb22;
 }
 
-.activity {
-  border-left: 5px solid #268e26;
-  padding-left: 5px !important;
+.day section .activity {
+  --type-color: #268e26;
 }
 
-.meeting {
-  border-left: 5px solid #22abe8;
-  padding-left: 5px !important;
+.day section .meeting {
+  --type-color: #22abe8;
 }
 .cancelled {
   background-color: #fdb1b1;
@@ -979,19 +911,10 @@ button:disabled {
 .subjAbbrev {
   display: none;
 }
-.circle-marker {
-  position: absolute;
-  top: 50%;
-  left: -12px;
-  transform: translateY(-50%);
-  width: 12px !important;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--primary-light);
-}
 label {
   font-weight: 500;
   color: var(--accent-text-light);
+  cursor: pointer;
 }
 @media (prefers-color-scheme: dark) {
   .cancelled {
@@ -1011,7 +934,7 @@ label {
     border: 1px solid;
   }
   * {
-    background-color: transparent !important;
+    background-color: transparent;
   }
   .cancelled {
     border: 1px solid #ff2f2f;
@@ -1029,7 +952,7 @@ label {
   }
 }
 #dialog #icon {
-  fill: var(--primary-light) !important;
+  fill: var(--primary-light);
   cursor: pointer;
   background-color: var(--primary-background-faded);
   padding: 0.5rem;
@@ -1045,13 +968,24 @@ label {
   padding: 0.4rem;
   margin-right: 0.25rem;
   display: inline-block;
+  vertical-align: middle;
 }
 #content .submenu {
   display: none;
 }
+#submenus {
+  padding: 1rem;
+  background-color: var(--primary-accent);
+  border-radius: 1.75rem;
+  height: fit-content;
+  padding-top: 0.75rem;
+}
+#submenus h2 {
+  margin-bottom: 0.75rem;
+}
 #dialog .back {
   padding: 0.4rem;
-  color: var(--accent-text) !important;
+  color: var(--accent-text);
   background-color: var(--primary-accent);
   border-radius: 2rem;
   font-family: Material Symbols Rounded;
@@ -1061,6 +995,9 @@ label {
   cursor: pointer;
 }
 @media (prefers-color-scheme: dark) {
+  #submenus {
+    background-color: var(--primary-darker);
+  }
   #dialog .back {
     background-color: var(--primary-foreground);
   }
@@ -1090,6 +1027,9 @@ label {
   .weekEnabled .les span,
   .weekEnabled strong.date {
     display: block;
+  }
+  .weekEnabled .les .longExtraExtra {
+    display: inline;
   }
   .weekEnabled .les {
     height: calc(var(--height) * 1.2 - 2px);
@@ -1125,6 +1065,28 @@ label {
     gap: 2px;
   }
 }
+@media (max-width: 570px) {
+  #submenu.selectedSubmenu {
+    background-color: var(--primary-foreground-faded);
+  }
+  #submenus {
+    display: none;
+    padding: 0;
+    background: none;
+  }
+  dialog {
+    border-radius: 2rem;
+  }
+}
+.welcome #submenus {
+  display: none;
+}
+.welcome #container {
+  grid-template-columns: auto;
+}
+.welcome#dialog {
+  width: 292px;
+}
 @media (max-height: 565px) {
   #ltr {
     display: none;
@@ -1149,14 +1111,13 @@ label {
   }
 }
 @media (max-width: 520px) {
-  .weekEnabled .longExtraExtra {
-    display: none !important;
+  .weekEnabled .les .longExtraExtra {
+    display: none;
   }
 }
 .dates p {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 0.5rem;
   justify-content: center;
   padding: 10px;
@@ -1193,22 +1154,12 @@ dialog.right #content {
   position: fixed;
   bottom: 0.75rem;
   right: 0.75rem;
-  z-index: 100;
   border-radius: 1rem;
-  border: none;
   background-color: var(--primary-accent);
   color: var(--accent-text);
-  font-family:
-    Google Sans Flex,
-    system-ui;
-  font-weight: 500;
   font-size: 0.875rem;
-  letter-spacing: 0.1px;
   padding: 0.75rem;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-variation-settings:
     "opsz" 100,
     "ROND" 100;
@@ -1246,17 +1197,17 @@ dialog.right #content {
 }
 @media (max-width: 512px) {
   .weekEnabled .longExtraExtraExtra {
-    display: none !important;
+    display: none;
   }
 }
 @media (max-width: 445px) {
   #custDate {
-    width: 5rem !important;
+    width: 5rem;
   }
 }
 @media (max-width: 395px) {
   #announcementsButton {
-    display: none !important;
+    display: none;
   }
 }
 @media (max-width: 355px) {
