@@ -312,6 +312,12 @@ function show(id, title, hideBack) {
     }
     return;
   }
+  if (!hideBack) {
+    prevId = document.querySelector(".selectedSubmenu").classList[0];
+    prevTitle = document
+      .querySelector(".selectedSubmenu")
+      .getAttribute("data-title");
+  }
   document.getElementById("submenus").style.display = "";
   document.querySelector("#content.container").style.display = "";
   if (document.querySelector(`.${id}`)) {
@@ -336,10 +342,6 @@ function show(id, title, hideBack) {
     } else {
       document.querySelector("#dialog #content h2").innerHTML = title;
       if (!hideBack) {
-        prevId = document.querySelector(".selectedSubmenu").classList[0];
-        prevTitle = document
-          .querySelector(".selectedSubmenu")
-          .getAttribute("data-title");
         document.querySelector("#dialog").classList.remove("welcome");
         document.querySelector("#dialog").setAttribute("closedby", "any");
         document.querySelector("#dialog #closeBtn span").innerHTML = "Sluiten";
