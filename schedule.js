@@ -484,8 +484,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   if (!week) week = new Date().getWeek();
   window.week = week;
   window.year = year;
-  document.getElementById("week").innerHTML =
-    `<p style="color: var(--accent-text-faded)">Wk</p><p style="font-weight: 600;font-size: 1.125rem;">${week}</p>`;
+  document.getElementById("weekInput").value = week;
   if (week < 10) week = `0${week}`; // Voeg een voorloopnul toe aan enkelcijferige weken
   if (!schoolName || !authorizationCode) return;
   if (!accessToken) {
@@ -970,6 +969,9 @@ document.getElementById("dayBtn").addEventListener("click", () => {
 });
 document.getElementById("weekBtn").addEventListener("click", () => {
   localStorage.setItem("dag", "false");
+});
+document.getElementById("weekInput").addEventListener("change", () => {
+  fetchSchedule(window.year, document.getElementById("weekInput").value);
 });
 window.addEventListener("keydown", (event) => {
   // Prevent switching when in dialog

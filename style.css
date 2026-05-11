@@ -101,10 +101,21 @@ html {
 body {
   margin: 0 8px;
 }
-button {
+button,
+input {
   font-family:
     Google Sans Flex,
     system-ui;
+}
+#weekInput {
+  font-weight: 600;
+  font-size: 1.125rem;
+  width: 2ch;
+  background: none;
+  border: 0;
+  text-align: center;
+  height: 1.125rem;
+  color: inherit;
 }
 dialog {
   border: 0;
@@ -286,11 +297,10 @@ section .horizDiv div {
   vertical-align: sub;
   fill: #ff9800;
   position: relative;
-  bottom: 4px;
 }
 .warning {
   position: absolute;
-  bottom: 0;
+  bottom: 4px;
   right: 6px;
 }
 th {
@@ -887,6 +897,9 @@ button:disabled {
 }
 .notEnrolled #icon {
   color: var(--accent-text);
+}
+.warning:has(#icon) {
+  bottom: 2px;
 }
 .timeline {
   position: absolute;
