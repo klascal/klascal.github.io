@@ -496,9 +496,6 @@ details strong {
   inset: 0;
   top: var(--margin);
 }
-#schedule .les.clicked {
-  filter: brightness(1.15);
-}
 #info .les {
   padding: 0px 10px;
   min-height: var(--height);
@@ -518,8 +515,8 @@ details strong {
 #info .dates {
   cursor: default;
   padding: 0;
-  border-bottom-left-radius: 1.5rem;
-  border-bottom-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
 }
 dialog.right #content {
   max-height: calc(100vh - 113px);
@@ -615,7 +612,8 @@ b {
 .btn:hover,
 .iconBtn:hover,
 #previousDay:hover,
-#nextDay:hover {
+#nextDay:hover,
+#submenu:hover {
   filter: brightness(0.9);
 }
 dialog .btn {
@@ -750,8 +748,8 @@ ul {
   margin: 0;
 }
 .pill {
-  border-radius: 1rem;
-  background-color: var(--background);
+  border-radius: 0.75rem;
+  background-color: var(--background-muted);
   padding: 0.5rem 0.8rem;
   display: flex;
   gap: 0.25rem;
@@ -834,7 +832,8 @@ dialog .submenu strong.date:first-of-type {
   .btn:hover,
   .iconBtn:hover,
   #previousDay:hover,
-  #nextDay:hover {
+  #nextDay:hover,
+  #submenu:hover {
     filter: brightness(1.1);
   }
   #dayBtn,

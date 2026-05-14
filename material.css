@@ -82,6 +82,11 @@ body {
       var(--primary-light) 50%,
       var(--primary-accent)
     );
+    --background-muted: color-mix(
+      in srgb,
+      var(--background) 50%,
+      var(--primary-background)
+    );
   }
 }
 body[data-theme="red"] {
