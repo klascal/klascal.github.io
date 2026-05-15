@@ -493,45 +493,35 @@ async function fetchSchedule(year, week, isFirstLoad) {
   }
   const response = await fetch(
     `https://${schoolName}.zportal.nl/api/liveschedule?${userType}=~me&week=${year}${week}&fields=week,user,appointments,replacements,status`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    { headers: { Authorization: `Bearer ${accessToken}` } }
   );
   const data = await response.json();
   if (!response.ok) {
     errorMessage(data.response.message);
   }
   const appointments = data.response.data[0].appointments;
-  const isHoliday = !appointments[0];
   const schedule = document.getElementById("schedule");
   schedule.innerHTML = "";
   const grouped = {};
 
+  // Aangepaste afspraken
   const customData = JSON.parse(
     localStorage.getItem("customAppointments") || "[]"
   );
-
   customData.forEach((item) => {
     const { year, week } = getYearWeekFromDate(item.date);
-
     if (year !== window.year || week !== window.week) return;
-
     appointments.push({
       appointmentInstance: item.id,
       start: toUnix(item.date, item.start),
       end: toUnix(item.date, item.end),
       subjects: [item.title],
       appointmentType: "custom",
-
       locations: item.locations || [],
       teachers: item.teachers || [],
       groups: item.groups || [],
-
       cancelled: item.cancelled === true,
       status: item.status || "",
-
       repeat: item.repeat || "none",
       actions: [],
       type: "appointment",
@@ -539,7 +529,17 @@ async function fetchSchedule(year, week, isFirstLoad) {
     });
   });
 
-  appointments.sort((a, b) => a.start - b.start);
+  // Always show Monday to Friday
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(year, 0, 1 + (week - 1) * 7);
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + i);
+    const key = d.toLocaleDateString([], {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    grouped[key] = { date: formatDateLabel(d), items: [] };
+  }
 
   appointments.forEach((a) => {
     let dateFull = new Date(a.start * 1000).toLocaleDateString([], {
@@ -547,22 +547,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
       month: "long",
       day: "numeric",
     });
-    const [weekday, day, month] = dateFull.split(" ");
-    let date = `${weekday.slice(0, 2)}<span class="long">${weekday.slice(
-      2
-    )}</span> ${day}<span class="longExtraExtraExtra"> ${month.slice(
-      0,
-      3
-    )}</span><span class="long">${month.slice(3)}</span>`;
-    // maart is een uitzondering: mrt i.p.v. maa
-    if (month == "maart") {
-      date = `${weekday.slice(0, 2)}<span class="long">${weekday.slice(
-        2
-      )}</span> ${day}<span class="longExtraExtraExtra"> m<span class="long">aa</span>rt</span>`;
-    }
-    (grouped[dateFull] = grouped[dateFull] || { date, items: [] }).items.push(
-      a
-    );
+    if (grouped[dateFull]) grouped[dateFull].items.push(a);
   });
 
   const fmt = (ts, regex) =>
@@ -575,8 +560,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
     Number.parseInt(time.split(":")[1]);
 
   for (const [dateFull, { date, items }] of Object.entries(grouped)) {
-    const div = document.createElement("div");
-    const div2 = document.createElement("div");
+    const dayDiv = document.createElement("div");
+    dayDiv.classList.add("day");
     const currentDate = new Date().toLocaleDateString([], {
       weekday: "long",
       month: "long",
@@ -588,15 +573,16 @@ async function fetchSchedule(year, week, isFirstLoad) {
       <path d="M175.147 33.1508C181.983 22.2831 198.017 22.2831 204.853 33.1508L221.238 59.2009C225.731 66.3458 234.797 69.2506 242.692 66.0751L271.475 54.4972C283.482 49.6671 296.455 58.9613 295.507 71.7154L293.235 102.288C292.612 110.673 298.215 118.278 306.494 120.284L336.681 127.601C349.275 130.653 354.23 145.692 345.861 155.461L325.8 178.877C320.298 185.3 320.298 194.7 325.8 201.123L345.861 224.539C354.23 234.308 349.275 249.347 336.681 252.399L306.494 259.716C298.215 261.722 292.612 269.327 293.235 277.712L295.507 308.285C296.455 321.039 283.482 330.333 271.475 325.503L242.692 313.925C234.797 310.749 225.731 313.654 221.238 320.799L204.853 346.849C198.017 357.717 181.983 357.717 175.147 346.849L158.762 320.799C154.269 313.654 145.203 310.749 137.308 313.925L108.525 325.503C96.5177 330.333 83.5454 321.039 84.4931 308.285L86.7649 277.712C87.388 269.327 81.785 261.722 73.5056 259.716L43.3186 252.399C30.7252 249.347 25.7702 234.308 34.1391 224.539L54.1997 201.123C59.7018 194.7 59.7018 185.3 54.1997 178.877L34.1391 155.461C25.7702 145.692 30.7252 130.653 43.3186 127.601L73.5056 120.284C81.785 118.278 87.388 110.673 86.7649 102.288L84.4931 71.7154C83.5454 58.9613 96.5177 49.6671 108.525 54.4972L137.308 66.0751C145.203 69.2506 154.269 66.3458 158.762 59.201L175.147 33.1508Z"></path>
     </svg> `;
     }
-    div.innerHTML = `<strong class="date">${svg}<span>${date}</span></strong>`;
+    dayDiv.innerHTML = `<strong class="date">${svg}<span>${date}</span></strong>`;
 
+    const contentDiv = document.createElement("div");
     items.sort((a, b) => a.start - b.start);
     let section = [],
       lastEnd = null;
 
     const flush = () => {
       if (!section.length) return;
-      div2.innerHTML += `${section
+      contentDiv.innerHTML += `${section
         .map((a, i) => {
           const firstLesson = i == 0;
           const lastLesson = i == section.length - 1;
@@ -729,7 +715,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
           }</span></span></p></button><span class="warning" style="${warningStyles}">${warningSymbol}</span></div>`;
         })
         .join("")}</section>`;
-      div.appendChild(div2);
+      dayDiv.appendChild(contentDiv);
       section = [];
     };
     for (const a of items) {
@@ -738,39 +724,33 @@ async function fetchSchedule(year, week, isFirstLoad) {
       lastEnd = a.end;
     }
     flush();
-    div.classList.add("day");
-    schedule.appendChild(div);
+    schedule.appendChild(dayDiv);
   }
-  if (isHoliday) {
+  // Vakanties
+  if (!appointments[0]) {
     const d = new Date(year, 0, 1 + (week - 1) * 7);
     d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-    const holidayMonth = d.toLocaleString("default", { month: "numeric" });
-    if (holidayMonth == 10) {
-      schedule.innerHTML =
-        '<h2 class="date"><span class="icon">temp_preferences_eco</span>Herfstvakantie!</h2>';
-    } else if (holidayMonth == 12) {
-      schedule.innerHTML =
-        '<h2 class="date"><span class="icon">snowflake</span>Kerstvakantie!</h2>';
-    } else if (holidayMonth == 2) {
-      schedule.innerHTML =
-        '<h2 class="date"><span class="icon">cruelty_free</span>Voorjaarsvakantie!</h2>';
-    } else if (holidayMonth == 4) {
-      schedule.innerHTML =
-        '<h2 class="date"><span class="icon">deceased</span>Meivakantie!</h2>';
-    } else if (holidayMonth == 7 || holidayMonth == 8) {
-      schedule.innerHTML =
-        '<h2 class="date"><span class="icon">beach_access</span>Zomervakantie!</h2>';
+    const month = d.getMonth() + 1;
+    const holidays = {
+      10: ["temp_preferences_eco", "Herfstvakantie!"],
+      12: ["snowflake", "Kerstvakantie!"],
+      2: ["cruelty_free", "Voorjaarsvakantie!"],
+      4: ["deceased", "Meivakantie!"],
+      7: ["beach_access", "Zomervakantie!"],
+      8: ["beach_access", "Zomervakantie!"],
+    };
+    if (holidays[month]) {
+      const [icon, label] = holidays[month];
+      schedule.innerHTML = `<h2 class="date"><span class="icon">${icon}</span>${label}</h2>`;
     }
   }
-  if (isFirstLoad == "firstLoad") {
-    day = new Date().getDay() - 1;
-    if (day == 5 || day == -1) {
-      day = 0;
-    }
-    document.querySelector("body").scrollTo({
-      left: window.innerWidth * day,
-      behavior: "instant",
-    });
+
+  if (isFirstLoad === "firstLoad") {
+    let day = new Date().getDay() - 1;
+    if (day === 5 || day === -1) day = 0;
+    document
+      .querySelector("body")
+      .scrollTo({ left: window.innerWidth * day, behavior: "instant" });
   }
   const startMin = hoursToMinutes(new Date().toLocaleTimeString());
   const startTime = hoursToMinutes(
@@ -782,12 +762,23 @@ async function fetchSchedule(year, week, isFirstLoad) {
   document.getElementById("schedule").style.opacity = "";
   const tip = document.getElementById("tooltip");
 
+  function formatDateLabel(d) {
+    const weekday = d.toLocaleDateString([], { weekday: "long" });
+    const day = d.toLocaleDateString([], { day: "numeric" });
+    const month = d.toLocaleDateString([], { month: "long" });
+
+    // "maart" is an exception: use "mrt" abbreviation
+    if (month === "maart") {
+      return `${weekday.slice(0, 2)}<span class="long">${weekday.slice(2)}</span> ${day}<span class="longExtraExtraExtra"> m<span class="long">aa</span>rt</span>`;
+    }
+    return `${weekday.slice(0, 2)}<span class="long">${weekday.slice(2)}</span> ${day}<span class="longExtraExtraExtra"> ${month.slice(0, 3)}</span><span class="long">${month.slice(3)}</span>`;
+  }
   function positionTip(btn) {
     tip.textContent = btn.getAttribute("data-tooltip");
     const rect = btn.getBoundingClientRect();
     const tipRect = tip.getBoundingClientRect();
     let top = rect.bottom + 2;
-    let left = rect.right - tipRect.width + 6; // rect.left + (rect.width - tipRect.width) / 2 for center
+    let left = rect.right - tipRect.width + 6;
     if (top + tipRect.height > window.innerHeight)
       top = rect.top - tipRect.height - 8;
     if (left < 0) left = 8;
@@ -824,70 +815,50 @@ async function fetchSchedule(year, week, isFirstLoad) {
   });
 }
 async function fetchFullSubjectNames() {
-  let url = `https://${schoolName}.zportal.nl/api/subjectselectionsubjects?fields=code,name`;
-  return fetch(url, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-    },
-  })
-    .then((r) => r.json())
-    .then((result) => {
-      let subjectTranslations = result.response.data;
-      subjectTranslations = subjectTranslations.map((subject) => {
-        let name = subject.name;
-        const capitalCount = (name.match(/[A-Z]/g) || []).length;
-        // Kijkt of het eindigt met "s". Bijv. Frans, Duits, Spaans. Of het eindigt met taal en literatuur (tl)
-        if (
-          !/[bdfghjklmnpqrtvwxyz]s$/i.test(name) &&
-          !name.includes("taal en ") &&
-          subject.code != "la" &&
-          subject.code != "eng" &&
-          !(capitalCount > 1)
-        ) {
-          name = name.toLowerCase();
-        }
-        switch (subject.code) {
-          case "ontw":
-            name = "ontwerpen";
-            break;
-          case "men":
-            name = "mentorles";
-            break;
-          case "nask":
-            name = "NaSk";
-            break;
-          case "inv":
-            name = "invalles";
-            break;
-          case "cko":
-            name = "Culturele en Kunstzinnige Oriëntatie";
-            break;
-          case "pko":
-            name = "Profiel Keuze Oriëntatie";
-            break;
-          case "ch":
-            name = "chemistry";
-            break;
-          case "kvdbw":
-            name = "Voeding en Beweging";
-            break;
-          case "eio":
-            name = "Europese en internationale oriëntatie";
-            break;
-          case "bp":
-            name = "begeleidingsprogramma";
-            break;
-          case "cra":
-            name = "creatieve activiteiten";
-            break;
-          case "ph":
-            name = "physics";
-            break;
-        }
-        return Object.assign({}, subject, { name: name });
-      });
-      localStorage.setItem("subjects", JSON.stringify(subjectTranslations));
-    });
+  const result = await fetch(
+    `https://${schoolName}.zportal.nl/api/subjectselectionsubjects?fields=code,name`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    }
+  ).then((r) => r.json());
+
+  let subjects = result.response.data.map((subject) => {
+    let { name, code } = subject;
+    const capitalCount = (name.match(/[A-Z]/g) || []).length;
+
+    // Lowercase unless it ends in a consonant + "s" (e.g. Frans, Duits),
+    // contains "taal en ", is Latijn/English, or has multiple capitals
+    if (
+      !/[bdfghjklmnpqrtvwxyz]s$/i.test(name) &&
+      !name.includes("taal en ") &&
+      code !== "la" &&
+      code !== "eng" &&
+      capitalCount <= 1
+    ) {
+      name = name.toLowerCase();
+    }
+
+    const overrides = {
+      ontw: "ontwerpen",
+      men: "mentorles",
+      nask: "NaSk",
+      cko: "Culturele en Kunstzinnige Oriëntatie",
+      pko: "Profiel Keuze Oriëntatie",
+      ch: "chemistry",
+      kvdbw: "Voeding en Beweging",
+      eio: "Europese en internationale oriëntatie",
+      bp: "begeleidingsprogramma",
+      cra: "creatieve activiteiten",
+      ph: "physics",
+    };
+    if (overrides[code]) name = overrides[code];
+
+    return { ...subject, name };
+  });
+
+  localStorage.setItem("subjects", JSON.stringify(subjects));
 }
 function clearUserData() {
   localStorage.clear();
