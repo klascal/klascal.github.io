@@ -1186,7 +1186,7 @@ async function showLessonInfo(lessonHTML, lesson) {
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
     document.querySelector("#info #content").innerHTML +=
-      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
   } else {
     document.startViewTransition(
       () =>

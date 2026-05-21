@@ -3,26 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,arrow_back,arrow_back_ios_new,arrow_forward_ios,bar_chart,beach_access,block,calendar_clock,captive_portal,check,close,cruelty_free,deceased,delete,error,event,group,info,link,menu,more_horiz,notification_multiple,palette,person,qr_code_scanner,settings,snowflake,supervisor_account,temp_preferences_eco,update"
-    />
-    <link rel="stylesheet" href="dialog-polyfill.min.css" />
     <link rel="stylesheet" href="material.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="app.webmanifest" />
-    <script src="dialog-polyfill.min.js"></script>
+    <script src="dialog-polyfill.min.js" defer></script>
     <link rel="icon" type="image/x-icon" href="logo.svg" />
     <meta name="theme-color" content="" />
     <meta name="color-scheme" content="light dark" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,100&display=swap"
-    />
+    <meta name="description" content="Een betere roosterapp voor Zermelo" />
     <title>Klascal</title>
-    <script src="ChristmasOverlay.js"></script>
-    <script src="NewYearsOverlay.js"></script>
-    <script src="BirthdayOverlay.js"></script>
     <!--Detecteert adblocker via namaak advertentiescript om gebruiker automatisch uit PostHog te opten-->
     <script src="old/prebid-ads.js"></script>
     <script>
@@ -114,7 +103,7 @@
       </svg>
       <div id="week">
         <p style="color: var(--accent-text-faded)">Wk</p>
-        <input id="weekInput" />
+        <input id="weekInput" aria-label="Weeknummer" />
       </div>
       <div style="display: flex; gap: 2px">
         <button id="previousDay" class="icon" title="Vorige dag/week">
@@ -1252,6 +1241,15 @@ const newWindow = window.open(targetOrigin);</code>
     </main>
     <!-- Onderstaand script maakt de html voor het rooster -->
     <script src="schedule.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,1..1000,100&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,arrow_back,arrow_back_ios_new,arrow_forward_ios,bar_chart,beach_access,block,calendar_clock,captive_portal,check,close,cruelty_free,deceased,delete,error,event,group,info,link,menu,more_horiz,notification_multiple,palette,person,qr_code_scanner,settings,snowflake,supervisor_account,temp_preferences_eco,update&display=swap"
+    />
+    <link rel="stylesheet" href="dialog-polyfill.min.css" />
     <!--Polyfill voor Invoker Commands -->
     <script type="module">
       import "https://esm.sh/invokers-polyfill";
@@ -1260,118 +1258,6 @@ const newWindow = window.open(targetOrigin);</code>
       if (typeof navigator.serviceWorker !== "undefined") {
         navigator.serviceWorker.register("sw.js");
       }
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const logo = document.getElementById("icon");
-        if (!logo) return;
-
-        let overlayType = "christmas";
-        let clickCount = 0;
-        const clickThreshold = 5;
-        const overlayDuration = 10000;
-
-        let fireworks = null;
-        let snowOverlay = null;
-        let birthday = null;
-
-        logo.addEventListener("click", () => {
-          clickCount++;
-
-          if (clickCount === clickThreshold) {
-            if (overlayType === "christmas") {
-              christmasOverlaySnow.enable({
-                snowflakeCount: 100,
-                snowflakeColor: "white",
-                zIndex: 99999,
-              });
-
-              snowOverlay = document.getElementById("christmas-overlay");
-
-              setTimeout(() => {
-                if (snowOverlay) christmasOverlaySnow.disable();
-                clickCount = 0;
-              }, overlayDuration);
-            } else if (overlayType === "newyears") {
-              fireworks = new FireworksOverlay({
-                colors: ["#FF0000", "#00FF00", "#0000FF"],
-                particleCount: 100,
-                gravity: 0.05,
-                speed: { min: 3, max: 8 },
-                radius: { min: 2, max: 5 },
-                interval: 500,
-                zIndex: 10000,
-              });
-
-              fireworks.startAnimation();
-
-              setTimeout(() => {
-                if (fireworks) {
-                  clearInterval(fireworks.fireworksInterval);
-
-                  const checkEmpty = setInterval(() => {
-                    if (fireworks.fireworks.length === 0) {
-                      fireworks.stopAnimation();
-                      fireworks.canvas.remove();
-                      clearInterval(checkEmpty);
-                    }
-                  }, 100);
-                }
-                clickCount = 0;
-              }, overlayDuration);
-            } else if (overlayType === "aprilfools") {
-              const scare = document.createElement("div");
-              scare.id = "aprilfools-overlay";
-              scare.style.position = "fixed";
-              scare.style.top = "0";
-              scare.style.left = "0";
-              scare.style.width = "100vw";
-              scare.style.height = "100vh";
-              scare.style.background = "black";
-              scare.style.display = "flex";
-              scare.style.justifyContent = "center";
-              scare.style.alignItems = "center";
-              scare.style.zIndex = "200000";
-              scare.style.transition = "opacity 0.5s ease";
-
-              const img = document.createElement("img");
-              img.src = "jumpscare.jpeg";
-              img.style.maxWidth = "100%";
-              img.style.maxHeight = "100%";
-
-              scare.appendChild(img);
-              document.body.appendChild(scare);
-
-              const audio = new Audio("scream.mp3");
-              audio.volume = 1.0;
-              audio.play().catch(() => {});
-
-              setTimeout(() => {
-                scare.style.opacity = "0";
-                setTimeout(() => {
-                  scare.remove();
-                }, 500);
-                clickCount = 0;
-              }, 4000);
-            } else if (overlayType === "birthday") {
-              birthday = new BirthdayOverlay({
-                colors: ["#FF69B4", "#FFD700", "#87CEEB", "#FF4500", "#32CD32"],
-                particleCount: 90,
-                zIndex: 999999,
-              });
-
-              birthday.start();
-
-              setTimeout(() => {
-                if (birthday) birthday.gracefulStop();
-                clickCount = 0;
-              }, overlayDuration);
-            } else {
-              clickCount = 0;
-            }
-          }
-        });
-      });
     </script>
   </body>
 </html>

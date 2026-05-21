@@ -218,7 +218,6 @@ body[data-theme="pink monochrome"] {
   --primary-background: #f9eaef;
 }
 .switch:has(.switch__input:checked) {
-  border-radius: 1rem;
   background-color: var(--primary-accent);
 }
 #submenu.selectedSubmenu {
@@ -558,10 +557,5 @@ p {
   }
   #dialog {
     width: 292px;
-  }
-}
-@media (min-width: 570px) {
-  #submenu.selectedSubmenu {
-    border-radius: 1rem;
   }
 }
