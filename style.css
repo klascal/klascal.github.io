@@ -538,7 +538,7 @@ section div br:not(:first-of-type) {
 }
 .dayEnabled div {
   width: calc(100vw - 36px);
-  margin-right: 24px;
+  margin-right: 1.5rem;
 }
 .ltrEnabled section div:first-of-type {
   border-radius: 0.25rem;

@@ -746,7 +746,7 @@ async function fetchSchedule(year, week, isFirstLoad) {
   }
 
   if (isFirstLoad === "firstLoad") {
-    let day = new Date().getDay() - 1;
+    day = new Date().getDay() - 1;
     if (day === 5 || day === -1) day = 0;
     document
       .querySelector("body")
