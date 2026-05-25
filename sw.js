@@ -20,7 +20,7 @@ workbox.routing.registerRoute(
 
 // Cache fonts using StaleWhileRevalidate strategy
 workbox.routing.registerRoute(
-  ({ request }) => request.destination === "font" && !/css2/.test(request.url),
+  ({ request }) => request.destination === "font" || !/css2/.test(request.url),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: `${CACHE}-fonts`,
   })
