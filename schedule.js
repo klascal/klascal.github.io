@@ -687,11 +687,14 @@ async function fetchSchedule(year, week, isFirstLoad) {
           });
           let styles = "";
           let warningStyles = "";
-          marginTop = ((startMin - startTime) * 1.1) / 16;
-          height = ((endMin - startMin) * 1.1) / 16;
+          marginTop = ((startMin - startTime) * 1.15) / 16;
+          height = ((endMin - startMin) * 1.15) / 16;
           if (height < 3) {
             styles = "line-height: 1.1;";
             warningStyles = "bottom: 2px";
+            if (height < 2.25) {
+              styles = "line-height: 0.9;";
+            }
           }
           return `${sectionBeginning}<div id="${
             a.appointmentInstance + "div"

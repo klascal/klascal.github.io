@@ -257,14 +257,14 @@ h2.date .icon {
 section div:first-of-type,
 #submenu:first-of-type,
 .clearButton:first-of-type {
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 0.875rem;
+  border-top-right-radius: 0.875rem;
 }
 section div:last-of-type,
 #submenu:last-of-type,
 .clearButton:last-of-type {
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 0.875rem;
+  border-bottom-right-radius: 0.875rem;
   margin-bottom: 0;
 }
 .horizDiv {
@@ -300,7 +300,7 @@ section .horizDiv div {
 }
 .warning {
   position: absolute;
-  bottom: 4px;
+  bottom: 5px;
   right: 6px;
 }
 th {
@@ -410,9 +410,6 @@ strong.date,
   font-family:
     Google Sans Flex,
     system-ui;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
 }
 .change {
   word-wrap: break-word;
@@ -445,8 +442,8 @@ details strong {
 }
 
 #schedule {
-  margin-top: 2.5rem;
-  height: calc(100vh - 2.5rem);
+  margin-top: 2.375rem;
+  height: calc(100vh - 2.375rem);
   position: relative;
 }
 #schedule div {
@@ -492,7 +489,7 @@ details strong {
   position: absolute;
   display: flex;
   align-items: center;
-  line-height: 1.4;
+  line-height: 1.35;
   inset: 0;
   top: var(--margin);
 }
@@ -765,13 +762,10 @@ ul {
     "ROND" 100;
 }
 small {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 450;
   letter-spacing: 0.1px;
   opacity: 0.78;
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
   color: var(--accent-text-light);
 }
 .iconBtn {
@@ -791,14 +785,6 @@ li:not(:last-of-type) {
 #dayBtn,
 #weekBtn {
   background-color: var(--primary-accent);
-}
-#dayBtn span,
-#weekBtn span,
-#closeBtn span,
-#ltr span {
-  font-variation-settings:
-    "opsz" 20,
-    "ROND" 100;
 }
 dialog strong.date {
   margin-left: 12px;
@@ -1178,9 +1164,6 @@ dialog.right #content {
   font-size: 0.875rem;
   padding: 0.75rem;
   align-items: center;
-  font-variation-settings:
-    "opsz" 100,
-    "ROND" 100;
   line-height: 1;
   gap: 5px;
 }
