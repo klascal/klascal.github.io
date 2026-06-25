@@ -746,7 +746,7 @@ ul {
   margin: 0;
 }
 .pill {
-  border-radius: 0.75rem;
+  border-radius: 0.7rem;
   background-color: var(--background-muted);
   padding: 0.5rem 0.8rem;
   display: flex;
@@ -1128,6 +1128,9 @@ label {
   padding: 10px;
   word-break: break-all;
   flex: 1;
+  font-variation-settings:
+    "opsz" 20,
+    "ROND" 100;
 }
 .createdDate {
   border-right: 2px solid var(--primary-background);
@@ -1149,7 +1152,7 @@ dialog.right,
 dialog.right #content {
   width: min-content;
   min-width: 280px;
-  max-width: 380px;
+  max-width: 360px;
 }
 #customAppointments .switch {
   width: 355px;
@@ -1209,6 +1212,10 @@ dialog.right #content {
 @media (max-width: 395px) {
   #announcementsButton {
     display: none;
+  }
+  dialog.right,
+  dialog.right #content {
+    max-width: calc(100vw - 36px);
   }
 }
 @media (max-width: 355px) {
