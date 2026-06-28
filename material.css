@@ -317,7 +317,7 @@ body[data-theme="pink monochrome"] {
     --primary-background: #1c211b;
   }
   body[data-theme="cyan"] {
-    --primary-light: #00dcff;
+    --primary-light: #6bd5e5;
     --primary-dark: #003a42;
     --primary-accent: #00303a;
     --primary-foreground: #00303a;
@@ -333,7 +333,7 @@ body[data-theme="pink monochrome"] {
     --primary-background: #1b2121;
   }
   body[data-theme="blue"] {
-    --primary-light: #56bbff;
+    --primary-light: #73bef0;
     --primary-dark: #0b3b62;
     --primary-accent: #002746;
     --primary-foreground: #002746;
@@ -409,7 +409,7 @@ body[data-theme="pink monochrome"] {
   --thumb-space-between-edges: 0.2rem;
   --thumb-out: var(--thumb-space-between-edges);
   max-width: calc(100vw - 92px);
-  padding: 16px;
+  padding: 15px 13px;
 }
 .switch__design {
   width: var(--width);
@@ -488,7 +488,7 @@ body[data-theme="pink monochrome"] {
   font-size: 1rem;
   outline: none;
   border: 1px solid var(--primary-border);
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   padding: 1rem 0.7rem;
   width: calc(100% - 25px);
   font-family: inherit;
@@ -497,8 +497,11 @@ body[data-theme="pink monochrome"] {
     "calt" 1,
     "cv07" 1;
   background-color: transparent;
-  font-weight: 450;
+  font-weight: 500;
   letter-spacing: 0.1px;
+  font-variation-settings:
+    "opsz" 100,
+    "ROND" 100;
 }
 p {
   margin: 0;
@@ -507,12 +510,15 @@ p {
 }
 #closeBtn {
   font-size: inherit;
+  font-variation-settings:
+    "opsz" 100,
+    "ROND" 100;
+  font-weight: 600;
   float: right;
   margin-left: auto;
   margin-top: 12px;
   view-transition-name: close;
 }
-
 #schoolName {
   max-width: calc(100% - 95px);
 }
