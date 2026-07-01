@@ -528,7 +528,7 @@ section div br:not(:first-of-type) {
   width: calc(var(--height) * 3 - 22px);
   margin-bottom: 0;
   padding: 10px;
-  line-height: normal;
+  line-height: normal !important;
   top: unset;
   left: calc(var(--margin) * 3);
 }
@@ -867,21 +867,21 @@ dialog .submenu strong.date:first-of-type {
     color: #e1e4db;
   }
 }
-.day section .exam,
-.day section .activity,
-.day section .meeting {
-  padding-left: 5px;
+.exam,
+.activity,
+.meeting {
+  padding-left: 5px !important;
   border-left: 5px solid var(--type-color);
 }
-.day section .exam {
+.exam {
   --type-color: #e8cb22;
 }
 
-.day section .activity {
+.activity {
   --type-color: #268e26;
 }
 
-.day section .meeting {
+.meeting {
   --type-color: #22abe8;
 }
 .cancelled {
@@ -1190,16 +1190,17 @@ dialog.right #content {
   bottom: 0.75rem;
   right: 0.75rem;
   border-radius: 1rem;
-  background-color: var(--primary-accent);
+  background-color: var(--primary-dark);
   color: var(--accent-text);
   font-size: 1rem;
   font-variation-settings:
     "opsz" 100,
     "ROND" 100;
-  padding: 0.75rem;
+  padding: 1rem;
   align-items: center;
   line-height: 1;
-  gap: 5px;
+  gap: 0.4rem;
+  font-weight: 600;
 }
 .addBtn {
   margin-left: 0.5rem;
