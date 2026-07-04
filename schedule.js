@@ -496,9 +496,6 @@ async function fetchSchedule(year, week, isFirstLoad) {
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
   const data = await response.json();
-  if (!response.ok) {
-    errorMessage(data.response.message);
-  }
   const appointments = data.response.data[0].appointments;
   const schedule = document.getElementById("schedule");
   schedule.innerHTML = "";
@@ -628,14 +625,24 @@ async function fetchSchedule(year, week, isFirstLoad) {
               ? `<span id="icon" data-tooltip="${warning}">info</span>`
               : "";
           }
-          if (
-            !a.appointmentInstance &&
-            a.actions[0] &&
-            !a.actions[0].appointment.plannedAttendance
-          ) {
+          if (a.appointmentType == "conflict" || a.appointmentType == "mixed") {
+            for (const property of [
+              "subjects",
+              "locations",
+              "teachers",
+              "groups",
+            ]) {
+              a[property] = a.actions.flatMap(
+                (action) => action.appointment[property]
+              );
+            }
+          }
+          if (!a.appointmentInstance && a.actions[0]) {
             // Check used by Zermelo to see if unenrolled from lesson
             // Lesson info in a.actions[0].appointment instead of a
-            a = a.actions[0].appointment;
+            if (a.appointmentType != "mixed") {
+              a = a.actions[0].appointment;
+            }
             cancelled = "notEnrolled";
             warning = "Afgemeld";
             warningSymbol = warning
@@ -644,26 +651,17 @@ async function fetchSchedule(year, week, isFirstLoad) {
           } else if (a.cancelled == true) {
             cancelled = "cancelled";
           }
-          if (a.appointmentType == "conflict") {
-            a.subjects = a.actions.flatMap(
-              (action) => action.appointment.subjects
-            );
-            a.locations = a.actions.flatMap(
-              (action) => action.appointment.locations
-            );
-            a.teachers = a.actions.flatMap(
-              (action) => action.appointment.teachers
-            );
-            a.groups = a.actions.flatMap((action) => action.appointment.groups);
-          }
           const subjAbbrev = a.subjects;
           if (localStorage.getItem("volVaknaam") === "true") {
             const fullSubjectNames = JSON.parse(
               localStorage.getItem("subjects")
             );
-            const matches = fullSubjectNames
-              .filter((item) => a.subjects.includes(item.code))
-              .map((item) => item.name);
+            const matches = a.subjects.map((code) => {
+              const found = fullSubjectNames.find(
+                (item) => item.code === code.toLowerCase()
+              );
+              return found ? found.name : code;
+            });
             if (matches.length) a.subjects = matches;
           } else if (localStorage.getItem("afkortingHl") === "true") {
             a.subjects = a.subjects.map((subject) => subject.toUpperCase());
@@ -746,6 +744,8 @@ async function fetchSchedule(year, week, isFirstLoad) {
       const [icon, label] = holidays[month];
       schedule.innerHTML = `<h2 class="date"><span class="icon">${icon}</span>${label}</h2>`;
     }
+  } else if (!response.ok) {
+    errorMessage(data.response.message);
   }
 
   if (isFirstLoad === "firstLoad") {
