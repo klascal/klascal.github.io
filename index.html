@@ -279,33 +279,59 @@
       <dialog
         id="clearSettings"
         role="dialog"
-        aria-label="Gegevens Wissen"
+        aria-label="Gegevens wissen"
         closedby="any"
       >
-        <div>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <span id="icon" style="line-height: 1">delete</span>
           <h2>
-            <span id="icon" style="font-size: 1.5rem; line-height: 1"
-              >delete</span
-            >
             <span>Weet je het zeker?</span>
           </h2>
           <section id="content">
             <div id="text">
               <p>Hierdoor zullen je gegevens verwijderd worden</p>
             </div>
-          </section>
-          <section id="content">
-            <button id="submenu" class="clearButton" onclick="clearUserData()">
-              <span>Wissen</span>
-            </button>
-            <button
-              id="submenu"
-              class="clearButton"
-              commandfor="clearSettings"
-              command="close"
-            >
-              <span>Annuleren</span>
-            </button>
+            <div class="horizDiv">
+              <div>
+                <button class="clearButton" onclick="clearUserData()">
+                  <span
+                    id="icon"
+                    style="
+                      line-height: 1;
+                      font-size: 1.5rem;
+                      vertical-align: bottom;
+                    "
+                    >delete</span
+                  >
+                  Wissen
+                </button>
+              </div>
+              <div>
+                <button
+                  class="clearButton"
+                  commandfor="clearSettings"
+                  command="close"
+                >
+                  <span
+                    id="icon"
+                    style="
+                      line-height: 1;
+                      font-size: 1.5rem;
+                      vertical-align: bottom;
+                    "
+                    >close</span
+                  >
+                  Annuleren
+                </button>
+              </div>
+            </div>
           </section>
         </div>
       </dialog>
