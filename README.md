@@ -14,4 +14,4 @@
 - Rooster draaien (Zoals bij Portal)
 
 ### Screenshots
-<p align="center"><img alt="Rooster bij Klascal op desktop" width="550" src="https://github.com/klascal/klascal.github.io/blob/e749bd5201fe01c99c2634115d8622e21dcfe77a/desktop2.png">  <img alt="Rooster bij Klascal op telefoon" height="500" src="https://github.com/klascal/klascal.github.io/blob/e749bd5201fe01c99c2634115d8622e21dcfe77a/phone2.jpg"></p>
+<p align="center"><img alt="Rooster bij Klascal op desktop" width="550" src="https://raw.githubusercontent.com/klascal/klascal.github.io/refs/heads/main/desktop2.png">  <img alt="Rooster bij Klascal op telefoon" height="500" src="https://raw.githubusercontent.com/klascal/klascal.github.io/refs/heads/main/phone2.jpg"></p>
