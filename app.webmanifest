@@ -49,37 +49,37 @@
     {
       "src": "desktop1.png",
       "type": "image/png",
-      "sizes": "1366x768",
+      "sizes": "1920x1055",
       "form_factor": "wide"
     },
     {
       "src": "desktop2.png",
       "type": "image/png",
-      "sizes": "1366x768",
+      "sizes": "1920x1055",
       "form_factor": "wide"
     },
     {
       "src": "desktop3.png",
       "type": "image/png",
-      "sizes": "1366x768",
+      "sizes": "1920x1055",
       "form_factor": "wide"
     },
     {
       "src": "phone1.jpg",
       "type": "image/png",
-      "sizes": "1080x2340",
+      "sizes": "1080x2240",
       "form_factor": "narrow"
     },
     {
       "src": "phone2.jpg",
       "type": "image/png",
-      "sizes": "1080x2340",
+      "sizes": "1080x2240",
       "form_factor": "narrow"
     },
     {
       "src": "phone3.jpg",
       "type": "image/png",
-      "sizes": "1080x2340",
+      "sizes": "1080x2240",
       "form_factor": "narrow"
     }
   ],
