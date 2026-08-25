@@ -33,10 +33,15 @@ setInterval(() => {
   fetchSchedule(window.year, window.week);
 }, 90000); // 1.5 minuut
 function resetAfterWelcomeScreen() {
-  show("zermelo", "Zermelo koppelen");
+  show("zermelo", "Zermelo koppelen", "hideBack");
   document
     .querySelector("#dialog #closeBtn")
-    .setAttribute("onclick", "show('submenus', 'Instellingen')");
+    .setAttribute("onclick", "loadSettingsFirstLoad()");
+}
+
+function loadSettingsFirstLoad() {
+  show("submenus", "Instellingen");
+  closeDialog("firstLoad");
 }
 async function fetchToken() {
   try {
@@ -236,11 +241,13 @@ function save() {
     }
   });
 }
-function closeDialog() {
+function closeDialog(isFirstLoad) {
   save();
   if (window.innerWidth < 570) {
     document.getElementById("submenus").style.display = "block";
     document.querySelector("#content.container").style.display = "none";
+  } else if (isFirstLoad) {
+    show("rooster", "Rooster");
   }
   if (localStorage.getItem("mono") == "true") {
     if (
