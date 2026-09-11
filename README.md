@@ -3,15 +3,15 @@
 **Een _mooie_ rooster webapp voor Zermelo**
 
 ### Functies
-- Werkt offline
-- Laat pauzes/tussenuren zien
-- Donkere/lichte modus
-- Material 3 Expressive
+- Donkere modus
 - Kleurenthema's
-- Volledige vaknamen
+- Material 3 Expressive
+- Laat pauzes/tussenuren zien (ook bij dagmodus in tegenstelling tot Zermelo)
+- Werkt offline
+- Volledige vakken-, klassen- en docentennamen
+- Extra lesinformatie
+- Rooster draaien (zoals bij oude Portal)
 - Voeg aangepaste CSS toe
-- Laat klassennamen zien
-- Rooster draaien (Zoals bij Portal)
 
 ### Screenshots
 <p align="center"><img alt="Rooster bij Klascal op desktop" width="550" src="https://raw.githubusercontent.com/klascal/klascal.github.io/refs/heads/main/desktop2.png">  <img alt="Rooster bij Klascal op telefoon" height="500" src="https://raw.githubusercontent.com/klascal/klascal.github.io/refs/heads/main/phone2.jpg"></p>
