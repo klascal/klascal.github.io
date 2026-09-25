@@ -1134,7 +1134,7 @@ async function showLessonInfo(lessonHTML, lesson) {
     lesson.content = "";
   }
   let warning =
-    lesson.changeDescription + lesson.schedulerRemark + lesson.content;
+    (lesson.changeDescription || "") + (lesson.schedulerRemark || "") + (lesson.content || "");
 
   if (lesson.cancelled == true) {
     lesson.appointmentType = "cancelled";
