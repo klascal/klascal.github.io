@@ -1236,6 +1236,8 @@ document.querySelector(".addBtn").addEventListener("click", () => {
       .filter(Boolean),
 
     cancelled: document.getElementById("custCancelled").checked,
+    changeDescription: "",
+    schedulerRemark: "",
     content: document.getElementById("custContent").value || "",
   };
 
