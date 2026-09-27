@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>404 - Pagina niet gevonden | Klascal</title>
+
+    <link rel="stylesheet" href="material.css" />
+
+    <style>
+      :root {
+        --primary-background: #faf9ff;
+        --primary-foreground: #f0eff7;
+        --primary-foreground-faded: #e9e8f0;
+        --primary-accent: #dfe7ff;
+        --primary-light: #526da8;
+        --primary-dark: #263858;
+        --primary-border: #777780;
+        --accent-text: #171b25;
+        --accent-text-light: #464954;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--primary-background);
+        color: var(--accent-text);
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        font-family:
+          Google Sans Flex,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      .error {
+        width: min(100%, 560px);
+        text-align: center;
+      }
+
+      .error-icon {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2rem;
+        background: var(--primary-accent);
+        color: var(--primary-light);
+        font-family: "Material Symbols Rounded";
+        font-size: 48px;
+        font-variation-settings: "FILL" 1;
+      }
+
+      .error-code {
+        font-size: clamp(4rem, 16vw, 7rem);
+        line-height: 0.9;
+        font-weight: 700;
+        letter-spacing: -0.06em;
+        color: var(--primary-light);
+      }
+
+      h1 {
+        margin: 24px 0 8px;
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 auto;
+        max-width: 420px;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--accent-text-light);
+      }
+
+      .actions {
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 0;
+        padding: 0.75rem 1.25rem;
+        border-radius: 4rem;
+        background: var(--primary-accent);
+        color: var(--accent-text);
+        font: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 0.1s ease-in-out,
+          filter 0.1s ease-in-out;
+      }
+
+      .btn:hover {
+        filter: brightness(0.94);
+        transform: translateY(-1px);
+      }
+
+      .btn.primary {
+        background: var(--primary-light);
+        color: white;
+      }
+
+      .btn:active {
+        transform: scale(0.97);
+        border-radius: 1rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary-background: #111318;
+          --primary-foreground: #1b1c20;
+          --primary-foreground-faded: #202126;
+          --primary-accent: #29354d;
+          --primary-light: #b4c7ff;
+          --primary-dark: #d8e2ff;
+          --accent-text: #e4e2e9;
+          --accent-text-light: #c5c5ce;
+        }
+
+        .btn.primary {
+          color: #182033;
+        }
+
+        .btn:hover {
+          filter: brightness(1.1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="error">
+      <div class="error-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="48px"
+          viewBox="0 -960 960 960"
+          width="48px"
+          fill="#526da8"
+        >
+          <path
+            d="M138.5-138.5Q80-197 80-280t58.5-141.5Q197-480 280-480t141.5 58.5Q480-363 480-280t-58.5 141.5Q363-80 280-80t-141.5-58.5ZM824-120 568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"
+          />
+        </svg>
+      </div>
+
+      <p class="error-code">404</p>
+
+      <h1>Pagina niet gevonden</h1>
+
+      <p>
+        Deze pagina bestaat niet of is verplaatst. Misschien is de link niet
+        helemaal goed?
+      </p>
+
+      <div class="actions">
+        <a class="btn primary" href="/">Naar Klascal</a>
+        <button class="btn" onclick="history.back()">Ga terug</button>
+      </div>
+    </main>
+  </body>
+</html>
