@@ -178,5 +178,6 @@
         <button class="btn" onclick="history.back()">Ga terug</button>
       </div>
     </main>
+    <script> (() => { const theme = localStorage.getItem("theme") || "blue"; const monochrome = localStorage.getItem("mono") === "true" ? " monochrome" : ""; document.body.setAttribute( "data-theme", `${theme}${monochrome}` ); const updateThemeColor = () => { const meta = document.querySelector('meta[name="theme-color"]'); if (!meta) return; const background = getComputedStyle(document.body) .getPropertyValue("--primary-background") .trim(); if (background) { meta.setAttribute("content", background); } }; updateThemeColor(); new MutationObserver(updateThemeColor).observe(document.body, { attributes: true, attributeFilter: ["data-theme"], }); })(); </script>
   </body>
 </html>
