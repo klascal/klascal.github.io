@@ -1187,7 +1187,7 @@ dialog.right,
 dialog.right #content {
   width: min-content;
   min-width: 280px;
-  max-width: 360px;
+  max-width: 388px;
 }
 #addCustomAppointment {
   position: fixed;
@@ -1213,9 +1213,6 @@ dialog.right #content {
 }
 .addBtn {
   margin-left: 0.5rem;
-}
-#timeDiv {
-  max-width: 5rem;
 }
 @supports (-webkit-font-smoothing: antialiased) {
   #dateDiv {
