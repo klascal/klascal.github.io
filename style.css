@@ -514,8 +514,6 @@ details strong {
 #info .dates {
   cursor: default;
   padding: 0;
-  border-bottom-left-radius: 1.25rem;
-  border-bottom-right-radius: 1.25rem;
 }
 dialog.right #content {
   max-height: calc(100vh - 113px);
@@ -685,7 +683,7 @@ button:not(:disabled) {
   font-variation-settings:
     "FILL" 1,
     "opsz" 32;
-  line-height: 1;
+  line-height: 0.85;
 }
 
 #dayBtn.selected,
@@ -755,9 +753,9 @@ ul {
   margin: 0;
 }
 .pill {
-  border-radius: 0.7rem;
+  border-radius: 0.6rem;
   background-color: var(--background-muted);
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 0.8rem;
   display: flex;
   gap: 0.25rem;
   width: fit-content;

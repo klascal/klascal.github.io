@@ -623,7 +623,10 @@ async function fetchSchedule(year, week, isFirstLoad) {
           if (!a.content) {
             a.content = "";
           }
-          let warning = (a.changeDescription || "") + (a.schedulerRemark || "") + (a.content || "");
+          let warning =
+            (a.changeDescription || "") +
+            (a.schedulerRemark || "") +
+            (a.content || "");
           let warningSymbol = warning
             ? `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="warningIcon" data-tooltip="${warning}"><path d="M10.909 2.782a2.25 2.25 0 0 1 2.975.74l.083.138 7.759 14.009a2.25 2.25 0 0 1-1.814 3.334l-.154.006H4.242A2.25 2.25 0 0 1 2.2 17.812l.072-.143L10.03 3.66a2.25 2.25 0 0 1 .879-.878ZM12 16.002a.999.999 0 1 0 0 1.997.999.999 0 0 0 0-1.997Zm-.002-8.004a1 1 0 0 0-.993.884L11 8.998 11 14l.007.117a1 1 0 0 0 1.987 0l.006-.117L13 8.998l-.007-.117a1 1 0 0 0-.994-.883Z"></path></svg>`
             : "";
@@ -1114,19 +1117,19 @@ async function showLessonInfo(lessonHTML, lesson) {
   if (!lesson.expectedStudentCount) {
     lesson.expectedStudentCount = "";
   } else {
-    lesson.expectedStudentCount = `<span style="translate: 0 1.5px">${lesson.expectedStudentCount}</span>`;
+    lesson.expectedStudentCount = `<span>${lesson.expectedStudentCount}</span>`;
   }
   let onlinePill = "";
   if (lesson.online) {
     if (!lesson.expectedStudentCountOnline) {
       lesson.expectedStudentCountOnline = "";
     } else {
-      lesson.expectedStudentCountOnline = `<span style="translate: 0 1.5px">${lesson.expectedStudentCountOnline}</span>`;
+      lesson.expectedStudentCountOnline = `<span>${lesson.expectedStudentCountOnline}</span>`;
     }
     if (!lesson.onlineLocationUrl) {
       lesson.onlineLocationUrl = "";
     } else {
-      lesson.onlineLocationUrl = `<span style="translate: 0 1.5px">${lesson.onlineLocationUrl}</span>`;
+      lesson.onlineLocationUrl = `<span>${lesson.onlineLocationUrl}</span>`;
     }
     onlinePill = `<span class="pill"><span id="icon">captive_portal</span> ${lesson.expectedStudentCountOnline}${lesson.onlineLocationUrl}</span>`;
   }
@@ -1134,7 +1137,9 @@ async function showLessonInfo(lessonHTML, lesson) {
     lesson.content = "";
   }
   let warning =
-    (lesson.changeDescription || "") + (lesson.schedulerRemark || "") + (lesson.content || "");
+    (lesson?.changeDescription || "") +
+    (lesson?.schedulerRemark || "") +
+    (lesson?.content || "");
 
   if (lesson.cancelled == true) {
     lesson.appointmentType = "cancelled";
@@ -1162,7 +1167,7 @@ async function showLessonInfo(lessonHTML, lesson) {
     : "";
   const groupsDiv =
     lesson.groups.length != 0
-      ? `<div class="moreInfo"><span class="pill"><span id="icon">group</span> ${lesson.expectedStudentCount}<span style="translate: 0 1.5px">${lesson.groups.join(", ")}</span></span></div>`
+      ? `<div class="moreInfo"><span class="pill"><span id="icon">group</span> ${lesson.expectedStudentCount}<span>${lesson.groups.join(", ")}</span></span></div>`
       : "";
   document.querySelector("#info #content").innerHTML +=
     warningSymbol + teacherDiv + groupsDiv + onlinePill;
@@ -1194,18 +1199,18 @@ async function showLessonInfo(lessonHTML, lesson) {
     minute: "2-digit",
   });
   if (a.students) {
-    a.students = `<div class="les dates"><p>Leerlingen: ${a.students}</p></div>`;
+    a.students = `<div><span class="pill"><span id="icon">person</span> ${a.students.join(", ")}</span></div>`;
   } else {
     a.students = "";
   }
   if (!document.startViewTransition || window.innerWidth > 500) {
     document.querySelector("#info #content").innerHTML +=
-      `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`;
+      `${a.students}<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>`;
   } else {
     document.startViewTransition(
       () =>
         (document.querySelector("#info #content").innerHTML +=
-          `<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>${a.students}`)
+          `${a.students}<div class="les dates"><p class="createdDate">Aangemaakt: <b class="pill"><span id="icon">calendar_clock</span> ${createdDate}</b></p><hr style="height: 0.75rem;"><p class="modifiedDate">Laatst aangepast: <b class="pill"><span id="icon">update</span> ${modifiedDate}</b></p>${lesson.creator}</div>`)
     );
   }
 }
